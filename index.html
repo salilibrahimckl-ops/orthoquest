@@ -177,7 +177,7 @@ p{margin:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:16,hue:65,date:"26 Oct 2026, 00:36 IST",news:["New operation: Hip hemiarthroplasty (cemented bipolar) through the posterior approach (14 steps): who gets hemiarthroplasty versus THR, the full posterior exposure with sciatic nerve and short rotators, head sizing against the native acetabulum, safe cementing (bone cement implantation syndrome), stem version and bipolar head, stability and repair", "Approach picker: 4 standard approaches for hip hemiarthroplasty listed", "6 new viva questions on hip hemiarthroplasty (NICE criteria, cement, BCIS, bipolar vs unipolar, HEALTH trial)"]};
+const BUILD={n:17,hue:202,date:"26 Oct 2026, 03:20 IST",news:["Your progress (XP, rank, completed operations, best scores, viva history) is now kept safely across every update — saved twice, in the browser and in the app’s own storage, and the most advanced copy is always restored", "Install the new app (v2.0) once to switch on the extra app storage"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -592,8 +592,14 @@ const RANKS=[[0,"Intern"],[500,"Junior Resident"],[1500,"Senior Resident"],[3500
 const KEY="orthoquest.v1";
 function defState(){return{xp:0,ans:0,cor:0,best:0,wrong:[],ap:{},cases:{},or:{},opq:{}}}
 let S=defState();
-try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(defState(),JSON.parse(r))}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+/* Progress is kept in TWO places so it survives every update: browser storage and, inside the Android app, a native file (window.OQStore). On load the most advanced copy wins. Never rename KEY or reset S here. */
+const NSTORE=(()=>{try{return window.OQStore&&typeof window.OQStore.load==="function"?window.OQStore:null}catch(e){return null}})();
+(()=>{const c=[];try{const r=localStorage.getItem(KEY);if(r)c.push(JSON.parse(r))}catch(e){}try{const r=localStorage.getItem(KEY+".bak");if(r)c.push(JSON.parse(r))}catch(e){}try{if(NSTORE){const r=NSTORE.load();if(r)c.push(JSON.parse(r))}}catch(e){}
+ const rank=o=>[(+o.xp||0),(+o.ans||0),Object.keys(o.or||{}).length,(+o.t||0)];const better=(a,b)=>{const x=rank(a),y=rank(b);for(let i=0;i<x.length;i++){if(x[i]!==y[i])return x[i]>y[i]}return false};
+ let best=null;c.forEach(o=>{if(o&&typeof o==="object"&&(!best||better(o,best)))best=o});if(best)S=Object.assign(defState(),best)})();
+function save(){S.t=Date.now();const j=JSON.stringify(S);try{const o=localStorage.getItem(KEY);if(o)localStorage.setItem(KEY+".bak",o);localStorage.setItem(KEY,j)}catch(e){}try{if(NSTORE)NSTORE.save(j)}catch(e){}}
+try{addEventListener("pagehide",save);document.addEventListener("visibilitychange",()=>{if(document.hidden)save()})}catch(e){}
+setTimeout(save,1500);
 function rankOf(xp){let i=0;RANKS.forEach((r,k)=>{if(xp>=r[0])i=k});return i}
 function addXP(n){const before=rankOf(S.xp);S.xp+=n;save();hud();if(rankOf(S.xp)>before)toast("Promoted: "+RANKS[rankOf(S.xp)][1]);}
 function hud(){const i=rankOf(S.xp),lo=RANKS[i][0],hi=RANKS[i+1]?RANKS[i+1][0]:lo+1;
