@@ -2130,7 +2130,10 @@ const TESTABLE=/most common|commonest|of choice|gold standard|classif|type\s+[IV
 function pdfSentences(text){
   /* join PDF lines into paragraphs: a new block starts at bullets, numbers, headings or after a full stop */
   const lines=String(text).replace(/\r/g,"").split("\n").map(l=>l.replace(/\s+/g," ").trim()).filter(Boolean);const paras=[];let cur="";
-  for(const l of lines){const starts=/^([•▪●\-–*]|\d{1,2}[.)]\s|[A-Z][A-Z \-]{3,}$)/.test(l);if(cur&&(starts||/[.:?!]$/.test(cur))){paras.push(cur);cur=""}cur+=(cur?" ":"")+l}
+  const head=t=>/^[A-Z0-9][A-Z0-9 ,&\-\/()]{3,}$/.test(t)&&!/[a-z]/.test(t);
+  for(const l of lines){if(head(l)){if(cur)paras.push(cur);cur="";continue}
+    const starts=/^([•▪●\-–*]|\d{1,2}[.)]\s)/.test(l)||(/^[A-Z]/.test(l)&&!/\b(of|the|and|or|in|with|to|a|an|for|by|from|at|on|is|are|than|as)$|,$/i.test(cur));
+    if(cur&&(starts||/[.:?!]$/.test(cur))){paras.push(cur);cur=""}cur+=(cur?" ":"")+l}
   if(cur)paras.push(cur);
   const out=[];for(const p of paras){for(let x of p.split(/(?<=[.!?])\s+(?=[A-Z0-9(])/)){x=x.replace(/^[•▪●\-–*]\s*/,"").replace(/^\d{1,2}[.)]\s+/,"").trim();
     if(x.length>320){x.split(/;\s+|\s+(?=\bwhereas\b|\bwhile\b)/).forEach(y=>out.push(y.trim()))}else out.push(x)}}
@@ -2269,6 +2272,7 @@ Statement: ${qa.cloze}`,{type:"object",properties:{q:{type:"string"}},required:[
     if(qa.ds.some(d=>normT(d)===normT(qa.ans)))continue;
     if(!stem||stem.length<15||hasAns(stem))stem="Fill in the blank: "+qa.cloze.replace(/_+/g,"______");
     const opts=shuf([qa.ans,...qa.ds]);
+    stem=stem.replace(/\s*([?:])\s*[?:]+\s*$/,"$1");
     out.push({q:stem,o:opts.map(o=>cap(o)),a:opts.indexOf(qa.ans),e:f.x,topic:guessTopic(f.x+" "+chunk.slice(0,300)),src:f.x});
   }
   if(!out.length)throw {code:"device_none"};
