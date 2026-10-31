@@ -13,8 +13,8 @@ jobs:
       - name: Real generation test
         run: |
           set +e
-          for k in 1 2; do
-            curl -s -m 280 -w "\nHTTP %{http_code} TIME %{time_total}\n" -H "Content-Type: application/json" -X POST https://text.pollinations.ai/openai -d @probe/prompt.json > probe/gen$k.txt
+          for k in a b c; do
+            curl -s -m 280 -w "\nHTTP %{http_code} TIME %{time_total}\n" -H "Content-Type: application/json" -X POST https://text.pollinations.ai/openai -d @probe/p_$k.json > probe/gen_$k.txt
             sleep 20
           done
           curl -s -o /dev/null -D - -X OPTIONS -H "Origin: null" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: range" https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf | grep -iE "^(HTTP|access-control)" > probe/preflight.txt
