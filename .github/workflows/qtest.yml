@@ -14,7 +14,7 @@ jobs:
       - name: Setup
         run: |
           exec > >(tee qtest/setup.txt) 2>&1
-          curl -s -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/ggml-org/llama.cpp/releases/latest | python3 -c "import sys,json;a=json.load(sys.stdin)['assets'];[print(x['name'],x['browser_download_url']) for x in a]" > assets.txt
+          curl -s -H "Authorization: Bearer ${{ github.token }}" "https://api.github.com/repos/ggml-org/llama.cpp/releases?per_page=15" | python3 -c "import sys,json;[print(x['name'],x['browser_download_url']) for r in json.load(sys.stdin) for x in r['assets']]" > assets.txt
           grep -i 'ubuntu-x64' assets.txt | grep -vi 'vulkan\|rocm\|cuda\|sycl\|openvino' | head -3
           URL=$(grep -i 'ubuntu-x64' assets.txt | grep -vi 'vulkan\|rocm\|cuda\|sycl\|openvino' | head -1 | awk '{print $2}')
           echo "URL $URL"
