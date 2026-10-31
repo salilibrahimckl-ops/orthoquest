@@ -1,0 +1,2 @@
+{"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.","code":"output_token_limit_exceeded","timestamp":"2026-10-31T08:49:21.747Z","details":{"name":"UpstreamError","upstreamHost":"portkey.myceli.ai"}},"status":400}
+HTTP 400 TIME 89.186626
