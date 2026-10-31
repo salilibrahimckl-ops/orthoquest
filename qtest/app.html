@@ -2240,7 +2240,7 @@ async function genDevice(chunk,signal){
     if(!qa)continue;
     if(!qa.ds){try{const r=await ask(`Question: ${qa.orig||qa.cloze}\nCorrect answer: "${qa.ans}"\nGive 3 WRONG but plausible options of the same kind as the correct answer (a ${GEN.exam} examiner's distractors): same category, similar length, clearly not correct, not synonyms of the answer.`,{type:"object",properties:{d:{type:"array",items:{type:"string"},minItems:3,maxItems:3}},required:["d"]},80);
         let d=(r.d||[]).map(x=>String(x).replace(/^\s*(?:\(?[A-Ea-e][.)]\s+)+/,"").trim()).filter(x=>x&&x.length<80);
-        if(qa.keep){d=shuf(qa.keep.slice()).slice(0,1).concat(d)}
+        if(qa.keep){d=shuf(qa.keep.slice()).slice(0,2).concat(d)}
         const seen=new Set([normT(qa.ans)]);qa.ds=[];for(const x of d){const n=normT(x);if(!n||seen.has(n)||n.includes(normT(qa.ans))||normT(qa.ans).includes(n))continue;seen.add(n);qa.ds.push(x);if(qa.ds.length===3)break}
         if(qa.ds.length<3&&qa.keep){for(const x of qa.keep){const n=normT(x);if(!seen.has(n)){seen.add(n);qa.ds.push(x)}if(qa.ds.length===3)break}}
         if(qa.ds.length<3)continue}catch(e){if(signal.aborted)throw {code:"cancelled"};continue}}
@@ -2255,7 +2255,11 @@ async function genDevice(chunk,signal){
       else if((m=c.match(/^(.{20,}?) _____\.?$/)))stem=m[1].replace(/\s+(the|a|an)$/i," the")+":";
     }
     if(!stem&&qa.orig){try{const r=await ask(`Reword this exam question so it tests the same fact with different wording (${GEN.exam} style). Keep it a question ending with "?" or ":". Do not include the answer "${qa.ans}". Do not add new facts.\nQuestion: ${qa.orig}`,{type:"object",properties:{q:{type:"string"}},required:["q"]},110);
-        const q2=String(r.q||"").trim();if(q2.length>15&&/[?:]$/.test(q2)&&!hasAns(q2)&&jac(qSig(q2,[]).w,qSig(qa.orig,[]).w)<0.9)stem=q2}catch(e){if(signal.aborted)throw {code:"cancelled"}}
+        const q2=String(r.q||"").trim();
+        /* keep the rewording only if it still names the same key terms (e.g. "Gartland", "osteoid osteoma") and doesn't hint at the answer */
+        const kw=normT(qa.orig).split(" ").filter(x=>x.length>=4&&!STOPW.has(x)&&!/^(most|common|commonly|which|what|used|choice|following|seen|true|false|best|type)$/.test(x)),n2=" "+normT(q2)+" ";
+        const keep=kw.length?kw.filter(x=>n2.includes(" "+x)).length/kw.length:1,ansW=normT(qa.ans).split(" ").filter(x=>x.length>=5&&!normT(qa.orig).includes(x));
+        if(q2.length>15&&/[?:]$/.test(q2)&&!hasAns(q2)&&keep>=0.75&&!ansW.some(x=>n2.includes(" "+x))&&jac(qSig(q2,[]).w,qSig(qa.orig,[]).w)<0.9)stem=q2}catch(e){if(signal.aborted)throw {code:"cancelled"}}
       if(!stem)stem=qa.orig}
     if(!stem){try{const r=await ask(`Turn the statement into ONE exam question (${GEN.exam} style). The blank (_____) is the answer, "${qa.ans}". The question must not contain the answer or a blank, must keep the other facts, and must end with "?" or ":".
 Examples:
