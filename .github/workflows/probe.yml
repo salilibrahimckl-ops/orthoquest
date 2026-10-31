@@ -10,36 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch wllama and probe services
+      - name: Real generation test
         run: |
           set +e
-          mkdir -p vendor probe
-          V=$(npm view @wllama/wllama version); echo "wllama $V" > probe/report.txt
-          cd vendor && npm pack @wllama/wllama@$V >/dev/null && tar xzf wllama-wllama-$V.tgz && rm *.tgz && cd ..
-          find vendor -maxdepth 3 | head -50 >> probe/report.txt
-          du -sh vendor/package/esm >> probe/report.txt
-          curl -sL -o probe/stories260K.gguf https://huggingface.co/ggml-org/models/resolve/main/tinyllamas/stories260K.gguf; ls -la probe >> probe/report.txt
-          for u in \
-            https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf \
-            https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf \
-            https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf \
-            https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf \
-            https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q4_K_M.gguf ; do
-            echo "== $u" >> probe/report.txt
-            curl -sIL -H "Origin: null" "$u" | grep -iE "^(HTTP|content-length|access-control-allow-origin|location)" >> probe/report.txt
+          for k in 1 2; do
+            curl -s -m 280 -w "\nHTTP %{http_code} TIME %{time_total}\n" -H "Content-Type: application/json" -X POST https://text.pollinations.ai/openai -d @probe/prompt.json > probe/gen$k.txt
+            sleep 20
           done
-          echo "== pollinations GET" >> probe/report.txt
-          curl -s -m 60 -w "\nHTTP %{http_code}\n" "https://text.pollinations.ai/Reply%20with%20only%20the%20word%20OK" >> probe/report.txt
-          echo "== pollinations POST openai" >> probe/report.txt
-          curl -s -m 90 -w "\nHTTP %{http_code}\n" -H "Content-Type: application/json" -H "Origin: null" -D - -X POST https://text.pollinations.ai/openai -d '{"model":"openai","messages":[{"role":"user","content":"Write one MCQ on Schatzker classification as JSON {q,o,a,e}."}]}' | head -c 3000 >> probe/report.txt
-          echo "== gen.pollinations" >> probe/report.txt
-          curl -s -m 60 -w "\nHTTP %{http_code}\n" "https://gen.pollinations.ai/text/hello" | head -c 600 >> probe/report.txt
-          echo "== pollinations models" >> probe/report.txt
-          curl -s -m 30 https://text.pollinations.ai/models | head -c 3000 >> probe/report.txt
+          curl -s -o /dev/null -D - -X OPTIONS -H "Origin: null" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: range" https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf | grep -iE "^(HTTP|access-control)" > probe/preflight.txt
       - name: Commit
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add vendor probe
+          git add probe
           git commit -m "Probe results [skip ci]" || exit 0
           git push
