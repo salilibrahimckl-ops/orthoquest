@@ -1,0 +1,26 @@
+  "5.0.4",
+  "5.0.5",
+  "5.1.0",
+  "5.1.1",
+  "6.0.0",
+  "6.0.1",
+  "7.0.0"
+]
+total 10688
+drwxr-xr-x  4 runner runner     4096 Oct 31 11:03 .
+drwxr-xr-x 12 runner runner     4096 Oct 31 11:03 ..
+-rw-r--r--  1 runner runner 10923060 Oct 31 11:03 eng.traineddata.gz
+drwxr-xr-x  3 runner runner     4096 Oct 31 11:03 tesseract.js-5.1.1
+drwxr-xr-x  3 runner runner     4096 Oct 31 11:03 tesseract.js-core-5.1.1
+-rw-r--r--  1 runner runner       78 Oct 31 11:03 versions.txt
+HTTP/2 200 
+access-control-allow-origin: *
+access-control-expose-headers: *
+content-length: 3938657
+HTTP/2 200 
+access-control-allow-origin: *
+content-length: 10923060
+11M	eng.traineddata.gz
+1.5M	tesseract.js-5.1.1
+30M	tesseract.js-core-5.1.1
+4.0K	versions.txt
