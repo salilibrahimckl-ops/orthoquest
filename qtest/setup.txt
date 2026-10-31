@@ -1,0 +1,19 @@
+URL 
+curl: option : blank argument where content is expected
+curl: try 'curl --help' or 'curl --manual' for more information
+-rw-r--r-- 1 runner runner 1117320736 Oct 31 09:47 m15.gguf
+-rw-r--r-- 1 runner runner 2104932768 Oct 31 09:48 m3.gguf
+
+Running kernel seems to be up-to-date.
+
+Restarting services...
+
+Service restarts being deferred:
+ systemctl restart hosted-compute-agent.service
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+pw-ok
