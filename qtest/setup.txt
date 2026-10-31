@@ -1,8 +1,9 @@
 URL 
 curl: option : blank argument where content is expected
 curl: try 'curl --help' or 'curl --manual' for more information
--rw-r--r-- 1 runner runner 1117320736 Oct 31 09:47 m15.gguf
--rw-r--r-- 1 runner runner 2104932768 Oct 31 09:48 m3.gguf
+-rw-r--r-- 1 runner runner 1117320736 Oct 31 09:48 m15.gguf
+-rw-r--r-- 1 runner runner 2104932768 Oct 31 09:49 m3.gguf
+nightly-tag.txt https://github.com/ggml-org/llama.cpp/releases/download/v0.8.0/n
 
 Running kernel seems to be up-to-date.
 
