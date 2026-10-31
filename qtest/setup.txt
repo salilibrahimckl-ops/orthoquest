@@ -3,8 +3,8 @@ llama-b12019-bin-ubuntu-x64.tar.gz https://github.com/ggml-org/llama.cpp/release
 llama-b12018-bin-ubuntu-x64.tar.gz https://github.com/ggml-org/llama.cpp/releases/download/b12018/llama-b12018-bin-ubuntu-x64.tar.gz
 URL https://github.com/ggml-org/llama.cpp/releases/download/b12020/llama-b12020-bin-ubuntu-x64.tar.gz
 llama/llama-b12020/llama-server
--rw-r--r-- 1 runner runner 1117320736 Oct 31 10:06 m15.gguf
--rw-r--r-- 1 runner runner 2104932768 Oct 31 10:06 m3.gguf
+-rw-r--r-- 1 runner runner 1117320736 Oct 31 10:26 m15.gguf
+-rw-r--r-- 1 runner runner 2104932768 Oct 31 10:26 m3.gguf
 cudart-llama-b12020-bin-ubuntu-cuda-12.8-x64.tar.gz https://github.com/ggml-org/
 cudart-llama-b12020-bin-ubuntu-cuda-13.4-arm64.tar.gz https://github.com/ggml-or
 cudart-llama-b12020-bin-ubuntu-cuda-13.4-x64.tar.gz https://github.com/ggml-org/
