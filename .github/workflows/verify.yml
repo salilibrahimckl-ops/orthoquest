@@ -1,0 +1,29 @@
+name: Verify APK
+on:
+  push:
+    branches: [apk-shell]
+    paths: ["check/app.apk", ".github/workflows/verify.yml"]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify
+        run: |
+          SDK="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          BT=$(ls "$SDK/build-tools" | sort -V | tail -1)
+          {
+            echo "== apksigner"; "$SDK/build-tools/$BT/apksigner" verify -v check/app.apk 2>&1
+            echo "== aapt2 badging"; "$SDK/build-tools/$BT/aapt2" dump badging check/app.apk 2>&1 | head -20
+            echo "== zipalign"; "$SDK/build-tools/$BT/zipalign" -c -v 4 check/app.apk 2>&1 | tail -3
+          } > check/report.txt
+          cat check/report.txt
+      - name: Commit report
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add check/report.txt
+          git commit -m "APK check report [skip ci]" || exit 0
+          git push
