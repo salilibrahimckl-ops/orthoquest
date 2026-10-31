@@ -155,6 +155,12 @@ p{margin:0}
 .apchips .chip{padding:5px 11px;font-size:12px;white-space:normal;text-align:left;line-height:1.3}
 .apchips .chip.soon{opacity:.55;border-style:dashed;font-weight:500}
 .newb{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.06em;background:var(--build,var(--accent));color:#10141a;padding:1px 5px;border-radius:4px;margin-left:6px;vertical-align:1px}
+.asearch{position:relative}.asearch input{width:100%;font:inherit;font-size:14px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 12px}
+.aqr{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:5;background:var(--panel2);border:1px solid var(--line);border-radius:9px;max-height:260px;overflow:auto;display:flex;flex-direction:column}
+.aqr button{background:none;border:0;border-bottom:1px solid var(--line);text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:8px}.aqr .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.secrow{display:flex;flex-direction:column;gap:8px;padding:12px}.secrow input[type=range]{width:100%;accent-color:var(--accent)}
+.lensbox{position:absolute;left:10px;top:40px;max-width:calc(100% - 70px);max-height:36%;overflow:auto;background:rgba(14,21,30,.92);border:1px solid var(--line);border-radius:10px;padding:8px;z-index:3;display:flex;flex-direction:column;gap:6px;font-size:12px}
+.lensbox .apchips .chip{font-size:11px;padding:4px 9px}
 .loadmsg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(14,21,30,.9);border:1px solid var(--line);padding:10px 14px;border-radius:8px;font-family:var(--mono);font-size:12px;text-align:center;max-width:80%}
 </style>
 
@@ -178,7 +184,7 @@ p{margin:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:41,hue:250,date:"26 Oct 2026, 14:42 IST",try:"achilles-perc",fresh:["latarjet","hemi-daa","achilles-perc"],news:["Operate screen: approaches added in the latest update now carry a NEW badge on their chip (this time: Latarjet, hemiarthroplasty direct anterior, percutaneous Achilles repair)","After every operation the result screen has an \"Other approaches for this operation\" panel: playable approaches open with one tap, and the approaches still to come show their interval and danger structures — quick revision of every standard approach"]};
+const BUILD={n:42,hue:27,date:"31 Oct 2026, 18:30 IST",news:["3D Atlas rebuilt for realism: wet-tissue textures on every muscle, tendon, bone, vessel and nerve, with true cut surfaces when you slice", "About 200 new nerve structures: brachial plexus (roots, trunks, cords, all branches), spinal nerve roots C5–L5, every intercostal nerve, phrenic, vagus, recurrent laryngeal, accessory, sympathetic chain, lumbar and sacral plexus (LFCN, obturator divisions, genitofemoral, ilioinguinal, pudendal, gluteal), digital nerves of every finger, plantar and dorsal foot nerves, orbital cranial nerves", "New Lymph layer: cervical, axillary (5 groups), epitrochlear, inguinal (horizontal, vertical, Cloquet), popliteal, iliac, para-aortic, mediastinal and parasternal nodes, thoracic duct, cisterna chyli, right lymphatic duct and limb lymphatic vessels", "Atlas tools: search any structure by name, ghost muscles to see the nerves and vessels beneath, cross-section slicer (transverse, sagittal, coronal), isolate a structure; tap anything for origin–insertion–nerve–action or root values and clinical pearls", "Operating theatre: the same detailed nerves and lymphatics now appear in every operating field, plus an Anatomy lens button (eye icon) that makes the layers see-through and lists every nerve, artery, vein and node in your field"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -704,7 +710,7 @@ function lights(scene){scene.add(new THREE.HemisphereLight(0xfff4e6,0x1a2433,.8)
  const d2=new THREE.DirectionalLight(0xa58bff,.3);d2.position.set(-8,3,-10);scene.add(d2);
  const d3=new THREE.DirectionalLight(0xffffff,.4);d3.position.set(-6,-4,8);scene.add(d3);}
 
-const COL={bone:0xEDE3CF,tendon:0xEEE8DA,lig:0xE4D9C2,fat:0xEDC468,skin:0xE2AE8C,nerve:0xF4D33C,art:0xD9262F,vein:0x3A5CC9,metal:0xDDE2EA,poly:0xF3F3EC,cart:0xCFE0EC,fascia:0xDDD4C6,cap:0xE9E0CF};
+const COL={lymph:0x8DBF5A,bone:0xEDE3CF,tendon:0xEEE8DA,lig:0xE4D9C2,fat:0xEDC468,skin:0xE2AE8C,nerve:0xF4D33C,art:0xD9262F,vein:0x3A5CC9,metal:0xDDE2EA,poly:0xF3F3EC,cart:0xCFE0EC,fascia:0xDDD4C6,cap:0xE9E0CF};
 const TX={};
 function cvs(w,h,draw,rep){const c=document.createElement("canvas");c.width=w;c.height=h;const g=c.getContext("2d");if(g)draw(g,w,h);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;if(rep)t.repeat.set(...rep);return t}
 function tex(k){if(TX[k])return TX[k];const R=Math.random;let t;
@@ -713,9 +719,12 @@ function tex(k){if(TX[k])return TX[k];const R=Math.random;let t;
  else if(k==="fat")t=cvs(256,256,(g,w,h)=>{g.fillStyle="#D7A748";g.fillRect(0,0,w,h);for(let i=0;i<300;i++){const r=5+R()*12;g.fillStyle=`hsl(${44+R()*7},${78+R()*12}%,${60+R()*13}%)`;g.beginPath();g.arc(R()*w,R()*h,r,0,7);g.fill();g.strokeStyle="rgba(185,105,55,.35)";g.stroke()}g.strokeStyle="rgba(170,25,25,.55)";g.lineWidth=1.2;for(let i=0;i<9;i++){g.beginPath();let x=R()*w,y=R()*h;g.moveTo(x,y);for(let j=0;j<6;j++){x+=R()*40-20;y+=R()*40-20;g.lineTo(x,y)}g.stroke()}},[4,5]);
  else if(k==="fascia")t=cvs(256,64,(g,w,h)=>{g.fillStyle="#DAD3C5";g.fillRect(0,0,w,h);for(let i=0;i<240;i++){const v=R()>.5;g.fillStyle=v?"rgba(255,252,246,.4)":"rgba(165,155,140,.3)";g.fillRect(R()*w,0,1+R()*2,h)}},[4,2]);
  else if(k==="bone")t=cvs(128,128,(g,w,h)=>{g.fillStyle="#EBE0C9";g.fillRect(0,0,w,h);for(let i=0;i<2600;i++){g.fillStyle=`rgba(${150+R()*60},${130+R()*50},${100+R()*40},.2)`;g.fillRect(R()*w,R()*h,1.5,1.5)}},[2,3]);
+ else if(k==="nerve")t=cvs(128,16,(g,w,h)=>{for(let x=0;x<w;x++){const f=(x%9)<2;g.fillStyle=`hsl(${46+R()*6},${f?40:72+R()*10}%,${f?56:70+R()*12}%)`;g.fillRect(x,0,1,h)}},[3,1]);
+ else if(k==="lymph")t=cvs(64,64,(g,w,h)=>{g.fillStyle="#8DBF5A";g.fillRect(0,0,w,h);for(let i=0;i<500;i++){g.fillStyle=`rgba(${R()>.5?230:60},${R()>.5?240:110},${R()>.5?200:40},.18)`;g.beginPath();g.arc(R()*w,R()*h,1+R()*2.5,0,7);g.fill()}},[2,2]);
  else if(k==="tendon")t=cvs(128,16,(g,w,h)=>{for(let x=0;x<w;x++){g.fillStyle=`hsl(40,${16+R()*12}%,${84+R()*12}%)`;g.fillRect(x,0,1,h)}},[2,1]);
  TX[k]=t;return t}
 const VWP_V=s=>"varying vec3 vWP;\n"+s.replace("#include <project_vertex>","#include <project_vertex>\nvWP=(modelMatrix*vec4(transformed,1.0)).xyz;");
+function patchCut(m,col,key){m.onBeforeCompile=sh=>{sh.vertexShader=VWP_V(sh.vertexShader);sh.fragmentShader="varying vec3 vWP;\n"+sh.fragmentShader.replace("#include <map_fragment>","#include <map_fragment>\nif(!gl_FrontFacing){float n=fract(sin(dot(floor(vWP*400.),vec3(12.9898,78.233,37.719)))*43758.5453);diffuseColor.rgb="+col+"*(.8+.35*n);}")};m.customProgramCacheKey=()=>key}
 function patchBone(m){m.onBeforeCompile=sh=>{sh.vertexShader=VWP_V(sh.vertexShader);sh.fragmentShader="varying vec3 vWP;\n"+sh.fragmentShader.replace("#include <map_fragment>","#include <map_fragment>\nif(!gl_FrontFacing){float n=fract(sin(dot(floor(vWP*45.),vec3(12.9898,78.233,37.719)))*43758.5453);diffuseColor.rgb=mix(vec3(.70,.33,.28),vec3(.95,.84,.70),.2+.65*n);}")};m.customProgramCacheKey=()=>"bonecut"}
 const WIN_HEAD="uniform vec3 uP[32];uniform float uT[32];uniform int uN;uniform float uW;varying vec3 vWP;\nfloat woundD(out float tt){float best=1e5;tt=0.;for(int i=0;i<31;i++){if(i>=uN-1)break;vec3 a=uP[i];vec3 b=uP[i+1];vec3 ab=b-a;float h=clamp(dot(vWP-a,ab)/max(dot(ab,ab),1e-6),0.,1.);float d=length(vWP-(a+ab*h));if(d<best){best=d;tt=mix(uT[i],uT[i+1],h);}}return best;}\n";
 const EDGE={skin:"vec3(.66,.22,.2)",fat:"vec3(.97,.83,.42)",fascia:"vec3(.93,.91,.87)"};
@@ -730,7 +739,8 @@ function mat(kind){let m;switch(kind){
   case"tendon":m=new THREE.MeshPhysicalMaterial({color:0xffffff,map:tex("tendon"),roughness:.3,clearcoat:.5});break;
   case"lig":m=new THREE.MeshPhysicalMaterial({color:0xF0E4CC,map:tex("tendon"),roughness:.35,clearcoat:.4});break;
   case"metal":m=new THREE.MeshStandardMaterial({color:COL.metal,roughness:.22,metalness:.6});break;
-  case"nerve":m=new THREE.MeshPhysicalMaterial({color:COL.nerve,roughness:.35,clearcoat:.5,emissive:0x2a2000});break;
+  case"nerve":m=new THREE.MeshPhysicalMaterial({color:0xffffff,map:tex("nerve"),bumpMap:tex("nerve"),bumpScale:.01,roughness:.35,clearcoat:.5,emissive:0x2a2000});break;
+  case"lymph":m=new THREE.MeshPhysicalMaterial({color:0xffffff,map:tex("lymph"),bumpMap:tex("lymph"),bumpScale:.01,roughness:.3,clearcoat:.65,emissive:0x0c1a00});break;
   case"art":m=new THREE.MeshPhysicalMaterial({color:COL.art,roughness:.25,clearcoat:.7,emissive:0x220000});break;
   case"vein":m=new THREE.MeshPhysicalMaterial({color:COL.vein,roughness:.25,clearcoat:.7});break;
   case"bone":m=new THREE.MeshStandardMaterial({color:0xffffff,map:tex("bone"),bumpMap:tex("bone"),bumpScale:.01,roughness:.6,side:THREE.DoubleSide});patchBone(m);break;
@@ -798,7 +808,7 @@ const SOFT=[
  ["vein","Cephalic vein","Landmark of the deltopectoral groove.",[[1.85,14.05,.55],[2.4,12.4,.34],[2.76,10.8,.2]],.03]
 ];
 let A=null,selRegion=null,selSoft=null,incMesh=null,autoRot=true,pendingApproach=null;
-const LAYERS={skin:false,muscle:true,vessel:true,nerve:true,bone:true};
+const LAYERS={skin:false,muscle:true,vessel:true,nerve:true,lymph:true,bone:true};
 function buildAtlas(){
  const sc=new THREE.Scene();lights(sc);const root=new THREE.Group();sc.add(root);
  const At={scene:sc,root,layers:{bone:[],muscle:[],nerve:[],vessel:[],skin:[]},pick:[]};
@@ -857,20 +867,21 @@ function buildAtlas(){
 }
 /* ================= REAL ANATOMY DATA (BodyParts3D, CC BY 4.0) ================= */
 const RA={data:null,loading:null,base:"anatomy/"};
-const SYSKIND={bone:"bone",muscle:"muscle",conn:"tendon",art:"art",vein:"vein",nerve:"nerve",skin:"skin"};
-const SYSLAYER={bone:"bone",conn:"muscle",muscle:"muscle",art:"vessel",vein:"vessel",nerve:"nerve",skin:"skin"};
+const SYSKIND={bone:"bone",muscle:"muscle",conn:"tendon",art:"art",vein:"vein",nerve:"nerve",skin:"skin",lymph:"lymph"};
+const SYSLAYER={bone:"bone",conn:"muscle",muscle:"muscle",art:"vessel",vein:"vessel",nerve:"nerve",skin:"skin",lymph:"lymph"};
 function decodeReal(man,bufs){const parts=[],by={};
  man.parts.forEach(([name,sys,c,off,v,ic,lo,hi],i)=>{const b=bufs[c];const q=new Uint16Array(b,off,v*3);const pos=new Float32Array(v*3);const s0=hi[0]-lo[0],s1=hi[1]-lo[1],s2=hi[2]-lo[2];
   for(let k=0;k<v*3;k+=3){pos[k]=lo[0]+q[k]/65535*s0;pos[k+1]=lo[1]+q[k+1]/65535*s1;pos[k+2]=lo[2]+q[k+2]/65535*s2}
   const noff=off+v*6,nrm=new Int8Array(b,noff,v*3);let io=noff+v*3;io=(io+3)&~3;const idx=v<65536?new Uint16Array(b,io,ic):new Uint32Array(b,io,ic);
-  const p={i,name,sys,pos,nrm,idx,lo,hi,v};parts.push(p);by[name.toLowerCase()]=p});
+  const p={i,name,sys,pos,nrm,idx,lo,hi,v,c};parts.push(p);by[name.toLowerCase()]=p});
  return{parts,by,nerves:man.nerves}}
 async function loadReal(prog){if(RA.data)return RA.data;if(RA.loading)return RA.loading;
- RA.loading=(async()=>{const r0=await fetch(RA.base+"anatomy.json");if(!r0.ok)throw new Error("The anatomy data could not be loaded.");const man=await r0.json();let done=0;
+ const get=async mf=>{const r0=await fetch(RA.base+mf);if(!r0.ok)throw new Error("The anatomy data could not be loaded.");const man=await r0.json();let done=0;
   const bufs=await Promise.all(man.chunks.map(async c=>{const r=await fetch(RA.base+c.n+".b64.txt");if(!r.ok)throw new Error("The anatomy data could not be loaded.");const tx=(await r.text()).trim(),bs=atob(tx),u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);let ab=u8.buffer;const u=new Uint8Array(ab,0,2);
    if(u[0]===0x1f&&u[1]===0x8b){if(typeof DecompressionStream==="undefined")throw new Error("This browser cannot unpack the anatomy data — please update it.");ab=await new Response(new Blob([ab]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()}
    done++;if(prog)prog(done/man.chunks.length);return ab}));
-  RA.data=decodeReal(man,bufs);return RA.data})();
+  return decodeReal(man,bufs)};
+ RA.loading=(async()=>{try{RA.data=await get("anatomy2.json");RA.detail=true}catch(e){RA.data=await get("anatomy.json");RA.detail=false}return RA.data})();
  try{return await RA.loading}catch(e){RA.loading=null;throw e}}
 function partGeo(p){if(p.geo)return p.geo;const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(p.pos,3));g.setAttribute("normal",new THREE.BufferAttribute(p.nrm,3,true));g.setIndex(new THREE.BufferAttribute(p.idx,1));
  const cx=(p.lo[0]+p.hi[0])/2,cz=(p.lo[2]+p.hi[2])/2,uv=new Float32Array(p.v*2);for(let k=0;k<p.v;k++){const x=p.pos[k*3]-cx,z=p.pos[k*3+2]-cz;uv[k*2]=(Math.atan2(z,x)/(2*Math.PI)+.5)*2;uv[k*2+1]=(p.pos[k*3+1]-p.lo[1])*30}
@@ -904,25 +915,211 @@ function realRegion(name,y){const n=name.toLowerCase();
  if(/sacrum|hip bone|coccyx/.test(n))return"pelvis";if(/vertebra|atlas|axis|disk/.test(n))return"spine";
  if(/femur/.test(n))return y>.82?"hip":y<.53?"knee":"thigh";if(/patella/.test(n))return"knee";if(/tibia|fibula/.test(n))return y>.4?"knee":"leg";
  if(/talus|calcane|navicular|cuboid|cuneiform|metatarsal|toe|sesamoid/.test(n))return"foot";return null}
+/* ================= ATLAS FACTS (muscles: origin · insertion · nerve · action; nerves: roots · course · supply · clinical) ================= */
+const AFACT=[
+ // shoulder girdle & arm
+ ["deltoid","Origin: lateral third of clavicle, acromion, spine of scapula · Insertion: deltoid tuberosity · Nerve: axillary (C5–6) · Action: abduction 15–90°; anterior fibres flex, posterior extend."],
+ ["supraspinatus","Origin: supraspinous fossa · Insertion: superior facet of greater tuberosity · Nerve: suprascapular (C5–6) · Action: initiates abduction; commonest rotator cuff tear."],
+ ["infraspinatus","Origin: infraspinous fossa · Insertion: middle facet of greater tuberosity · Nerve: suprascapular (C5–6) · Action: external rotation. Isolated wasting = spinoglenoid notch compression."],
+ ["teres minor","Origin: lateral border of scapula · Insertion: inferior facet of greater tuberosity · Nerve: axillary (C5–6) · Action: external rotation (Hornblower sign)."],
+ ["subscapularis","Origin: subscapular fossa · Insertion: lesser tuberosity · Nerve: upper & lower subscapular (C5–6) · Action: internal rotation (lift-off, belly-press tests)."],
+ ["teres major","Origin: inferior angle of scapula · Insertion: medial lip of bicipital groove · Nerve: lower subscapular (C5–6) · Action: adduction, internal rotation."],
+ ["pectoralis major","Origin: clavicle, sternum, costal cartilages 1–6 · Insertion: lateral lip of bicipital groove · Nerve: medial & lateral pectoral (C5–T1) · Action: adduction, internal rotation; clavicular head flexes."],
+ ["pectoralis minor","Origin: ribs 3–5 · Insertion: coracoid process · Nerve: medial pectoral (C8–T1) · Divides the axillary artery into three parts."],
+ ["serratus anterior","Origin: ribs 1–8 · Insertion: costal surface of medial border of scapula · Nerve: long thoracic (C5–7) · Action: protraction, upward rotation; palsy = medial winging."],
+ ["trapezius","Origin: occiput, nuchal ligament, C7–T12 spines · Insertion: lateral clavicle, acromion, scapular spine · Nerve: spinal accessory (CN XI) · Action: elevation/retraction/upward rotation; palsy = lateral winging."],
+ ["rhomboid","Origin: C7–T5 spines · Insertion: medial border of scapula · Nerve: dorsal scapular (C5) · Action: retraction."],
+ ["coracobrachialis","Origin: coracoid · Insertion: medial mid-humerus · Nerve: musculocutaneous (C5–7), which pierces it 5–8 cm below the coracoid."],
+ ["biceps brachii","Origin: long head supraglenoid tubercle, short head coracoid · Insertion: radial tuberosity & bicipital aponeurosis · Nerve: musculocutaneous (C5–6) · Action: supination (prime), elbow flexion."],
+ ["brachialis","Origin: anterior distal humerus · Insertion: coronoid & ulnar tuberosity · Nerve: musculocutaneous + radial (lateral part) · Action: pure elbow flexor; split in the anterolateral approach."],
+ ["triceps","Origin: long head infraglenoid tubercle; lateral & medial heads posterior humerus · Insertion: olecranon · Nerve: radial (C6–8) · Action: elbow extension."],
+ ["anconeus","Origin: lateral epicondyle · Insertion: olecranon · Nerve: radial · Kocher interval lies between anconeus and ECU."],
+ // forearm & hand
+ ["brachioradialis","Origin: lateral supracondylar ridge · Insertion: radial styloid · Nerve: radial (C5–6) · Action: elbow flexion in mid-prone; Henry interval medial border."],
+ ["pronator teres","Origin: medial epicondyle & coronoid · Insertion: lateral mid-radius · Nerve: median (C6–7) · Median nerve passes between its two heads (pronator syndrome)."],
+ ["flexor carpi radialis","Origin: common flexor origin · Insertion: base of 2nd/3rd metacarpal · Nerve: median · Its sheath is the modified Henry approach to the distal radius."],
+ ["palmaris longus","Origin: medial epicondyle · Insertion: palmar aponeurosis · Nerve: median · Absent in ~15%; tendon graft source."],
+ ["flexor carpi ulnaris","Origin: medial epicondyle & olecranon · Insertion: pisiform → hamate, 5th MC · Nerve: ulnar (C7–T1) · Ulnar nerve enters the forearm between its heads (cubital tunnel)."],
+ ["flexor digitorum superficialis","Origin: humero-ulnar & radial heads · Insertion: middle phalanges · Nerve: median · Median nerve runs on its deep surface."],
+ ["flexor digitorum profundus","Origin: anterior ulna & membrane · Insertion: distal phalanges · Nerve: AIN (index, middle) + ulnar (ring, little) · Jersey finger = FDP avulsion."],
+ ["flexor pollicis longus","Origin: anterior radius · Insertion: distal phalanx of thumb · Nerve: AIN · AIN palsy: no 'OK' sign."],
+ ["pronator quadratus","Origin: distal ulna · Insertion: distal radius · Nerve: AIN · Elevated from the radial border in volar plating."],
+ ["supinator","Origin: lateral epicondyle, supinator crest · Insertion: proximal radius · Nerve: PIN, which passes through it under the arcade of Frohse."],
+ ["extensor carpi radialis longus","Origin: lateral supracondylar ridge · Insertion: base of 2nd MC · Nerve: radial · 2nd dorsal compartment."],
+ ["extensor carpi radialis brevis","Origin: lateral epicondyle · Insertion: base of 3rd MC · Nerve: PIN/radial · Origin of tennis elbow pathology."],
+ ["extensor digitorum","Origin: lateral epicondyle · Insertion: extensor expansions · Nerve: PIN · 4th dorsal compartment."],
+ ["extensor carpi ulnaris","Origin: lateral epicondyle & ulna · Insertion: base of 5th MC · Nerve: PIN · 6th dorsal compartment."],
+ ["abductor pollicis longus","Origin: posterior radius & ulna · Insertion: base of 1st MC · Nerve: PIN · 1st compartment (de Quervain)."],
+ ["extensor pollicis longus","Origin: posterior ulna · Insertion: distal phalanx of thumb · Nerve: PIN · Turns around Lister's tubercle — rupture after distal radius fracture."],
+ ["extensor pollicis brevis","Origin: posterior radius · Insertion: proximal phalanx of thumb · Nerve: PIN · 1st compartment."],
+ ["abductor pollicis brevis","Origin: flexor retinaculum, scaphoid, trapezium · Insertion: proximal phalanx of thumb · Nerve: recurrent motor branch of median (C8–T1) · Wasting in carpal tunnel syndrome."],
+ ["opponens pollicis","Origin: flexor retinaculum & trapezium · Insertion: 1st metacarpal · Nerve: recurrent motor branch of median."],
+ ["adductor pollicis","Origin: capitate, 2nd/3rd MC · Insertion: ulnar base of thumb proximal phalanx · Nerve: deep branch of ulnar · Weak in Froment sign."],
+ ["dorsal interossei","Origin: adjacent metacarpals · Insertion: extensor expansion · Nerve: deep branch of ulnar · Action: DAB — abduct fingers."],
+ ["palmar interossei","Nerve: deep branch of ulnar · Action: PAD — adduct fingers (card test)."],
+ ["lumbrical","Origin: FDP tendons · Insertion: radial lateral bands · Nerve: median (1st & 2nd), ulnar (3rd & 4th) · Action: MCP flexion with IP extension."],
+ // hip & thigh
+ ["gluteus maximus","Origin: ilium behind posterior gluteal line, sacrum, sacrotuberous ligament · Insertion: gluteal tuberosity & ITB · Nerve: inferior gluteal (L5–S2) · Action: hip extension; split in Kocher-Langenbeck."],
+ ["gluteus medius","Origin: outer ilium between anterior & posterior gluteal lines · Insertion: lateral facet of greater trochanter · Nerve: superior gluteal (L4–S1) · Action: abduction; weakness = Trendelenburg."],
+ ["gluteus minimus","Origin: outer ilium between anterior & inferior gluteal lines · Insertion: anterior facet of greater trochanter · Nerve: superior gluteal (L4–S1)."],
+ ["tensor fasciae latae","Origin: ASIS · Insertion: ITB · Nerve: superior gluteal · Lateral border of the Smith-Petersen superficial interval."],
+ ["piriformis","Origin: anterior sacrum · Insertion: tip of greater trochanter · Nerve: nerve to piriformis (S1–2) · Key landmark: superior gluteal NV above, sciatic nerve below."],
+ ["obturator internus","Origin: inner obturator membrane · Insertion: medial greater trochanter · Nerve: nerve to obturator internus (L5–S2) · Reflected tendon shields the sciatic nerve in posterior approaches."],
+ ["quadratus femoris","Origin: ischial tuberosity · Insertion: quadrate tubercle · Nerve: nerve to quadratus femoris (L4–S1) · Preserve — the ascending MFCA runs deep to it."],
+ ["gemellus","Superior: nerve to obturator internus; inferior: nerve to quadratus femoris · Part of the short external rotators."],
+ ["iliacus","Origin: iliac fossa · Insertion: lesser trochanter (with psoas) · Nerve: femoral (L2–3)."],
+ ["psoas major","Origin: T12–L5 bodies & transverse processes · Insertion: lesser trochanter · Nerve: L1–3 anterior rami · The lumbar plexus forms within it."],
+ ["sartorius","Origin: ASIS · Insertion: pes anserinus · Nerve: femoral (L2–3) · Medial border of the Smith-Petersen interval; roof of the adductor canal."],
+ ["rectus femoris","Origin: direct head AIIS, reflected head superior acetabulum · Insertion: patella via quadriceps tendon · Nerve: femoral (L2–4)."],
+ ["vastus lateralis","Origin: greater trochanter & linea aspera · Insertion: quadriceps tendon · Nerve: femoral · Split or elevated in lateral femoral approaches."],
+ ["vastus medialis","Origin: intertrochanteric line & linea aspera · Insertion: quadriceps tendon & medial patella (VMO) · Nerve: femoral · Subvastus and midvastus approaches respect it."],
+ ["vastus intermedius","Origin: anterior femoral shaft · Insertion: quadriceps tendon · Nerve: femoral."],
+ ["pectineus","Origin: pectineal line of pubis · Insertion: pectineal line of femur · Nerve: femoral (± obturator) · Floor of the femoral triangle."],
+ ["adductor longus","Origin: body of pubis · Insertion: middle third of linea aspera · Nerve: anterior division of obturator (L2–4) · Medial border of the femoral triangle."],
+ ["adductor brevis","Origin: body & inferior ramus of pubis · Insertion: upper linea aspera · Nerve: obturator · The obturator nerve divisions lie in front of and behind it."],
+ ["adductor magnus","Origin: ischiopubic ramus & ischial tuberosity · Insertion: linea aspera & adductor tubercle · Nerve: obturator (adductor part) + tibial (hamstring part) · Hiatus transmits femoral vessels."],
+ ["gracilis","Origin: inferior pubic ramus · Insertion: pes anserinus · Nerve: anterior division of obturator · Harvested with semitendinosus for ACL grafts."],
+ ["biceps femoris","Origin: long head ischial tuberosity, short head linea aspera · Insertion: fibular head · Nerve: tibial (long), common peroneal (short head — the only hamstring part from it)."],
+ ["semitendinosus","Origin: ischial tuberosity · Insertion: pes anserinus · Nerve: tibial division of sciatic (L5–S2)."],
+ ["semimembranosus","Origin: ischial tuberosity · Insertion: posteromedial tibia & oblique popliteal ligament · Nerve: tibial division of sciatic."],
+ // leg & foot
+ ["gastrocnemius","Origin: femoral condyles · Insertion: calcaneus via Achilles · Nerve: tibial (S1–2) · Medial head is the commonest muscle flap for knee cover."],
+ ["soleus","Origin: posterior tibia & fibula · Insertion: calcaneus via Achilles · Nerve: tibial (S1–2) · Workhorse flap for middle-third tibia."],
+ ["plantaris","Origin: lateral supracondylar line · Insertion: calcaneus · Nerve: tibial · Absent in ~10%; tendon graft."],
+ ["popliteus","Origin: lateral femoral condyle (intra-capsular) · Insertion: posterior tibia above soleal line · Nerve: tibial · Action: 'unlocks' the knee."],
+ ["tibialis anterior","Origin: lateral tibia & membrane · Insertion: medial cuneiform, 1st MT base · Nerve: deep peroneal (L4–5) · Action: dorsiflexion, inversion."],
+ ["extensor hallucis longus","Origin: fibula & membrane · Insertion: distal phalanx of hallux · Nerve: deep peroneal (L5) · Tests the L5 root."],
+ ["extensor digitorum longus","Origin: lateral tibial condyle, fibula · Insertion: lateral four toes · Nerve: deep peroneal."],
+ ["fibularis longus","Origin: upper lateral fibula · Insertion: medial cuneiform & 1st MT base (under the foot) · Nerve: superficial peroneal (L5–S1) · Action: eversion, plantarflexes 1st ray."],
+ ["fibularis brevis","Origin: lower lateral fibula · Insertion: 5th MT base (styloid) · Nerve: superficial peroneal · Avulsion of the 5th MT base."],
+ ["tibialis posterior","Origin: posterior tibia, fibula & membrane · Insertion: navicular tuberosity & plantar tarsals · Nerve: tibial (L4–5) · Dysfunction → adult acquired flatfoot."],
+ ["flexor digitorum longus","Origin: posterior tibia · Insertion: lateral four distal phalanges · Nerve: tibial · Transferred for tibialis posterior dysfunction."],
+ ["flexor hallucis longus","Origin: posterior fibula · Insertion: distal phalanx of hallux · Nerve: tibial · Protects the tibial NV bundle in the posterolateral ankle approach."],
+ ["abductor hallucis","Origin: medial calcaneal tuberosity · Insertion: proximal phalanx of hallux · Nerve: medial plantar."],
+ ["flexor digitorum brevis","Origin: medial calcaneal tuberosity · Insertion: middle phalanges · Nerve: medial plantar."],
+ ["abductor digiti minimi of foot","Nerve: lateral plantar (first branch — Baxter nerve entrapment causes heel pain)."],
+ // trunk & neck
+ ["sternocleidomastoid","Origin: manubrium & medial clavicle · Insertion: mastoid · Nerve: spinal accessory (CN XI) · Divides anterior and posterior triangles."],
+ ["scalenus anterior","Origin: C3–6 transverse processes · Insertion: scalene tubercle of 1st rib · Nerve: C4–6 · Phrenic nerve on it; brachial plexus & subclavian artery pass behind it."],
+ ["scalenus medius","Origin: C2–7 transverse processes · Insertion: 1st rib · Nerve: cervical rami · Long thoracic nerve pierces it; plexus lies in front (interscalene block)."],
+ ["diaphragm","Nerve: phrenic (C3–5) · Openings: IVC T8, oesophagus T10, aorta T12."],
+ ["external oblique","Nerve: T7–12 · Its aponeurosis forms the inguinal ligament."],
+ ["multifidus","Nerve: medial branches of dorsal rami · Wiltse approach goes lateral to it (multifidus–longissimus interval)."],
+ ["longissimus","Nerve: lateral branches of dorsal rami · Lateral wall of the Wiltse interval."],
+];
+const NFACT=[
+ ["brachial plexus","Brachial plexus (C5–T1): roots → trunks (posterior triangle) → divisions (behind clavicle) → cords (axilla, named by relation to the 2nd part of the axillary artery) → terminal branches. Erb (C5–6): waiter's tip. Klumpke (C8–T1): claw hand ± Horner."],
+ ["upper trunk","Upper trunk (C5–6): gives the suprascapular nerve and nerve to subclavius. Erb point lies 2–3 cm above the clavicle."],
+ ["middle trunk","Middle trunk (C7): continuation of the C7 root."],
+ ["lower trunk","Lower trunk (C8–T1): lies on the 1st rib behind the subclavian artery — thoracic outlet syndrome, Pancoast tumour."],
+ ["lateral cord","Lateral cord (C5–7): lateral pectoral, musculocutaneous, lateral root of median."],
+ ["medial cord","Medial cord (C8–T1): medial pectoral, medial cutaneous of arm & forearm, ulnar, medial root of median."],
+ ["posterior cord","Posterior cord (C5–T1): upper & lower subscapular, thoracodorsal, axillary, radial."],
+ ["root of median","Lateral + medial roots of the median nerve join anterior to the axillary artery (the 'M')."],
+ ["suprascapular","Suprascapular nerve (C5–6): through the suprascapular notch under the transverse ligament (artery above — 'army over the bridge, navy under') → supraspinatus, then spinoglenoid notch → infraspinatus. Ganglion at the spinoglenoid notch = isolated infraspinatus weakness."],
+ ["long thoracic","Long thoracic nerve (C5–7): pierces scalenus medius, runs on serratus anterior in the midaxillary line. Injury (axillary clearance, heavy pack) → medial winging."],
+ ["thoracodorsal","Thoracodorsal nerve (C6–8): posterior cord → latissimus dorsi; preserve in axillary clearance; latissimus flap pedicle."],
+ ["pectoral nerve","Pectoral nerves: lateral (C5–7) pierces the clavipectoral fascia; medial (C8–T1) pierces pectoralis minor. Both supply pectoralis major."],
+ ["subscapular nerve","Upper subscapular → subscapularis; lower subscapular → subscapularis + teres major (posterior cord, C5–6)."],
+ ["medial cutaneous nerve of forearm","Medial cutaneous nerve of forearm (C8–T1): with the basilic vein; at risk in medial elbow incisions (cubital tunnel)."],
+ ["medial cutaneous nerve of arm","Medial cutaneous nerve of arm (T1): skin of medial arm; joins the intercostobrachial nerve."],
+ ["lateral cutaneous nerve of forearm","Lateral cutaneous nerve of forearm: terminal musculocutaneous, emerges lateral to the biceps tendon beside the cephalic vein — at risk in anterior elbow approaches."],
+ ["anterior interosseous","Anterior interosseous nerve: from the median 5 cm below the elbow → FPL, FDP (index/middle), pronator quadratus; purely motor — failed 'OK' sign, no sensory loss. Commonest nerve injured in supracondylar fractures."],
+ ["palmar cutaneous branch","Palmar cutaneous branch of median: arises 5 cm proximal to the wrist crease, runs superficial to the flexor retinaculum — spared in carpal tunnel syndrome; at risk in the FCR approach if dissection strays ulnar."],
+ ["recurrent motor branch","Recurrent motor branch of median: to APB, opponens, superficial FPB. Usually extraligamentous; transligamentous variants are at risk in carpal tunnel release."],
+ ["proper palmar digital","Proper palmar digital nerves run on the volar-lateral and volar-medial sides of each finger, palmar to the digital arteries. Median: thumb, index, middle, radial ring; ulnar: ulnar ring, little. Repair under magnification if cut."],
+ ["deep branch of ulnar","Deep (motor) branch of ulnar: curves around the hook of hamate with the deep palmar arch → hypothenar muscles, interossei, ulnar lumbricals, adductor pollicis, deep FPB. Guyon canal zone II lesion = pure motor."],
+ ["dorsal cutaneous branch of ulnar","Dorsal cutaneous branch of ulnar: arises 5–6 cm above the wrist — sensation over the ulnar dorsum of the hand is spared in Guyon canal lesions, lost in cubital tunnel lesions."],
+ ["spinal nerve","Spinal nerve: formed in the intervertebral foramen by dorsal and ventral roots; splits into dorsal (paraspinal muscles, skin) and ventral rami (plexuses, intercostals). Cervical roots exit ABOVE their vertebra (C8 below C7); thoracic & lumbar BELOW."],
+ ["c8 spinal","C8 root: exits between C7 and T1 — finger flexors, intrinsics (with T1), little finger sensation."],
+ ["anterior ramus","Sacral anterior rami S1–S3 emerge from the anterior sacral foramina on piriformis to form the sacral plexus with the lumbosacral trunk."],
+ ["intercostal","Intercostal nerve: anterior ramus of a thoracic spinal nerve in the costal groove — VAN order (vein, artery, nerve) from above, between internal and innermost intercostals. Chest drains go just ABOVE a rib."],
+ ["subcostal","Subcostal nerve (T12): below the 12th rib, supplies the anterior abdominal wall and skin over the iliac crest/hip."],
+ ["phrenic","Phrenic nerve (C3–5): on scalenus anterior deep to the prevertebral fascia, between subclavian artery and vein, along the pericardium anterior to the lung root → diaphragm. 'C3, 4, 5 keeps the diaphragm alive'. At risk in interscalene blocks (hemidiaphragm palsy)."],
+ ["vagus","Vagus nerve (CN X): in the carotid sheath between the carotid artery and internal jugular vein, posterior. The right recurrent laryngeal loops under the subclavian artery; the left under the aortic arch."],
+ ["recurrent laryngeal","Recurrent laryngeal nerve: in the tracheo-oesophageal groove — at risk in anterior cervical (Smith-Robinson) approaches, traditionally a reason to approach from the left."],
+ ["accessory","Spinal accessory nerve (CN XI): through SCM, crosses the posterior triangle superficially (Erb point region) to trapezius — injured in lymph node biopsy → shoulder droop, lateral scapular winging."],
+ ["sympathetic trunk","Sympathetic trunk: paravertebral chain on the vertebral bodies/rib heads; stellate ganglion at C7–T1 — injury gives Horner syndrome (also in lower-trunk plexus avulsion)."],
+ ["iliohypogastric","Iliohypogastric nerve (L1): across quadratus lumborum, pierces transversus above the iliac crest → suprapubic skin. At risk in iliac crest bone graft harvest and Pfannenstiel incisions."],
+ ["ilioinguinal","Ilioinguinal nerve (L1): through the inguinal canal to the superficial ring → skin of medial thigh and genitalia. At risk in anterior iliac crest harvest and hernia repair."],
+ ["genitofemoral","Genitofemoral nerve (L1–2): emerges on the anterior surface of psoas — genital branch (cremaster) and femoral branch (skin over the femoral triangle). Cremasteric reflex."],
+ ["lateral femoral cutaneous","Lateral femoral cutaneous nerve (L2–3): lateral border of psoas, across iliacus, under the inguinal ligament 1–2 cm medial to the ASIS → lateral thigh. Meralgia paraesthetica; at risk in DAA/Smith-Petersen and anterior iliac crest harvest."],
+ ["femoral nerve roots","Femoral nerve (L2–4): forms in psoas, runs in the groove between psoas and iliacus, enters the thigh lateral to the femoral artery (NAVY) → quadriceps, sartorius, pectineus, saphenous. Iliacus haematoma can compress it."],
+ ["obturator","Obturator nerve (L2–4): medial border of psoas, pelvic sidewall, obturator canal → anterior division (adductor longus, brevis, gracilis; skin of medial thigh) and posterior division (obturator externus, adductor magnus). Referred hip pain to the knee. At risk with medial acetabular screws."],
+ ["lumbosacral trunk","Lumbosacral trunk (L4–5): crosses the sacral ala to join the sacral plexus — at risk with sacroiliac screws and sacral ala fractures (L5 foot drop)."],
+ ["inferior gluteal","Inferior gluteal nerve (L5–S2): exits below piriformis → gluteus maximus. Splitting maximus too far proximally in Kocher-Langenbeck can denervate it."],
+ ["pudendal","Pudendal nerve (S2–4): exits below piriformis, crosses the sacrospinous ligament/ischial spine, re-enters via the lesser sciatic foramen to Alcock canal. Traction-table post neurapraxia."],
+ ["posterior femoral cutaneous","Posterior femoral cutaneous nerve (S1–3): below piriformis, superficial to the sciatic nerve down the back of the thigh."],
+ ["nerve to vastus medialis","Nerve to vastus medialis: femoral branch running with the saphenous nerve in the adductor canal."],
+ ["medial plantar","Medial plantar nerve: tibial terminal branch through the tarsal tunnel → abductor hallucis, FDB, FHB, 1st lumbrical; sensation to the medial 3½ toes (like the median in the hand). Jogger's foot."],
+ ["lateral plantar","Lateral plantar nerve: → quadratus plantae, abductor digiti minimi, interossei, lateral lumbricals, adductor hallucis; lateral 1½ toes (like the ulnar). Its first branch (Baxter nerve) causes chronic heel pain."],
+ ["common plantar digital","Common plantar digital nerves: between the metatarsal heads under the transverse metatarsal ligament — Morton neuroma (usually 3rd web space)."],
+ ["medial calcaneal","Medial calcaneal branches: pierce the flexor retinaculum to the heel pad; at risk in medial calcaneal incisions."],
+ ["deep peroneal nerve (foot)","Deep peroneal nerve in the foot: lateral to dorsalis pedis under the extensor retinaculum → EDB and first web space sensation (anterior tarsal tunnel)."],
+ ["dorsal cutaneous nerve","Dorsal cutaneous nerves of foot: medial & intermediate from the superficial peroneal, lateral from the sural — at risk in dorsal and lateral foot incisions and 5th MT fixation."],
+ ["cranial","Orbital nerves (from BodyParts3D): oculomotor, trochlear, ophthalmic division of trigeminal and its branches, optic nerve."],
+ ["optic nerve","Optic nerve (CN II): through the optic canal; tract of the CNS."],
+];
+const LFACT=[
+ ["cervical lymph","Deep cervical nodes along the internal jugular vein; the jugulodigastric node drains the tonsil, the jugulo-omohyoid the tongue. Biopsy in the posterior triangle risks the accessory nerve."],
+ ["supraclavicular","Supraclavicular nodes: left (Virchow) node enlarges with abdominal malignancy via the thoracic duct (Troisier sign)."],
+ ["axillary","Axillary nodes (5 groups: pectoral, subscapular, humeral, central, apical) drain the upper limb, breast and trunk wall above the umbilicus. Apical nodes drain into the subclavian trunk."],
+ ["epitrochlear","Epitrochlear nodes: above the medial epicondyle along the basilic vein — drain the ulnar side of the hand and forearm."],
+ ["deltopectoral","Deltopectoral (infraclavicular) nodes lie along the cephalic vein in the deltopectoral groove."],
+ ["parasternal","Parasternal nodes along the internal thoracic vessels drain the medial breast."],
+ ["mediastinal","Tracheobronchial and mediastinal nodes drain the lungs and mediastinum."],
+ ["lumbar","Lumbar (para-aortic & paracaval) nodes receive the common iliac nodes and the gonads; they form the lumbar trunks into the cisterna chyli."],
+ ["iliac","Iliac nodes (external, internal, common) drain the lower limb, pelvic viscera and perineum to the lumbar nodes."],
+ ["superficial inguinal","Superficial inguinal nodes: horizontal group (below the inguinal ligament: perineum, buttock, abdominal wall below the umbilicus) and vertical group (along the terminal great saphenous vein: superficial lower limb)."],
+ ["deep inguinal","Deep inguinal nodes medial to the femoral vein; the highest lies in the femoral canal (node of Cloquet)."],
+ ["popliteal","Popliteal nodes around the popliteal vein and small saphenous termination — drain the lateral foot and calf."],
+ ["thoracic duct","Thoracic duct: from the cisterna chyli (L1–2) through the aortic hiatus, ascends behind the oesophagus, crosses to the left at T4–5 and drains into the left venous angle (IJV–subclavian). Injury → chylothorax."],
+ ["cisterna chyli","Cisterna chyli: lymph sac at L1–L2 to the right of the aorta, start of the thoracic duct; receives the lumbar and intestinal trunks."],
+ ["right lymphatic duct","Right lymphatic duct: drains the right upper limb, right side of head, neck and thorax into the right venous angle."],
+ ["lymphatic vessels","Superficial lymphatic vessels follow the superficial veins (great saphenous, cephalic, basilic) to the inguinal and axillary nodes; deep lymphatics follow the deep vessels."],
+ ["submandibular","Submandibular nodes drain the face, anterior tongue and floor of mouth."],
+];
+function atlasFact(name,kind){const n=name.toLowerCase().replace(/\b(left|right)\b ?/g,"").replace(/ of $/,"");
+ const pick=list=>{let best=null,bl=0;list.forEach(([k,t])=>{if(n.includes(k)&&k.length>bl){best=t;bl=k.length}});return best};
+ if(kind==="lymph")return pick(LFACT);if(kind==="nerve")return pick(NFACT);if(kind==="muscle"||kind==="tendon")return pick(AFACT);return null}
+
 const INFO_KEYS=[];
 function softInfo(name){const n=name.toLowerCase().replace(/\b(left|right)\b ?/g,"");
  if(!INFO_KEYS.length)SOFT.forEach(s=>INFO_KEYS.push([s[1].toLowerCase().split(/[ &–-]+/).filter(w=>w.length>3),s[2]]));
  let best=null,bs=0;INFO_KEYS.forEach(([ws,info])=>{const sc=ws.filter(w=>n.includes(w)).length/ws.length;if(sc>bs){bs=sc;best=info}});
  const extra={"saphenous":"Saphenous nerve: terminal branch of the femoral nerve; accompanies the great saphenous vein in the leg.","infrapatellar":"Crosses the anteromedial knee below the patella — commonly cut in midline and medial knee incisions, giving lateral scar numbness.","superior gluteal":"Runs between gluteus medius and minimus about 5 cm above the greater trochanter. Injury causes a Trendelenburg gait.","deep peroneal":"Anterior compartment; supplies tibialis anterior, EHL, EDL and the first web space.","superficial peroneal":"Lateral compartment; pierces the deep fascia in the distal leg — at risk with lateral ankle portals and fibula plating.","posterior interosseous":"Deep branch of the radial nerve through the arcade of Frohse and supinator. At risk in Thompson and Kocher approaches.","superficial branch of radial":"Runs under brachioradialis then dorsally over the radial styloid — neuroma risk in wrist incisions.","musculocutaneous":"Pierces coracobrachialis 5–8 cm below the coracoid; at risk with conjoint-tendon retraction.","cauda":"Lumbar and sacral roots below the conus; cauda equina syndrome is a surgical emergency."};
  for(const k in extra)if(n.includes(k))return extra[k];return bs>=.5?best:null}
-function buildRealAtlas(){const D=RA.data,sc=new THREE.Scene();lights(sc);const root=new THREE.Group();sc.add(root);
- const At={scene:sc,root,layers:{bone:[],muscle:[],nerve:[],vessel:[],skin:[]},pick:[],real:true,sel:null};
+const RCOL2={bone:[255,250,238],conn:[255,255,255],muscle:[255,236,230],art:[214,52,44],vein:[66,96,190],nerve:[255,246,214],skin:[255,255,255],lymph:[255,255,255]};
+function buildRealAtlas(){const D=RA.data,sc=new THREE.Scene();lights(sc);const f=new THREE.DirectionalLight(0xffe8dc,.35);f.position.set(0,6,-12);sc.add(f);const root=new THREE.Group();sc.add(root);
+ const At={scene:sc,root,layers:{bone:[],muscle:[],nerve:[],vessel:[],lymph:[],skin:[]},pick:[],real:true,sel:null,mats:{},clip:new THREE.Plane(new THREE.Vector3(0,-1,0),2)};
  const groups={};D.parts.forEach(p=>{(groups[p.sys]=groups[p.sys]||[]).push(p)});
- Object.entries(groups).forEach(([sys,list])=>{let nv=0,ni=0;list.forEach(p=>{nv+=p.v;ni+=p.idx.length});const pos=new Float32Array(nv*3),nrm=new Int8Array(nv*3),col=new Uint8Array(nv*3),idx=new Uint32Array(ni);let ov=0,oi=0;
-  list.forEach((p,j)=>{pos.set(p.pos,ov*3);nrm.set(p.nrm,ov*3);const b=RCOL[sys],jit=sys==="muscle"?(((j*37)%11)-5)*3:sys==="bone"?(((j*13)%5)-2)*2:0;const r=Math.max(0,Math.min(255,b[0]+jit)),g=Math.max(0,Math.min(255,b[1]+jit*.6)),bb=Math.max(0,Math.min(255,b[2]+jit*.5));
-   for(let k=0;k<p.v;k++){const o=(ov+k)*3;col[o]=r;col[o+1]=g;col[o+2]=bb}for(let k=0;k<p.idx.length;k++)idx[oi+k]=p.idx[k]+ov;ov+=p.v;oi+=p.idx.length});
-  const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("normal",new THREE.BufferAttribute(nrm,3,true));g.setAttribute("color",new THREE.BufferAttribute(col,3,true));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeBoundingSphere();
-  const m=sys==="skin"?new THREE.MeshStandardMaterial({vertexColors:true,roughness:.7,transparent:true,opacity:.24,depthWrite:false,side:THREE.DoubleSide}):
-   sys==="bone"?new THREE.MeshStandardMaterial({vertexColors:true,roughness:.55,side:THREE.DoubleSide}):new THREE.MeshPhysicalMaterial({vertexColors:true,roughness:sys==="muscle"?.48:.35,clearcoat:sys==="muscle"?.35:.55,clearcoatRoughness:.4,side:THREE.DoubleSide});
-  const mesh=new THREE.Mesh(g,m);mesh.renderOrder=sys==="skin"?2:0;root.add(mesh);At.layers[SYSLAYER[sys]].push(mesh)});
+ Object.entries(groups).forEach(([sys,list])=>{let nv=0,ni=0;list.forEach(p=>{nv+=p.v;ni+=p.idx.length});const pos=new Float32Array(nv*3),nrm=new Int8Array(nv*3),col=new Uint8Array(nv*3),uv=new Float32Array(nv*2),idx=new Uint32Array(ni);let ov=0,oi=0;
+  list.forEach((p,j)=>{pos.set(p.pos,ov*3);nrm.set(p.nrm,ov*3);const b=RCOL2[sys]||[220,220,220],jit=sys==="muscle"?(((j*37)%11)-5)*3:sys==="bone"?(((j*13)%5)-2)*3:0;const r=Math.max(0,Math.min(255,b[0]+jit)),g=Math.max(0,Math.min(255,b[1]+jit*.8)),bb=Math.max(0,Math.min(255,b[2]+jit*.7));
+   const cx=(p.lo[0]+p.hi[0])/2,cz=(p.lo[2]+p.hi[2])/2,tall=(p.hi[1]-p.lo[1])>=Math.max(p.hi[0]-p.lo[0],p.hi[2]-p.lo[2])*.6;
+   for(let k=0;k<p.v;k++){const o=(ov+k)*3;col[o]=r;col[o+1]=g;col[o+2]=bb;const x=p.pos[k*3]-cx,y=p.pos[k*3+1]-p.lo[1],z=p.pos[k*3+2]-cz;
+    if(tall){uv[(ov+k)*2]=(Math.atan2(z,x)/(2*Math.PI)+.5)*2;uv[(ov+k)*2+1]=y*30}else{uv[(ov+k)*2]=(Math.atan2(z,y)/(2*Math.PI)+.5)*2;uv[(ov+k)*2+1]=(p.pos[k*3]-p.lo[0])*30}}
+   for(let k=0;k<p.idx.length;k++)idx[oi+k]=p.idx[k]+ov;ov+=p.v;oi+=p.idx.length});
+  const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("normal",new THREE.BufferAttribute(nrm,3,true));g.setAttribute("color",new THREE.BufferAttribute(col,3,true));g.setAttribute("uv",new THREE.BufferAttribute(uv,2));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeBoundingSphere();
+  let m;
+  if(sys==="skin")m=new THREE.MeshStandardMaterial({vertexColors:true,map:tex("skin"),roughness:.7,transparent:true,opacity:.24,depthWrite:false,side:THREE.DoubleSide});
+  else if(sys==="bone"){m=new THREE.MeshStandardMaterial({vertexColors:true,map:tex("bone"),bumpMap:tex("bone"),bumpScale:.006,roughness:.55,side:THREE.DoubleSide});patchBone(m)}
+  else if(sys==="muscle"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("muscle"),bumpMap:tex("muscle"),bumpScale:.008,roughness:.42,clearcoat:.4,clearcoatRoughness:.35,side:THREE.DoubleSide});patchCut(m,"vec3(.58,.17,.14)","mcut")}
+  else if(sys==="conn"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("tendon"),roughness:.3,clearcoat:.55,side:THREE.DoubleSide});patchCut(m,"vec3(.86,.82,.74)","tcut")}
+  else if(sys==="nerve"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("nerve"),bumpMap:tex("nerve"),bumpScale:.006,roughness:.35,clearcoat:.55,emissive:0x2a2000,side:THREE.DoubleSide});patchCut(m,"vec3(.95,.86,.55)","ncut")}
+  else if(sys==="lymph"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("lymph"),bumpMap:tex("lymph"),bumpScale:.006,roughness:.3,clearcoat:.65,emissive:0x0c1a00,side:THREE.DoubleSide})}
+  else{m=new THREE.MeshPhysicalMaterial({vertexColors:true,roughness:.24,clearcoat:.75,clearcoatRoughness:.25,side:THREE.DoubleSide});patchCut(m,sys==="art"?"vec3(.45,.05,.05)":"vec3(.12,.16,.35)",sys+"cut")}
+  const mesh=new THREE.Mesh(g,m);mesh.renderOrder=sys==="skin"?2:0;root.add(mesh);const L=SYSLAYER[sys]||"muscle";At.layers[L].push(mesh);(At.mats[sys]=At.mats[sys]||[]).push(m)});
  const PM=new THREE.MeshBasicMaterial({side:THREE.DoubleSide});
  D.parts.forEach(p=>{if(p.sys==="skin")return;const m=new THREE.Mesh(partGeo(p),PM);m.visible=false;m.userData={kind:SYSKIND[p.sys],name:p.name,part:p,layer:SYSLAYER[p.sys]};root.add(m);At.pick.push(m)});
  return At}
+const AT={ghost:1,sec:null,secV:.5,iso:false};
+function atlasMats(){return A&&A.real?Object.entries(A.mats).flatMap(([k,arr])=>arr.map(m=>[k,m])):[]}
+function applyAtlasLook(){if(!A||!A.real)return;
+ atlasMats().forEach(([k,m])=>{let o=1;if(k==="skin")o=.24;if(k==="muscle"||k==="conn")o=AT.ghost;if(AT.iso)o=k==="bone"?.18:.06;
+  m.transparent=o<.99;m.opacity=o;m.depthWrite=o>.6;m.clippingPlanes=AT.sec?[A.clip]:[];m.needsUpdate=true});
+ if(AT.sec){const b=new THREE.Box3().setFromObject(A.root);const ax=AT.sec==="t"?1:AT.sec==="s"?0:2,lo=b.min.getComponent(ax),hi=b.max.getComponent(ax);const n=new THREE.Vector3();n.setComponent(ax,-1);A.clip.normal.copy(n);A.clip.constant=lo+(hi-lo)*AT.secV}}
+function realSelectPart(p){const kind=SYSKIND[p.sys];const L=SYSLAYER[p.sys];if(!LAYERS[L]){LAYERS[L]=true;applyLayers();document.querySelectorAll("#layerChips .chip").forEach(c=>c.setAttribute("aria-pressed",LAYERS[c.dataset.l]))}
+ selectSoft({part:p,userData:{kind:kind==="tendon"?"tendon":kind,name:p.name,info:atlasFact(p.name,kind)||softInfo(p.name)||""}});autoRot=false;syncRot();A.root.rotation.y=0;realFocusBox(p.lo,p.hi,Math.max(.18,Math.hypot(p.hi[0]-p.lo[0],p.hi[1]-p.lo[1],p.hi[2]-p.lo[2])*2.4))}
 function realSelect(parts){if(!A||!A.real)return;if(A.sel){A.root.remove(A.sel);A.sel=null}if(!parts||!parts.length)return;const g=new THREE.Group();const mt=new THREE.MeshBasicMaterial({color:0xA274FF,transparent:true,opacity:.6,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2,depthWrite:false});
  parts.forEach(p=>g.add(new THREE.Mesh(partGeo(p),mt)));A.root.add(g);A.sel=g}
 function realRegionParts(r){return RA.data.parts.filter(p=>p.sys==="bone"&&p.name.toLowerCase().includes("right")&&realRegion(p.name,(p.lo[1]+p.hi[1])/2)===r)}
@@ -939,7 +1136,7 @@ function realIncision(id){const L=LM;const sk=(o,d)=>L.skinRay(o,d);try{
  if(id==="smithpetersen"){const hb=L.all("Right hip bone"),asis=L.ext(hb,[0,.2,1]);return[[.05,.02],[.02,.012],[0,0],[0,-.04],[.005,-.08],[.01,-.12]].map(([dx,dy])=>sk([asis[0]+dx+.01,asis[1]+dy,asis[2]-.05],[-.25,0,1]))}
  }catch(e){console.warn(e)}return null}
 
-function applyLayers(){if(!A)return;Object.entries(A.layers).forEach(([k,arr])=>arr.forEach(m=>m.visible=LAYERS[k]))}
+function applyLayers(){if(!A)return;Object.entries(A.layers).forEach(([k,arr])=>arr.forEach(m=>m.visible=LAYERS[k]!==false))}
 function syncRot(){const b=document.getElementById("rotBtn");if(b)b.setAttribute("aria-pressed",autoRot?"true":"false")}
 function atlasHighlight(){if(!A)return;if(A.real){if(selSoft&&selSoft.part)realSelect([selSoft.part]);else if(selRegion)realSelect(realRegionParts(selRegion));else realSelect(null);return}
  A.pick.forEach(m=>{if(!m.material.emissive)return;const on=(selSoft&&m===selSoft)||(!selSoft&&selRegion&&m.userData.region===selRegion);m.material.emissive.setHex(on?0x5a2fd0:m.userData.e0);m.material.emissiveIntensity=on?.7:1})}
@@ -947,20 +1144,23 @@ function atlasFocus(meshes){if(A&&A.real)return;if(!meshes.length){E.view([0,9.5
  const dir=E.cam.position.clone().sub(E.ctl.target).normalize();const d=Math.max(5,Math.min(18,s*2.6));E.view(c.clone().add(dir.multiplyScalar(d)).toArray(),c.toArray())}
 function selectRegion(r){selRegion=r;selSoft=null;atlasHighlight();if(A&&A.real){if(r){const[lo,hi]=REGION_BOX[r];autoRot=false;syncRot();A.root.rotation.y=0;realFocusBox(lo,hi)}else E.view([0,.95,4.3],[0,.9,0])}else if(A)atlasFocus(r?A.pick.filter(m=>m.userData.region===r):[]);renderAtlasInfo();
  document.querySelectorAll("#regionChips .chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.r===(r||"all")?"true":"false"))}
-function selectSoft(m){selSoft=m;selRegion=null;atlasHighlight();renderAtlasInfo();document.querySelectorAll("#regionChips .chip").forEach(c=>c.setAttribute("aria-pressed","false"))}
+function selectSoft(m){selSoft=m;selRegion=null;if(!m)AT.iso=false;atlasHighlight();renderAtlasInfo();document.querySelectorAll("#regionChips .chip").forEach(c=>c.setAttribute("aria-pressed","false"))}
 function setIncision(ap){if(!A)return;if(incMesh){A.root.remove(incMesh);incMesh.geometry.dispose();incMesh=null}if(!ap)return;
  if(A.real){const pts=realIncision(ap.id);if(!pts)return;incMesh=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p))),40,.0028,8,false),new THREE.MeshBasicMaterial({color:0xA274FF}));A.root.add(incMesh);
   autoRot=false;syncRot();A.root.rotation.y=0;const c=new THREE.Vector3(...pts[Math.floor(pts.length/2)]),body=new THREE.Vector3(c.x*.4,c.y,0),out=c.clone().sub(body).setY(0).normalize();E.view(c.clone().addScaledVector(out,.55).add(new THREE.Vector3(0,.05,0)).toArray(),c.toArray());return}
  incMesh=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(ap.inc.map(p=>new THREE.Vector3(...p))),40,.05,8,false),new THREE.MeshBasicMaterial({color:0xA274FF}));A.root.add(incMesh);
  autoRot=false;syncRot();A.root.rotation.y=0;const c=new THREE.Vector3(...ap.inc[1]);const back=ap.inc[0][2]<0;E.view([c.x-4,c.y+1,back?c.z-9:c.z+9],c.toArray())}
 function viewAtlas(arg){
- const KC={bone:"var(--bone)",muscle:"#C0504A",vessel:"#D9262F",nerve:"#F4D33C",skin:"#E2AE8C"};
+ const KC={bone:"var(--bone)",muscle:"#C0504A",vessel:"#D9262F",nerve:"#F4D33C",lymph:"#8DBF5A",skin:"#E2AE8C"};
  $m.innerHTML=`<div class="view full">
-  <div class="layers" id="layerChips">${Object.keys(LAYERS).map(k=>`<button class="chip" data-l="${k}" aria-pressed="${LAYERS[k]}"><span class="dot" style="background:${KC[k]}"></span>${k==="vessel"?"Vessels":k==="bone"?"Bones":k==="nerve"?"Nerves":k==="muscle"?"Muscles & tendons":"Skin"}</button>`).join("")}</div>
+  <div class="layers" id="layerChips">${Object.keys(LAYERS).map(k=>`<button class="chip" data-l="${k}" aria-pressed="${LAYERS[k]}"><span class="dot" style="background:${KC[k]}"></span>${k==="vessel"?"Vessels":k==="bone"?"Bones":k==="nerve"?"Nerves":k==="lymph"?"Lymph nodes":k==="muscle"?"Muscles & tendons":"Skin"}</button>`).join("")}</div>
   <div class="chips" id="regionChips"><button class="chip" data-r="all" aria-pressed="true">Whole body</button>${Object.entries(REGIONS).map(([k,v])=>`<button class="chip" data-r="${k}">${esc(v.name)}</button>`).join("")}</div>
+  <div class="asearch"><input id="aq" type="search" placeholder="Search a structure — e.g. obturator nerve, axillary nodes, FHL" autocomplete="off"><div id="aqr" class="aqr" hidden></div></div>
   <div class="stage atlas" id="stage"><div class="label" id="stageLabel">Tap any structure</div>
-   <div class="tools"><button id="rotBtn" aria-label="Auto-rotate" aria-pressed="${autoRot}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 11-3-6.2M20 4v5h-5"/></svg></button><button id="resetBtn" aria-label="Reset view"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div>
+   <div class="tools"><button id="rotBtn" aria-label="Auto-rotate" aria-pressed="${autoRot}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 11-3-6.2M20 4v5h-5"/></svg></button><button id="ghBtn" aria-label="Ghost muscles" title="See-through muscles" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button><button id="secBtn" aria-label="Cross-section" title="Cross-section slicer" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14l8-4 8 4M4 14l8 4 8-4M12 3v7"/></svg></button><button id="resetBtn" aria-label="Reset view"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div>
    <div class="hint">Drag to rotate · pinch to zoom · two fingers to pan · tap to identify</div><div class="loadmsg" id="ldm" hidden></div></div>
+  <div class="card secrow" id="secRow" hidden><div class="row" style="justify-content:space-between"><span class="eyebrow">Cross-section</span><div class="chips" style="padding:0">${[["t","Transverse"],["s","Sagittal"],["c","Coronal"]].map(([k,l])=>`<button class="chip" data-sx="${k}" aria-pressed="${AT.sec===k}">${l}</button>`).join("")}</div></div><input type="range" id="secR" min="0" max="1" step="0.002" value="${AT.secV}" aria-label="Section level"><p class="muted" style="font-size:12px">Drag to move the cut. Cut surfaces show muscle, bone and vessel lumen like a cadaveric section.</p></div>
+  <div class="card secrow" id="ghRow" hidden><div class="row" style="justify-content:space-between"><span class="eyebrow">Muscle transparency</span><span class="muted" id="ghV" style="font-size:12px"></span></div><input type="range" id="ghR" min="0.08" max="1" step="0.01" value="${AT.ghost}" aria-label="Muscle opacity"></div>
   <div id="atlasInfo"></div></div>`;
  const en=engine(),st=document.getElementById("stage");
  if(!en){st.insertAdjacentHTML("beforeend",`<p class="muted" style="padding:40px 16px;text-align:center">The 3D engine did not load. Check your connection and reopen this page.</p>`);return}
@@ -972,20 +1172,32 @@ function viewAtlas(arg){
  if(A.real){E.ctl.minDistance=.08;E.ctl.maxDistance=8;E.view([0,.95,4.3],[0,.9,0],true)}else{E.ctl.minDistance=2.5;E.ctl.maxDistance=45;E.view([0,9.5,31],[0,9,0],true)}
  E.onFrame=()=>{if(autoRot)A.root.rotation.y+=.003};E.onUserMove=()=>{autoRot=false;syncRot()};
  E.onTap=e=>{if(A.real){E.ray.setFromCamera(E.ndc(e),E.cam);const h=E.ray.intersectObjects(A.pick.filter(m=>LAYERS[m.userData.layer]),false)[0];if(!h)return;const u=h.object.userData,local=A.root.worldToLocal(h.point.clone());
-   const reg=u.kind==="bone"?realRegion(u.name,local.y):null;if(reg&&!pendingApproach){selectRegion(reg);const lab=document.getElementById("stageLabel");if(lab)lab.textContent=u.name}else selectSoft({part:u.part,userData:{kind:u.kind==="tendon"?"tendon":u.kind,name:u.name,info:softInfo(u.name)||""}});return}
+   const reg=u.kind==="bone"?realRegion(u.name,local.y):null;if(reg&&!pendingApproach){selectRegion(reg);const lab=document.getElementById("stageLabel");if(lab)lab.textContent=u.name}else selectSoft({part:u.part,userData:{kind:u.kind==="tendon"?"tendon":u.kind,name:u.name,info:atlasFact(u.name,u.kind)||softInfo(u.name)||""}});return}
   const h=E.pick(e,A.pick);if(!h)return;const u=h.object.userData;if(u.kind==="bone"&&u.region)selectRegion(u.region);else selectSoft(h.object)};
  engineActive(true);
  document.querySelectorAll("#layerChips .chip").forEach(c=>c.onclick=()=>{LAYERS[c.dataset.l]=!LAYERS[c.dataset.l];c.setAttribute("aria-pressed",LAYERS[c.dataset.l]);applyLayers()});
  document.querySelectorAll("#regionChips .chip").forEach(c=>c.onclick=()=>{setIncision(null);pendingApproach=null;selectRegion(c.dataset.r==="all"?null:c.dataset.r)});
  document.getElementById("rotBtn").onclick=()=>{autoRot=!autoRot;syncRot()};
- document.getElementById("resetBtn").onclick=()=>{A.root.rotation.y=0;setIncision(null);pendingApproach=null;selectRegion(null)};
+ if(A&&A.real){applyAtlasLook();
+  const gh=document.getElementById("ghBtn"),ghRow=document.getElementById("ghRow"),ghR=document.getElementById("ghR"),ghV=document.getElementById("ghV");const ghS=()=>{ghV.textContent=Math.round(AT.ghost*100)+"% opaque";gh.setAttribute("aria-pressed",AT.ghost<.99)};
+  gh.onclick=()=>{ghRow.hidden=!ghRow.hidden;if(!ghRow.hidden&&AT.ghost>.99){AT.ghost=.3;ghR.value=.3;applyAtlasLook()}ghS()};ghR.oninput=()=>{AT.ghost=+ghR.value;applyAtlasLook();ghS()};ghS();
+  const sb=document.getElementById("secBtn"),sr=document.getElementById("secRow"),sR=document.getElementById("secR");const sS=()=>{sb.setAttribute("aria-pressed",!!AT.sec);sr.hidden=!AT.sec;sr.querySelectorAll("[data-sx]").forEach(c=>c.setAttribute("aria-pressed",c.dataset.sx===AT.sec))};
+  sb.onclick=()=>{AT.sec=AT.sec?null:"t";if(AT.sec){autoRot=false;syncRot();A.root.rotation.y=0;if(selRegion){const[lo,hi]=REGION_BOX[selRegion];const b=new THREE.Box3().setFromObject(A.root);AT.secV=Math.min(.98,Math.max(.02,((lo[1]+hi[1])/2-b.min.y)/(b.max.y-b.min.y)));sR.value=AT.secV}}applyAtlasLook();sS()};
+  sr.querySelectorAll("[data-sx]").forEach(c=>c.onclick=()=>{AT.sec=c.dataset.sx;applyAtlasLook();sS()});sR.oninput=()=>{AT.secV=+sR.value;applyAtlasLook()};sS();if(AT.sec)sr.hidden=false;
+  const q=document.getElementById("aq"),qr=document.getElementById("aqr");
+  q.oninput=()=>{const t=q.value.trim().toLowerCase();if(t.length<2){qr.hidden=true;return}const ws=t.split(/\s+/);const seen=new Set(),hits=[];
+   for(const p of RA.data.parts){if(p.sys==="skin")continue;const n=p.name.toLowerCase();if(!ws.every(w=>n.includes(w)))continue;const key=n.replace(/^(left|right) /,"");if(seen.has(key))continue;if(/^left /.test(n)&&RA.data.by[n.replace(/^left/,"right")])continue;seen.add(key);hits.push(p);if(hits.length>=10)break}
+   qr.hidden=false;qr.innerHTML=hits.length?hits.map(p=>`<button data-pi="${p.i}"><span class="dot" style="background:${{bone:"#E8DEC4",muscle:"#C0504A",conn:"#DDD",art:"#D9262F",vein:"#3A5CC9",nerve:"#F4D33C",lymph:"#8DBF5A"}[p.sys]||"#999"}"></span>${esc(p.name)}</button>`).join(""):`<p class="muted" style="padding:8px 10px;font-size:13px">No structure found.</p>`;
+   qr.querySelectorAll("[data-pi]").forEach(b=>b.onclick=()=>{const p=RA.data.parts[+b.dataset.pi];qr.hidden=true;q.value=p.name;q.blur();realSelectPart(p)})}}
+ document.getElementById("resetBtn").onclick=()=>{AT.iso=false;AT.sec=null;AT.ghost=1;applyAtlasLook();const sr=document.getElementById("secRow");if(sr)sr.hidden=true;const gr=document.getElementById("ghRow");if(gr)gr.hidden=true;["secBtn","ghBtn"].forEach(i=>{const b=document.getElementById(i);if(b)b.setAttribute("aria-pressed","false")});A.root.rotation.y=0;setIncision(null);pendingApproach=null;selectRegion(null)};
  if(arg&&arg.approach){const ap=APPROACHES.find(a=>a.id===arg.approach);pendingApproach=ap;selRegion=ap.region;selSoft=null;atlasHighlight();setIncision(ap);renderAtlasInfo()}
  else{setIncision(null);pendingApproach=null;selRegion=null;selSoft=null;atlasHighlight();renderAtlasInfo()}
 }
 function renderAtlasInfo(){const el=document.getElementById("atlasInfo");if(!el)return;const lab=document.getElementById("stageLabel");
- if(selSoft){const u=selSoft.userData;const kn={muscle:"Muscle",nerve:"Nerve",art:"Artery",vein:"Vein",tendon:"Tendon / ligament / fascia",bone:"Bone"}[u.kind]||"";const col={muscle:"#E07A70",nerve:"var(--warn)",art:"var(--bad)",vein:"#7C9BFF",tendon:"var(--muted)",bone:"var(--bone)"}[u.kind];
-  lab.textContent=u.name;el.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:8px"><span class="kind" style="color:${col}">${kn}</span><h2>${esc(u.name)}</h2>${u.info?`<p style="max-width:65ch">${esc(u.info)}</p>`:""}<p class="muted" style="font-size:13px">Toggle layers above to see what lies deep to it.${u.kind==="nerve"&&A&&A.real?" Peripheral nerves are routed along their true anatomical course; the scan dataset itself contains no limb nerves.":""}</p></div>`;return}
- if(!selRegion){lab.textContent="Tap any structure";el.innerHTML=`<div class="card"><p class="eyebrow">How to use</p><h3 style="margin:4px 0 8px">Explore in layers</h3><p class="muted">Switch skin, muscles and tendons, vessels, nerves and bones on or off. Tap a bone for regional high-yield facts and approaches, or tap any muscle, vessel or nerve to identify it. Incisions appear in violet, like a skin marker.</p>${A&&A.real?`<p class="muted" style="font-size:12px;margin-top:8px">Anatomy: BodyParts3D, © The Database Center for Life Science, CC BY 4.0 (adapted). ${RA.data.parts.length} structures.</p>`:""}</div>`;return}
+ if(selSoft){const u=selSoft.userData;const kn={muscle:"Muscle",nerve:"Nerve",art:"Artery",vein:"Vein",tendon:"Tendon / ligament / fascia",bone:"Bone",lymph:"Lymphatic"}[u.kind]||"";const col={muscle:"#E07A70",nerve:"var(--warn)",art:"var(--bad)",vein:"#7C9BFF",tendon:"var(--muted)",bone:"var(--bone)",lymph:"#8DBF5A"}[u.kind];
+  lab.textContent=u.name;el.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:8px"><span class="kind" style="color:${col}">${kn}</span><h2>${esc(u.name)}</h2>${u.info?`<p style="max-width:65ch">${esc(u.info)}</p>`:""}${A&&A.real&&selSoft.part?`<div class="row"><button class="btn" id="isoBtn" style="padding:7px 12px">${AT.iso?"Show everything":"Isolate in context"}</button></div>`:""}<p class="muted" style="font-size:13px">Toggle layers, ghost the muscles or slice a cross-section to see what lies deep to it.${(u.kind==="nerve"||u.kind==="lymph")&&A&&A.real?" Limb, trunk and plexus nerves and the lymph node groups are modelled along their textbook course on the scan anatomy (the scan dataset contains no peripheral nerves or nodes) — node size and number are representative.":""}</p></div>`;
+  const ib=document.getElementById("isoBtn");if(ib)ib.onclick=()=>{AT.iso=!AT.iso;applyAtlasLook();renderAtlasInfo()};return}
+ if(!selRegion){lab.textContent="Tap any structure";el.innerHTML=`<div class="card"><p class="eyebrow">How to use</p><h3 style="margin:4px 0 8px">Explore in layers</h3><p class="muted">Switch skin, muscles and tendons, vessels, nerves and bones on or off. Tap a bone for regional high-yield facts and approaches, or tap any muscle, vessel or nerve to identify it. Incisions appear in violet, like a skin marker.</p>${A&&A.real?`<p class="muted" style="font-size:12px;margin-top:8px">Anatomy: BodyParts3D, © The Database Center for Life Science, CC BY 4.0 (adapted), with modelled peripheral nerves and lymphatics. ${RA.data.parts.length} structures. Search above, use the eye button to ghost muscles, or the slicer for cross-sections.</p>`:""}</div>`;return}
  const R=REGIONS[selRegion];lab.textContent=pendingApproach?pendingApproach.name:R.name;
  const aps=R.aps.map(id=>APPROACHES.find(a=>a.id===id));const prs=PROCS.filter(p=>p.region===selRegion);
  el.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:12px">
@@ -1145,7 +1357,7 @@ function RB(c,cfg){const D=RA.data,S=cfg.S,C=cfg.center;c.S=S;c.mm=1000/S;c.g.sc
  const nice=n=>n.replace(/^Right /,"").replace(/ of right /," of ").replace(/^right /,"").replace(/^./,ch=>ch.toUpperCase());
  const UP=/humer|radius|ulna|scaphoid|lunate|triquetr|pisiform|trapezi|capitate|hamate|metacarp|finger|thumb|pollicis|carpi|digitorum superficialis|digitorum profundus|pronator|supinator|brachi|radial|ulnar|palmar|lumbrical|of hand|forearm|anconeus|biceps brachii|triceps|deltoid|cephalic|basilic|median|axillary|antebrachial|indicis|palmaris|interosseous artery|interosseous nerve|musculocutaneous/i,LOW=/femur|femoris|vastus|gluteus|gluteal|tensor fasciae|iliotibial|sartorius|gracilis|adductor (longus|brevis|magnus|minimus)|semitend|semimem|hip bone|saphenous|sciatic|femoral|obturator|piriformis|gemellus|iliac|pectineus|sacrum|patella|tibia|fibula|popliteal|peroneal|genicular/i;
  const bad=p=>cfg.limb==="upper"?LOW.test(p.name):UP.test(p.name);
- D.parts.forEach(p=>{if(p.sys==="skin"||!inBox(p)||!sideOK(p.name)||bad(p))return;if(cfg.skip&&cfg.skip(p))return;const kind=SYSKIND[p.sys];const m=new THREE.Mesh(partGeo(p),mat(kind));m.userData={kind,label:nice(p.name),id:p.name,part:p};m.material.clippingPlanes=planes.slice();c.g.add(m);c.o[p.name]=m});
+ D.parts.forEach(p=>{if(p.sys==="skin"||!inBox(p)||!sideOK(p.name)||bad(p))return;if(cfg.skip&&cfg.skip(p))return;const kind=SYSKIND[p.sys];const m=new THREE.Mesh(partGeo(p),mat(kind));m.userData={kind,label:nice(p.name),id:p.name,part:p};if(p.c===3){m.raycast=()=>{};m.userData.detail=true}m.material.clippingPlanes=planes.slice();c.g.add(m);c.o[p.name]=m});
  const sp=LM.P("Skin"),pad=.012,ax0=cfg.axisPt,sr=cfg.skinR||1;const keep=(a,b,cc)=>{for(const v of[a,b,cc]){const x=sp.pos[v*3],y=sp.pos[v*3+1],z=sp.pos[v*3+2];if(x<lo[0]-pad||x>hi[0]+pad||y<lo[1]-pad||y>hi[1]+pad||z<lo[2]-pad||z>hi[2]+pad)return false;if(Math.hypot(x-ax0[0],z-ax0[2])>sr)return false}return true};
  const sg=subGeo(sp,keep);{const P=sg.attributes.position,N=sg.attributes.normal;for(let i=0;i<P.count;i++){const dx=P.getX(i)-ax0[0],dz=P.getZ(i)-ax0[2],nx=N.getX(i),ny=N.getY(i),nz=N.getZ(i);if(dx*nx+dz*nz<0)N.setXYZ(i,-nx,-ny,-nz)}N.needsUpdate=true}
  const mk=(id,kind,off,label)=>{const g=sg.clone();const P=g.attributes.position,N=g.attributes.normal;if(off)for(let i=0;i<P.count;i++)P.setXYZ(i,P.getX(i)-N.getX(i)*off,P.getY(i)-N.getY(i)*off,P.getZ(i)-N.getZ(i)*off);
@@ -3913,6 +4125,19 @@ function viewOR(arg){
  document.getElementById("drills").onclick=()=>go("theatre");
  {const rb=document.getElementById("orRnd");if(rb)rb.onclick=()=>{const todo=PROCS.filter(p=>!(S.or||{})[p.id]),pool=todo.length?todo:PROCS,p=pool[Math.floor(Math.random()*pool.length)];toast((todo.length?"Next case: ":"Revision case: ")+p.name);go("or",{proc:p.id})}}
 }
+function orLens(c,on){c.lens=on;const b=document.getElementById("lensBtn");if(b)b.setAttribute("aria-pressed",on);const st=document.getElementById("orStage");let box=document.getElementById("lensBox");
+ const SEE={skin:.14,fat:.12,fascia:.16,muscle:.3,tendon:.4};
+ c.g.traverse(o=>{if(!o.isMesh||!o.material||!o.userData)return;const k=o.userData.kind;const m=o.material;
+  if(SEE[k]!==undefined){if(on){o.userData.lens={o:m.opacity,t:m.transparent,d:m.depthWrite,v:SEE[k]};m.transparent=true;m.opacity=Math.min(m.opacity,SEE[k]);m.depthWrite=false}else if(o.userData.lens){const L=o.userData.lens;if(Math.abs(m.opacity-Math.min(L.o,L.v))<.01){m.opacity=L.o;m.transparent=L.t;m.depthWrite=L.d}delete o.userData.lens}m.needsUpdate=true}
+  else if(/^(nerve|art|vein|lymph)$/.test(k)&&m.emissive){if(on){o.userData.lensE=m.emissive.getHex();m.emissive.setHex(k==="nerve"?0x4a3a00:k==="lymph"?0x1e3a00:k==="art"?0x3a0000:0x0a1440)}else if(o.userData.lensE!==undefined){m.emissive.setHex(o.userData.lensE);delete o.userData.lensE}}});
+ if(!on){if(box)box.remove();return}
+ const seen=new Map();Object.values(c.o).forEach(o=>{if(!o||!o.userData||!/^(nerve|art|vein|lymph)$/.test(o.userData.kind)||!o.userData.label)return;if(!seen.has(o.userData.label))seen.set(o.userData.label,o)});
+ const ord={nerve:0,art:1,vein:2,lymph:3},items=[...seen.values()].sort((a,b)=>ord[a.userData.kind]-ord[b.userData.kind]||a.userData.label.localeCompare(b.userData.label));
+ const dot={nerve:"#F4D33C",art:"#D9262F",vein:"#5B7BE0",lymph:"#8DBF5A"};
+ if(!box){box=document.createElement("div");box.id="lensBox";box.className="lensbox";st.appendChild(box)}
+ box.innerHTML=`<b style="font-family:var(--display);font-size:13px">In this field (${items.length})</b><div class="apchips">${items.map((o,i)=>`<button class="chip" data-li="${i}"><span class="dot" style="background:${dot[o.userData.kind]}"></span>${esc(o.userData.label)}</button>`).join("")}</div><p id="lensInfo" class="muted" style="font-size:12px;margin:0">Tap a structure to light it up and read about it. Tap the eye again to close.</p>`;
+ box.querySelectorAll("[data-li]").forEach(bt=>bt.onclick=e=>{e.stopPropagation();const o=items[+bt.dataset.li],m=o.material;const k=o.userData.kind;const was=m.emissive?m.emissive.getHex():0;if(m.emissive){m.emissive.setHex(0x8a5cff);setTimeout(()=>{if(m.emissive)m.emissive.setHex(c.lens?was:(o.userData.lensE??was))},1600)}
+  const inf=atlasFact(o.userData.id||o.userData.label,k)||softInfo(o.userData.id||o.userData.label)||"";const li=document.getElementById("lensInfo");if(li)li.innerHTML=`<b>${esc(o.userData.label)}</b>${inf?" — "+esc(inf):""}`})}
 function runOR(proc,opt={}){
  if(!RA.data){const t=++orTok;$m.innerHTML=`<div class="view"><p class="eyebrow">Operating room</p><h2>${esc(proc.name)}</h2><div class="card"><p id="orLd">Loading scan-based anatomy… 0%</p><div class="timer" style="margin-top:10px"><i id="orLdB" style="width:0"></i></div></div></div>`;
   loadReal(f=>{const a=document.getElementById("orLd"),b=document.getElementById("orLdB");if(a)a.textContent=`Loading scan-based anatomy… ${Math.round(f*100)}%`;if(b)b.style.width=f*100+"%"}).then(()=>{if(t===orTok)runOR(proc,opt)}).catch(e=>{const a=document.getElementById("orLd");if(a)a.textContent=e.message});return}
@@ -3922,7 +4147,7 @@ function runOR(proc,opt={}){
   <div class="row" style="justify-content:space-between"><div style="min-width:0"><p class="eyebrow">${demo?"Time-lapse":"Operating room"} · ${esc(proc.approach)}</p><h2 style="margin-top:2px">${esc(proc.name)}</h2></div><button class="btn ghost" id="quit" style="padding:7px 12px">Leave</button></div>
   <div class="stage or" id="orStage">
    <div class="orhud"><span>HR <b id="oHR">76</b></span><span>EBL <b id="oEBL">40</b> ml</span><span>OR <b id="oT">00:00</b></span><span class="pips" id="oP"></span></div>
-   <div class="tools"><button id="scBtn" aria-label="Scalpel" title="Scalpel / diathermy" aria-pressed="false">${ico('<path d="M3 21l12-12 3 3L6 24M15 9l5-5 1 1-5 5"/>')}</button><button id="rtBtn" aria-label="Rotate view" title="Rotate view" aria-pressed="true">${ico('<path d="M20 12a8 8 0 11-3-6.2M20 4v5h-5"/>')}</button><button id="fluBtn" aria-label="Fluoroscopy" title="Fluoroscopy" aria-pressed="false">${ico('<rect x="4" y="4" width="16" height="16" rx="8"/><path d="M12 7v10M9 10h6"/>')}</button><button id="gdBtn" aria-label="Guide mode" title="Guide mode: an animated hand shows each step" aria-pressed="true">${ico('<path d="M8 13V6a1.5 1.5 0 013 0v5M11 11V4.5a1.5 1.5 0 013 0V11M14 11V6a1.5 1.5 0 013 0v7a6 6 0 01-6 6h-1a5 5 0 01-4-2l-3-4a1.5 1.5 0 012.2-2L8 13"/>')}</button><button id="hintBtn" aria-label="Hint" title="Hint">${ico('<path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/>')}</button></div>
+   <div class="tools"><button id="scBtn" aria-label="Scalpel" title="Scalpel / diathermy" aria-pressed="false">${ico('<path d="M3 21l12-12 3 3L6 24M15 9l5-5 1 1-5 5"/>')}</button><button id="rtBtn" aria-label="Rotate view" title="Rotate view" aria-pressed="true">${ico('<path d="M20 12a8 8 0 11-3-6.2M20 4v5h-5"/>')}</button><button id="fluBtn" aria-label="Fluoroscopy" title="Fluoroscopy" aria-pressed="false">${ico('<rect x="4" y="4" width="16" height="16" rx="8"/><path d="M12 7v10M9 10h6"/>')}</button><button id="gdBtn" aria-label="Guide mode" title="Guide mode: an animated hand shows each step" aria-pressed="true">${ico('<path d="M8 13V6a1.5 1.5 0 013 0v5M11 11V4.5a1.5 1.5 0 013 0V11M14 11V6a1.5 1.5 0 013 0v7a6 6 0 01-6 6h-1a5 5 0 01-4-2l-3-4a1.5 1.5 0 012.2-2L8 13"/>')}</button><button id="lensBtn" aria-label="Anatomy lens" title="Anatomy lens: see-through layers and the structures in this field" aria-pressed="false">${ico('<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>')}</button><button id="hintBtn" aria-label="Hint" title="Hint">${ico('<path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/>')}</button></div>
    <div class="sbar" id="oBar"><div class="sbt"><b id="oBt"></b><span id="oBs"></span></div><button class="btn primary" id="oNext" hidden>Next ▸</button></div></div>
   <div class="timer"><i id="tbar"></i></div>
   <div class="timeline" id="oTL">${proc.phases.map(()=>"<i></i>").join("")}</div>
@@ -3935,6 +4160,7 @@ function runOR(proc,opt={}){
  let scalpel=false;const setScalpel=v=>{scalpel=v;E.ctl.enableRotate=!v;st.classList.toggle("scalpel",v);document.getElementById("scBtn").setAttribute("aria-pressed",v);document.getElementById("rtBtn").setAttribute("aria-pressed",!v)};
  document.getElementById("scBtn").onclick=()=>setScalpel(true);document.getElementById("rtBtn").onclick=()=>setScalpel(false);
  document.getElementById("fluBtn").onclick=()=>setFluoro(c,!c.fluoro);
+ document.getElementById("lensBtn").onclick=()=>orLens(c,!c.lens);
  const bar=(title,sub,cls)=>{const b=document.getElementById("oBar");if(!b)return;b.className="sbar"+(cls?" "+cls:"");document.getElementById("oBt").innerHTML=title;document.getElementById("oBs").innerHTML=sub||""};
  let hintFn=null,hintTxt="",curGuide=null,guideOn=S.guide!==false;
  const showText=()=>{const hb=document.getElementById("hintBox");if(hb&&hintTxt){hb.hidden=false;hb.innerHTML=`<b>Hint.</b> ${esc(hintTxt)}`}};
