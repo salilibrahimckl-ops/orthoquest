@@ -2058,7 +2058,7 @@ function genHTML(){
     :eng==="none"?`<div class="msg err">AI generation isn't available in this view. Use the phone app.</div>`
     :`<div class="stack" style="gap:8px"><div class="label">AI engine</div><div class="pick">${engs.map(([v,l])=>`<button type="button" data-eng="${v}" aria-pressed="${eng===v}">${l}</button>`).join("")}</div>
       <div class="small" style="background:var(--sunk);border-radius:10px;padding:10px 12px">${eng==="free"?"Uses a free public AI service (Pollinations, open model GPT-OSS 20B). No key, no sign-up, no payment. It's run by volunteers, so it can be slow, limit how often you use it, or stop working; if so, try again later or use On-phone AI. Your source text is sent to that service.":
-        dev?`Runs ${OD.label} on your phone: free, private and works offline. It's saved inside the app, so it stays through app updates (it's only removed if you uninstall the app or clear its data). It picks the most testable facts from your text, writes one exam-pattern question per fact, then double-checks each answer. Expect about 1 minute per question.
+        dev?`Runs ${OD.label} on your phone: free, private and works offline. It's saved inside the app, so it stays through app updates (it's only removed if you uninstall the app or clear its data). It picks the most testable facts from your text, takes the correct answer straight from the text, uses the AI to word the question exam-style, and draws wrong options from the same family (other types, nerves, approaches, imaging, values). Expect 15–40 seconds per question.
           <label class="f" style="margin-top:8px">Model<select id="odM">${MODELS.map(m=>`<option value="${m.id}"${m.id===OD.id?" selected":""}>${m.name}</option>`).join("")}</select></label>
           ${ODS.other?`<div class="small" style="margin-top:4px">${esc(ODS.other)} is downloaded now. Downloading this one replaces it.</div>`:""}<div id="odSt" style="margin-top:6px;font-weight:600">${esc(odText())}</div>${ODS.err?`<div class="msg err" style="margin-top:6px">${esc(ODS.err)}</div>`:""}
           <div class="row" style="margin-top:8px">${ODS.done?`<button type="button" class="ghost danger" id="odDel">Delete model</button>`:ODS.ctl?`<button type="button" id="odStop">Pause download</button>`:`<button type="button" id="odGo">${ODS.have?"Continue download":"Download model"}</button>${ODS.have?`<button type="button" class="ghost danger" id="odDel">Delete</button>`:""}`}</div>`:
@@ -2126,15 +2126,6 @@ async function aiCall(prompt,signal){
   if(!r.ok)throw {code:r.status===401||r.status===403?"bad_key":r.status===429?"rate_limited":r.status===400&&/credit|billing/i.test(JSON.stringify(j))?"billing":"upstream_error",message:(j.error&&j.error.message)||""};
   return salvageQs((j.content||[]).filter(c=>c.type==="text").map(c=>c.text).join(""))}
 /* ---- On-phone generator: fact-by-fact, exam-pattern templates, answer double-check ---- */
-const PAT=[
- {re:/most common|commonest|most frequent/i,how:'a one-line recall question in the form "The most common … is:" (or "Commonest … is:")'},
- {re:/investigation of choice|gold standard|best (?:investigation|imaging|test)|diagnos(?:ed|is) (?:by|with)|confirmed by/i,how:'a question "Investigation of choice for … is:" or a short vignette ending "Which investigation is most appropriate?"'},
- {re:/treat|manag|surgery|fixation|operat|arthroplast|reconstruct|repair|conservative|cast|splint|osteotomy|indicat/i,how:'a clinical vignette: start with age, sex and how the injury or complaint happened, give the key findings, and end with "What is the most appropriate management?"'},
- {re:/classif|type\s+[IVX\d]|grade|stage|zone/i,how:'a clinical vignette or description that ends "…is classified as:" with the other types or grades of the same classification as distractors'},
- {re:/sign|test\b|syndrome|known as|named|eponym|called/i,how:'a question "… is known as:" or "The sign/test described is:" with other named signs or eponyms as distractors'},
- {re:/nerve|artery|vessel|structure at risk|injur(?:y|ed) to|palsy/i,how:'a vignette or question ending "Which structure is most at risk?" with other nerves or vessels as distractors'},
- {re:/\d+\s*(?:%|mm|cm|degrees|°|days|weeks|months|years)|\d+\s*-\s*\d+/i,how:'a question asking for the exact number, threshold or time stated, with other plausible numbers as distractors'},
-];
 const TESTABLE=/most common|commonest|of choice|gold standard|classif|type\s+[IVX\d]|grade|stage|sign\b|syndrome|known as|nerve|artery|indicat|contraindicat|complication|associated|characteristic|hallmark|pathognomonic|earliest|first|best|treatment|management|approach|risk|\d+\s*(?:%|mm|cm|degrees|°)/i;
 function pickFacts(text,n){
   const sents=String(text).replace(/\s+/g," ").split(/(?<=[.;!?])\s+(?=[A-Z0-9(])|\s+(?=[•▪●\-–]\s)/).map(x=>x.replace(/^[•▪●\-–]\s*/,"").trim()).filter(x=>x.length>=35&&x.length<=320&&/[a-z]{3}/.test(x));
@@ -2146,45 +2137,82 @@ function pickFacts(text,n){
   const out=[];for(const c of scored.sort((a,b)=>b.sc-a.sc)){if(c.sc<1&&out.length>=n)break;const w=new Set(normT(c.x).split(" "));
     if(out.some(o=>jac(w,o.w)>0.5))continue;out.push(Object.assign(c,{w}));if(out.length>=n)break}
   return out}
-function devExample(fact){const q=qSig(fact,[]);let best=null,bs=-1;const pool=(BANK.filter(b=>GEN.exam==="INI-SS"?b.set==="inimock":GEN.exam==="FNB"?/^fnb/.test(b.set):!b.set)).concat(S.custom.filter(c=>c.kind!=="AI-generated"));
-  for(let k=0;k<pool.length;k++){const b=pool[k];const sc=jac(q.w,qSig(b.q,[]).w);if(sc>bs){bs=sc;best=b}}
-  if(!best)best=BANK[0];return `Q: ${best.q}\nA. ${best.o[0]}\nB. ${best.o[1]}\nC. ${best.o[2]}\nD. ${best.o[3]}\nAnswer: ${L[best.a]}`}
+/* Ortho word lists: the right answer is lifted from your text, and wrong options come from the same family */
+const LEX={
+ imaging:["X-ray","CT scan","MRI","Ultrasound","Bone scan","PET-CT","CT angiography","Stress radiographs","Arthrography"],
+ electro:["Nerve conduction study","EMG","Somatosensory evoked potentials","Motor evoked potentials"],
+ nerve_ul:["radial nerve","ulnar nerve","median nerve","anterior interosseous nerve","posterior interosseous nerve","axillary nerve","musculocutaneous nerve","suprascapular nerve","long thoracic nerve","spinal accessory nerve","superficial radial nerve","lateral antebrachial cutaneous nerve"],
+ nerve_ll:["femoral nerve","sciatic nerve","common peroneal nerve","tibial nerve","superficial peroneal nerve","deep peroneal nerve","sural nerve","saphenous nerve","obturator nerve","lateral femoral cutaneous nerve","superior gluteal nerve","inferior gluteal nerve","pudendal nerve","medial plantar nerve","lateral plantar nerve"],
+ artery_ul:["brachial artery","radial artery","ulnar artery","axillary artery","subclavian artery","posterior circumflex humeral artery","anterior circumflex humeral artery","dorsal carpal branch of the radial artery","palmar carpal branch of the radial artery","anterior interosseous artery","superficial palmar arch","deep palmar arch"],
+ artery_ll:["popliteal artery","femoral artery","profunda femoris artery","medial circumflex femoral artery","lateral circumflex femoral artery","anterior tibial artery","posterior tibial artery","peroneal artery","superior gluteal artery","obturator artery","dorsalis pedis artery","medial genicular artery","artery of ligamentum teres"],
+ approach_ll:["posteromedial approach","anterolateral approach","posterolateral approach","anteromedial approach","medial parapatellar approach","lateral parapatellar approach","extensile lateral approach","direct posterior approach"],
+ approach_hip:["Smith-Petersen approach","Kocher-Langenbeck approach","Hardinge approach","Watson-Jones approach","Gibson approach","ilioinguinal approach","Stoppa approach","Ludloff approach","direct anterior approach","posterior (Moore) approach"],
+ approach_ul:["Henry approach","Thompson approach","Kocher approach","deltopectoral approach","Boyd approach","Kaplan approach","triceps-splitting approach","olecranon osteotomy approach","volar FCR approach","dorsal (third compartment) approach"],
+ carpal:["scaphoid","lunate","triquetrum","pisiform","trapezium","trapezoid","capitate","hamate"],
+ tarsal:["talus","calcaneus","navicular","cuboid","medial cuneiform","intermediate cuneiform","lateral cuneiform"],
+ wrist_site:["radial styloid","scaphoid fossa","lunate fossa","capitolunate joint","scaphotrapeziotrapezoid joint","distal radioulnar joint","ulnar styloid","radiolunate joint"],
+ tx:["open reduction and internal fixation","closed reduction and casting","external fixation","intramedullary nailing","percutaneous K-wire fixation","total joint arthroplasty","hemiarthroplasty","arthrodesis","osteotomy","bone grafting","conservative management","fasciotomy","arthroscopic repair","spanning external fixation"],
+ implant:["dynamic hip screw","proximal femoral nail","cephalomedullary nail","locking compression plate","tension band wiring","Herbert screw","cannulated cancellous screws","buttress plate","Kirschner wires","Ilizarov fixator","interlocking nail"],
+ tumour:["osteosarcoma","Ewing sarcoma","chondrosarcoma","giant cell tumour","osteoid osteoma","osteoblastoma","aneurysmal bone cyst","simple bone cyst","enchondroma","osteochondroma","chondroblastoma","fibrous dysplasia","multiple myeloma"],
+ organism:["Staphylococcus aureus","Streptococcus pyogenes","Kingella kingae","Salmonella","Pseudomonas aeruginosa","Mycobacterium tuberculosis","Haemophilus influenzae","Neisseria gonorrhoeae","Escherichia coli"],
+ ligament_knee:["anterior cruciate ligament","posterior cruciate ligament","medial collateral ligament","lateral collateral ligament","medial patellofemoral ligament","posterolateral corner","anterolateral ligament"],
+ ligament_ankle:["anterior talofibular ligament","calcaneofibular ligament","posterior talofibular ligament","deltoid ligament","anterior inferior tibiofibular ligament","spring ligament"],
+ ligament_wrist:["scapholunate ligament","lunotriquetral ligament","transverse carpal ligament","triangular fibrocartilage complex","radioscaphocapitate ligament"],
+ shoulder:["supraspinatus","infraspinatus","subscapularis","teres minor","long head of biceps","inferior glenohumeral ligament","superior labrum","coracoclavicular ligament"],
+ meniscus:["lateral meniscus","medial meniscus","anterior horn","posterior horn","meniscal root"],
+};
+const LEXALL=Object.entries(LEX).flatMap(([c,arr])=>arr.map(t=>({c,t,n:normT(t)}))).sort((a,b)=>b.n.length-a.n.length);
+const ROMAN=["I","II","III","IV","V","VI","VII"];
+const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
+function numDistractors(m){/* m = {cmp, a, b, unit} */
+  const f=v=>Number.isInteger(v)?v:Math.round(v*10)/10;const out=new Set();
+  if(m.b!=null){const R=Math.round;for(const k of [0.3,0.5,2,3])if(R(m.a*k)>0&&R(m.a*k)!==m.a)out.add(`${R(m.a*k)}-${Math.max(R(m.b*k),R(m.a*k)+1)} ${m.unit}`)}
+  else{for(const v of [m.a/2,m.a*2,m.a+ (m.a<5?1:5),m.a*3,m.a-(m.a>2?1:0.5)])if(v>0&&f(v)!==m.a)out.add(`${f(v)} ${m.unit}`)}
+  return [...out]}
+function extractQA(fact,all){
+  const F=fact.replace(/\s+/g," ").trim();
+  /* 1. classification types / grades */
+  let m=F.match(/\b(Type|Grade|Stage|Zone|Class)\s+([IVX]{1,4}|\d{1,2}|[A-E])\b/);
+  if(m&&F.indexOf(m[0])<25){const kind=m[1],val=m[2];
+    const fam=new Set();(all.match(new RegExp("\\b"+kind+"s?\\s+([IVX]{1,4}|\\d{1,2}|[A-E])\\b","gi"))||[]).forEach(x=>fam.add(x.split(/\s+/).pop().toUpperCase()));
+    if(/^[IVX]+$/.test(val))ROMAN.slice(0,Math.max(4,ROMAN.indexOf(val)+2)).forEach(x=>fam.add(x));else if(/^\d+$/.test(val))[1,2,3,4,5].forEach(x=>fam.add(String(x)));else ["A","B","C","D"].forEach(x=>fam.add(x));
+    fam.delete(val.toUpperCase());const form=v=>/^[IVX]+$/.test(v)?"r":/^\d+$/.test(v)?"n":"l";const ds=shuf([...fam].filter(x=>form(x)===form(val.toUpperCase()))).slice(0,3).map(x=>kind+" "+x);
+    if(ds.length===3){const rest=F.slice(F.indexOf(m[0])+m[0].length).replace(/^\s*(is|has|involves|shows|describes|are)\s+/i,"").replace(/[.;]\s*$/,"");
+      const cls=((all.match(/\b([A-Z][a-z]+(?:[- ][A-Z][a-z]+)?)\s+classification/)||[])[1]||"").replace(/^(The|A|An|This)\s+/,"");
+      return {ans:kind+" "+val,ds,cloze:F.replace(m[0],"_____"),stem:`${cls?`In the ${cls} classification, w`:"W"}hich ${kind.toLowerCase()} ${/^(is|has|involves)/i.test(F.slice(F.indexOf(m[0])+m[0].length).trim())?F.slice(F.indexOf(m[0])+m[0].length).trim().split(" ")[0].toLowerCase():"is"} ${rest}?`}}}
+  /* 2. numbers with units */
+  m=F.match(/\b(over|more than|less than|under|above|below|at least|up to|within|about|usually|approximately)?\s*(\d+(?:\.\d+)?)(?:\s*(?:-|–|to)\s*(\d+(?:\.\d+)?))?\s*(mm|cm|degrees|°|%|days|weeks|months|years|hours)\b/i);
+  if(m){const unit=m[4]==="°"?"degrees":m[4];const ansT=(m[3]?`${m[2]}-${m[3]}`:m[2])+" "+unit;const ds=shuf(numDistractors({a:+m[2],b:m[3]?+m[3]:null,unit})).slice(0,3);
+    if(ds.length===3)return {ans:ansT,ds,cloze:F.replace(m[0].trim(),(m[1]?m[1]+" ":"")+"_____"),stem:null}}
+  /* 3. a known ortho term from the word lists */
+  const nf=" "+normT(F)+" ";
+  const CUE={imaging:/investigation|imaging|diagnos|of choice|gold standard|confirm/i,electro:/conduction|electro/i,approach_ll:/approach|exposure/i,approach_hip:/approach|exposure/i,approach_ul:/approach|exposure/i,tx:/treat|manage|of choice/i,implant:/fix|implant|device/i};
+  const hits=LEXALL.filter(L1=>nf.includes(" "+L1.n+" ")).map(L1=>({L1,sc:(CUE[L1.c]&&CUE[L1.c].test(F)?100:0)+L1.n.length})).sort((x,y)=>y.sc-x.sc).map(h=>h.L1);
+  for(const L1 of hits){
+    const pool=LEX[L1.c].filter(t=>!nf.includes(" "+normT(t)+" "));if(pool.length<3)continue;
+    const re=new RegExp(L1.t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"i");const hit=F.match(re);if(!hit)continue;
+    const ds=shuf(pool.slice()).slice(0,3).map(t=>/^[A-Z]/.test(hit[0])?cap(t):t);
+    return {ans:hit[0],ds,cloze:F.replace(hit[0],"_____"),stem:null}}
+  return null}
 async function genDevice(chunk,signal){
-  const facts=pickFacts(chunk,GEN.n+3);
+  const facts=pickFacts(chunk,GEN.n*3);
   if(!facts.length)throw {code:"device_nofacts"};
   GEN.status="Loading the AI model into memory… (about a minute)";genStatus();
   const w=await odLoad();if(signal.aborted)throw {code:"cancelled"};
-  const one={type:"object",properties:{q:{type:"string"},o:{type:"array",items:{type:"string"},minItems:4,maxItems:4},a:{type:"integer",minimum:0,maximum:3},e:{type:"string"},topic:{type:"string",enum:TOPICS}},required:["q","o","a","e","topic"]};
-  const pick={type:"object",properties:{a:{type:"integer",minimum:0,maximum:3}},required:["a"]};
-  const run=async(msgs,schema,max)=>{let t="";await w.createChatCompletion({messages:msgs,max_tokens:max,temperature:0.4,response_format:{type:"json_schema",json_schema:{name:"o",schema}},stream:true,abortSignal:signal,onData:c=>{const d=c&&c.choices&&c.choices[0]&&c.choices[0].delta&&c.choices[0].delta.content;if(d)t+=d}});return JSON.parse(t)};
-  const sys={role:"system",content:"You are a senior orthopaedic surgeon who sets questions for Indian superspeciality entrance exams (INI-SS, NEET-SS, FNB). You write precise single-best-answer MCQs. Reply only with JSON."};
-  const out=[];const t0=Date.now();let fi=0;
-  for(const f of facts){if(out.length>=GEN.n)break;fi++;
-    const pat=(PAT.find(p=>p.re.test(f.x))||{how:fi%2?'a one-line recall question testing this fact':'a short clinical vignette (age, sex, presentation, findings) whose answer is this fact'}).how;
+  const sys={role:"system",content:"You are a senior orthopaedic surgeon who writes questions for Indian superspeciality entrance exams (INI-SS, NEET-SS, FNB). Reply only with JSON."};
+  const ask=async(content,schema,max)=>{let t="";await w.createChatCompletion({messages:[sys,{role:"user",content}],max_tokens:max,temperature:0.3,response_format:{type:"json_schema",json_schema:{name:"o",schema}},stream:true,abortSignal:signal,onData:c=>{const d=c&&c.choices&&c.choices[0]&&c.choices[0].delta&&c.choices[0].delta.content;if(d)t+=d}});return JSON.parse(t)};
+  const out=[];const t0=Date.now();
+  for(const f of facts){if(out.length>=GEN.n)break;
+    const qa=extractQA(f.x,chunk);if(!qa)continue;
     const mins=Math.round((Date.now()-t0)/60000);GEN.status=`Writing question ${out.length+1} of ${GEN.n}…${mins?` (${mins} min so far)`:""}`;genStatus();
-    let q;
-    try{q=await run([sys,{role:"user",content:`Exam: ${GEN.exam}. Standard: ${EXAMS_STD[GEN.exam]}
-
-FACT (the correct answer must come from this): ${f.x}
-Context: ${f.ctx||"-"}
-
-Write ONE question as ${pat}.
-Rules: exactly 4 short options (1 to 8 words each); one correct option taken from the FACT; three wrong options from the same category that the FACT shows are wrong or that are classic confusions; do not reveal the answer in the question; no "all/none of the above"; "e" is a 1-2 sentence explanation based on the FACT; "a" is the index (0-3) of the correct option.
-
-Style example from a real paper:
-${devExample(f.x)}`}],one,420)}
-    catch(e){if(signal.aborted)throw {code:"cancelled"};const m=String(e&&e.message||e);if(/context size/i.test(m))continue;if(e instanceof SyntaxError)continue;throw {code:"device_fail",message:m}}
-    if(!q||typeof q.q!=="string"||!Array.isArray(q.o)||q.o.length!==4)continue;
-    q.o=q.o.map(o=>String(o).trim());const no=q.o.map(normT);
-    if(new Set(no).size<4||no.some(o=>!o)||q.q.length<20)continue;
-    if(no[q.a]&&no[q.a].length>4&&normT(q.q).includes(no[q.a]))continue; /* answer given away in the stem */
-    /* double-check: ask again which option the fact supports */
-    GEN.status=`Checking the answer to question ${out.length+1}…`;genStatus();
-    let chk=-1;try{const r=await run([sys,{role:"user",content:`FACT: ${f.x}\n\nQuestion: ${q.q}\n${q.o.map((o,k)=>L[k]+". "+o).join("\n")}\n\nAccording to the FACT, which option is correct? Reply {"a": index 0-3}.`}],pick,12);chk=Number(r.a)}catch(e){if(signal.aborted)throw {code:"cancelled"}}
-    const agreed=chk===Number(q.a);
-    /* shuffle options so the answer letter varies */
-    const idx=[0,1,2,3].sort(()=>Math.random()-0.5);const o=idx.map(k=>q.o[k]);
-    out.push({q:q.q.trim(),o,a:agreed?idx.indexOf(Number(q.a)):-1,e:String(q.e||"").trim()+(agreed?"":" (The AI wasn't sure of the answer: please pick it.)"),topic:TOPICS.includes(q.topic)?q.topic:"",src:f.x});
+    let stem=qa.stem;
+    if(!stem){try{const r=await ask(`Rewrite this statement as one ${GEN.exam} exam question whose correct answer is "${qa.ans}". The blank marks the answer. Keep every other fact. Do not include "${qa.ans}" in the question. Start like a real exam question, e.g. "The most common…", "Investigation of choice for…", "…is best approached through:", "Which nerve…", or end with "is:".
+Statement: ${qa.cloze}`,{type:"object",properties:{q:{type:"string"}},required:["q"]},90);stem=String(r.q||"").trim()}catch(e){if(signal.aborted)throw {code:"cancelled"}}}
+    const ns=normT(stem||"");
+    if(!stem||stem.length<15||ns.includes(normT(qa.ans))||qa.ds.some(d=>normT(d)===normT(qa.ans)))stem=qa.cloze.replace(/[.;]\s*$/,"")+" — the blank is:";
+    const opts=shuf([qa.ans,...qa.ds]);
+    out.push({q:stem,o:opts.map(o=>cap(o)),a:opts.indexOf(qa.ans),e:f.x,topic:guessTopic(f.x+" "+chunk.slice(0,300)),src:f.x});
   }
   if(!out.length)throw {code:"device_none"};
   return out}
@@ -2214,7 +2242,7 @@ function bindGen(rerender){
     GEN.busy=true;GEN.msg="";GEN.status=genEngine()==="device"?"Starting…":"Thinking… this usually takes 30 seconds to 2 minutes.";GEN.ctl=new AbortController();rerender();
     try{const arr=await aiCall(genPrompt(chunk),GEN.ctl.signal);
       const items=(Array.isArray(arr)?arr:[]).filter(x=>x&&typeof x.q==="string"&&Array.isArray(x.o)&&x.o.length===4).map((x,i)=>{const a=Number(x.a);
-        return {n:i+1,q:x.q.trim(),o:x.o.map(o=>String(o).trim()),a:a>=0&&a<4?a:-1,e:String(x.e||"").trim(),topic:TOPICS.includes(x.topic)?x.topic:"",bad:"",on:a>=0&&a<4}});
+        return {n:i+1,q:x.q.trim(),o:x.o.map(o=>String(o).replace(/^\s*(?:\(?[A-Ea-e][.)]\s+)+/,"").trim()),a:a>=0&&a<4?a:-1,e:String(x.e||"").trim(),topic:TOPICS.includes(x.topic)?x.topic:"",bad:"",on:a>=0&&a<4}});
       if(!items.length)throw {code:"invalid_json"};
       const r=dedupeImp(items);IMP.items=r.kept;IMP.dups=r.dups;IMP.gen=true;GEN.msg=`AI wrote ${items.length} question${items.length===1?"":"s"}. Check them below, then add.`;GEN.err=false}
     catch(e){GEN.msg=genErr(e);GEN.err=!(e&&e.code==="cancelled")}
