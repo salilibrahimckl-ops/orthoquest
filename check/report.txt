@@ -1,0 +1,37 @@
+== apksigner
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/usr/local/lib/android/sdk/build-tools/37.0.0/lib/apksigner.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v3.2 scheme (APK Signature Scheme v3.2): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+== aapt2 badging
+package: name='com.salil.orthossprep' versionCode='11' versionName='2.0'
+minSdkVersion:'24'
+targetSdkVersion:'34'
+uses-permission: name='android.permission.INTERNET'
+application-label:'Ortho preSSaleel'
+application-icon-640:'res/drawable-anydpi-v26/ic_launcher.xml'
+application-icon-65534:'res/drawable-anydpi-v26/ic_launcher.xml'
+application: label='Ortho preSSaleel' icon='res/drawable-anydpi-v26/ic_launcher.xml'
+launchable-activity: name='com.salil.orthossprep.MainActivity'  label='' icon=''
+feature-group: label=''
+  uses-feature: name='android.hardware.faketouch'
+  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'
+main
+supports-screens: 'small' 'normal' 'large' 'xlarge'
+supports-any-density: 'true'
+locales: '--_--'
+densities: '640' '65534'
+== zipalign
+  112965 res/drawable-anydpi-v26/ic_launcher.xml (OK - compressed)
+  113242 assets/index.html (OK - compressed)
+Verification FAILED
