@@ -184,7 +184,7 @@ p{margin:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:42,hue:27,date:"31 Oct 2026, 18:30 IST",news:["3D Atlas rebuilt for realism: wet-tissue textures on every muscle, tendon, bone, vessel and nerve, with true cut surfaces when you slice", "About 200 new nerve structures: brachial plexus (roots, trunks, cords, all branches), spinal nerve roots C5–L5, every intercostal nerve, phrenic, vagus, recurrent laryngeal, accessory, sympathetic chain, lumbar and sacral plexus (LFCN, obturator divisions, genitofemoral, ilioinguinal, pudendal, gluteal), digital nerves of every finger, plantar and dorsal foot nerves, orbital cranial nerves", "New Lymph layer: cervical, axillary (5 groups), epitrochlear, inguinal (horizontal, vertical, Cloquet), popliteal, iliac, para-aortic, mediastinal and parasternal nodes, thoracic duct, cisterna chyli, right lymphatic duct and limb lymphatic vessels", "Atlas tools: search any structure by name, ghost muscles to see the nerves and vessels beneath, cross-section slicer (transverse, sagittal, coronal), isolate a structure; tap anything for origin–insertion–nerve–action or root values and clinical pearls", "Operating theatre: the same detailed nerves and lymphatics now appear in every operating field, plus an Anatomy lens button (eye icon) that makes the layers see-through and lists every nerve, artery, vein and node in your field"]};
+const BUILD={n:43,hue:164,date:"31 Oct 2026, 16:20 IST",news:["Fix: the operating room could go blank on some phones after opening the new 3D Atlas — the Atlas now frees its graphics memory when you leave it, the 3D view uses less memory on phones, and the view reloads itself if the phone resets graphics","Everything from Update 42 is kept: realistic Atlas, ~200 new nerves, lymph layer, search, ghost muscles, cross-section slicer and the Anatomy lens in theatre"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -639,7 +639,9 @@ let timerId=null;function stopTimer(){if(timerId){cancelAnimationFrame(timerId);
 
 /* ================= ROUTER ================= */
 let current="home";let orIv=null;
-function go(v,arg){stopTimer();stopECG();current=v;orTok++;clearInterval(orIv);if(E.r)E.reset();
+function disposeAtlas(){if(!A||!A.real)return;try{A.root.traverse(o=>{if(!o.isMesh)return;if(!o.userData||!o.userData.part)o.geometry.dispose();if(o.material&&o.material.dispose&&!o.userData.part)o.material.dispose()});if(E.r&&E.r.renderLists)E.r.renderLists.dispose()}catch(e){}A=null;incMesh=null;selSoft=null}
+let lastGo=null;
+function go(v,arg){if(current==="atlas"&&v!=="atlas")disposeAtlas();lastGo=[v,arg];stopTimer();stopECG();current=v;orTok++;clearInterval(orIv);if(E.r)E.reset();
  document.querySelectorAll("nav.bar button").forEach(b=>b.setAttribute("aria-current",b.dataset.v===v||(v==="theatre"&&b.dataset.v==="or")?"page":"false"));
  engineActive(v==="atlas"||v==="or");
  ({home:viewHome,atlas:viewAtlas,or:viewOR,theatre:viewTheatre,blitz:viewBlitz,ward:viewWard})[v](arg);
@@ -683,7 +685,9 @@ function viewHome(){
 const E={};let engOn=false;
 function engine(){
  if(E.r)return E;if(!window.THREE)return null;
- const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(2,window.devicePixelRatio||1));r.localClippingEnabled=true;
+ const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(matchMedia("(pointer:coarse)").matches?1.5:2,window.devicePixelRatio||1));
+ r.domElement.addEventListener("webglcontextlost",e=>{e.preventDefault();toast("Graphics memory reset — reloading the view…")},false);
+ r.domElement.addEventListener("webglcontextrestored",()=>{A=null;RA.data&&RA.data.parts.forEach(p=>{p.geo=null});if(lastGo)setTimeout(()=>go(lastGo[0],lastGo[1]),300)},false);r.localClippingEnabled=true;
  const cam=new THREE.PerspectiveCamera(34,1,.05,300);
  const ctl=new THREE.OrbitControls(cam,r.domElement);ctl.enableDamping=true;ctl.dampingFactor=.08;ctl.screenSpacePanning=true;
  Object.assign(E,{r,cam,ctl,scene:null,camGoal:null,ray:new THREE.Raycaster()});
@@ -867,6 +871,9 @@ function buildAtlas(){
 }
 /* ================= REAL ANATOMY DATA (BodyParts3D, CC BY 4.0) ================= */
 const RA={data:null,loading:null,base:"anatomy/"};
+const LOWMEM=(navigator.deviceMemory||8)<=4;
+window.addEventListener("error",e=>{try{const m=(e&&e.message)||"";if(m&&!/ResizeObserver|Script error/.test(m))toast("Error: "+m.slice(0,90))}catch(_){}});
+window.addEventListener("unhandledrejection",e=>{try{toast("Error: "+String(e.reason&&e.reason.message||e.reason).slice(0,90))}catch(_){}});
 const SYSKIND={bone:"bone",muscle:"muscle",conn:"tendon",art:"art",vein:"vein",nerve:"nerve",skin:"skin",lymph:"lymph"};
 const SYSLAYER={bone:"bone",conn:"muscle",muscle:"muscle",art:"vessel",vein:"vessel",nerve:"nerve",skin:"skin",lymph:"lymph"};
 function decodeReal(man,bufs){const parts=[],by={};
@@ -1357,7 +1364,7 @@ function RB(c,cfg){const D=RA.data,S=cfg.S,C=cfg.center;c.S=S;c.mm=1000/S;c.g.sc
  const nice=n=>n.replace(/^Right /,"").replace(/ of right /," of ").replace(/^right /,"").replace(/^./,ch=>ch.toUpperCase());
  const UP=/humer|radius|ulna|scaphoid|lunate|triquetr|pisiform|trapezi|capitate|hamate|metacarp|finger|thumb|pollicis|carpi|digitorum superficialis|digitorum profundus|pronator|supinator|brachi|radial|ulnar|palmar|lumbrical|of hand|forearm|anconeus|biceps brachii|triceps|deltoid|cephalic|basilic|median|axillary|antebrachial|indicis|palmaris|interosseous artery|interosseous nerve|musculocutaneous/i,LOW=/femur|femoris|vastus|gluteus|gluteal|tensor fasciae|iliotibial|sartorius|gracilis|adductor (longus|brevis|magnus|minimus)|semitend|semimem|hip bone|saphenous|sciatic|femoral|obturator|piriformis|gemellus|iliac|pectineus|sacrum|patella|tibia|fibula|popliteal|peroneal|genicular/i;
  const bad=p=>cfg.limb==="upper"?LOW.test(p.name):UP.test(p.name);
- D.parts.forEach(p=>{if(p.sys==="skin"||!inBox(p)||!sideOK(p.name)||bad(p))return;if(cfg.skip&&cfg.skip(p))return;const kind=SYSKIND[p.sys];const m=new THREE.Mesh(partGeo(p),mat(kind));m.userData={kind,label:nice(p.name),id:p.name,part:p};if(p.c===3){m.raycast=()=>{};m.userData.detail=true}m.material.clippingPlanes=planes.slice();c.g.add(m);c.o[p.name]=m});
+ D.parts.forEach(p=>{if(p.sys==="skin"||!inBox(p)||!sideOK(p.name)||bad(p))return;if(p.sys==="lymph"&&LOWMEM)return;if(cfg.skip&&cfg.skip(p))return;const kind=SYSKIND[p.sys];const m=new THREE.Mesh(partGeo(p),mat(kind));m.userData={kind,label:nice(p.name),id:p.name,part:p};if(p.c===3){m.raycast=()=>{};m.userData.detail=true}m.material.clippingPlanes=planes.slice();c.g.add(m);c.o[p.name]=m});
  const sp=LM.P("Skin"),pad=.012,ax0=cfg.axisPt,sr=cfg.skinR||1;const keep=(a,b,cc)=>{for(const v of[a,b,cc]){const x=sp.pos[v*3],y=sp.pos[v*3+1],z=sp.pos[v*3+2];if(x<lo[0]-pad||x>hi[0]+pad||y<lo[1]-pad||y>hi[1]+pad||z<lo[2]-pad||z>hi[2]+pad)return false;if(Math.hypot(x-ax0[0],z-ax0[2])>sr)return false}return true};
  const sg=subGeo(sp,keep);{const P=sg.attributes.position,N=sg.attributes.normal;for(let i=0;i<P.count;i++){const dx=P.getX(i)-ax0[0],dz=P.getZ(i)-ax0[2],nx=N.getX(i),ny=N.getY(i),nz=N.getZ(i);if(dx*nx+dz*nz<0)N.setXYZ(i,-nx,-ny,-nz)}N.needsUpdate=true}
  const mk=(id,kind,off,label)=>{const g=sg.clone();const P=g.attributes.position,N=g.attributes.normal;if(off)for(let i=0;i<P.count;i++)P.setXYZ(i,P.getX(i)-N.getX(i)*off,P.getY(i)-N.getY(i)*off,P.getZ(i)-N.getZ(i)*off);
