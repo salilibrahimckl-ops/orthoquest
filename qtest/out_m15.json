@@ -1,42 +1,42 @@
 {
  "notes": {
-  "ms": 8566,
+  "ms": 8341,
   "q": [
    {
     "q": "In the Schatzker classification, which type involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve?",
     "o": [
      "Type III",
-     "Type IV",
-     "Type I",
-     "Type VI"
+     "Type V",
+     "Type II",
+     "Type IV"
     ],
-    "a": 1,
+    "a": 3,
     "e": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve.",
     "topic": "Trauma",
     "src": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve."
    },
    {
-    "q": "Surgery for a tibial plateau fracture is indicated when articular step-off exceeds:",
+    "q": "Fill in the blank: Articular step-off over ______ or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
     "o": [
-     "3 mm",
-     "1.5 mm",
+     "1 mm",
      "2 mm",
-     "4 mm"
+     "4 mm",
+     "1.5 mm"
     ],
-    "a": 2,
+    "a": 1,
     "e": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
     "topic": "Trauma",
     "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
    },
    {
-    "q": "Internal fixation is indicated when the displacement of a fracture exceeds:",
+    "q": "Internal fixation is indicated when the displacement exceeds:",
     "o": [
-     "2 mm",
      "0.5 mm",
      "1 mm",
+     "2 mm",
      "3 mm"
     ],
-    "a": 2,
+    "a": 1,
     "e": "Displacement over 1 mm is an indication for internal fixation.",
     "topic": "Trauma",
     "src": "Displacement over 1 mm is an indication for internal fixation."
@@ -44,12 +44,12 @@
    {
     "q": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the:",
     "o": [
+     "Lunate fossa",
      "Radiolunate joint",
-     "Ulnar styloid",
-     "Distal radioulnar joint",
-     "Radial styloid"
+     "Radial styloid",
+     "Distal radioulnar joint"
     ],
-    "a": 3,
+    "a": 2,
     "e": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid.",
     "topic": "Trauma",
     "src": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid."
@@ -57,12 +57,12 @@
    {
     "q": "In the Schatzker classification, which type is a lateral split-depression, the most common type?",
     "o": [
-     "Type II",
-     "Type VI",
      "Type I",
-     "Type IV"
+     "Type V",
+     "Type III",
+     "Type II"
     ],
-    "a": 0,
+    "a": 3,
     "e": "Type II is a lateral split-depression, the most common type.",
     "topic": "Trauma",
     "src": "Type II is a lateral split-depression, the most common type."
@@ -70,30 +70,30 @@
   ]
  },
  "pdfnotes": {
-  "ms": 8720,
+  "ms": 8624,
   "q": [
    {
     "q": "Which of the following is the most commonly injured nerve in distal radius fractures?",
     "o": [
-     "Long thoracic nerve",
      "Median nerve",
-     "Radial nerve",
-     "Anterior interosseous nerve"
+     "Superficial radial nerve",
+     "Posterior interosseous nerve",
+     "Suprascapular nerve"
     ],
-    "a": 1,
+    "a": 0,
     "e": "Median nerve is the most commonly injured nerve in distal radius fractures",
     "topic": "Trauma",
     "src": "Median nerve is the most commonly injured nerve in distal radius fractures"
    },
    {
-    "q": "Fill in the blank: Acceptable reduction: radial inclination more than ______, radial height loss less than 5 mm, and dorsal tilt less than 10 degrees",
+    "q": "What is the acceptable reduction for a radial fracture?",
     "o": [
+     "15 degrees",
      "45 degrees",
-     "20 degrees",
      "30 degrees",
-     "15 degrees"
+     "14 degrees"
     ],
-    "a": 3,
+    "a": 0,
     "e": "Acceptable reduction: radial inclination more than 15 degrees, radial height loss less than 5 mm, and dorsal tilt less than 10 degrees",
     "topic": "Trauma",
     "src": "Acceptable reduction: radial inclination more than 15 degrees, radial height loss less than 5 mm, and dorsal tilt less than 10 degrees"
@@ -101,12 +101,12 @@
    {
     "q": "Chauffeur fracture is a fracture of the:",
     "o": [
-     "Radial styloid",
-     "Scaphoid fossa",
      "Ulnar styloid",
-     "Scaphotrapeziotrapezoid joint"
+     "Scaphotrapeziotrapezoid joint",
+     "Radial styloid",
+     "Distal radioulnar joint"
     ],
-    "a": 0,
+    "a": 2,
     "e": "Chauffeur fracture is a fracture of the radial styloid",
     "topic": "Trauma",
     "src": "Chauffeur fracture is a fracture of the radial styloid"
@@ -114,72 +114,72 @@
   ]
  },
  "paper_ans": {
-  "ms": 15727,
+  "ms": 17447,
   "q": [
    {
-    "q": "Which part of the bone is most commonly affected by osteosarcoma?",
+    "q": "Most common site of osteosarcoma:",
     "o": [
+     "Pelvis",
      "Distal femur",
-     "Proximal tibia",
-     "Distal tibia",
-     "Proximal femur"
+     "Proximal humerus",
+     "Distal tibia"
     ],
-    "a": 0,
+    "a": 1,
     "e": "Most common site of osteosarcoma: Answer: Distal femur",
     "topic": "Trauma",
     "src": "Most common site of osteosarcoma: Answer: Distal femur"
    },
    {
-    "q": "What classification system is used for fractures of the femur?",
+    "q": "Most common nerve injured in supracondylar fracture of humerus in children:",
     "o": [
-     "Smith fracture",
-     "Colles fracture",
-     "Supracondylar fracture humerus",
-     "Monteggia fracture"
+     "Radial nerve",
+     "Axillary nerve",
+     "Anterior interosseous nerve",
+     "Superficial radial nerve"
     ],
     "a": 2,
-    "e": "Gartland classification is used for: Answer: Supracondylar fracture humerus",
+    "e": "Most common nerve injured in supracondylar fracture of humerus in children: Answer: Anterior interosseous nerve",
     "topic": "Trauma",
-    "src": "Gartland classification is used for: Answer: Supracondylar fracture humerus"
+    "src": "Most common nerve injured in supracondylar fracture of humerus in children: Answer: Anterior interosseous nerve"
    },
    {
     "q": "Investigation of choice for osteoid osteoma:",
     "o": [
+     "Bone scan",
+     "MRI",
      "CT scan",
-     "CT angiography",
-     "Stress radiographs",
-     "PET-CT"
+     "X-ray"
     ],
-    "a": 0,
+    "a": 2,
     "e": "Investigation of choice for osteoid osteoma: Answer: CT scan",
     "topic": "Trauma",
     "src": "Investigation of choice for osteoid osteoma: Answer: CT scan"
    },
    {
+    "q": "Gartland classification is used for:",
+    "o": [
+     "Galeazzi fracture",
+     "Monteggia fracture",
+     "Colles fracture",
+     "Supracondylar fracture humerus"
+    ],
+    "a": 3,
+    "e": "Gartland classification is used for: Answer: Supracondylar fracture humerus",
+    "topic": "Trauma",
+    "src": "Gartland classification is used for: Answer: Supracondylar fracture humerus"
+   },
+   {
     "q": "Drug of choice for Paget disease:",
     "o": [
-     "Zoledronic acid",
      "Calcitonin",
      "Teriparatide",
-     "Sodium fluoride"
+     "Alendronate",
+     "Zoledronic acid"
     ],
-    "a": 0,
+    "a": 3,
     "e": "Drug of choice for Paget disease: Answer: Zoledronic acid",
     "topic": "Trauma",
     "src": "Drug of choice for Paget disease: Answer: Zoledronic acid"
-   },
-   {
-    "q": "Which nerve is most commonly injured in a supracondylar fracture of the humerus in children?",
-    "o": [
-     "Spinal accessory nerve",
-     "Axillary nerve",
-     "Lateral antebrachial cutaneous nerve",
-     "Anterior interosseous nerve"
-    ],
-    "a": 3,
-    "e": "Most common nerve injured in supracondylar fracture of humerus in children: Answer: Anterior interosseous nerve",
-    "topic": "Trauma",
-    "src": "Most common nerve injured in supracondylar fracture of humerus in children: Answer: Anterior interosseous nerve"
    }
   ]
  },

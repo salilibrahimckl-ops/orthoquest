@@ -1,16 +1,16 @@
 {
  "notes": {
-  "ms": 17859,
+  "ms": 17893,
   "q": [
    {
     "q": "In the Schatzker classification, which type involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve?",
     "o": [
-     "Type IV",
      "Type III",
+     "Type IV",
      "Type I",
-     "Type II"
+     "Type VI"
     ],
-    "a": 0,
+    "a": 1,
     "e": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve.",
     "topic": "Trauma",
     "src": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve."
@@ -18,10 +18,10 @@
    {
     "q": "What articular step-off measurement or condylar widening over, and varus or valgus instability over, are commonly cited as indications for surgery?",
     "o": [
-     "1 mm",
-     "2 mm",
      "1.5 mm",
-     "3 mm"
+     "2 mm",
+     "6 mm",
+     "1 mm"
     ],
     "a": 1,
     "e": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
@@ -44,12 +44,12 @@
    {
     "q": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the:",
     "o": [
-     "Radial styloid",
-     "Capitolunate joint",
      "Scaphoid fossa",
-     "Radiolunate joint"
+     "Radial styloid",
+     "Radiolunate joint",
+     "Capitolunate joint"
     ],
-    "a": 0,
+    "a": 1,
     "e": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid.",
     "topic": "Trauma",
     "src": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid."
@@ -57,12 +57,12 @@
    {
     "q": "In the Schatzker classification, which type is a lateral split-depression, the most common type?",
     "o": [
+     "Type III",
      "Type VI",
-     "Type II",
-     "Type I",
-     "Type V"
+     "Type V",
+     "Type II"
     ],
-    "a": 1,
+    "a": 3,
     "e": "Type II is a lateral split-depression, the most common type.",
     "topic": "Trauma",
     "src": "Type II is a lateral split-depression, the most common type."
@@ -70,14 +70,27 @@
   ]
  },
  "pdfnotes": {
-  "ms": 19031,
+  "ms": 18596,
   "q": [
+   {
+    "q": "Which of the following is the most common fracture of the distal radius in elderly osteoporotic women?",
+    "o": [
+     "Smith's fracture",
+     "Colles fracture",
+     "Monteggia fracture",
+     "Chance's fracture"
+    ],
+    "a": 1,
+    "e": "Colles fracture is the most common fracture of the distal radius in elderly osteoporotic women",
+    "topic": "Trauma",
+    "src": "Colles fracture is the most common fracture of the distal radius in elderly osteoporotic women"
+   },
    {
     "q": "Which of the following is the most commonly injured nerve in distal radius fractures?",
     "o": [
      "Median nerve",
-     "Anterior interosseous nerve",
      "Long thoracic nerve",
+     "Superficial radial nerve",
      "Posterior interosseous nerve"
     ],
     "a": 0,
@@ -86,24 +99,11 @@
     "src": "Median nerve is the most commonly injured nerve in distal radius fractures"
    },
    {
-    "q": "Smith fracture is also known as:",
-    "o": [
-     "Reverse Barton fracture",
-     "Reverse Galeazzi fracture",
-     "Reverse Colles fracture",
-     "Reverse Monteggia fracture"
-    ],
-    "a": 2,
-    "e": "Smith fracture is also known as reverse Colles fracture",
-    "topic": "Trauma",
-    "src": "Smith fracture is also known as reverse Colles fracture"
-   },
-   {
     "q": "Fill in the blank: Acceptable reduction: radial inclination more than ______, radial height loss less than 5 mm, and dorsal tilt less than 10 degrees",
     "o": [
-     "7.5 degrees",
-     "30 degrees",
+     "20 degrees",
      "45 degrees",
+     "14 degrees",
      "15 degrees"
     ],
     "a": 3,
@@ -114,12 +114,12 @@
    {
     "q": "Chauffeur fracture is a fracture of the:",
     "o": [
-     "Capitolunate joint",
-     "Scaphotrapeziotrapezoid joint",
+     "Ulnar styloid",
      "Radial styloid",
-     "Scaphoid fossa"
+     "Radiolunate joint",
+     "Scaphotrapeziotrapezoid joint"
     ],
-    "a": 2,
+    "a": 1,
     "e": "Chauffeur fracture is a fracture of the radial styloid",
     "topic": "Trauma",
     "src": "Chauffeur fracture is a fracture of the radial styloid"
@@ -127,72 +127,59 @@
   ]
  },
  "paper_ans": {
-  "ms": 28692,
+  "ms": 29990,
   "q": [
    {
-    "q": "Which bone is most frequently affected by osteosarcoma?",
+    "q": "Investigation of choice for osteoid osteoma:",
     "o": [
-     "Distal femur",
-     "Pelvis",
-     "Cervical vertebrae",
-     "Lumbar spine"
+     "MRI",
+     "PET-CT",
+     "Arthrography",
+     "CT scan"
     ],
-    "a": 0,
+    "a": 3,
+    "e": "Investigation of choice for osteoid osteoma: Answer: CT scan",
+    "topic": "Trauma",
+    "src": "Investigation of choice for osteoid osteoma: Answer: CT scan"
+   },
+   {
+    "q": "Which site is osteosarcoma most frequently found in?",
+    "o": [
+     "Proximal tibia",
+     "Patella",
+     "Pelvis",
+     "Distal femur"
+    ],
+    "a": 3,
     "e": "Most common site of osteosarcoma: Answer: Distal femur",
     "topic": "Trauma",
     "src": "Most common site of osteosarcoma: Answer: Distal femur"
    },
    {
-    "q": "Which nerve is most frequently compromised in supracondylar fractures of the humerus in pediatric patients?",
+    "q": "Which drug is typically prescribed first for Paget's disease?",
     "o": [
+     "Teriparatide",
+     "Zinc",
+     "Zoledronic acid",
+     "Denosumab"
+    ],
+    "a": 2,
+    "e": "Drug of choice for Paget disease: Answer: Zoledronic acid",
+    "topic": "Trauma",
+    "src": "Drug of choice for Paget disease: Answer: Zoledronic acid"
+   },
+   {
+    "q": "Most common nerve injured in supracondylar fracture of humerus in children:",
+    "o": [
+     "Posterior interosseous nerve",
      "Axillary nerve",
-     "Median nerve",
-     "Suprascapular nerve",
+     "Long thoracic nerve",
      "Anterior interosseous nerve"
     ],
     "a": 3,
     "e": "Most common nerve injured in supracondylar fracture of humerus in children: Answer: Anterior interosseous nerve",
     "topic": "Trauma",
     "src": "Most common nerve injured in supracondylar fracture of humerus in children: Answer: Anterior interosseous nerve"
-   },
-   {
-    "q": "Which drug is commonly prescribed for the treatment of Paget's disease?",
-    "o": [
-     "Zolpidem",
-     "Denosumab",
-     "Zinc",
-     "Zoledronic acid"
-    ],
-    "a": 3,
-    "e": "Drug of choice for Paget disease: Answer: Zoledronic acid",
-    "topic": "Trauma",
-    "src": "Drug of choice for Paget disease: Answer: Zoledronic acid"
-   },
-   {
-    "q": "Which diagnostic method is most commonly used for osteoid osteoma?",
-    "o": [
-     "Stress radiographs",
-     "CT scan",
-     "Ultrasound",
-     "CT angiography"
-    ],
-    "a": 1,
-    "e": "Investigation of choice for osteoid osteoma: Answer: CT scan",
-    "topic": "Trauma",
-    "src": "Investigation of choice for osteoid osteoma: Answer: CT scan"
-   },
-   {
-    "q": "Which classification system is utilized for supracondylar fractures of the humerus?",
-    "o": [
-     "Supracondylar fracture femur",
-     "Supracondylar fracture humerus",
-     "Colles fracture",
-     "Galeazzi fracture"
-    ],
-    "a": 1,
-    "e": "Gartland classification is used for: Answer: Supracondylar fracture humerus",
-    "topic": "Trauma",
-    "src": "Gartland classification is used for: Answer: Supracondylar fracture humerus"
    }
   ]
  },
