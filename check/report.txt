@@ -32,6 +32,6 @@ supports-any-density: 'true'
 locales: '--_--'
 densities: '640' '65534'
 == zipalign
-  112965 res/drawable-anydpi-v26/ic_launcher.xml (OK - compressed)
-  113242 assets/index.html (OK - compressed)
-Verification FAILED
+  112972 res/drawable-anydpi-v26/ic_launcher.xml (OK - compressed)
+  113249 assets/index.html (OK - compressed)
+Verification successful
