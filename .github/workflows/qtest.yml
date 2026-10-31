@@ -14,7 +14,7 @@ jobs:
       - name: Setup
         run: |
           exec > >(tee qtest/setup.txt) 2>&1
-          curl -s https://api.github.com/repos/ggml-org/llama.cpp/releases/latest | python3 -c "import sys,json;a=json.load(sys.stdin)['assets'];[print(x['name'],x['browser_download_url']) for x in a]" > assets.txt
+          curl -s -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/ggml-org/llama.cpp/releases/latest | python3 -c "import sys,json;a=json.load(sys.stdin)['assets'];[print(x['name'],x['browser_download_url']) for x in a]" > assets.txt
           grep -i 'ubuntu-x64' assets.txt | grep -vi 'vulkan\|rocm\|cuda\|sycl\|openvino' | head -3
           URL=$(grep -i 'ubuntu-x64' assets.txt | grep -vi 'vulkan\|rocm\|cuda\|sycl\|openvino' | head -1 | awk '{print $2}')
           echo "URL $URL"
@@ -22,7 +22,7 @@ jobs:
           find llama -name llama-server -type f | head -1 | tee server_path
           curl -sL -o m15.gguf https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf
           curl -sL -o m3.gguf https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf
-          ls -la *.gguf
+          ls -la *.gguf; head -40 assets.txt | cut -c1-80
           cd qtest && npm init -y >/dev/null && npm i playwright@1 >/dev/null && npx playwright install --with-deps chromium >/dev/null && echo pw-ok
       - name: Run
         run: |
