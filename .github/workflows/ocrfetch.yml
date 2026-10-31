@@ -1,0 +1,26 @@
+name: Fetch OCR libs
+on:
+  push:
+    branches: [apk-shell]
+    paths: [".github/workflows/ocrfetch.yml"]
+permissions:
+  contents: write
+jobs:
+  f:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set +e
+          mkdir -p ocr && cd ocr
+          npm view tesseract.js versions --json | tail -8 > versions.txt
+          npm pack tesseract.js@5.1.1 >/dev/null && npm pack tesseract.js-core@5.1.1 >/dev/null
+          for f in *.tgz; do mkdir -p "${f%.tgz}" && tar xzf "$f" -C "${f%.tgz}"; rm "$f"; done
+          rm -rf */package/src */package/tests
+          curl -sL -o eng.traineddata.gz https://tessdata.projectnaptha.com/4.0.0/eng.traineddata.gz; ls -la >> versions.txt
+          curl -sI https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm.js | grep -iE "^(HTTP|access-control|content-length)" >> versions.txt
+          curl -sI -H "Origin: null" https://tessdata.projectnaptha.com/4.0.0/eng.traineddata.gz | grep -iE "^(HTTP|access-control|content-length)" >> versions.txt
+          du -sh * >> versions.txt
+      - run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add ocr; git commit -m "OCR libs [skip ci]" || exit 0; git push
