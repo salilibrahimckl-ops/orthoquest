@@ -1,0 +1,142 @@
+{
+ "INI-SS": {
+  "ms": 212687,
+  "q": [
+   {
+    "q": "A 19-year-old athlete presents with a midshaft fracture of the radius. Radiographs show a fracture displacement of 2 mm. MRI is negative. Which classification does this fracture fall under according to Herbert's classification? \n\n…is classified as: \na) Type A \nb) Type B \nc) Type C \nd) Type D",
+    "o": [
+     "d",
+     "a",
+     "c",
+     "b"
+    ],
+    "a": -1,
+    "e": "The Herbert classification divides fractures into stable type A and unstable type B. Displacement over 1 mm is an indication for internal fixation. This patient's fracture is stable and does not require internal fixation, thus classified as type A. Type C and Type D are incorrect as they are not part of the Herbert classification system. Type B is incorrect because the displacement is less than 1 mm, not 2 mm, and the patient's MRI is negative, ruling out occult fractures. Type A is the correct classification based on the Herbert classification criteria and the given information. (The AI wasn't sure of the answer: please pick it.)",
+    "topic": "Hand & Upper Limb",
+    "src": "The Herbert classification divides fractures into stable type A and unstable type B."
+   },
+   {
+    "q": "The sign/test described is:",
+    "o": [
+     "Increased abductor efficiency",
+     "Metaphyseal-diaphyseal dissociation",
+     "Leg lengthening",
+     "Abductor weakness"
+    ],
+    "a": -1,
+    "e": "e) Type VI fractures are characterized by metaphyseal-diaphyseal dissociation, which is a classic confusion point. The correct answer, 'Compartment syndrome is more frequent in types V and VI,' is not a sign or test but a fact about the frequency of occurrence in fractures of different types. The sign or test described in the context is 'Leg lengthening,' which is a consequence of femoral offset not being restored during a total hip arthroplasty (THA). The other options are distractors that are either incorrect consequences or not the sign or test being described in the context, such as 'Increased abductor efficiency' and 'Abductor weakness,' which are not directly related to the context provided. The correct answer, 'Metaphyseal-diaphyseal dissociation,' is a classic confusion point and not the sign or test being described in the context. The sign or test described in the context is 'Leg lengthening,' which is a consequence of femoral offset not being restored during a total hip arthroplasty (THA). (The AI wasn't sure of the answer: please pick it.)",
+    "topic": "Sports & Arthroscopy",
+    "src": "Compartment syndrome is more frequent in types V and VI."
+   },
+   {
+    "q": "A 45-year-old male presents with a history of a twisting injury to his right knee. He reports a popping sensation followed by immediate pain and swelling. On examination, the knee is tender, with an effusion, and the range of motion is reduced. The McMurray test is positive, and the drawer test is positive. What is the most appropriate management?",
+    "o": [
+     "D. Varus or valgus instability over 10 degrees",
+     "B. CT scan for preoperative planning",
+     "A. Articular step-off over 2 mm",
+     "C. Lateral meniscus repair"
+    ],
+    "a": -1,
+    "e": "The correct answer comes from the FACT, which states that articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery. The McMurray and drawer tests are indicative of a lateral meniscus tear, but these findings alone do not meet the criteria for surgical intervention as per the FACT. The correct answer is A, as it directly refers to the criteria mentioned in the FACT. The CT scan is indeed an important tool for preoperative planning, but it is not the most immediate management for the described symptoms. Lateral meniscus repair is a surgical intervention, but it does not align with the specific criteria mentioned in the FACT for surgical indication. Varus or valgus instability over 10 degrees in extension is a criterion mentioned in the FACT, but it is not the most immediate management for the described symptoms. (The AI wasn't sure of the answer: please pick it.)",
+    "topic": "Arthroplasty",
+    "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
+   },
+   {
+    "q": "A 25-year-old male skier presents with a 3-week history of a painful, swollen wrist. He recalls a fall on the ski slopes. On examination, the patient has a positive Finkelstein test, and a 1 mm displacement of the scaphoid bone is noted. The wrist is tender to palpation and shows a crepitus. X-rays reveal a scaphoid nonunion with advanced collapse (SNAC) wrist. What is the most appropriate management?",
+    "o": [
+     "B. Open reduction and internal fixation (ORIF)",
+     "A. Conservative management with splinting",
+     "D. Observation and serial X-rays",
+     "C. Arthroscopic release and debridement"
+    ],
+    "a": 0,
+    "e": "The correct answer comes from the FACT: Displacement over 1 mm is an indication for internal fixation. In this case, the patient has a 1 mm displacement of the scaphoid bone, making internal fixation an appropriate management option. However, conservative management with splinting, arthroscopic release and debridement, and observation and serial X-rays are also plausible options depending on the severity of the SNAC wrist and the patient's symptoms and history.",
+    "topic": "Hand & Upper Limb",
+    "src": "Displacement over 1 mm is an indication for internal fixation."
+   },
+   {
+    "q": "A 25-year-old patient presents with a painful, swollen ankle after a twisting injury. Radiographs show a lateral split-depression. Which type of Schatzker classification does this patient's injury fall under? …is classified as:",
+    "o": [
+     "a",
+     "c",
+     "e",
+     "d"
+    ],
+    "a": -1,
+    "e": "The correct answer is Type II. Type II is a lateral split-depression, the most common type. However, Type I is a pure lateral split, which is less common and typically seen in younger patients with dense cancellous bone. Type III is a lateral split-avulsion, Type IV is a medial split, Type V is a lateral split-compression, and Type VI is a medial split-depression. The patient's radiographic findings and symptoms are more consistent with Type II, as the injury involves a depression in the lateral aspect of the ankle, often due to compression of the peroneus brevis tendon between the fibula and talus. (The AI wasn't sure of the answer: please pick it.)",
+    "topic": "Sports & Arthroscopy",
+    "src": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone."
+   }
+  ]
+ },
+ "NEET-SS": {
+  "ms": 208497,
+  "q": [
+   {
+    "q": "A 25-year-old patient presents with a wrist injury after falling on an outstretched hand. Radiographs are normal. Which classification is this fracture most likely to be classified as if MRI shows a fracture line but no displacement?",
+    "o": [
+     "A. Herbert type A",
+     "B. Herbert type B",
+     "C. Garden type I",
+     "D. Garden type II"
+    ],
+    "a": 0,
+    "e": "The Herbert classification divides fractures into stable type A and unstable type B. MRI is the investigation of choice for suspected occult scaphoid fracture when radiographs are normal. Displacement over 1 mm is an indication for internal fixation. Garden classification divides femoral neck fractures into incomplete or valgus-impacted type I, complete and partially displaced type II, and completely displaced type III. Type I fractures are less displaced and do not require internal fixation, making MRI the preferred investigation when radiographs are normal and a fracture line is identified but there is no displacement over 1 mm.",
+    "topic": "Foot & Ankle",
+    "src": "The Herbert classification divides fractures into stable type A and unstable type B."
+   },
+   {
+    "q": "Type VI is known as:",
+    "o": [
+     "a deep volar compartment",
+     "a mobile wad",
+     "a skin wrinkle sign",
+     "a metaphyseal-diaphyseal dissociation"
+    ],
+    "a": -1,
+    "e": "The correct answer is a deep volar compartment (FDP and FPL). Type VI is characterized by metaphyseal-diaphyseal dissociation, which is a classic confusion point. The skin wrinkle sign, which indicates the return of skin tension, is not a classification of Type VI fractures. The mobile wad is a term used for a specific type of fracture, not Type VI. A deep volar compartment (FDP and FPL) is indeed associated with Type VI fractures, as these fractures often involve the metaphyseal-diaphyseal junction, leading to the deep volar compartment being affected. (The AI wasn't sure of the answer: please pick it.)",
+    "topic": "Foot & Ankle",
+    "src": "Compartment syndrome is more frequent in types V and VI."
+   },
+   {
+    "q": "A 16-year-old male skier presents with a painful, swollen left ankle 24 hours after a high-energy fall. On examination, the ankle is non-vertiginous, with a palpable fracture line and a positive 'wrinkle sign'. What is the most appropriate management?",
+    "o": [
+     "C. Deep infection beneath the external fixator",
+     "B. The soft tissues are ready for definitive internal fixation",
+     "e. Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days.",
+     "D. Compartment syndrome is developing"
+    ],
+    "a": -1,
+    "e": "The correct answer is B. The soft tissues are ready for definitive internal fixation. The 'wrinkle sign' is a clinical indicator that indicates skin revascularization and healing, suggesting it is safe to proceed to definitive internal fixation after 10-21 days of external fixation therapy. The other options are either incorrect or not directly related to the 'wrinkle sign' as described in the FACT provided. The 'wrinkle sign' is a hallmark of healing and readiness for internal fixation, not for deep infection or compartment syndrome development, which are not directly indicated by this sign. Staged management with spanning external fixation is the correct approach for high-energy injuries with soft tissue compromise, but the 'wrinkle sign' is the specific indicator for proceeding to definitive internal fixation after the appropriate healing period has been reached. (The AI wasn't sure of the answer: please pick it.)",
+    "topic": "Trauma",
+    "src": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days."
+   },
+   {
+    "q": "A 25-year-old male skier presents with acute pain and swelling in his right knee after landing awkwardly from a jump. He reports inability to bear weight on his right leg and a popping sensation at the time of injury. On examination, the knee is swollen, tender, and non-extendable to 90 degrees. The McMurray test is positive, and the Lachman test is negative. What is the most appropriate management?",
+    "o": [
+     "A. Immediate surgical fixation",
+     "B. Immobilization and early mobilization",
+     "C. Arthroscopic meniscectomy",
+     "D. Conservative management with physical therapy"
+    ],
+    "a": -1,
+    "e": "The McMurray test is positive, indicating a tear of the lateral meniscus, which is consistent with the type II tear. The key findings of articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery. The correct answer is option A, as surgical fixation is usually advised when the intra-articular step-off exceeds 2 mm, as mentioned in the FACT. (The AI wasn't sure of the answer: please pick it.)",
+    "topic": "Arthroplasty",
+    "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
+   },
+   {
+    "q": "A 25-year-old patient presents with a painful, swollen knee that has had a history of a twisting injury. Radiographs show a medial femoral condyle fracture with a lateral displacement. The patient is unable to bear weight on the affected leg. The injury is classified as: \n\nA. Type I \nB. Type II \nC. Type III \nD. Type IV",
+    "o": [
+     "B",
+     "C",
+     "e",
+     "D"
+    ],
+    "a": 0,
+    "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone. Type II is a lateral split-depression, the most common type. Type III and Type IV are more complex fractures involving additional ligamentous damage or displacement of the tibial plateau, respectively. This patient's radiographic findings suggest a Type II fracture, but the correct answer is Type I based on the given FACT. Classic confusions include misclassifying Type I as a more complex fracture type, such as Type III or IV, or misidentifying Type II due to the commonality of this classification in younger patients with dense cancellous bone. This patient's history and radiographic appearance are more consistent with a Type I fracture, despite the patient's age and dense cancellous bone, which is a classic confusion point.",
+    "topic": "Sports & Arthroscopy",
+    "src": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone."
+   }
+  ]
+ }
+}
