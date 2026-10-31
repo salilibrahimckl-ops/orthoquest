@@ -1,6 +1,6 @@
 {
  "INI-SS": {
-  "ms": 15595,
+  "ms": 8101,
   "q": [
    {
     "q": "In the Schatzker classification, which type involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve?",
@@ -16,6 +16,45 @@
     "src": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve."
    },
    {
+    "q": "Surgery for a tibial plateau fracture is indicated when articular step-off exceeds:",
+    "o": [
+     "1 mm",
+     "3 mm",
+     "6 mm",
+     "2 mm"
+    ],
+    "a": 3,
+    "e": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
+    "topic": "Trauma",
+    "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
+   },
+   {
+    "q": "Internal fixation is indicated when displacement exceeds:",
+    "o": [
+     "1 mm",
+     "0.5 mm",
+     "2 mm",
+     "3 mm"
+    ],
+    "a": 0,
+    "e": "Displacement over 1 mm is an indication for internal fixation.",
+    "topic": "Trauma",
+    "src": "Displacement over 1 mm is an indication for internal fixation."
+   },
+   {
+    "q": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the:",
+    "o": [
+     "Capitolunate joint",
+     "Radial styloid",
+     "Distal radioulnar joint",
+     "Ulnar styloid"
+    ],
+    "a": 1,
+    "e": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid.",
+    "topic": "Trauma",
+    "src": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid."
+   },
+   {
     "q": "In the Schatzker classification, which type is a lateral split-depression, the most common type?",
     "o": [
      "Type V",
@@ -29,37 +68,81 @@
     "src": "Type II is a lateral split-depression, the most common type."
    },
    {
-    "q": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually _____ — the blank is:",
+    "q": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually:",
     "o": [
+     "30-63 days",
      "20-42 days",
-     "3-6 days",
-     "10-21 days",
-     "30-63 days"
+     "5-11 days",
+     "10-21 days"
     ],
-    "a": 2,
+    "a": 3,
     "e": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days.",
     "topic": "Trauma",
     "src": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days."
    },
    {
-    "q": "Articular step-off over _____ or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery — the blank is:",
+    "q": "In the Schatzker classification, which type is a pure lateral split, typical in younger patients with dense cancellous bone?",
     "o": [
-     "2 mm",
-     "3 mm",
-     "6 mm",
-     "4 mm"
+     "Type I",
+     "Type V",
+     "Type IV",
+     "Type VI"
     ],
     "a": 0,
+    "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone.",
+    "topic": "Trauma",
+    "src": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone."
+   },
+   {
+    "q": "In the Schatzker classification, which type is pure central depression of the lateral plateau, typical in osteoporotic bone?",
+    "o": [
+     "Type I",
+     "Type III",
+     "Type VI",
+     "Type V"
+    ],
+    "a": 1,
+    "e": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone.",
+    "topic": "Trauma",
+    "src": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone."
+   }
+  ]
+ },
+ "NEET-SS": {
+  "ms": 7386,
+  "q": [
+   {
+    "q": "In the Schatzker classification, which type involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve?",
+    "o": [
+     "Type III",
+     "Type IV",
+     "Type VI",
+     "Type II"
+    ],
+    "a": 1,
+    "e": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve.",
+    "topic": "Trauma",
+    "src": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve."
+   },
+   {
+    "q": "Surgery for a tibial plateau fracture is indicated when articular step-off exceeds:",
+    "o": [
+     "1 mm",
+     "2 mm",
+     "3 mm",
+     "6 mm"
+    ],
+    "a": 1,
     "e": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
     "topic": "Trauma",
     "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
    },
    {
-    "q": "The most common reason for internal fixation is displacement over _______.",
+    "q": "An indication for internal fixation is displacement over:",
     "o": [
-     "3 mm",
      "2 mm",
      "0.5 mm",
+     "3 mm",
      "1 mm"
     ],
     "a": 3,
@@ -68,82 +151,38 @@
     "src": "Displacement over 1 mm is an indication for internal fixation."
    },
    {
-    "q": "_____ is a pure lateral split, typical in younger patients with dense cancellous bone — the blank is:",
+    "q": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the:",
     "o": [
-     "Type II",
-     "Type V",
-     "Type I",
-     "Type III"
+     "Radiolunate joint",
+     "Distal radioulnar joint",
+     "Radial styloid",
+     "Ulnar styloid"
     ],
     "a": 2,
-    "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone.",
+    "e": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid.",
     "topic": "Trauma",
-    "src": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone."
-   },
-   {
-    "q": "In the Schatzker classification, which type is pure central depression of the lateral plateau, typical in osteoporotic bone?",
-    "o": [
-     "Type IV",
-     "Type I",
-     "Type III",
-     "Type VI"
-    ],
-    "a": 2,
-    "e": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone.",
-    "topic": "Trauma",
-    "src": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone."
-   },
-   {
-    "q": "_____ is the investigation of choice for preoperative planning of articular depression — the blank is:",
-    "o": [
-     "CT scan",
-     "Stress radiographs",
-     "Bone scan",
-     "Arthrography"
-    ],
-    "a": 0,
-    "e": "CT scan is the investigation of choice for preoperative planning of articular depression.",
-    "topic": "Trauma",
-    "src": "CT scan is the investigation of choice for preoperative planning of articular depression."
-   }
-  ]
- },
- "NEET-SS": {
-  "ms": 15037,
-  "q": [
-   {
-    "q": "In the Schatzker classification, which type involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve?",
-    "o": [
-     "Type II",
-     "Type I",
-     "Type VI",
-     "Type IV"
-    ],
-    "a": 3,
-    "e": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve.",
-    "topic": "Trauma",
-    "src": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve."
+    "src": "Scaphoid nonunion advanced collapse (SNAC) wrist begins with arthritis at the radial styloid."
    },
    {
     "q": "In the Schatzker classification, which type is a lateral split-depression, the most common type?",
     "o": [
      "Type I",
-     "Type IV",
      "Type VI",
-     "Type II"
+     "Type II",
+     "Type IV"
     ],
-    "a": 3,
+    "a": 2,
     "e": "Type II is a lateral split-depression, the most common type.",
     "topic": "Trauma",
     "src": "Type II is a lateral split-depression, the most common type."
    },
    {
-    "q": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually _____ — the blank is:",
+    "q": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually:",
     "o": [
      "10-21 days",
-     "3-6 days",
-     "30-63 days",
-     "20-42 days"
+     "20-42 days",
+     "5-11 days",
+     "3-6 days"
     ],
     "a": 0,
     "e": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days.",
@@ -151,40 +190,14 @@
     "src": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days."
    },
    {
-    "q": "Articular step-off over _____ or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery — the blank is:",
+    "q": "In the Schatzker classification, which type is a pure lateral split, typical in younger patients with dense cancellous bone?",
     "o": [
-     "2 mm",
-     "3 mm",
-     "1 mm",
-     "4 mm"
-    ],
-    "a": 0,
-    "e": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
-    "topic": "Trauma",
-    "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
-   },
-   {
-    "q": "Displacement over _____ is an indication for internal fixation — the blank is:",
-    "o": [
-     "0.5 mm",
-     "1 mm",
-     "2 mm",
-     "3 mm"
+     "Type V",
+     "Type I",
+     "Type II",
+     "Type III"
     ],
     "a": 1,
-    "e": "Displacement over 1 mm is an indication for internal fixation.",
-    "topic": "Trauma",
-    "src": "Displacement over 1 mm is an indication for internal fixation."
-   },
-   {
-    "q": "_____ is a pure lateral split, typical in younger patients with dense cancellous bone — the blank is:",
-    "o": [
-     "Type III",
-     "Type II",
-     "Type V",
-     "Type I"
-    ],
-    "a": 3,
     "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone.",
     "topic": "Trauma",
     "src": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone."
@@ -201,19 +214,6 @@
     "e": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone.",
     "topic": "Trauma",
     "src": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone."
-   },
-   {
-    "q": "The most common investigation used for preoperative planning of articular depression is a/an ___.",
-    "o": [
-     "CT angiography",
-     "CT scan",
-     "Ultrasound",
-     "MRI"
-    ],
-    "a": 1,
-    "e": "CT scan is the investigation of choice for preoperative planning of articular depression.",
-    "topic": "Trauma",
-    "src": "CT scan is the investigation of choice for preoperative planning of articular depression."
    }
   ]
  }
