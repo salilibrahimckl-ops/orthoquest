@@ -2134,8 +2134,9 @@ function pickFacts(text,n){
     if(/\d/.test(x))sc+=1;if(/\b[A-Z][a-z]+(?:'s)?\s+(?:sign|test|fracture|classification|approach|disease|syndrome|procedure|lesion)/.test(x))sc+=2;
     if(/^(this|it|they|these|those|he|she|which|however|also)\b/i.test(x))sc-=2;if(x.length<60)sc-=1;
     if(fw.length&&fw.some(w=>normT(x).includes(w)))sc+=4;return {x,i,sc,ctx:[sents[i-1]||"",sents[i+1]||""].join(" ").slice(0,400)}});
-  const out=[];for(const c of scored.sort((a,b)=>b.sc-a.sc)){if(c.sc<1&&out.length>=n)break;const w=new Set(normT(c.x).split(" "));
-    if(out.some(o=>jac(w,o.w)>0.5))continue;out.push(Object.assign(c,{w}));if(out.length>=n)break}
+  const out=[],bins={};const sorted=scored.sort((a,b)=>b.sc-a.sc);
+  for(const pass of [2,99])for(const c of sorted){if(out.length>=n)break;if(out.includes(c))continue;const bin=Math.floor(c.i/8);if((bins[bin]||0)>=pass)continue;
+    const w=new Set(normT(c.x).split(" "));if(out.some(o=>jac(w,o.w)>0.5))continue;c.w=w;out.push(c);bins[bin]=(bins[bin]||0)+1}
   return out}
 /* Ortho word lists: the right answer is lifted from your text, and wrong options come from the same family */
 const LEX={
@@ -2206,11 +2207,26 @@ async function genDevice(chunk,signal){
   for(const f of facts){if(out.length>=GEN.n)break;
     const qa=extractQA(f.x,chunk);if(!qa)continue;
     const mins=Math.round((Date.now()-t0)/60000);GEN.status=`Writing question ${out.length+1} of ${GEN.n}…${mins?` (${mins} min so far)`:""}`;genStatus();
-    let stem=qa.stem;
-    if(!stem){try{const r=await ask(`Rewrite this statement as one ${GEN.exam} exam question whose correct answer is "${qa.ans}". The blank marks the answer. Keep every other fact. Do not include "${qa.ans}" in the question. Start like a real exam question, e.g. "The most common…", "Investigation of choice for…", "…is best approached through:", "Which nerve…", or end with "is:".
-Statement: ${qa.cloze}`,{type:"object",properties:{q:{type:"string"}},required:["q"]},90);stem=String(r.q||"").trim()}catch(e){if(signal.aborted)throw {code:"cancelled"}}}
-    const ns=normT(stem||"");
-    if(!stem||stem.length<15||ns.includes(normT(qa.ans))||qa.ds.some(d=>normT(d)===normT(qa.ans)))stem=qa.cloze.replace(/[.;]\s*$/,"")+" — the blank is:";
+    const hasAns=t=>(" "+normT(t)+" ").includes(" "+normT(qa.ans)+" ");
+    let stem=qa.stem&&!hasAns(qa.stem)?qa.stem:null;
+    if(!stem){const c=qa.cloze.replace(/\s+/g," ").trim();
+      let m;
+      if((m=c.match(/^_____ (?:is|are) the (investigation|treatment|management|imaging|procedure|test) of choice (for|in) (.+?)\.?$/i)))stem=`${cap(m[1])} of choice ${m[2]} ${m[3]} is:`;
+      else if((m=c.match(/^The _____ (?:is|are) the (most common(?:ly)? .+?)\.?$/i)))stem=`The ${m[1]} is:`;
+      else if((m=c.match(/^_____ (is|are|has|have|involves|causes|shows) (.+?)\.?$/i)))stem=`Which of the following ${m[1]==="are"?"are":m[1]==="have"?"have":m[1]} ${m[2]}?`;
+      else if((m=c.match(/^(.{20,}?) _____\.?$/)))stem=m[1].replace(/\s+(the|a|an)$/i," the")+":";
+    }
+    if(!stem){try{const r=await ask(`Turn the statement into ONE exam question (${GEN.exam} style). The blank (_____) is the answer, "${qa.ans}". The question must not contain the answer or a blank, must keep the other facts, and must end with "?" or ":".
+Examples:
+Statement: Articular step-off over _____ is an indication for surgery.
+{"q":"Surgery for a tibial plateau fracture is indicated when articular step-off exceeds:"}
+Statement: Definitive fixation is delayed until the skin wrinkle sign returns, usually _____.
+{"q":"After spanning external fixation, definitive fixation is usually delayed for how long?"}
+Statement: The blood supply enters through the _____, so proximal pole fractures have the highest risk of avascular necrosis.
+{"q":"Through which vessel does the main blood supply enter, explaining the high avascular necrosis risk of proximal pole fractures?"}
+Statement: ${qa.cloze}`,{type:"object",properties:{q:{type:"string"}},required:["q"]},90);stem=String(r.q||"").trim();if(/_{2,}|\*\*/.test(stem)||!/[?:]$/.test(stem))stem=null}catch(e){if(signal.aborted)throw {code:"cancelled"}}}
+    if(qa.ds.some(d=>normT(d)===normT(qa.ans)))continue;
+    if(!stem||stem.length<15||hasAns(stem))stem="Fill in the blank: "+qa.cloze.replace(/_+/g,"______");
     const opts=shuf([qa.ans,...qa.ds]);
     out.push({q:stem,o:opts.map(o=>cap(o)),a:opts.indexOf(qa.ans),e:f.x,topic:guessTopic(f.x+" "+chunk.slice(0,300)),src:f.x});
   }
