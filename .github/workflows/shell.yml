@@ -1,0 +1,31 @@
+name: Build app shell dex
+on:
+  push:
+    branches: [apk-shell]
+    paths: ["shell/src/**", ".github/workflows/shell.yml"]
+permissions:
+  contents: write
+jobs:
+  dex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and dex
+        run: |
+          SDK="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          PLAT=$(ls "$SDK/platforms" | sort -V | tail -1)
+          BT=$(ls "$SDK/build-tools" | sort -V | tail -1)
+          echo "platform $PLAT build-tools $BT"
+          JAR="$SDK/platforms/$PLAT/android.jar"
+          mkdir -p classes shell/out
+          javac -source 8 -target 8 -Xlint:-options -cp "$JAR" -d classes $(find shell/src -name '*.java')
+          "$SDK/build-tools/$BT/d8" --release --min-api 24 --lib "$JAR" --output shell/out $(find classes -name '*.class')
+          "$SDK/build-tools/$BT/dexdump" -d shell/out/classes.dex > shell/out/dexdump.txt || true
+          ls -la shell/out
+      - name: Commit dex
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add shell/out
+          git commit -m "Build shell dex [skip ci]" || exit 0
+          git push
