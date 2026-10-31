@@ -1,167 +1,219 @@
 {
  "INI-SS": {
-  "ms": 82778,
+  "ms": 15595,
   "q": [
    {
-    "q": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone. What is this classification classified as?",
+    "q": "In the Schatzker classification, which type involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve?",
     "o": [
-     "Type III",
-     "Type II",
-     "Type V",
-     "Type IV"
-    ],
-    "a": 1,
-    "e": "Type I is described as a pure lateral split, which is common in younger patients with dense cancellous bone. This type is typically associated with a specific classification system, where Type I is classified as Type I. The other options are not the correct classification for Type I as described in the context. Type II, III, IV, and V are not the correct classifications for a pure lateral split in the given context. The classification system for this type is not mentioned in the context provided, so the classification is not explicitly stated but can be inferred from the context that it is not among the distractors provided.",
-    "topic": "Sports & Arthroscopy",
-    "src": "The Schatzker classification describes six types."
-   },
-   {
-    "q": "The most common type of lateral plateau depression is:",
-    "o": [
-     "Type II",
      "Type I",
      "Type IV",
-     "Type III"
+     "Type III",
+     "Type V"
     ],
     "a": 1,
-    "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone. Type III is pure central depression of the lateral plateau, typical in osteoporotic bone. Type II is a lateral split-depression, the most common type. Type IV is typically associated with severe trauma or pathological conditions and is less common.",
-    "topic": "Sports & Arthroscopy",
-    "src": "Type II is a lateral split-depression, the most common type."
-   },
-   {
-    "q": "The sign/test described is:",
-    "o": [
-     "Compartment syndrome is more frequent in types V and VI.",
-     "e",
-     "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days.",
-     "Type VI has metaphyseal-diaphyseal dissociation."
-    ],
-    "a": -1,
-    "e": "The skin wrinkle sign is known as the 'skin wrinkle sign.' It is a clinical sign that indicates the healing of soft tissue and is used to determine when definitive fixation can be performed in patients with high-energy injuries. This sign is typically observed 10-21 days after injury and is associated with the return of the skin wrinkle, which is a sign of healing and readiness for definitive fixation of the fracture. (The AI wasn't sure of the answer: please pick it.)",
-    "topic": "Infection & Metabolic",
-    "src": "Compartment syndrome is more frequent in types V and VI."
-   },
-   {
-    "q": "A 30-year-old male sustained a high-energy injury to his right lower leg. He complains of severe pain, swelling, and numbness in the dorsum of the foot. On examination, you note a 2 cm skin wrinkle sign. What is the most appropriate management?",
-    "o": [
-     "B. Immediate excision of the soft tissue and definitive fixation with internal fixation",
-     "A. Immediate excision of the soft tissue and stabilization with external fixation",
-     "C. Immediate excision of the soft tissue and stabilization with a bone graft",
-     "D. Immediate excision of the soft tissue and stabilization with a combination of external and internal fixation"
-    ],
-    "a": 3,
-    "e": "The 2 cm skin wrinkle sign is a classic sign of compartment syndrome. It is more frequent in types V and VI, and definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days. Immediate excision of the soft tissue and stabilization with external fixation is the most appropriate management for this patient's injury, as it aligns with the FACT provided and avoids the need for definitive fixation until the skin wrinkle sign returns. Immediate excision with definitive fixation would be too aggressive and delay healing. Immediate excision with a bone graft is also too aggressive and delays healing. A combination of external and internal fixation is more appropriate as it allows for definitive fixation while avoiding immediate excision of soft tissue. The correct option is C, as it aligns with the FACT provided and avoids the need for definitive fixation until the skin wrinkle sign returns. Immediate excision with external fixation is the most appropriate management for this patient's injury and aligns with the FACT provided.",
-    "topic": "Sports & Arthroscopy",
-    "src": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days."
-   },
-   {
-    "q": "A 65-year-old male presents with pain and swelling in the medial knee after a fall. He reports that the pain worsens with extension and that he cannot bear weight on the medial side. The patient has a positive McMurray's test. What is the most appropriate management?",
-    "o": [
-     "lateral meniscus repair",
-     "arthroscopic debridement",
-     "open meniscectomy",
-     "total knee arthroplasty (TKA)"
-    ],
-    "a": -1,
-    "e": "The key findings indicate a medial meniscus tear, which is common with type II injuries. CT scan is the investigation of choice for preoperative planning of articular depression. The patient's symptoms and findings suggest a medial meniscus tear, which is commonly treated with arthroscopic debridement. (The AI wasn't sure of the answer: please pick it.)",
-    "topic": "Sports & Arthroscopy",
-    "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
-   },
-   {
-    "q": "A 45-year-old male suffered a scaphoid nonunion advanced collapse (SNAC) wrist injury. He presented with pain and swelling in the radial styloid region. The most appropriate management is:",
-    "o": [
-     "Non-operative management with NSAIDs",
-     "Open reduction and internal fixation (ORIF)",
-     "Surgical exploration with bone grafting",
-     "Internal fixation with a cast"
-    ],
-    "a": -1,
-    "e": "SNAC wrist injuries typically progress to arthritis at the radial styloid, which is managed surgically with open reduction and internal fixation (ORIF) to stabilize the joint and prevent further deformity and pain. Non-operative management is not effective for this type of fracture and does not address the underlying pathology leading to arthritis. Internal fixation with a cast or ORIF is the most appropriate management to stabilize the wrist and prevent progression to arthritis at the radial styloid. Surgical exploration with bone grafting is not indicated for this specific type of fracture as it is not the cause of the arthritis but rather a complication of the underlying nonunion and advanced collapse. Non-operative management with NSAIDs is not recommended as it does not address the underlying pathology and may exacerbate the condition. The correct answer is internal fixation with a cast, as it is the most appropriate management for SNAC wrist injuries and addresses the underlying pathology leading to arthritis at the radial styloid. The patient should be referred to a hand surgeon for further evaluation and management of this complex fracture. (The AI wasn't sure of the answer: please pick it.)",
-    "topic": "Hand & Upper Limb",
-    "src": "Displacement over 1 mm is an indication for internal fixation."
-   }
-  ]
- },
- "NEET-SS": {
-  "ms": 63950,
-  "q": [
-   {
-    "q": "A 45-year-old male presents with a 6-month history of gradual onset of pain in his right wrist. MRI reveals a suspected occult scaphoid fracture. Which classification of scaphoid fractures is most appropriate based on the MRI findings?",
-    "o": [
-     "Type B (unstable)",
-     "Type D (separated)",
-     "Type A (stable)",
-     "Type C (mixed)"
-    ],
-    "a": 2,
-    "e": "MRI is the investigation of choice for suspected occult scaphoid fractures when radiographs are normal. Displacement over 1 mm is an indication for internal fixation. The Herbert classification divides fractures into stable type A and unstable type B. Type A fractures are considered stable and do not require internal fixation unless there is displacement over 1 mm. Type B fractures are unstable and require internal fixation regardless of displacement. The MRI findings suggest an unstable fracture, hence it should be classified as Type B (unstable).",
-    "topic": "Oncology",
-    "src": "The Herbert classification divides fractures into stable type A and unstable type B."
-   },
-   {
-    "q": "A type IV tibial plateau fracture is clinically important because it:",
-    "o": [
-     "D. Always has metaphyseal-diaphyseal dissociation.",
-     "A. Involves the medial plateau and often behaves as a fracture-dislocation with vascular or peroneal nerve injury.",
-     "C. Is associated with high-energy injury, knee dislocation equivalents, and risk to the popliteal artery and peroneal nerve.",
-     "B. Is a pure lateral split seen in young adults."
-    ],
-    "a": -1,
-    "e": "Type IV fractures are typically associated with high-energy injuries, often resulting in knee dislocation equivalents and posing significant vascular and nerve risks. They also frequently involve the medial plateau, which can lead to complications such as vascular or peroneal nerve injuries. The presence of metaphyseal-diaphyseal dissociation is not a defining characteristic of this type of fracture, making option D incorrect. Option B is incorrect because type III fractures are pure central depression of the lateral plateau, not a pure lateral split seen in young adults. Option A is also incorrect because type IV fractures do not always involve the medial plateau, and they do not always have metaphyseal-diaphyseal dissociation. Option C correctly identifies the key characteristics of type IV fractures as described in the FACT. (The AI wasn't sure of the answer: please pick it.)",
+    "e": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve.",
     "topic": "Trauma",
     "src": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve."
    },
    {
-    "q": "The most common type of SLAP lesion is:",
+    "q": "In the Schatzker classification, which type is a lateral split-depression, the most common type?",
     "o": [
+     "Type V",
      "Type IV",
      "Type II",
-     "Type I",
      "Type III"
     ],
-    "a": -1,
-    "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone. Type III is pure central depression of the lateral plateau, typical in osteoporotic bone. Type II is a lateral split-depression, the most common type. Type IV is a mixed type, less common but can occur in older patients with osteoporotic bone or in cases of severe trauma. Type II is the most common type of SLAP lesion, making it the correct answer. (The AI wasn't sure of the answer: please pick it.)",
-    "topic": "Sports & Arthroscopy",
+    "a": 2,
+    "e": "Type II is a lateral split-depression, the most common type.",
+    "topic": "Trauma",
     "src": "Type II is a lateral split-depression, the most common type."
    },
    {
-    "q": "In acute compartment syndrome of the forearm, the muscles most affected are those of the:",
+    "q": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually _____ — the blank is:",
     "o": [
-     "Dorsal compartment",
-     "Mobile wad",
-     "Deep volar compartment (FDP and FPL)",
-     "Superficial volar compartment"
+     "20-42 days",
+     "3-6 days",
+     "10-21 days",
+     "30-63 days"
     ],
-    "a": -1,
-    "e": "In acute compartment syndrome of the forearm, the muscles most affected are those of the deep volar compartment (FDP and FPL). This is because type VI fractures, which typically have metaphyseal-diaphyseal dissociation, often involve the deep volar compartment, which is more susceptible to ischemic muscle necrosis due to compromised blood supply and lack of adequate padding from soft tissues. The other compartments are less likely to be affected in this scenario due to their relative stability and the presence of adequate padding from soft tissues. The (The AI wasn't sure of the answer: please pick it.)",
-    "topic": "Arthroplasty",
-    "src": "Compartment syndrome is more frequent in types V and VI."
-   },
-   {
-    "q": "A 25-year-old male sustained a high-energy tibial pilon fracture due to a motor vehicle accident. He presents with swelling and pain in the medial compartment of the knee. What is the most appropriate management?",
-    "o": [
-     "A. Immediate fasciotomy",
-     "C. External fixation with skin closure",
-     "B. Definitive internal fixation",
-     "D. Delayed fasciotomy"
-    ],
-    "a": -1,
-    "e": "In staged management with spanning external fixation, the skin wrinkle sign indicates that definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days. This aligns with the clinical scenario where the patient has swelling and pain in the medial compartment of the knee, indicating early signs of compartment syndrome. Therefore, the most appropriate management is to delay definitive internal fixation until the skin wrinkle sign returns, typically 10-21 days after initial injury. This approach allows for more conservative management initially and ensures the soft tissues are adequately prepared for definitive fixation. (The AI wasn't sure of the answer: please pick it.)",
+    "a": 2,
+    "e": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days.",
     "topic": "Trauma",
     "src": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days."
    },
    {
-    "q": "A 55-year-old male sustained a fall on his right knee. He complained of pain and swelling. On examination, he had varus instability of 15 degrees and articular step-off of 3 mm. Which of the following is the most appropriate management?",
+    "q": "Articular step-off over _____ or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery — the blank is:",
     "o": [
-     "B. Arthroscopic debridement",
-     "D. Patellofemoral joint arthroplasty",
-     "A. Non-operative management with bracing",
-     "C. Total knee arthroplasty"
+     "2 mm",
+     "3 mm",
+     "6 mm",
+     "4 mm"
+    ],
+    "a": 0,
+    "e": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
+    "topic": "Trauma",
+    "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
+   },
+   {
+    "q": "The most common reason for internal fixation is displacement over _______.",
+    "o": [
+     "3 mm",
+     "2 mm",
+     "0.5 mm",
+     "1 mm"
     ],
     "a": 3,
-    "e": "The key findings are varus instability of 15 degrees and articular step-off of 3 mm. These symptoms suggest a diagnosis of lateral meniscus tear, which is common with type II injuries. CT scan is the investigation of choice for preoperative planning of articular depression. Therefore, the most appropriate management is arthroscopic debridement to address the lateral meniscus tear.",
-    "topic": "Arthroplasty",
+    "e": "Displacement over 1 mm is an indication for internal fixation.",
+    "topic": "Trauma",
+    "src": "Displacement over 1 mm is an indication for internal fixation."
+   },
+   {
+    "q": "_____ is a pure lateral split, typical in younger patients with dense cancellous bone — the blank is:",
+    "o": [
+     "Type II",
+     "Type V",
+     "Type I",
+     "Type III"
+    ],
+    "a": 2,
+    "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone.",
+    "topic": "Trauma",
+    "src": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone."
+   },
+   {
+    "q": "In the Schatzker classification, which type is pure central depression of the lateral plateau, typical in osteoporotic bone?",
+    "o": [
+     "Type IV",
+     "Type I",
+     "Type III",
+     "Type VI"
+    ],
+    "a": 2,
+    "e": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone.",
+    "topic": "Trauma",
+    "src": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone."
+   },
+   {
+    "q": "_____ is the investigation of choice for preoperative planning of articular depression — the blank is:",
+    "o": [
+     "CT scan",
+     "Stress radiographs",
+     "Bone scan",
+     "Arthrography"
+    ],
+    "a": 0,
+    "e": "CT scan is the investigation of choice for preoperative planning of articular depression.",
+    "topic": "Trauma",
+    "src": "CT scan is the investigation of choice for preoperative planning of articular depression."
+   }
+  ]
+ },
+ "NEET-SS": {
+  "ms": 15037,
+  "q": [
+   {
+    "q": "In the Schatzker classification, which type involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve?",
+    "o": [
+     "Type II",
+     "Type I",
+     "Type VI",
+     "Type IV"
+    ],
+    "a": 3,
+    "e": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve.",
+    "topic": "Trauma",
+    "src": "Type IV involves the medial plateau and is associated with high-energy injury, knee dislocation equivalents and risk to the popliteal artery and peroneal nerve."
+   },
+   {
+    "q": "In the Schatzker classification, which type is a lateral split-depression, the most common type?",
+    "o": [
+     "Type I",
+     "Type IV",
+     "Type VI",
+     "Type II"
+    ],
+    "a": 3,
+    "e": "Type II is a lateral split-depression, the most common type.",
+    "topic": "Trauma",
+    "src": "Type II is a lateral split-depression, the most common type."
+   },
+   {
+    "q": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually _____ — the blank is:",
+    "o": [
+     "10-21 days",
+     "3-6 days",
+     "30-63 days",
+     "20-42 days"
+    ],
+    "a": 0,
+    "e": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days.",
+    "topic": "Trauma",
+    "src": "Staged management with spanning external fixation is used for high-energy injuries with soft tissue compromise; definitive fixation is delayed until the skin wrinkle sign returns, usually 10-21 days."
+   },
+   {
+    "q": "Articular step-off over _____ or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery — the blank is:",
+    "o": [
+     "2 mm",
+     "3 mm",
+     "1 mm",
+     "4 mm"
+    ],
+    "a": 0,
+    "e": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery.",
+    "topic": "Trauma",
     "src": "Articular step-off over 2 mm or condylar widening over 5 mm, and varus or valgus instability over 10 degrees in extension, are commonly cited indications for surgery."
+   },
+   {
+    "q": "Displacement over _____ is an indication for internal fixation — the blank is:",
+    "o": [
+     "0.5 mm",
+     "1 mm",
+     "2 mm",
+     "3 mm"
+    ],
+    "a": 1,
+    "e": "Displacement over 1 mm is an indication for internal fixation.",
+    "topic": "Trauma",
+    "src": "Displacement over 1 mm is an indication for internal fixation."
+   },
+   {
+    "q": "_____ is a pure lateral split, typical in younger patients with dense cancellous bone — the blank is:",
+    "o": [
+     "Type III",
+     "Type II",
+     "Type V",
+     "Type I"
+    ],
+    "a": 3,
+    "e": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone.",
+    "topic": "Trauma",
+    "src": "Type I is a pure lateral split, typical in younger patients with dense cancellous bone."
+   },
+   {
+    "q": "In the Schatzker classification, which type is pure central depression of the lateral plateau, typical in osteoporotic bone?",
+    "o": [
+     "Type V",
+     "Type III",
+     "Type I",
+     "Type IV"
+    ],
+    "a": 1,
+    "e": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone.",
+    "topic": "Trauma",
+    "src": "Type III is pure central depression of the lateral plateau, typical in osteoporotic bone."
+   },
+   {
+    "q": "The most common investigation used for preoperative planning of articular depression is a/an ___.",
+    "o": [
+     "CT angiography",
+     "CT scan",
+     "Ultrasound",
+     "MRI"
+    ],
+    "a": 1,
+    "e": "CT scan is the investigation of choice for preoperative planning of articular depression.",
+    "topic": "Trauma",
+    "src": "CT scan is the investigation of choice for preoperative planning of articular depression."
    }
   ]
  }

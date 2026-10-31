@@ -1,5 +1,5 @@
-2.30.008.637 I slot print_timing: id  0 | task 3764 |       total time =    1163.92 ms /   178 tokens
-2.30.008.638 I slot print_timing: id  0 | task 3764 |    graphs reused =       3675
-2.30.008.639 I slot print_timing: id  0 | task 3764 |   graph reallocs =          0    /     0        (same size) / (changed size)
-2.30.008.681 I slot      release: id  0 | task 3764 | stop processing: n_tokens = 233, truncated = 0
-2.30.048.276 I srv    operator(): operator(): cleaning up before exit...
+0.35.336.557 I slot print_timing: id  0 | task 365 |       total time =    2767.48 ms /   121 tokens
+0.35.336.558 I slot print_timing: id  0 | task 365 |    graphs reused =        372
+0.35.336.558 I slot print_timing: id  0 | task 365 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.35.336.591 I slot      release: id  0 | task 365 | stop processing: n_tokens = 181, truncated = 0
+0.35.399.841 I srv    operator(): operator(): cleaning up before exit...
