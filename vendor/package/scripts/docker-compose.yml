@@ -1,0 +1,76 @@
+services:
+  llamacpp-wasm-builder:
+    container_name: llamacpp-wasm-builder
+    build:
+      context: .
+      dockerfile_inline: |
+        ARG EMSDK_IMAGE_TAG=none  # modify it in build_wasm.sh
+        FROM emscripten/emsdk:$${EMSDK_IMAGE_TAG}
+        RUN apt update && apt install -y git
+      args:
+        EMSDK_IMAGE_TAG: ${EMSDK_IMAGE_TAG}
+    user: "${D_UID}:${D_GID}"
+    environment:
+      - WLLAMA_TEST_BACKEND=${WLLAMA_TEST_BACKEND:-}
+      - SKIP_COMPAT=${SKIP_COMPAT:-}
+    volumes:
+      - ..:/source:Z
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        set -e
+        cd /source
+
+        mkdir -p build
+        cd build
+        mkdir -p emdawn
+
+        DAWN_TAG=v20260317.182325
+        EMDAWN_PKG="emdawnwebgpu_pkg-$${DAWN_TAG}.zip"
+        EMDAWNWEBGPU_DIR="/source/build/emdawn/emdawnwebgpu_pkg"
+        echo "Downloading $${EMDAWN_PKG}"
+        curl -L -o emdawn.zip \
+          "https://github.com/google/dawn/releases/download/$${DAWN_TAG}/$${EMDAWN_PKG}"
+        python3 -c "import zipfile; zf=zipfile.ZipFile('emdawn.zip','r'); zf.extractall('/source/build/emdawn'); zf.close()"
+
+        CMAKE_EXTRA_FLAGS="-DWLLAMA_TEST_BACKEND=OFF"
+        if [ -n "${WLLAMA_TEST_BACKEND}" ]; then
+          CMAKE_EXTRA_FLAGS="-DWLLAMA_TEST_BACKEND=ON";
+        fi
+
+        emcmake cmake .. -DGGML_WEBGPU=ON -DGGML_WEBGPU_JSPI=ON -DEMDAWNWEBGPU_DIR="$${EMDAWNWEBGPU_DIR}" $${CMAKE_EXTRA_FLAGS}
+        emmake make wllama -j$$(nproc)
+
+        # go back to root
+        cd ..
+
+        # copy output files
+        mkdir -p src/wasm
+        cp build/wllama.js   src/wasm
+        cp build/wllama.wasm src/wasm
+
+        # build compat package (skip if SKIP_COMPAT=1)
+        if [ -z "${SKIP_COMPAT}" ]; then
+          mkdir -p build-compat
+          cd build-compat
+          emcmake cmake .. -DWLLAMA_COMPAT=ON -DLLAMA_WASM_MEM64=OFF -DGGML_WEBGPU=ON -DGGML_WEBGPU_JSPI=OFF -DEMDAWNWEBGPU_DIR="$${EMDAWNWEBGPU_DIR}" $${CMAKE_EXTRA_FLAGS}
+          emmake make wllama -j$$(nproc)
+
+          # go back to root
+          cd ..
+
+          # copy output files (compat build)
+          mkdir -p compat/wasm
+          cp build-compat/wllama.js   compat/wasm
+          cp build-compat/wllama.wasm compat/wasm
+        fi
+
+        # generate source map
+        node scripts/build_source_map.js
+
+        # list files (optional, for verification)
+        ls -lh build
+        if [ -d build-compat ]; then
+          ls -lh build-compat
+        fi

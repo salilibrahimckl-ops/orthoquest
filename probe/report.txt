@@ -1,0 +1,123 @@
+wllama 3.8.1
+vendor
+vendor/package
+vendor/package/index.ts
+vendor/package/.gitmodules
+vendor/package/src
+vendor/package/src/mjs.test.ts
+vendor/package/src/huggingface.ts
+vendor/package/src/utils.ts
+vendor/package/src/worker.ts
+vendor/package/src/index.ts
+vendor/package/src/glue
+vendor/package/src/model-manager.ts
+vendor/package/src/wasm
+vendor/package/src/wllama.ts
+vendor/package/src/model-manager.test.ts
+vendor/package/src/storage
+vendor/package/src/debug.ts
+vendor/package/src/wllama.wgpu.test.ts
+vendor/package/src/workers-code
+vendor/package/src/types
+vendor/package/src/wllama.test.ts
+vendor/package/src/cache-manager.ts
+vendor/package/src/wasm-from-cdn.ts
+vendor/package/src/utils.test.ts
+vendor/package/vitest.config.ts
+vendor/package/tsup.config.ts
+vendor/package/LICENCE
+vendor/package/cpp
+vendor/package/cpp/test_glue.cpp
+vendor/package/cpp/wllama-context.h
+vendor/package/cpp/wllama.h
+vendor/package/cpp/test_glue
+vendor/package/cpp/generate_glue_prototype.js
+vendor/package/cpp/glue.hpp
+vendor/package/cpp/dump.bin
+vendor/package/cpp/wllama-fs.h
+vendor/package/cpp/dump2.bin
+vendor/package/cpp/wllama.cpp
+vendor/package/AGENTS.md
+vendor/package/tsconfig.build.json
+vendor/package/package.json
+vendor/package/assets
+vendor/package/assets/screenshot_0.png
+vendor/package/README.md
+vendor/package/.prettierignore
+vendor/package/README-dev.md
+vendor/package/README_banner.png
+vendor/package/scripts
+vendor/package/scripts/generate_wasm_from_cdn.js
+vendor/package/scripts/bisect_test.sh
+9.8M	vendor/package/esm
+total 1172
+drwxr-xr-x  2 runner runner    4096 Oct 31 08:36 .
+drwxr-xr-x 10 runner runner    4096 Oct 31 08:36 ..
+-rw-r--r--  1 runner runner    1522 Oct 31 08:36 report.txt
+-rw-r--r--  1 runner runner 1185376 Oct 31 08:36 stories260K.gguf
+== https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf
+HTTP/2 302 
+content-length: 1116
+location: https://us.aws.cdn.hf.co/xet-bridge-us/66e98ae0be5913b903da60c1/6ca5463cf24c16cd56d7ad7461524d813b07b3f29889b2fbdbb8286a7e97a14a?X-Xet-Cas-Uid=public&user_id=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27qwen2.5-1.5b-instruct-q4_k_m.gguf%3B+filename%3D%22qwen2.5-1.5b-instruct-q4_k_m.gguf%22%3B&xip=gDSM876CfFs&Expires=1793439376&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjZlOThhZTBiZTU5MTNiOTAzZGE2MGMxLzZjYTU0NjNjZjI0YzE2Y2Q1NmQ3YWQ3NDYxNTI0ZDgxM2IwN2IzZjI5ODg5YjJmYmRiYjgyODZhN2U5N2ExNGFcXD9YLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3cXdlbjIuNS0xLjViLWluc3RydWN0LXE0X2tfbS5nZ3VmJTNCK2ZpbGVuYW1lJTNEJTIycXdlbjIuNS0xLjViLWluc3RydWN0LXE0X2tfbS5nZ3VmJTIyJTNCJnhpcD1nRFNNODc2Q2ZGcyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkzNDM5Mzc2fX19XX0_&Signature=MEUCIQCEIgBvxKAeFneQVnePgAUG5ikirNW3ZhTIpBLztLhB5gIgNBmRbxvZORY2FGRMWxvm0Ns0%7EBWHd5gcgh-W7QOsFz0_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
+access-control-allow-origin: null
+HTTP/2 200 
+content-length: 1117320736
+access-control-allow-origin: *
+== https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf
+HTTP/2 302 
+content-length: 1110
+location: https://us.aws.cdn.hf.co/xet-bridge-us/66e98aed2b824e26843793c6/5ae0c201348e276d543a1e5c0e053370e32415774095c677319f62b302b1620a?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27qwen2.5-3b-instruct-q4_k_m.gguf%3B+filename%3D%22qwen2.5-3b-instruct-q4_k_m.gguf%22%3B&user_id=public&X-Xet-Cas-Uid=public&xip=gDSM876CfFs&Expires=1793439376&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjZlOThhZWQyYjgyNGUyNjg0Mzc5M2M2LzVhZTBjMjAxMzQ4ZTI3NmQ1NDNhMWU1YzBlMDUzMzcwZTMyNDE1Nzc0MDk1YzY3NzMxOWY2MmIzMDJiMTYyMGFcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3cXdlbjIuNS0zYi1pbnN0cnVjdC1xNF9rX20uZ2d1ZiUzQitmaWxlbmFtZSUzRCUyMnF3ZW4yLjUtM2ItaW5zdHJ1Y3QtcTRfa19tLmdndWYlMjIlM0ImdXNlcl9pZD1wdWJsaWMmWC1YZXQtQ2FzLVVpZD1wdWJsaWMmeGlwPWdEU004NzZDZkZzIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTM0MzkzNzZ9fX1dfQ__&Signature=MEUCIQCItFA5UrCSdzFa8UBpcKn7BJFoe%7EzeD-r%7ErwbIpsKgmQIgNCnaNyo4sMbtkrZMZaaNOFcH-0giFbokj6fNb78Kbog_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
+access-control-allow-origin: null
+HTTP/2 200 
+content-length: 2104932768
+access-control-allow-origin: *
+== https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf
+HTTP/2 302 
+content-length: 1116
+location: https://us.aws.cdn.hf.co/xet-bridge-us/66f457f561dbc064f4a6413f/4cb1444f81355e47d236ada8190f0325ce46412a83f3ab62a1d63bb314592ebc?xip=gDSM876CfFs&X-Xet-Cas-Uid=public&user_id=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27Llama-3.2-3B-Instruct-Q4_K_M.gguf%3B+filename%3D%22Llama-3.2-3B-Instruct-Q4_K_M.gguf%22%3B&Expires=1793439377&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjZmNDU3ZjU2MWRiYzA2NGY0YTY0MTNmLzRjYjE0NDRmODEzNTVlNDdkMjM2YWRhODE5MGYwMzI1Y2U0NjQxMmE4M2YzYWI2MmExZDYzYmIzMTQ1OTJlYmNcXD94aXA9Z0RTTTg3NkNmRnMmWC1YZXQtQ2FzLVVpZD1wdWJsaWMmdXNlcl9pZD1wdWJsaWMmcmVzcG9uc2UtY29udGVudC1kaXNwb3NpdGlvbj1pbmxpbmUlM0IrZmlsZW5hbWUlMkElM0RVVEYtOCUyNyUyN0xsYW1hLTMuMi0zQi1JbnN0cnVjdC1RNF9LX00uZ2d1ZiUzQitmaWxlbmFtZSUzRCUyMkxsYW1hLTMuMi0zQi1JbnN0cnVjdC1RNF9LX00uZ2d1ZiUyMiUzQiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkzNDM5Mzc3fX19XX0_&Signature=MEYCIQDLwHbV6tAA0A6op9-9Yx4tqQD8PVI-lAHrKe718RZ-%7EAIhAOPiXiNBeCEu3vbgGPHngDG12d90PL7fLK3ZvefwjADn&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
+access-control-allow-origin: null
+HTTP/2 200 
+content-length: 2019377696
+access-control-allow-origin: *
+== https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf
+HTTP/2 302 
+content-length: 1080
+location: https://us.aws.cdn.hf.co/xet-bridge-us/66aa6a19a9ec1810a37eb785/90f9c2316393fb452b47988ffa7a411f0891e2c1a7178ae868ac4f70f96f7c8d?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27gemma-2-2b-it-Q4_K_M.gguf%3B+filename%3D%22gemma-2-2b-it-Q4_K_M.gguf%22%3B&user_id=public&xip=gDSM876CfFs&X-Xet-Cas-Uid=public&Expires=1793439377&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjZhYTZhMTlhOWVjMTgxMGEzN2ViNzg1LzkwZjljMjMxNjM5M2ZiNDUyYjQ3OTg4ZmZhN2E0MTFmMDg5MWUyYzFhNzE3OGFlODY4YWM0ZjcwZjk2ZjdjOGRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3Z2VtbWEtMi0yYi1pdC1RNF9LX00uZ2d1ZiUzQitmaWxlbmFtZSUzRCUyMmdlbW1hLTItMmItaXQtUTRfS19NLmdndWYlMjIlM0ImdXNlcl9pZD1wdWJsaWMmeGlwPWdEU004NzZDZkZzJlgtWGV0LUNhcy1VaWQ9cHVibGljIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTM0MzkzNzd9fX1dfQ__&Signature=MEQCIC%7E5z8L0AcUBPQjNQqhTpHG8yPhSg5oreSQwVayaMLsUAiAaH7qo6sHgIblatWEQ8IOgaviGfkKhW0o7goWzb7rPdw__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
+access-control-allow-origin: null
+HTTP/2 200 
+content-length: 1708582752
+access-control-allow-origin: *
+== https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q4_K_M.gguf
+HTTP/2 302 
+content-length: 1120
+location: https://us.aws.cdn.hf.co/xet-bridge-us/66c4f4e7f77e8e56f3806368/216e0385d8d2da14827e44b4482f0d2885e041d99bb1103c60092eedd2da1284?X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27Phi-3.5-mini-instruct-Q4_K_M.gguf%3B+filename%3D%22Phi-3.5-mini-instruct-Q4_K_M.gguf%22%3B&user_id=public&xip=gDSM876CfFs&Expires=1793439377&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjZjNGY0ZTdmNzdlOGU1NmYzODA2MzY4LzIxNmUwMzg1ZDhkMmRhMTQ4MjdlNDRiNDQ4MmYwZDI4ODVlMDQxZDk5YmIxMTAzYzYwMDkyZWVkZDJkYTEyODRcXD9YLVhldC1DYXMtVWlkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3UGhpLTMuNS1taW5pLWluc3RydWN0LVE0X0tfTS5nZ3VmJTNCK2ZpbGVuYW1lJTNEJTIyUGhpLTMuNS1taW5pLWluc3RydWN0LVE0X0tfTS5nZ3VmJTIyJTNCJnVzZXJfaWQ9cHVibGljJnhpcD1nRFNNODc2Q2ZGcyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkzNDM5Mzc3fX19XX0_&Signature=MEUCIQCzBqP0%7EkyZZY4kVkyfAjk9OfiPIuzxqwqnVoRQ0yujMgIge9KJt8%7E0WV31RX36eYO%7EmBpNzmyO9yhleMDCk7BX848_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
+access-control-allow-origin: null
+HTTP/2 200 
+content-length: 2393232672
+access-control-allow-origin: *
+== pollinations GET
+OK
+HTTP 200
+== pollinations POST openai
+HTTP/2 200 
+date: Sat, 31 Oct 2026 08:36:28 GMT
+content-type: application/json; charset=utf-8
+content-length: 2822
+access-control-allow-origin: *
+etag: W/"b06-17xjXZdxuvY0Y9cjiukKUaUh67g"
+link: <https://pollinations.ai>; rel="service"
+access-control-expose-headers: Payment-Required, Payment-Response, Retry-After, Link, X-Pollinations-Logo, X-Powered-By
+x-pollinations-logo: https://raw.githubusercontent.com/pollinations/pollinations/main/packages/ui/src/brand/lockup-horizontal-black.svg
+x-powered-by: Pollinations.AI
+x-model-used: gpt-oss-20b
+x-usage-completion-text-tokens: 574
+x-usage-prompt-text-tokens: 324
+x-usage-total-tokens: 898
+server: cloudflare
+cf-ray: a53154cf6a20dc5d-DFW
+
+{"id":"pllns_4097c501b42407f6e93ee94f092506d9","choices":[{"index":0,"message":{"role":"assistant","content":"```json\n{\n  \"q\": \"In the Schatzker classification of tibial plateau fractures, which type represents a pure depression fracture of the lateral tibial plateau without a split component?\",\n  \"o\": [\n    \"Type I\",\n    \"Type III\",\n    \"Type V\",\n    \"Type VI\"\n  ],\n  \"a\": \"Type III\",\n  \"e\": \"Schatzker Type III is defined as a depression fracture confined to the lateral portion of the tibial plateau, lacking any split component. Type I involves a pure split fracture, Type II a split–depression, Type V affects the medial plateau, and Type VI is a bicondylar fracture involving both sides.\"\n}\n```","reasoning":"We have a user request: \"Write one MCQ on Schatzker classification as JSON {q,o,a,e}\". So they want a single multiple-choice question (MCQ) about Schatzker classification. Provide as JSON object with keys q, o, a, e. Likely \"q\" is question, \"o\" options, \"a\" answer (maybe index), \"e\" explanation. Provide JSON. Need not be templated. Just output JSON. Should be one MCQ. Let's craft suitable question:\n\n\"Which Schatzker type is characterized by a lateral condyle split with no extension to the articular surface?\" But that's wrong: Actually Schatzker Type I: split fracture of tibial plateau with no articular depression. Type II: split-depression fracture of lateral tibial plateau; Type III: pure depression of lateral tibial plateau.\n\nAlternate: \"Which Schatzker type typically involves a fracture of the medial tibial plateau?\" That's type V. We can ask about classification.\n\nLet's produce:\n\nq: \"In the Schatzker classification of tibial plateau fractures, which type corresponds to a pure depression fracture of the lateral tibial plateau without any split component?\"\n\nOptions: \"Type I\", \"Type III\", \"Type V\", \"Type VI\"\n\nAnswer: \"Type III\" (index maybe 1 or 2 depending zero-index). Provide explanation: \"Type III: Pure depression of lateral plateau...\".\n\nWe can choose a 0-index answer; but uncertain. We can set answer as \"Type III\".\n\nBetter: use the actual answer string.\n\nSo JSON:\n\n{\n  \"q\": \"...\",\n  \"o\": [\n    \"Type I\",\n    \"Type III\",\n    \"Type V\",\n    \"Type== gen.pollinations
+Hello! 👋 How can I help you today?
+HTTP 200
+== pollinations models
+[{"name":"openai-fast","description":"GPT-OSS 20B Reasoning LLM (OVH)","reasoning":true,"tier":"anonymous","community":false,"input_modalities":["text"],"output_modalities":["text"],"tools":true,"aliases":["openai","gpt-oss","gpt-oss-20b","ovh-reasoning"],"vision":false,"audio":false}]
