@@ -13,11 +13,13 @@ jobs:
       - run: |
           set +e
           mkdir -p ocr && cd ocr
-          npm view tesseract.js versions --json | tail -8 > versions.txt
-          npm pack tesseract.js@5.1.1 >/dev/null && npm pack tesseract.js-core@5.1.1 >/dev/null
-          for f in *.tgz; do mkdir -p "${f%.tgz}" && tar xzf "$f" -C "${f%.tgz}"; rm "$f"; done
+          npm view tesseract.js versions --json | tail -3 > versions.txt
+          npm pack pdfjs-dist@3.11.174 >/dev/null && mkdir -p pdfjs && tar xzf pdfjs-dist-3.11.174.tgz -C pdfjs && rm pdfjs-dist-3.11.174.tgz && rm -rf pdfjs/package/web pdfjs/package/legacy pdfjs/package/types pdfjs/package/lib
+          for u in pdf.min.js pdf.worker.min.js cmaps/Identity-H.bcmap standard_fonts/FoxitSans.pfb; do curl -sI https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/$u | head -1 | sed "s#^#$u #" >> versions.txt; done
+          true
+          for f in none.tgz; do mkdir -p "${f%.tgz}" && tar xzf "$f" -C "${f%.tgz}"; rm "$f"; done
           rm -rf */package/src */package/tests
-          curl -sL -o eng.traineddata.gz https://tessdata.projectnaptha.com/4.0.0/eng.traineddata.gz; ls -la >> versions.txt
+          true || https://tessdata.projectnaptha.com/4.0.0/eng.traineddata.gz; ls -la >> versions.txt
           curl -sI https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm.js | grep -iE "^(HTTP|access-control|content-length)" >> versions.txt
           curl -sI -H "Origin: null" https://tessdata.projectnaptha.com/4.0.0/eng.traineddata.gz | grep -iE "^(HTTP|access-control|content-length)" >> versions.txt
           du -sh * >> versions.txt
