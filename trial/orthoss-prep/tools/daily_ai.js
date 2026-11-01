@@ -38,17 +38,17 @@ const readJ = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')) } 
 let lastCall = 0;
 async function ai(prompt, effort) {
   for (let attempt = 0; attempt < 4; attempt++) {
-    const wait = 17000 - (Date.now() - lastCall); if (wait > 0) await sleep(wait);
-    lastCall = Date.now();
+    const wait = 47000 - (Date.now() - lastCall); if (wait > 0) await sleep(wait);
     try {
       const r = await fetch('https://text.pollinations.ai/openai', { method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ model: 'openai', messages: [{ role: 'user', content: prompt }], reasoning_effort: effort || 'low', max_tokens: 16000, referrer: 'ortho-presaleel' }),
         signal: AbortSignal.timeout(240000) });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
+      lastCall = Date.now();
+      if (!r.ok) { const b = await r.text().catch(() => ''); const m = /Retry after (\d+)s/.exec(b); if (m) await sleep((+m[1] + 3) * 1000); throw new Error('HTTP ' + r.status + ' ' + b.slice(0, 160)) }
       const j = await r.json(); const t = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
       if (!t) throw new Error('empty');
       return t;
-    } catch (e) { console.log('  AI call failed:', e.message); await sleep(20000 * (attempt + 1)) }
+    } catch (e) { lastCall = Date.now(); console.log('  AI call failed:', e.message); await sleep(5000 * (attempt + 1)) }
   }
   throw new Error('AI unavailable');
 }
