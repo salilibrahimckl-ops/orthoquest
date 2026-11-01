@@ -1,0 +1,15 @@
+== low
+{"id":"pllns_4395c2bcf3c6ba3de3fd97080a3c8c81","choices":[{"index":0,"message":{"role":"assistant","content":"The most common SLAP tear is a Type II lesion – a superior labrum tear that extends from the anterior to the posterior margin of the glenoid.","reasoning":"They ask: \"Name the most common type of SLAP lesion, one line.\" Likely \"Type II SLAP lesion\" (Superior Labrum Anterior to Posterior tear). Provide one line.","tool_calls":[]},"finish_reason":"stop"}],"created":1793548878,"model":"gpt-oss-20b","object":"chat.completion","usage":{"prompt_tokens":321,"completion_tokens":83,"total_tokens":404},"user_tier":"anonymous"}
+HTTP 200
+== medium
+{"status":402,"success":false,"error":{"code":"FREE_LIMIT","message":"Free limit reached: 1 reply every 45 seconds per IP. Retry after 18s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-01T16:01:41.193Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}}
+HTTP 402
+== high
+on. We can say: \"SLAP type II is the most common.\" That is one line.\n\nLet's check: The user says \"Name the most common type of SLAP lesion, one line.\" So answer: \"SLAP type II.\" Or maybe: \"Type II.\" But probably \"Type II SLAP lesion.\" That is a single line. Great.\n\nMake sure not to mention policy or guidelines.\n\nI'll answer with \"Type II\" maybe with a brief. The guidelines: no moralizing. Keep one line.\n\nThe user did not ask anything else. So just answer.","tool_calls":[]},"finish_reason":"stop"}],"created":1793548921,"model":"gpt-oss-20b","object":"chat.completion","usage":{"prompt_tokens":321,"completion_tokens":260,"total_tokens":581},"user_tier":"anonymous"}
+HTTP 200
+== none
+{"id":"pllns_ec80f971c988c7a45aeae0295d10c2dc","choices":[{"index":0,"message":{"role":"assistant","content":"Type II.","reasoning":"User wants: \"Name the most common type of SLAP lesion, one line.\"\n\nThey want presumably: \"Type II SLAP lesion\" is most common. So answer in one line: \"Type II\". We'll comply.","tool_calls":[]},"finish_reason":"stop"}],"created":1793548979,"model":"gpt-oss-20b","object":"chat.completion","usage":{"prompt_tokens":321,"completion_tokens":59,"total_tokens":380},"user_tier":"anonymous"}
+HTTP 200
+== max_tokens 4000 low
+{"status":402,"success":false,"error":{"code":"FREE_LIMIT","message":"Free limit reached: 1 reply every 45 seconds per IP. Retry after 19s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-01T16:03:21.799Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}}
+HTTP 402
