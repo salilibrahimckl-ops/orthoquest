@@ -36,14 +36,18 @@ const sameQ = (a, b) => { let ov = 0; for (const x of a.o) if (b.o.has(x)) ov++;
 const readJ = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')) } catch (e) { return d } };
 
 let lastCall = 0;
+const LADDER = ['high', 'medium', 'low'];
 async function ai(prompt, effort) {
-  for (let attempt = 0; attempt < 4; attempt++) {
+  let lvl = Math.max(0, LADDER.indexOf(effort || 'low'));
+  for (let attempt = 0; attempt < 5; attempt++) {
+    effort = LADDER[lvl];
     const wait = 47000 - (Date.now() - lastCall); if (wait > 0) await sleep(wait);
     try {
       const r = await fetch('https://text.pollinations.ai/openai', { method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ model: 'openai', messages: [{ role: 'user', content: prompt }], reasoning_effort: effort || 'low', max_tokens: 16000, referrer: 'ortho-presaleel' }),
         signal: AbortSignal.timeout(240000) });
       lastCall = Date.now();
+      if (r.status === 400 && lvl < 2) { const b = await r.text().catch(() => ''); if (/token limit|reasoning effort/i.test(b)) { console.log('  answer too long at ' + effort + ' effort, retrying lower'); lvl++; attempt--; continue } }
       if (!r.ok) { const b = await r.text().catch(() => ''); const m = /Retry after (\d+)s/.exec(b); if (m) await sleep((+m[1] + 3) * 1000); throw new Error('HTTP ' + r.status + ' ' + b.slice(0, 160)) }
       const j = await r.json(); const t = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
       if (!t) throw new Error('empty');
@@ -81,16 +85,16 @@ async function run() {
   console.log(`Bank ${bank.length} + added ${custom.length}. Target ${N_NEW} new, ${N_PROOF} proofread.`);
 
   // 1. New questions
-  let batch = 0;
-  while (newItems.length < N_NEW && batch < 30 && timeLeft()) {
+  let batch = 0, genFails = 0, proofFails = 0;
+  while (newItems.length < N_NEW && batch < 45 && timeLeft()) {
     const topic = TOPICS[(dnum + batch) % TOPICS.length], subs = SUBT[topic], sub = subs[(dnum * 3 + batch) % subs.length];
     const exam = ['INI-SS', 'NEET-SS', 'FNB'][(dnum + batch) % 3]; batch++;
     const recall = bank.filter(q => q.set && q.topic === topic).concat(custom.filter(q => q.src === 'Recall PYQ' && q.topic === topic));
-    const ex = shuf((recall.length >= 4 ? recall : bank.filter(q => q.set)).slice()).slice(0, 4);
-    const avoid = shuf(all.filter(q => q.topic === topic).map(q => q.q.slice(0, 90))).slice(0, 30);
+    const ex = shuf((recall.length >= 3 ? recall : bank.filter(q => q.set)).slice()).slice(0, 3);
+    const avoid = shuf(all.filter(q => q.topic === topic).map(q => q.q.slice(0, 70))).slice(0, 20);
     try {
       const gen = arr(await ai(`You write original single-best-answer MCQs for Indian orthopaedic superspeciality entrance exams. Target: ${STD[exam]}
-Write exactly 10 new questions on ${topic}, focusing on ${sub}.
+Write exactly 6 new questions on ${topic}, focusing on ${sub}.
 - Test established knowledge found in standard orthopaedic references (such as Campbell's Operative Orthopaedics, Rockwood and Green, AAOS Comprehensive Orthopaedic Review, Miller's Review) and widely accepted consensus statements, guidelines and classifications. Include recent consensus only if you are confident it is accurate.
 - Include only facts you are confident are correct and generally agreed. If a fact is debated or varies between sources, do not use it.
 - Write in your own words; do not copy sentences from any book or question bank.
@@ -127,7 +131,7 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
         });
       }
       console.log(`  ${topic} / ${sub} (${exam}): kept ${kept} of ${gen.length}`);
-    } catch (e) { console.log('  batch failed:', e.message); if (/unavailable/.test(e.message)) break }
+    } catch (e) { console.log('  batch failed:', e.message); if (/unavailable/.test(e.message) && ++genFails >= 3) break }
   }
 
   // 2. Proofreading (whole bank in rotation, plus any added questions not yet proofread)
@@ -135,7 +139,7 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
   const queue = fresh.concat(Array.from({ length: all.length }, (_, k) => all[(state.pidx + k) % all.length]));
   let done = 0, pi = 0;
   while (done < N_PROOF && pi < queue.length && timeLeft()) {
-    const b = queue.slice(pi, pi + 10); pi += 10;
+    const b = queue.slice(pi, pi + 8); pi += 8;
     try {
       const res = arr(await ai(`You are proofreading an orthopaedic superspeciality exam question bank. For each item decide whether the marked answer is correct and whether the question, options or explanation contain a clear factual error, internal contradiction or ambiguity (two defensible answers). Be conservative: flag only clear problems, not style.
 ${b.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
@@ -150,7 +154,7 @@ Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":n
           if (strong || (!f.sug && f.issue)) flags.push({ id: f.q.id, q: f.q.q.slice(0, 200), key: f.q.o[f.q.a], sug: f.sug || (strong ? second : null), second, issue: f.issue, strong, day: today, t: Date.now() }) });
       }
       done += b.length;
-    } catch (e) { console.log('  proof batch failed:', e.message); if (/unavailable/.test(e.message)) break }
+    } catch (e) { console.log('  proof batch failed:', e.message); if (/unavailable/.test(e.message) && ++proofFails >= 3) break }
   }
   const proofedIds = queue.slice(0, pi).map(q => q.id);
   const rotated = Math.max(0, Math.min(pi, queue.length) - fresh.length);
