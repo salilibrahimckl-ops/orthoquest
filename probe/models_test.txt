@@ -1,0 +1,20 @@
+== openai/gpt-4.1
+OK
+
+HTTP 200 TIME 0.206998
+== openai/gpt-5
+OK
+
+HTTP 200 TIME 0.203261
+== openai/gpt-4o
+OK
+
+HTTP 200 TIME 0.210028
+== deepseek/deepseek-r1
+OK
+
+HTTP 200 TIME 0.205645
+== anthropic/claude-sonnet-4
+OK
+
+HTTP 200 TIME 0.202455
