@@ -8,6 +8,7 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebViewClient;
 
 /** WebView shell for Ortho preSSaleel: loads the bundled app and supports the file picker. */
@@ -24,7 +25,16 @@ public class MainActivity extends Activity {
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
         s.setAllowFileAccess(true);
-        wv.setWebViewClient(new WebViewClient());
+        wv.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest req) {
+                return openOutside(req.getUrl());
+            }
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return openOutside(Uri.parse(url));
+            }
+        });
         wv.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback, FileChooserParams params) {
@@ -45,6 +55,14 @@ public class MainActivity extends Activity {
         });
         setContentView(wv);
         wv.loadUrl("file:///android_asset/index.html");
+    }
+
+    /** Web links (e.g. claude.ai) open in the Claude app or the browser, not inside this app. */
+    private boolean openOutside(Uri u) {
+        String sc = u == null ? "" : String.valueOf(u.getScheme());
+        if (!sc.equals("http") && !sc.equals("https")) return false;
+        try { startActivity(new Intent(Intent.ACTION_VIEW, u)); } catch (Exception e) { }
+        return true;
     }
 
     @Override
