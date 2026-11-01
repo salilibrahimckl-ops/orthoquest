@@ -3,7 +3,7 @@ Opened 'shell/out/classes.dex', DEX version '037'
 Class #0            -
   Class descriptor  : 'Lcom/salil/orthossprep/MainActivity$1;'
   Access flags      : 0x0000 ()
-  Superclass        : 'Landroid/webkit/WebChromeClient;'
+  Superclass        : 'Landroid/webkit/WebViewClient;'
   Interfaces        -
   Static fields     -
   Instance fields   -
@@ -21,10 +21,10 @@ Class #0            -
       ins           : 2
       outs          : 1
       insns size    : 6 16-bit code units
-000510:                                        |[000510] com.salil.orthossprep.MainActivity$1.<init>:(Lcom/salil/orthossprep/MainActivity;)V
-000520: 5b01 0000                              |0000: iput-object v1, v0, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
-000524: 7010 0a00 0000                         |0002: invoke-direct {v0}, Landroid/webkit/WebChromeClient;.<init>:()V // method@000a
-00052a: 0e00                                   |0005: return-void
+000610:                                        |[000610] com.salil.orthossprep.MainActivity$1.<init>:(Lcom/salil/orthossprep/MainActivity;)V
+000620: 5b01 0000                              |0000: iput-object v1, v0, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
+000624: 7010 1700 0000                         |0002: invoke-direct {v0}, Landroid/webkit/WebViewClient;.<init>:()V // method@0017
+00062a: 0e00                                   |0005: return-void
       catches       : (none)
       positions     :
         0x0000 line=28
@@ -34,6 +34,89 @@ Class #0            -
 
   Virtual methods   -
     #0              : (in Lcom/salil/orthossprep/MainActivity$1;)
+      name          : 'shouldOverrideUrlLoading'
+      type          : '(Landroid/webkit/WebView;Landroid/webkit/WebResourceRequest;)Z'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 2
+      insns size    : 11 16-bit code units
+0005c0:                                        |[0005c0] com.salil.orthossprep.MainActivity$1.shouldOverrideUrlLoading:(Landroid/webkit/WebView;Landroid/webkit/WebResourceRequest;)Z
+0005d0: 5400 0000                              |0000: iget-object v0, v0, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
+0005d4: 7210 0e00 0200                         |0002: invoke-interface {v2}, Landroid/webkit/WebResourceRequest;.getUrl:()Landroid/net/Uri; // method@000e
+0005da: 0c01                                   |0005: move-result-object v1
+0005dc: 7120 1e00 1000                         |0006: invoke-static {v0, v1}, Lcom/salil/orthossprep/MainActivity;.access$000:(Lcom/salil/orthossprep/MainActivity;Landroid/net/Uri;)Z // method@001e
+0005e2: 0a00                                   |0009: move-result v0
+0005e4: 0f00                                   |000a: return v0
+      catches       : (none)
+      positions     :
+        0x0000 line=31
+      locals        :
+        0x0000 - 0x000b reg=0 this Lcom/salil/orthossprep/MainActivity$1;
+        0x0000 - 0x000b reg=1 (null) Landroid/webkit/WebView;
+        0x0000 - 0x000b reg=2 (null) Landroid/webkit/WebResourceRequest;
+
+    #1              : (in Lcom/salil/orthossprep/MainActivity$1;)
+      name          : 'shouldOverrideUrlLoading'
+      type          : '(Landroid/webkit/WebView;Ljava/lang/String;)Z'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 2
+      insns size    : 11 16-bit code units
+0005e8:                                        |[0005e8] com.salil.orthossprep.MainActivity$1.shouldOverrideUrlLoading:(Landroid/webkit/WebView;Ljava/lang/String;)Z
+0005f8: 5400 0000                              |0000: iget-object v0, v0, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
+0005fc: 7110 0a00 0200                         |0002: invoke-static {v2}, Landroid/net/Uri;.parse:(Ljava/lang/String;)Landroid/net/Uri; // method@000a
+000602: 0c01                                   |0005: move-result-object v1
+000604: 7120 1e00 1000                         |0006: invoke-static {v0, v1}, Lcom/salil/orthossprep/MainActivity;.access$000:(Lcom/salil/orthossprep/MainActivity;Landroid/net/Uri;)Z // method@001e
+00060a: 0a00                                   |0009: move-result v0
+00060c: 0f00                                   |000a: return v0
+      catches       : (none)
+      positions     :
+        0x0000 line=35
+      locals        :
+        0x0000 - 0x000b reg=0 this Lcom/salil/orthossprep/MainActivity$1;
+        0x0000 - 0x000b reg=1 (null) Landroid/webkit/WebView;
+        0x0000 - 0x000b reg=2 (null) Ljava/lang/String;
+
+  source_file_idx   : 37 (MainActivity.java)
+
+Class #1            -
+  Class descriptor  : 'Lcom/salil/orthossprep/MainActivity$2;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Landroid/webkit/WebChromeClient;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in Lcom/salil/orthossprep/MainActivity$2;)
+      name          : 'this$0'
+      type          : 'Lcom/salil/orthossprep/MainActivity;'
+      access        : 0x1010 (FINAL SYNTHETIC)
+  Direct methods    -
+    #0              : (in Lcom/salil/orthossprep/MainActivity$2;)
+      name          : '<init>'
+      type          : '(Lcom/salil/orthossprep/MainActivity;)V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 2
+      ins           : 2
+      outs          : 1
+      insns size    : 6 16-bit code units
+0006dc:                                        |[0006dc] com.salil.orthossprep.MainActivity$2.<init>:(Lcom/salil/orthossprep/MainActivity;)V
+0006ec: 5b01 0100                              |0000: iput-object v1, v0, Lcom/salil/orthossprep/MainActivity$2;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0001
+0006f0: 7010 0d00 0000                         |0002: invoke-direct {v0}, Landroid/webkit/WebChromeClient;.<init>:()V // method@000d
+0006f6: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     :
+        0x0000 line=38
+      locals        :
+        0x0000 - 0x0006 reg=0 this Lcom/salil/orthossprep/MainActivity$2;
+        0x0000 - 0x0006 reg=1 (null) Lcom/salil/orthossprep/MainActivity;
+
+  Virtual methods   -
+    #0              : (in Lcom/salil/orthossprep/MainActivity$2;)
       name          : 'onShowFileChooser'
       type          : '(Landroid/webkit/WebView;Landroid/webkit/ValueCallback;Landroid/webkit/WebChromeClient$FileChooserParams;)Z'
       access        : 0x0001 (PUBLIC)
@@ -42,64 +125,64 @@ Class #0            -
       ins           : 4
       outs          : 3
       insns size    : 74 16-bit code units
-000460:                                        |[000460] com.salil.orthossprep.MainActivity$1.onShowFileChooser:(Landroid/webkit/WebView;Landroid/webkit/ValueCallback;Landroid/webkit/WebChromeClient$FileChooserParams;)Z
-000470: 5423 0000                              |0000: iget-object v3, v2, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
-000474: 7110 1700 0300                         |0002: invoke-static {v3}, Lcom/salil/orthossprep/MainActivity;.access$000:(Lcom/salil/orthossprep/MainActivity;)Landroid/webkit/ValueCallback; // method@0017
-00047a: 0c03                                   |0005: move-result-object v3
-00047c: 1205                                   |0006: const/4 v5, #int 0 // #0
-00047e: 3803 0b00                              |0007: if-eqz v3, 0012 // +000b
-000482: 5423 0000                              |0009: iget-object v3, v2, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
-000486: 7110 1700 0300                         |000b: invoke-static {v3}, Lcom/salil/orthossprep/MainActivity;.access$000:(Lcom/salil/orthossprep/MainActivity;)Landroid/webkit/ValueCallback; // method@0017
-00048c: 0c03                                   |000e: move-result-object v3
-00048e: 7220 0800 5300                         |000f: invoke-interface {v3, v5}, Landroid/webkit/ValueCallback;.onReceiveValue:(Ljava/lang/Object;)V // method@0008
-000494: 5423 0000                              |0012: iget-object v3, v2, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
-000498: 7120 1800 4300                         |0014: invoke-static {v3, v4}, Lcom/salil/orthossprep/MainActivity;.access$002:(Lcom/salil/orthossprep/MainActivity;Landroid/webkit/ValueCallback;)Landroid/webkit/ValueCallback; // method@0018
-00049e: 2203 0300                              |0017: new-instance v3, Landroid/content/Intent; // type@0003
-0004a2: 1a04 3300                              |0019: const-string v4, "android.intent.action.GET_CONTENT" // string@0033
-0004a6: 7020 0300 4300                         |001b: invoke-direct {v3, v4}, Landroid/content/Intent;.<init>:(Ljava/lang/String;)V // method@0003
-0004ac: 1a04 3400                              |001e: const-string v4, "android.intent.category.OPENABLE" // string@0034
-0004b0: 6e20 0400 4300                         |0020: invoke-virtual {v3, v4}, Landroid/content/Intent;.addCategory:(Ljava/lang/String;)Landroid/content/Intent; // method@0004
-0004b6: 1a04 0200                              |0023: const-string v4, "*/*" // string@0002
-0004ba: 6e20 0700 4300                         |0025: invoke-virtual {v3, v4}, Landroid/content/Intent;.setType:(Ljava/lang/String;)Landroid/content/Intent; // method@0007
-0004c0: 1a04 3500                              |0028: const-string v4, "android.intent.extra.MIME_TYPES" // string@0035
-0004c4: 1a00 3600                              |002a: const-string v0, "application/pdf" // string@0036
-0004c8: 1a01 4d00                              |002c: const-string v1, "text/plain" // string@004d
-0004cc: 2420 1900 1000                         |002e: filled-new-array {v0, v1}, [Ljava/lang/String; // type@0019
-0004d2: 0c00                                   |0031: move-result-object v0
-0004d4: 6e30 0600 4300                         |0032: invoke-virtual {v3, v4, v0}, Landroid/content/Intent;.putExtra:(Ljava/lang/String;[Ljava/lang/String;)Landroid/content/Intent; // method@0006
-0004da: 5424 0000                              |0035: iget-object v4, v2, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
-0004de: 1a00 0500                              |0037: const-string v0, "Choose a PDF or text file" // string@0005
-0004e2: 7120 0500 0300                         |0039: invoke-static {v3, v0}, Landroid/content/Intent;.createChooser:(Landroid/content/Intent;Ljava/lang/CharSequence;)Landroid/content/Intent; // method@0005
-0004e8: 0c03                                   |003c: move-result-object v3
-0004ea: 1270                                   |003d: const/4 v0, #int 7 // #7
-0004ec: 6e30 1d00 3400                         |003e: invoke-virtual {v4, v3, v0}, Lcom/salil/orthossprep/MainActivity;.startActivityForResult:(Landroid/content/Intent;I)V // method@001d
-0004f2: 1212                                   |0041: const/4 v2, #int 1 // #1
-0004f4: 0f02                                   |0042: return v2
-0004f6: 5422 0000                              |0043: iget-object v2, v2, Lcom/salil/orthossprep/MainActivity$1;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0000
-0004fa: 7120 1800 5200                         |0045: invoke-static {v2, v5}, Lcom/salil/orthossprep/MainActivity;.access$002:(Lcom/salil/orthossprep/MainActivity;Landroid/webkit/ValueCallback;)Landroid/webkit/ValueCallback; // method@0018
-000500: 1202                                   |0048: const/4 v2, #int 0 // #0
-000502: 0f02                                   |0049: return v2
+00062c:                                        |[00062c] com.salil.orthossprep.MainActivity$2.onShowFileChooser:(Landroid/webkit/WebView;Landroid/webkit/ValueCallback;Landroid/webkit/WebChromeClient$FileChooserParams;)Z
+00063c: 5423 0100                              |0000: iget-object v3, v2, Lcom/salil/orthossprep/MainActivity$2;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0001
+000640: 7110 1f00 0300                         |0002: invoke-static {v3}, Lcom/salil/orthossprep/MainActivity;.access$100:(Lcom/salil/orthossprep/MainActivity;)Landroid/webkit/ValueCallback; // method@001f
+000646: 0c03                                   |0005: move-result-object v3
+000648: 1205                                   |0006: const/4 v5, #int 0 // #0
+00064a: 3803 0b00                              |0007: if-eqz v3, 0012 // +000b
+00064e: 5423 0100                              |0009: iget-object v3, v2, Lcom/salil/orthossprep/MainActivity$2;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0001
+000652: 7110 1f00 0300                         |000b: invoke-static {v3}, Lcom/salil/orthossprep/MainActivity;.access$100:(Lcom/salil/orthossprep/MainActivity;)Landroid/webkit/ValueCallback; // method@001f
+000658: 0c03                                   |000e: move-result-object v3
+00065a: 7220 0b00 5300                         |000f: invoke-interface {v3, v5}, Landroid/webkit/ValueCallback;.onReceiveValue:(Ljava/lang/Object;)V // method@000b
+000660: 5423 0100                              |0012: iget-object v3, v2, Lcom/salil/orthossprep/MainActivity$2;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0001
+000664: 7120 2000 4300                         |0014: invoke-static {v3, v4}, Lcom/salil/orthossprep/MainActivity;.access$102:(Lcom/salil/orthossprep/MainActivity;Landroid/webkit/ValueCallback;)Landroid/webkit/ValueCallback; // method@0020
+00066a: 2203 0300                              |0017: new-instance v3, Landroid/content/Intent; // type@0003
+00066e: 1a04 3a00                              |0019: const-string v4, "android.intent.action.GET_CONTENT" // string@003a
+000672: 7020 0300 4300                         |001b: invoke-direct {v3, v4}, Landroid/content/Intent;.<init>:(Ljava/lang/String;)V // method@0003
+000678: 1a04 3c00                              |001e: const-string v4, "android.intent.category.OPENABLE" // string@003c
+00067c: 6e20 0500 4300                         |0020: invoke-virtual {v3, v4}, Landroid/content/Intent;.addCategory:(Ljava/lang/String;)Landroid/content/Intent; // method@0005
+000682: 1a04 0300                              |0023: const-string v4, "*/*" // string@0003
+000686: 6e20 0800 4300                         |0025: invoke-virtual {v3, v4}, Landroid/content/Intent;.setType:(Ljava/lang/String;)Landroid/content/Intent; // method@0008
+00068c: 1a04 3d00                              |0028: const-string v4, "android.intent.extra.MIME_TYPES" // string@003d
+000690: 1a00 3e00                              |002a: const-string v0, "application/pdf" // string@003e
+000694: 1a01 5e00                              |002c: const-string v1, "text/plain" // string@005e
+000698: 2420 1c00 1000                         |002e: filled-new-array {v0, v1}, [Ljava/lang/String; // type@001c
+00069e: 0c00                                   |0031: move-result-object v0
+0006a0: 6e30 0700 4300                         |0032: invoke-virtual {v3, v4, v0}, Landroid/content/Intent;.putExtra:(Ljava/lang/String;[Ljava/lang/String;)Landroid/content/Intent; // method@0007
+0006a6: 5424 0100                              |0035: iget-object v4, v2, Lcom/salil/orthossprep/MainActivity$2;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0001
+0006aa: 1a00 0600                              |0037: const-string v0, "Choose a PDF or text file" // string@0006
+0006ae: 7120 0600 0300                         |0039: invoke-static {v3, v0}, Landroid/content/Intent;.createChooser:(Landroid/content/Intent;Ljava/lang/CharSequence;)Landroid/content/Intent; // method@0006
+0006b4: 0c03                                   |003c: move-result-object v3
+0006b6: 1270                                   |003d: const/4 v0, #int 7 // #7
+0006b8: 6e30 2700 3400                         |003e: invoke-virtual {v4, v3, v0}, Lcom/salil/orthossprep/MainActivity;.startActivityForResult:(Landroid/content/Intent;I)V // method@0027
+0006be: 1212                                   |0041: const/4 v2, #int 1 // #1
+0006c0: 0f02                                   |0042: return v2
+0006c2: 5422 0100                              |0043: iget-object v2, v2, Lcom/salil/orthossprep/MainActivity$2;.this$0:Lcom/salil/orthossprep/MainActivity; // field@0001
+0006c6: 7120 2000 5200                         |0045: invoke-static {v2, v5}, Lcom/salil/orthossprep/MainActivity;.access$102:(Lcom/salil/orthossprep/MainActivity;Landroid/webkit/ValueCallback;)Landroid/webkit/ValueCallback; // method@0020
+0006cc: 1202                                   |0048: const/4 v2, #int 0 // #0
+0006ce: 0f02                                   |0049: return v2
       catches       : 1
         0x0017 - 0x0041
           Ljava/lang/Exception; -> 0x0043
       positions     :
-        0x0000 line=31
-        0x0012 line=32
-        0x0017 line=34
-        0x001e line=35
-        0x0023 line=36
-        0x0028 line=37
-        0x0035 line=38
-        0x0043 line=41
+        0x0000 line=41
+        0x0012 line=42
+        0x0017 line=44
+        0x001e line=45
+        0x0023 line=46
+        0x0028 line=47
+        0x0035 line=48
+        0x0043 line=51
       locals        :
-        0x0000 - 0x004a reg=2 this Lcom/salil/orthossprep/MainActivity$1;
+        0x0000 - 0x004a reg=2 this Lcom/salil/orthossprep/MainActivity$2;
         0x0000 - 0x004a reg=3 (null) Landroid/webkit/WebView;
         0x0000 - 0x004a reg=4 (null) Landroid/webkit/ValueCallback;
         0x0000 - 0x004a reg=5 (null) Landroid/webkit/WebChromeClient$FileChooserParams;
 
-  source_file_idx   : 34 (MainActivity.java)
+  source_file_idx   : 37 (MainActivity.java)
 
-Class #1            -
+Class #2            -
   Class descriptor  : 'Lcom/salil/orthossprep/MainActivity;'
   Access flags      : 0x0001 (PUBLIC)
   Superclass        : 'Landroid/app/Activity;'
@@ -125,17 +208,37 @@ Class #1            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-00055c:                                        |[00055c] com.salil.orthossprep.MainActivity.<init>:()V
-00056c: 7010 0000 0000                         |0000: invoke-direct {v0}, Landroid/app/Activity;.<init>:()V // method@0000
-000572: 0e00                                   |0003: return-void
+0007b8:                                        |[0007b8] com.salil.orthossprep.MainActivity.<init>:()V
+0007c8: 7010 0000 0000                         |0000: invoke-direct {v0}, Landroid/app/Activity;.<init>:()V // method@0000
+0007ce: 0e00                                   |0003: return-void
       catches       : (none)
       positions     :
-        0x0000 line=14
+        0x0000 line=15
       locals        :
         0x0000 - 0x0004 reg=0 this Lcom/salil/orthossprep/MainActivity;
 
     #1              : (in Lcom/salil/orthossprep/MainActivity;)
       name          : 'access$000'
+      type          : '(Lcom/salil/orthossprep/MainActivity;Landroid/net/Uri;)Z'
+      access        : 0x1008 (STATIC SYNTHETIC)
+      code          -
+      registers     : 2
+      ins           : 2
+      outs          : 2
+      insns size    : 5 16-bit code units
+000728:                                        |[000728] com.salil.orthossprep.MainActivity.access$000:(Lcom/salil/orthossprep/MainActivity;Landroid/net/Uri;)Z
+000738: 7020 2300 1000                         |0000: invoke-direct {v0, v1}, Lcom/salil/orthossprep/MainActivity;.openOutside:(Landroid/net/Uri;)Z // method@0023
+00073e: 0a00                                   |0003: move-result v0
+000740: 0f00                                   |0004: return v0
+      catches       : (none)
+      positions     :
+        0x0000 line=15
+      locals        :
+        0x0000 - 0x0005 reg=0 (null) Lcom/salil/orthossprep/MainActivity;
+        0x0000 - 0x0005 reg=1 (null) Landroid/net/Uri;
+
+    #2              : (in Lcom/salil/orthossprep/MainActivity;)
+      name          : 'access$100'
       type          : '(Lcom/salil/orthossprep/MainActivity;)Landroid/webkit/ValueCallback;'
       access        : 0x1008 (STATIC SYNTHETIC)
       code          -
@@ -143,17 +246,17 @@ Class #1            -
       ins           : 1
       outs          : 0
       insns size    : 3 16-bit code units
-00052c:                                        |[00052c] com.salil.orthossprep.MainActivity.access$000:(Lcom/salil/orthossprep/MainActivity;)Landroid/webkit/ValueCallback;
-00053c: 5400 0200                              |0000: iget-object v0, v0, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0002
-000540: 1100                                   |0002: return-object v0
+0006f8:                                        |[0006f8] com.salil.orthossprep.MainActivity.access$100:(Lcom/salil/orthossprep/MainActivity;)Landroid/webkit/ValueCallback;
+000708: 5400 0300                              |0000: iget-object v0, v0, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0003
+00070c: 1100                                   |0002: return-object v0
       catches       : (none)
       positions     :
-        0x0000 line=14
+        0x0000 line=15
       locals        :
         0x0000 - 0x0003 reg=0 (null) Lcom/salil/orthossprep/MainActivity;
 
-    #2              : (in Lcom/salil/orthossprep/MainActivity;)
-      name          : 'access$002'
+    #3              : (in Lcom/salil/orthossprep/MainActivity;)
+      name          : 'access$102'
       type          : '(Lcom/salil/orthossprep/MainActivity;Landroid/webkit/ValueCallback;)Landroid/webkit/ValueCallback;'
       access        : 0x1008 (STATIC SYNTHETIC)
       code          -
@@ -161,15 +264,59 @@ Class #1            -
       ins           : 2
       outs          : 0
       insns size    : 3 16-bit code units
-000544:                                        |[000544] com.salil.orthossprep.MainActivity.access$002:(Lcom/salil/orthossprep/MainActivity;Landroid/webkit/ValueCallback;)Landroid/webkit/ValueCallback;
-000554: 5b01 0200                              |0000: iput-object v1, v0, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0002
-000558: 1101                                   |0002: return-object v1
+000710:                                        |[000710] com.salil.orthossprep.MainActivity.access$102:(Lcom/salil/orthossprep/MainActivity;Landroid/webkit/ValueCallback;)Landroid/webkit/ValueCallback;
+000720: 5b01 0300                              |0000: iput-object v1, v0, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0003
+000724: 1101                                   |0002: return-object v1
       catches       : (none)
       positions     :
-        0x0000 line=14
+        0x0000 line=15
       locals        :
         0x0000 - 0x0003 reg=0 (null) Lcom/salil/orthossprep/MainActivity;
         0x0000 - 0x0003 reg=1 (null) Landroid/webkit/ValueCallback;
+
+    #4              : (in Lcom/salil/orthossprep/MainActivity;)
+      name          : 'openOutside'
+      type          : '(Landroid/net/Uri;)Z'
+      access        : 0x0002 (PRIVATE)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 3
+      insns size    : 43 16-bit code units
+000744:                                        |[000744] com.salil.orthossprep.MainActivity.openOutside:(Landroid/net/Uri;)Z
+000754: 3903 0500                              |0000: if-nez v3, 0005 // +0005
+000758: 1a00 0000                              |0002: const-string v0, "" // string@0000
+00075c: 2809                                   |0004: goto 000d // +0009
+00075e: 6e10 0900 0300                         |0005: invoke-virtual {v3}, Landroid/net/Uri;.getScheme:()Ljava/lang/String; // method@0009
+000764: 0c00                                   |0008: move-result-object v0
+000766: 7110 2900 0000                         |0009: invoke-static {v0}, Ljava/lang/String;.valueOf:(Ljava/lang/Object;)Ljava/lang/String; // method@0029
+00076c: 0c00                                   |000c: move-result-object v0
+00076e: 1a01 4500                              |000d: const-string v1, "http" // string@0045
+000772: 6e20 2800 1000                         |000f: invoke-virtual {v0, v1}, Ljava/lang/String;.equals:(Ljava/lang/Object;)Z // method@0028
+000778: 0a01                                   |0012: move-result v1
+00077a: 3901 0c00                              |0013: if-nez v1, 001f // +000c
+00077e: 1a01 4600                              |0015: const-string v1, "https" // string@0046
+000782: 6e20 2800 1000                         |0017: invoke-virtual {v0, v1}, Ljava/lang/String;.equals:(Ljava/lang/Object;)Z // method@0028
+000788: 0a00                                   |001a: move-result v0
+00078a: 3900 0400                              |001b: if-nez v0, 001f // +0004
+00078e: 1202                                   |001d: const/4 v2, #int 0 // #0
+000790: 0f02                                   |001e: return v2
+000792: 2200 0300                              |001f: new-instance v0, Landroid/content/Intent; // type@0003
+000796: 1a01 3b00                              |0021: const-string v1, "android.intent.action.VIEW" // string@003b
+00079a: 7030 0400 1003                         |0023: invoke-direct {v0, v1, v3}, Landroid/content/Intent;.<init>:(Ljava/lang/String;Landroid/net/Uri;)V // method@0004
+0007a0: 6e20 2600 0200                         |0026: invoke-virtual {v2, v0}, Lcom/salil/orthossprep/MainActivity;.startActivity:(Landroid/content/Intent;)V // method@0026
+0007a6: 1212                                   |0029: const/4 v2, #int 1 // #1
+0007a8: 0f02                                   |002a: return v2
+      catches       : 1
+        0x001f - 0x0029
+          Ljava/lang/Exception; -> 0x0029
+      positions     :
+        0x0002 line=62
+        0x000d line=63
+        0x001f line=64
+      locals        :
+        0x0000 - 0x002b reg=2 this Lcom/salil/orthossprep/MainActivity;
+        0x0000 - 0x002b reg=3 (null) Landroid/net/Uri;
 
   Virtual methods   -
     #0              : (in Lcom/salil/orthossprep/MainActivity;)
@@ -181,25 +328,25 @@ Class #1            -
       ins           : 4
       outs          : 4
       insns size    : 22 16-bit code units
-000574:                                        |[000574] com.salil.orthossprep.MainActivity.onActivityResult:(IILandroid/content/Intent;)V
-000584: 1270                                   |0000: const/4 v0, #int 7 // #7
-000586: 3302 1100                              |0001: if-ne v2, v0, 0012 // +0011
-00058a: 5412 0200                              |0003: iget-object v2, v1, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0002
-00058e: 3802 0c00                              |0005: if-eqz v2, 0011 // +000c
-000592: 7120 0900 4300                         |0007: invoke-static {v3, v4}, Landroid/webkit/WebChromeClient$FileChooserParams;.parseResult:(ILandroid/content/Intent;)[Landroid/net/Uri; // method@0009
-000598: 0c03                                   |000a: move-result-object v3
-00059a: 7220 0800 3200                         |000b: invoke-interface {v2, v3}, Landroid/webkit/ValueCallback;.onReceiveValue:(Ljava/lang/Object;)V // method@0008
-0005a0: 1202                                   |000e: const/4 v2, #int 0 // #0
-0005a2: 5b12 0200                              |000f: iput-object v2, v1, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0002
-0005a6: 0e00                                   |0011: return-void
-0005a8: 6f40 0100 2143                         |0012: invoke-super {v1, v2, v3, v4}, Landroid/app/Activity;.onActivityResult:(IILandroid/content/Intent;)V // method@0001
-0005ae: 0e00                                   |0015: return-void
+0007d0:                                        |[0007d0] com.salil.orthossprep.MainActivity.onActivityResult:(IILandroid/content/Intent;)V
+0007e0: 1270                                   |0000: const/4 v0, #int 7 // #7
+0007e2: 3302 1100                              |0001: if-ne v2, v0, 0012 // +0011
+0007e6: 5412 0300                              |0003: iget-object v2, v1, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0003
+0007ea: 3802 0c00                              |0005: if-eqz v2, 0011 // +000c
+0007ee: 7120 0c00 4300                         |0007: invoke-static {v3, v4}, Landroid/webkit/WebChromeClient$FileChooserParams;.parseResult:(ILandroid/content/Intent;)[Landroid/net/Uri; // method@000c
+0007f4: 0c03                                   |000a: move-result-object v3
+0007f6: 7220 0b00 3200                         |000b: invoke-interface {v2, v3}, Landroid/webkit/ValueCallback;.onReceiveValue:(Ljava/lang/Object;)V // method@000b
+0007fc: 1202                                   |000e: const/4 v2, #int 0 // #0
+0007fe: 5b12 0300                              |000f: iput-object v2, v1, Lcom/salil/orthossprep/MainActivity;.pending:Landroid/webkit/ValueCallback; // field@0003
+000802: 0e00                                   |0011: return-void
+000804: 6f40 0100 2143                         |0012: invoke-super {v1, v2, v3, v4}, Landroid/app/Activity;.onActivityResult:(IILandroid/content/Intent;)V // method@0001
+00080a: 0e00                                   |0015: return-void
       catches       : (none)
       positions     :
-        0x0003 line=53
-        0x0007 line=54
-        0x000f line=55
-        0x0012 line=59
+        0x0003 line=71
+        0x0007 line=72
+        0x000f line=73
+        0x0012 line=77
       locals        :
         0x0000 - 0x0016 reg=1 this Lcom/salil/orthossprep/MainActivity;
         0x0000 - 0x0016 reg=2 (null) I
@@ -215,43 +362,43 @@ Class #1            -
       ins           : 2
       outs          : 2
       insns size    : 50 16-bit code units
-0005b0:                                        |[0005b0] com.salil.orthossprep.MainActivity.onCreate:(Landroid/os/Bundle;)V
-0005c0: 6f20 0200 3200                         |0000: invoke-super {v2, v3}, Landroid/app/Activity;.onCreate:(Landroid/os/Bundle;)V // method@0002
-0005c6: 1213                                   |0003: const/4 v3, #int 1 // #1
-0005c8: 6e20 1b00 3200                         |0004: invoke-virtual {v2, v3}, Lcom/salil/orthossprep/MainActivity;.requestWindowFeature:(I)Z // method@001b
-0005ce: 2200 0a00                              |0007: new-instance v0, Landroid/webkit/WebView; // type@000a
-0005d2: 7020 0e00 2000                         |0009: invoke-direct {v0, v2}, Landroid/webkit/WebView;.<init>:(Landroid/content/Context;)V // method@000e
-0005d8: 6e10 0f00 0000                         |000c: invoke-virtual {v0}, Landroid/webkit/WebView;.getSettings:()Landroid/webkit/WebSettings; // method@000f
-0005de: 0c01                                   |000f: move-result-object v1
-0005e0: 6e20 0d00 3100                         |0010: invoke-virtual {v1, v3}, Landroid/webkit/WebSettings;.setJavaScriptEnabled:(Z)V // method@000d
-0005e6: 6e20 0c00 3100                         |0013: invoke-virtual {v1, v3}, Landroid/webkit/WebSettings;.setDomStorageEnabled:(Z)V // method@000c
-0005ec: 6e20 0b00 3100                         |0016: invoke-virtual {v1, v3}, Landroid/webkit/WebSettings;.setAllowFileAccess:(Z)V // method@000b
-0005f2: 2203 0b00                              |0019: new-instance v3, Landroid/webkit/WebViewClient; // type@000b
-0005f6: 7010 1300 0300                         |001b: invoke-direct {v3}, Landroid/webkit/WebViewClient;.<init>:()V // method@0013
-0005fc: 6e20 1200 3000                         |001e: invoke-virtual {v0, v3}, Landroid/webkit/WebView;.setWebViewClient:(Landroid/webkit/WebViewClient;)V // method@0012
-000602: 2203 0c00                              |0021: new-instance v3, Lcom/salil/orthossprep/MainActivity$1; // type@000c
-000606: 7020 1400 2300                         |0023: invoke-direct {v3, v2}, Lcom/salil/orthossprep/MainActivity$1;.<init>:(Lcom/salil/orthossprep/MainActivity;)V // method@0014
-00060c: 6e20 1100 3000                         |0026: invoke-virtual {v0, v3}, Landroid/webkit/WebView;.setWebChromeClient:(Landroid/webkit/WebChromeClient;)V // method@0011
-000612: 6e20 1c00 0200                         |0029: invoke-virtual {v2, v0}, Lcom/salil/orthossprep/MainActivity;.setContentView:(Landroid/view/View;)V // method@001c
-000618: 1a02 3800                              |002c: const-string v2, "file:///android_asset/index.html" // string@0038
-00061c: 6e20 1000 2000                         |002e: invoke-virtual {v0, v2}, Landroid/webkit/WebView;.loadUrl:(Ljava/lang/String;)V // method@0010
-000622: 0e00                                   |0031: return-void
+00080c:                                        |[00080c] com.salil.orthossprep.MainActivity.onCreate:(Landroid/os/Bundle;)V
+00081c: 6f20 0200 3200                         |0000: invoke-super {v2, v3}, Landroid/app/Activity;.onCreate:(Landroid/os/Bundle;)V // method@0002
+000822: 1213                                   |0003: const/4 v3, #int 1 // #1
+000824: 6e20 2400 3200                         |0004: invoke-virtual {v2, v3}, Lcom/salil/orthossprep/MainActivity;.requestWindowFeature:(I)Z // method@0024
+00082a: 2200 0c00                              |0007: new-instance v0, Landroid/webkit/WebView; // type@000c
+00082e: 7020 1200 2000                         |0009: invoke-direct {v0, v2}, Landroid/webkit/WebView;.<init>:(Landroid/content/Context;)V // method@0012
+000834: 6e10 1300 0000                         |000c: invoke-virtual {v0}, Landroid/webkit/WebView;.getSettings:()Landroid/webkit/WebSettings; // method@0013
+00083a: 0c01                                   |000f: move-result-object v1
+00083c: 6e20 1100 3100                         |0010: invoke-virtual {v1, v3}, Landroid/webkit/WebSettings;.setJavaScriptEnabled:(Z)V // method@0011
+000842: 6e20 1000 3100                         |0013: invoke-virtual {v1, v3}, Landroid/webkit/WebSettings;.setDomStorageEnabled:(Z)V // method@0010
+000848: 6e20 0f00 3100                         |0016: invoke-virtual {v1, v3}, Landroid/webkit/WebSettings;.setAllowFileAccess:(Z)V // method@000f
+00084e: 2203 0e00                              |0019: new-instance v3, Lcom/salil/orthossprep/MainActivity$1; // type@000e
+000852: 7020 1800 2300                         |001b: invoke-direct {v3, v2}, Lcom/salil/orthossprep/MainActivity$1;.<init>:(Lcom/salil/orthossprep/MainActivity;)V // method@0018
+000858: 6e20 1600 3000                         |001e: invoke-virtual {v0, v3}, Landroid/webkit/WebView;.setWebViewClient:(Landroid/webkit/WebViewClient;)V // method@0016
+00085e: 2203 0f00                              |0021: new-instance v3, Lcom/salil/orthossprep/MainActivity$2; // type@000f
+000862: 7020 1b00 2300                         |0023: invoke-direct {v3, v2}, Lcom/salil/orthossprep/MainActivity$2;.<init>:(Lcom/salil/orthossprep/MainActivity;)V // method@001b
+000868: 6e20 1500 3000                         |0026: invoke-virtual {v0, v3}, Landroid/webkit/WebView;.setWebChromeClient:(Landroid/webkit/WebChromeClient;)V // method@0015
+00086e: 6e20 2500 0200                         |0029: invoke-virtual {v2, v0}, Lcom/salil/orthossprep/MainActivity;.setContentView:(Landroid/view/View;)V // method@0025
+000874: 1a02 4100                              |002c: const-string v2, "file:///android_asset/index.html" // string@0041
+000878: 6e20 1400 2000                         |002e: invoke-virtual {v0, v2}, Landroid/webkit/WebView;.loadUrl:(Ljava/lang/String;)V // method@0014
+00087e: 0e00                                   |0031: return-void
       catches       : (none)
       positions     :
-        0x0000 line=20
-        0x0004 line=21
-        0x0007 line=22
-        0x000c line=23
-        0x0010 line=24
-        0x0013 line=25
-        0x0016 line=26
-        0x0019 line=27
-        0x0021 line=28
-        0x0029 line=46
-        0x002c line=47
+        0x0000 line=21
+        0x0004 line=22
+        0x0007 line=23
+        0x000c line=24
+        0x0010 line=25
+        0x0013 line=26
+        0x0016 line=27
+        0x0019 line=28
+        0x0021 line=38
+        0x0029 line=56
+        0x002c line=57
       locals        :
         0x0000 - 0x0032 reg=2 this Lcom/salil/orthossprep/MainActivity;
         0x0000 - 0x0032 reg=3 (null) Landroid/os/Bundle;
 
-  source_file_idx   : 34 (MainActivity.java)
+  source_file_idx   : 37 (MainActivity.java)
 
