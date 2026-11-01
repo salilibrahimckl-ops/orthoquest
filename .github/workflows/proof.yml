@@ -1,0 +1,22 @@
+name: Proofreader trial
+on:
+  push:
+    branches: [apk-shell]
+    paths: ["proof/reqs.json", ".github/workflows/proof.yml"]
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set +e
+          for k in 0 1 2 3; do
+            python3 -c "import json;print(json.dumps(json.load(open('proof/reqs.json'))[$k]))" > req.json
+            curl -s -m 200 -H "Content-Type: application/json" -X POST https://text.pollinations.ai/openai -d @req.json > proof/out_$k.json
+            sleep 18
+          done
+      - run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add proof; git commit -m "Proof trial [skip ci]" || exit 0; git push
