@@ -1,0 +1,25 @@
+name: Pollinations probe
+on:
+  push:
+    branches: [apk-shell]
+    paths: [".github/workflows/poll-probe.yml"]
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set +e; mkdir -p probe; : > probe/poll.txt
+          for E in low medium high none; do
+            if [ "$E" = none ]; then B='{"model":"openai","messages":[{"role":"user","content":"Name the most common type of SLAP lesion, one line."}]}'; else B="{\"model\":\"openai\",\"reasoning_effort\":\"$E\",\"max_tokens\":16000,\"messages\":[{\"role\":\"user\",\"content\":\"Name the most common type of SLAP lesion, one line.\"}]}"; fi
+            echo "== $E" >> probe/poll.txt
+            curl -s -m 120 -w "\nHTTP %{http_code}\n" -H "Content-Type: application/json" -X POST https://text.pollinations.ai/openai -d "$B" | tail -c 700 >> probe/poll.txt
+            sleep 18
+          done
+          echo "== max_tokens 4000 low" >> probe/poll.txt
+          curl -s -m 120 -w "\nHTTP %{http_code}\n" -H "Content-Type: application/json" -X POST https://text.pollinations.ai/openai -d '{"model":"openai","reasoning_effort":"low","max_tokens":4000,"messages":[{"role":"user","content":"Name the most common type of SLAP lesion, one line."}]}' | tail -c 500 >> probe/poll.txt
+      - run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add probe; git commit -m "poll probe [skip ci]" || exit 0; git push
