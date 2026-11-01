@@ -195,7 +195,7 @@ p{margin:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:47,hue:352,date:"1 Nov 2026, 21:15 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["NEW OPERATION: reverse shoulder arthroplasty through the deltopectoral approach — indication and Grammont principles, subscapularis tenotomy, axillary nerve, humeral cut, low baseplate with inferior tilt and overhang to avoid notching, soft-tissue tension, complications","+7 post-op viva questions on reverse shoulder arthroplasty","Also new today: case of the day, ward filters, scaphoid dorsal and olecranon screw approaches and ward-round X-rays"]};
+const BUILD={n:48,hue:129,date:"1 Nov 2026, 22:40 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Fix: the 3D Atlas and ward-round X-rays could get stuck loading on the phone — the core anatomy now loads from inside the app first, and the extra nerves and lymph nodes are added afterwards only if they download in time","Everything from Update 47 is kept: reverse shoulder arthroplasty, new approaches, ward-round X-rays and case of the day"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -899,12 +899,19 @@ function decodeReal(man,bufs){const parts=[],by={};
   const p={i,name,sys,pos,nrm,idx,lo,hi,v,c};parts.push(p);by[name.toLowerCase()]=p});
  return{parts,by,nerves:man.nerves}}
 async function loadReal(prog){if(RA.data)return RA.data;if(RA.loading)return RA.loading;
- const get=async mf=>{const r0=await fetch(RA.base+mf);if(!r0.ok)throw new Error("The anatomy data could not be loaded.");const man=await r0.json();let done=0;
-  const bufs=await Promise.all(man.chunks.map(async c=>{const r=await fetch(RA.base+c.n+".b64.txt");if(!r.ok)throw new Error("The anatomy data could not be loaded.");const tx=(await r.text()).trim(),bs=atob(tx),u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);let ab=u8.buffer;const u=new Uint8Array(ab,0,2);
-   if(u[0]===0x1f&&u[1]===0x8b){if(typeof DecompressionStream==="undefined")throw new Error("This browser cannot unpack the anatomy data — please update it.");ab=await new Response(new Blob([ab]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()}
-   done++;if(prog)prog(done/man.chunks.length);return ab}));
-  return decodeReal(man,bufs)};
- RA.loading=(async()=>{try{RA.data=await get("anatomy2.json");RA.detail=true}catch(e){RA.data=await get("anatomy.json");RA.detail=false}return RA.data})();
+ const tmo=(pr,ms)=>Promise.race([pr,new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms))]);
+ const chunk=async(n,ms)=>{const r=await tmo(fetch(RA.base+n+".b64.txt"),ms);if(!r.ok)throw new Error("The anatomy data could not be loaded.");const tx=(await tmo(r.text(),ms)).trim(),bs=atob(tx),u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);let ab=u8.buffer;const u=new Uint8Array(ab,0,2);
+  if(u[0]===0x1f&&u[1]===0x8b){if(typeof DecompressionStream==="undefined")throw new Error("This browser cannot unpack the anatomy data — please update Android System WebView.");ab=await new Response(new Blob([ab]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()}return ab};
+ RA.loading=(async()=>{
+  /* 1. core anatomy (bundled inside the Android app, proven path) */
+  const r0=await fetch(RA.base+"anatomy.json");if(!r0.ok)throw new Error("The anatomy data could not be loaded.");const man=await r0.json();let done=0;
+  const bufs=await Promise.all(man.chunks.map(async c=>{const ab=await chunk(c.n,90000);done++;if(prog)prog(done/(man.chunks.length+1));return ab}));
+  const D=decodeReal(man,bufs);RA.data=D;RA.detail=false;
+  /* 2. detail add-on (nerves, lymphatics) — optional, never blocks the core */
+  try{const r2=await tmo(fetch(RA.base+"anatomy2.json"),20000);if(r2.ok){const m2=await r2.json();const ext=m2.parts.filter(x=>x[2]===3);const cd=m2.chunks[3];
+    if(ext.length&&cd){const db=await chunk(cd.n,30000);const sub=decodeReal({parts:ext,nerves:{}},[null,null,null,db]);const base=D.parts.length;
+     sub.parts.forEach((p,j)=>{p.i=base+j;D.parts.push(p);D.by[p.name.toLowerCase()]=D.by[p.name.toLowerCase()]||p});Object.assign(D.nerves,m2.nerves||{});RA.detail=true}}}catch(e){console.warn("detail anatomy skipped",e)}
+  if(prog)prog(1);return D})();
  try{return await RA.loading}catch(e){RA.loading=null;throw e}}
 function partGeo(p){if(p.geo)return p.geo;const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(p.pos,3));g.setAttribute("normal",new THREE.BufferAttribute(p.nrm,3,true));g.setIndex(new THREE.BufferAttribute(p.idx,1));
  const cx=(p.lo[0]+p.hi[0])/2,cz=(p.lo[2]+p.hi[2])/2,uv=new Float32Array(p.v*2);for(let k=0;k<p.v;k++){const x=p.pos[k*3]-cx,z=p.pos[k*3+2]-cz;uv[k*2]=(Math.atan2(z,x)/(2*Math.PI)+.5)*2;uv[k*2+1]=(p.pos[k*3+1]-p.lo[1])*30}
