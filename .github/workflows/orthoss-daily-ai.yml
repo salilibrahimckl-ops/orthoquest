@@ -1,0 +1,38 @@
+name: Ortho preSSaleel daily AI questions and proofreading
+on:
+  schedule:
+    - cron: "40 20 * * *"   # 02:10 IST every day
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: orthoss-daily-ai
+  cancel-in-progress: false
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 140
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Write and check questions, proofread the bank
+        env:
+          DAILY_NEW: "100"
+          DAILY_PROOF: "100"
+          MAX_MINUTES: "110"
+        run: node orthoss-prep/tools/daily_ai.js run
+      - name: Save results (retry if the app synced meanwhile)
+        run: |
+          git config user.name "orthoss-daily-ai"
+          git config user.email "github-actions@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            node orthoss-prep/tools/daily_ai.js apply
+            git add orthoss-prep/my-questions.json orthoss-prep/proof-flags.json orthoss-prep/ai-state.json
+            git commit -qm "Daily AI: new questions and proofreading [skip ci]" || exit 0
+            git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          exit 1
