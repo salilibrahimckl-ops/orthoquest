@@ -1,13 +1,25 @@
 Bank 1241 + added 0. Target 20 new, 20 proofread.
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  batch failed: AI unavailable
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  AI call failed: HTTP 400 {"success":false,"error":{"message":"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.
-  proof batch failed: AI unavailable
-Done: 0 new questions, 0 proofread, 0 flagged, 8 min.
-Applied: 0 new questions, 0 flags.
+  Basic Sciences / biomechanics and biomaterials (NEET-SS): kept 1 of 1
+  answer too long at high effort, retrying lower
+  Infection & Metabolic / osteoporosis drugs (FNB): kept 1 of 4
+  answer too long at medium effort, retrying lower
+  answer too long at medium effort, retrying lower
+  answer too long at high effort, retrying lower
+  Trauma / elbow and forearm (INI-SS): kept 2 of 5
+  answer too long at medium effort, retrying lower
+  answer too long at medium effort, retrying lower
+  answer too long at high effort, retrying lower
+  Spine / spinal tuberculosis and infection (NEET-SS): kept 3 of 6
+  answer too long at high effort, retrying lower
+  Arthroplasty / unicompartmental knee arthroplasty and osteotomy (FNB): kept 2 of 4
+  answer too long at medium effort, retrying lower
+  answer too long at high effort, retrying lower
+  Sports & Arthroscopy / sports medicine and anti-doping (INI-SS): kept 2 of 6
+  answer too long at medium effort, retrying lower
+  answer too long at medium effort, retrying lower
+  answer too long at medium effort, retrying lower
+  answer too long at high effort, retrying lower
+  answer too long at medium effort, retrying lower
+  Hand & Upper Limb / brachial plexus (FNB): kept 5 of 6
+Done: 16 new questions, 0 proofread, 0 flagged, 47 min.
+Applied: 16 new questions, 0 flags.
