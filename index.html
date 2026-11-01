@@ -161,6 +161,17 @@ p{margin:0}
 .secrow{display:flex;flex-direction:column;gap:8px;padding:12px}.secrow input[type=range]{width:100%;accent-color:var(--accent)}
 .lensbox{position:absolute;left:10px;top:40px;max-width:calc(100% - 70px);max-height:36%;overflow:auto;background:rgba(14,21,30,.92);border:1px solid var(--line);border-radius:10px;padding:8px;z-index:3;display:flex;flex-direction:column;gap:6px;font-size:12px}
 .lensbox .apchips .chip{font-size:11px;padding:4px 9px}
+.cimg{margin:0;display:flex;flex-direction:column;gap:6px}
+.cimgBox{position:relative;aspect-ratio:4/3;width:100%;max-width:560px;background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:zoom-in}
+.cimgBox img{width:100%;height:100%;object-fit:cover;display:block}
+.cimgTag{position:absolute;left:8px;bottom:8px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:rgba(14,21,30,.82);color:#cfd8e2;padding:3px 7px;border-radius:5px}
+.cimgZoom{position:absolute;right:8px;bottom:8px;background:rgba(14,21,30,.82);color:#cfd8e2;border-radius:5px;padding:1px 7px;font-size:13px}
+.cimgLoad{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.cimg figcaption{font-size:12px;color:var(--muted);max-width:560px}
+.lbox{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:hidden}
+.lbox img{max-width:100%;max-height:72vh;touch-action:none;transform-origin:center;user-select:none;-webkit-user-drag:none}
+.lbox button{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px}
+.lbox p{font-size:13px;text-align:center;max-width:60ch;color:#dfe6ee}
 .loadmsg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(14,21,30,.9);border:1px solid var(--line);padding:10px 14px;border-radius:8px;font-family:var(--mono);font-size:12px;text-align:center;max-width:80%}
 </style>
 
@@ -184,7 +195,7 @@ p{margin:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:43,hue:164,date:"31 Oct 2026, 16:20 IST",news:["Fix: the operating room could go blank on some phones after opening the new 3D Atlas — the Atlas now frees its graphics memory when you leave it, the 3D view uses less memory on phones, and the view reloads itself if the phone resets graphics","Everything from Update 42 is kept: realistic Atlas, ~200 new nerves, lymph layer, search, ghost muscles, cross-section slicer and the Anatomy lens in theatre"]};
+const BUILD={n:47,hue:352,date:"1 Nov 2026, 21:15 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["NEW OPERATION: reverse shoulder arthroplasty through the deltopectoral approach — indication and Grammont principles, subscapularis tenotomy, axillary nerve, humeral cut, low baseplate with inferior tilt and overhang to avoid notching, soft-tissue tension, complications","+7 post-op viva questions on reverse shoulder arthroplasty","Also new today: case of the day, ward filters, scaphoid dorsal and olecranon screw approaches and ward-round X-rays"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -556,6 +567,9 @@ const MCQ=[
  {t:"Paeds",q:"Heel pain in an active 10-year-old, worse after running, with tenderness on squeezing the posterior calcaneus, most likely represents:",o:["Sever disease (calcaneal apophysitis)","Köhler disease","Freiberg infraction","Achilles tendon rupture"],a:0,e:"A self-limiting traction apophysitis at the Achilles insertion; managed with activity modification, heel cups and stretching. Köhler is navicular osteochondrosis, Freiberg the second metatarsal head."},
  {t:"Sports",q:"An 'inverted-pear' glenoid at arthroscopy indicates:",o:["Significant anteroinferior glenoid bone loss (about 25% or more)","A SLAP lesion","A normal glenoid","Posterior glenoid dysplasia"],a:0,e:"It predicts failure of an arthroscopic Bankart repair — a bone-block procedure such as the Latarjet is preferred."},
  {t:"Sports",q:"A HAGL lesion is:",o:["Humeral avulsion of the glenohumeral ligaments","A haemarthrosis after glenoid labral tear","A Hill-Sachs lesion in the glenoid","An avulsion of the long head of biceps"],a:0,e:"An overlooked cause of failed Bankart repair; the 'J sign' on MR arthrography; treated by open or arthroscopic repair to the humeral neck."},
+ {t:"Basic Sci",q:"X-linked hypophosphataemic rickets is caused by mutation of:",o:["PHEX, which raises circulating FGF23 and causes renal phosphate wasting","The vitamin D receptor","1-alpha-hydroxylase (CYP27B1)","The calcium-sensing receptor"],a:0,e:"Serum phosphate is low with normal calcium and inappropriately normal or low calcitriol; treated with phosphate and calcitriol, or burosumab (anti-FGF23). It is not cured by vitamin D alone."},
+ {t:"Hand",q:"A bony mallet finger involving more than a third of the articular surface with volar subluxation of the distal phalanx is best treated by:",o:["Operative reduction and fixation, e.g. extension-block K-wire pinning","A stack splint in extension for 6 weeks","Buddy strapping","Splinting the DIP joint in flexion"],a:0,e:"Most mallet injuries do well in an extension splint; volar subluxation of the distal phalanx is the clearest indication for surgery."},
+ {t:"Trauma",q:"A fracture at the metaphyseal–diaphyseal junction of the fifth metatarsal (zone 2, 'Jones' fracture) is notable because:",o:["It lies in a vascular watershed with a high risk of delayed union — intramedullary screw fixation is favoured in athletes","It is an avulsion by peroneus brevis that heals in a walking boot within 3 weeks","It always involves the tarsometatarsal joint","It is the commonest stress fracture of the second metatarsal"],a:0,e:"Zone 1 tuberosity avulsions do well with symptomatic treatment; zone 2 Jones and zone 3 proximal diaphyseal stress fractures have higher nonunion rates."},
  {t:"Sports",q:"A reverse Hill-Sachs (McLaughlin) lesion is an impaction of the anteromedial humeral head seen after:",o:["Posterior shoulder dislocation, classically from seizures or electric shock","Anterior shoulder dislocation","Inferior dislocation (luxatio erecta)","Acromioclavicular dislocation"],a:0,e:"Look for the 'lightbulb' sign and a positive rim sign on AP radiographs; get an axillary view or CT."},
 ];
 
@@ -666,17 +680,19 @@ function viewHome(){
   <div class="stat"><b>${orDone}/${PROCS.length}</b><small>Operations</small></div>
   <div class="stat"><b>${cDone}/${CASES.length}</b><small>Cases</small></div></div>
  ${(()=>{const nx=PROCS.find(p=>!(S.or||{})[p.id]);return nx?`<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div style="min-width:0"><p class="eyebrow">Next on your list · ${orDone}/${PROCS.length} done</p><h3 style="margin-top:2px">${esc(nx.name)}</h3><p class="muted" style="font-size:13px">${esc(nx.apName||nx.approach)}</p></div><button class="btn primary" style="flex:none;padding:8px 12px" data-nx="${nx.id}">Scrub in</button></section>`:`<section class="card"><p class="eyebrow" style="color:var(--ok)">All ${PROCS.length} approaches completed — replay them in exam mode for higher scores</p></section>`})()}
+ ${(()=>{const d=new Date(),k=(d.getFullYear()*372+d.getMonth()*31+d.getDate())%CASES.length,cd=CASES[k],b=S.cases[cd.id],im=cd.img||(cd.qs.find(q=>q.img)||{}).img;return `<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div style="min-width:0"><p class="eyebrow">Case of the day${im?` · ${im.kind==="photo"?"🩺 illustration":"🩻 X-ray"}`:""}</p><h3 style="margin-top:2px">${esc(cd.title)}</h3><p class="muted" style="font-size:13px">${esc(cd.tag)} · ${b!=null?`best ${b}/${cd.qs.length}`:"not seen yet"}</p></div><button class="btn" style="flex:none;padding:8px 12px" data-cod="${cd.id}">Ward round</button></section>`})()}
  <div class="grid2">
   <button class="mode" data-go="or"><span class="tag">3D · Interactive surgery</span><h3>Operating Room</h3><p>${famList().length} operations and ${PROCS.length} surgical approaches, from knee replacement to lumbar pedicle screws — incision to closure, with fluoroscopy, a time-lapse replay and ${Object.values(OPQ).reduce((s,b)=>s+b.length,0)} post-op viva questions.</p></button>
   <button class="mode" data-go="atlas"><span class="tag">3D · Layers</span><h3>Anatomy Atlas</h3><p>Peel skin, muscles, vessels and nerves off the skeleton and tap any structure to identify it.</p></button>
   <button class="mode" data-go="theatre"><span class="tag">Timed · ${APPROACHES.length} approaches</span><h3>Approach Drills</h3><p>Pick the correct interval and danger structure at each layer against the clock.</p></button>
   <button class="mode" data-go="blitz"><span class="tag">Exam · ${MCQ.length} MCQs</span><h3>MCQ Blitz</h3><p>Ten-question rounds, 30 s each, streak multiplier, explanations after every answer.</p></button>
-  <button class="mode" data-go="ward"><span class="tag">Clinical · ${CASES.length} cases</span><h3>Case Ward</h3><p>Vignettes with stepwise diagnosis, classification and management.</p></button>
+  <button class="mode" data-go="ward"><span class="tag">Clinical · ${CASES.length} cases</span><h3>Case Ward</h3><p>Vignettes with stepwise diagnosis, classification and management — now with simulated X-rays and clinical pictures.</p></button>
   <button class="mode" id="revBtn"><span class="tag">Revise · ${S.wrong.length} banked</span><h3>Mistake Bank</h3><p>${S.wrong.length?"Replay the MCQs you got wrong until they stick.":"Questions you miss land here automatically."}</p></button>
  </div>
  <p class="muted" style="font-size:12px">Progress is saved in this browser. Anatomy: BodyParts3D, © The Database Center for Life Science, CC BY 4.0 (adapted; peripheral nerves routed for teaching). Verify content against current guidelines and standard texts (Campbell's, Rockwood, Hoppenfeld).</p></div>`;
  $m.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
  $m.querySelectorAll("[data-nx]").forEach(b=>b.onclick=()=>go("or",{proc:b.dataset.nx}));
+ $m.querySelectorAll("[data-cod]").forEach(b=>b.onclick=()=>{go("ward");runCase(CASES.find(c=>c.id===b.dataset.cod))});
  document.getElementById("revBtn").onclick=()=>{if(S.wrong.length)go("blitz",{revise:true});else toast("No mistakes banked yet")};
  const nt=document.getElementById("newTry");if(nt)nt.onclick=()=>go("or",{proc:BUILD.try});
  const nx=document.getElementById("newX");if(nx)nx.onclick=()=>{try{localStorage.setItem("orthoquest.build",String(BUILD.n))}catch(e){}const nc=document.getElementById("newCard");if(nc)nc.remove()};}
@@ -1314,16 +1330,20 @@ function runBlitz(qs,revise){
 }
 
 /* ================= WARD ================= */
+let wardFilt="all";
 function viewWard(){
- $m.innerHTML=`<div class="view"><div><p class="eyebrow">Case Ward</p><h1 style="margin-top:4px">Ward round</h1><p class="muted" style="margin-top:6px">Work each patient from diagnosis to definitive plan. Untimed — think like the viva.</p></div>
- <div class="grid2">${CASES.map(c=>{const b=S.cases[c.id];return `<button class="apcard" data-c="${c.id}"><span class="tagline">${esc(c.tag)}</span><h3>${esc(c.title)}</h3><span class="plane">${c.qs.length} decisions</span>${b!=null?`<span class="best">Best ${b}/${c.qs.length}</span>`:`<span class="best" style="color:var(--muted)">Not seen</span>`}</button>`}).join("")}</div></div>`;
+ const hasImg=c=>!!(c.img||c.qs.some(q=>q.img)),F={all:()=>true,img:hasImg,new:c=>S.cases[c.id]==null};
+ $m.innerHTML=`<div class="view"><div><p class="eyebrow">Case Ward</p><h1 style="margin-top:4px">Ward round</h1><p class="muted" style="margin-top:6px">Work each patient from diagnosis to definitive plan. Untimed — think like the viva. Tap any X-ray or clinical picture to enlarge it; pinch to zoom.</p></div>
+ <div class="chips" id="wF">${[["all",`All ${CASES.length}`],["img",`🩻 With images ${CASES.filter(hasImg).length}`],["new",`Not seen ${CASES.filter(F.new).length}`]].map(([k,t])=>`<button class="chip" data-wf="${k}" aria-pressed="${wardFilt===k}">${t}</button>`).join("")}</div>
+ <div class="grid2">${CASES.filter(F[wardFilt]||F.all).map(c=>{const b=S.cases[c.id];return `<button class="apcard" data-c="${c.id}"><span class="tagline">${esc(c.tag)}</span><h3>${esc(c.title)}</h3><span class="plane">${c.qs.length} decisions${hasImg(c)?` · <span style="color:var(--build)">${(c.img||c.qs.find(q=>q.img).img).kind==="photo"?"🩺 illustration":"🩻 X-ray"}</span>`:""}</span>${b!=null?`<span class="best">Best ${b}/${c.qs.length}</span>`:`<span class="best" style="color:var(--muted)">Not seen</span>`}</button>`}).join("")||`<p class="muted">Every case has been seen — pick All to retry them.</p>`}</div></div>`;
+ $m.querySelectorAll("[data-wf]").forEach(b=>b.onclick=()=>{wardFilt=b.dataset.wf;viewWard()});
  $m.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>runCase(CASES.find(c=>c.id===b.dataset.c)));
 }
 function runCase(c){let k=0,right=0;
- $m.innerHTML=`<div class="view"><div class="row" style="justify-content:space-between"><div><p class="eyebrow">${esc(c.tag)}</p><h2 style="margin-top:2px">${esc(c.title)}</h2></div><button class="btn ghost" id="quit" style="padding:7px 12px">Leave</button></div><div class="vignette">${esc(c.v)}</div><div id="cb" style="display:flex;flex-direction:column;gap:14px"></div></div>`;
- document.getElementById("quit").onclick=()=>go("ward");
+ $m.innerHTML=`<div class="view"><div class="row" style="justify-content:space-between"><div><p class="eyebrow">${esc(c.tag)}</p><h2 style="margin-top:2px">${esc(c.title)}</h2></div><button class="btn ghost" id="quit" style="padding:7px 12px">Leave</button></div>${imgCard(c.img)}<div class="vignette">${esc(c.v)}</div><div id="cb" style="display:flex;flex-direction:column;gap:14px"></div></div>`;
+ document.getElementById("quit").onclick=()=>go("ward");if(c.img)mountImg($m.querySelector(".view"),c.img);
  function q(){const Q=c.qs[k],order=shuffle(Q.o.map((_,i)=>i)),body=document.getElementById("cb");
-  body.innerHTML=`<div class="step-meta"><span>DECISION ${k+1} / ${c.qs.length}</span><span>${right} correct</span></div><p class="prompt">${esc(Q.q)}</p><div class="opts">${order.map((o,i)=>`<button class="opt" data-o="${o}"><span class="k">${"ABCD"[i]}</span><span>${esc(Q.o[o])}</span></button>`).join("")}</div><div id="fbx"></div>`;
+  body.innerHTML=`<div class="step-meta"><span>DECISION ${k+1} / ${c.qs.length}</span><span>${right} correct</span></div>${imgCard(Q.img)}<p class="prompt">${esc(Q.q)}</p><div class="opts">${order.map((o,i)=>`<button class="opt" data-o="${o}"><span class="k">${"ABCDEF"[i]}</span><span>${esc(Q.o[o])}</span></button>`).join("")}</div><div id="fbx"></div>`;if(Q.img)mountImg(body,Q.img);
   body.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const o=+b.dataset.o,btns=[...body.querySelectorAll(".opt")];btns.forEach(x=>x.disabled=true);
    btns.find(x=>+x.dataset.o===Q.a).classList.add("ok");const ok=o===Q.a;if(ok)right++;else b.classList.add("bad");
    document.getElementById("fbx").innerHTML=`<div class="fb ${ok?"":"bad"}"><b>${ok?"Correct":"Not quite"}.</b> ${esc(Q.e)}</div><div class="row" style="margin-top:12px"><button class="btn primary" id="nx">${k===c.qs.length-1?"Close case":"Next decision"}</button></div>`;
@@ -1332,6 +1352,145 @@ function runCase(c){let k=0,right=0;
   document.getElementById("cb").innerHTML=`<div class="card result"><p class="eyebrow">Case closed</p><div class="big">${right}/${c.qs.length}</div><p class="muted">+${xp} XP</p><div class="row" style="justify-content:center"><button class="btn primary" id="w">Back to ward</button><button class="btn" id="r">Retry case</button></div></div>`;
   document.getElementById("w").onclick=()=>go("ward");document.getElementById("r").onclick=()=>runCase(c);}
  q();}
+
+/* ================= CASE IMAGES — simulated radiographs (BodyParts3D bones) + clinical illustrations =================
+ img on a case or a question: {kind:"xray"|"photo"|"mri"|"ct", view, cap, spec:()=>({...})  (xray)  |  draw(g,W,H) (photo)}
+ xray spec: {parts:[bone names] | fn(p)->bool, center:[x,y,z], size:half-height (m), dir:[x,y,z] (camera side), up?, soft?:bool,
+   frags:[{part, n (into the fragment), pt, rot:[rx,ry,rz] about pt, move:[dx,dy,dz], with:[whole bones that follow]}], marker:{t,x:"l"|"r"}, draw(g,P)} */
+const XR={r:null,W:640,H:480,cache:new WeakMap()};
+function xrMat(a,b){return new THREE.ShaderMaterial({uniforms:{a:{value:a},b:{value:b}},clipping:true,transparent:true,blending:THREE.AdditiveBlending,depthTest:false,depthWrite:false,side:THREE.DoubleSide,
+ vertexShader:"varying vec3 vN;\n#include <clipping_planes_pars_vertex>\nvoid main(){vec4 mvPosition=modelViewMatrix*vec4(position,1.0);vN=normalMatrix*normal;\n#include <clipping_planes_vertex>\ngl_Position=projectionMatrix*mvPosition;}",
+ fragmentShader:"uniform float a;uniform float b;varying vec3 vN;\n#include <clipping_planes_pars_fragment>\nvoid main(){\n#include <clipping_planes_fragment>\nfloat f=1.0-abs(normalize(vN).z);gl_FragColor=vec4(vec3(a+b*f*f),1.0);}"})}
+async function xrRender(img){if(XR.cache.has(img))return XR.cache.get(img);
+ const W=XR.W,H=XR.H,cv=document.createElement("canvas");cv.width=W;cv.height=H;const g=cv.getContext("2d");
+ if(img.kind==="xray"||img.kind==="ct"){const D=await loadReal();const sp=img.spec();
+  if(!XR.r){XR.r=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});XR.r.setPixelRatio(1);XR.r.localClippingEnabled=true}
+  const r=XR.r;r.setSize(W,H,false);r.setClearColor(0x000000,1);
+  const sc=new THREE.Scene(),V=a=>new THREE.Vector3(...a),mats=[],BA=sp.ba||.05,BB=sp.bb||.42;const mk=(a,b)=>{const m=xrMat(a,b);mats.push(m);return m};
+  const sel=typeof sp.parts==="function"?sp.parts:(p=>sp.parts.includes(p.name));
+  const C=V(sp.center),hh=sp.size,hw=hh*W/H,dir=V(sp.dir).normalize(),cam=new THREE.OrthographicCamera(-hw,hw,hh,-hh,.01,10);
+  cam.position.copy(C).addScaledVector(dir,3);cam.up.copy(V(sp.up||[0,1,0]));cam.lookAt(C);cam.updateMatrixWorld(true);
+  const box=new THREE.Box3(C.clone().subScalar(hw*1.3),C.clone().addScalar(hw*1.3));
+  const inView=p=>box.intersectsBox(new THREE.Box3(V(p.lo),V(p.hi)));
+  const frags=sp.frags||[],fM=frags.map(f=>{const pt=V(f.pt),R=new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(...(f.rot||[0,0,0])));
+   return new THREE.Matrix4().makeTranslation(...(f.move||[0,0,0])).multiply(new THREE.Matrix4().makeTranslation(pt.x,pt.y,pt.z)).multiply(R).multiply(new THREE.Matrix4().makeTranslation(-pt.x,-pt.y,-pt.z))});
+  D.parts.forEach(p=>{if(p.sys!=="bone"||!sel(p))return;const geo=partGeo(p);
+   const fi=frags.findIndex(f=>(f.with||[]).includes(p.name));if(fi>=0){const m=new THREE.Mesh(geo,mk(BA,BB));m.applyMatrix4(fM[fi]);sc.add(m);return}
+   const own=frags.map((f,i)=>[f,i]).filter(([f])=>f.part===p.name),m=new THREE.Mesh(geo,mk(BA,BB));
+   m.material.clippingPlanes=own.map(([f])=>new THREE.Plane().setFromNormalAndCoplanarPoint(V(f.n).normalize().negate(),V(f.pt)));sc.add(m);
+   own.forEach(([f,i])=>{const q=new THREE.Mesh(geo,mk(BA,BB));q.applyMatrix4(fM[i]);q.material.clippingPlanes=[new THREE.Plane().setFromNormalAndCoplanarPoint(V(f.n).normalize(),V(f.pt)).applyMatrix4(fM[i])];sc.add(q)})});
+  if(sp.soft!==false){const side=sp.side||"",sx=sp.softX||[-9,9],cl=[new THREE.Plane(V([1,0,0]),-sx[0]),new THREE.Plane(V([-1,0,0]),sx[1])];
+   const sm=(a,b)=>{const m=mk(a,b);m.clippingPlanes=cl;return m};
+   D.parts.forEach(p=>{if(p.sys==="skin"){if(sp.skin!==false)sc.add(new THREE.Mesh(partGeo(p),sm(.05,.06)));return}
+   if((p.sys==="muscle")&&inView(p)&&(!side||!/(right|left)/i.test(p.name)||new RegExp(side,"i").test(p.name)))sc.add(new THREE.Mesh(partGeo(p),sm(.014,.01)))})}
+  sc.updateMatrixWorld(true);r.render(sc,cam);
+  g.fillStyle="#000";g.fillRect(0,0,W,H);try{g.filter="blur(0.7px)"}catch(e){}g.drawImage(r.domElement,0,0);try{g.filter="none"}catch(e){}
+  mats.forEach(m=>m.dispose());r.renderLists&&r.renderLists.dispose();
+  const P=a=>{const v=V(a).project(cam);return[(v.x+1)/2*W,(1-v.y)/2*H]};
+  if(sp.draw)try{sp.draw(g,P)}catch(e){}
+  const id=g.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){const n=(Math.random()-.5)*14,v=Math.min(255,d[i]+n);d[i]=d[i+1]=d[i+2]=v<0?0:v}g.putImageData(id,0,0);
+  const vg=g.createRadialGradient(W/2,H/2,H*.35,W/2,H/2,H*.85);vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(0,0,0,.55)");g.fillStyle=vg;g.fillRect(0,0,W,H);
+  if(sp.marker){const t=sp.marker.t,x=sp.marker.x==="r"?W-18:18;g.font="bold 22px 'IBM Plex Mono',monospace";g.textAlign=sp.marker.x==="r"?"right":"left";g.textBaseline="top";
+   const w=g.measureText(t).width;g.fillStyle="rgba(255,255,255,.92)";g.fillRect(sp.marker.x==="r"?x-w-6:x-6,14,w+12,30);g.fillStyle="#000";g.fillText(t,x,18)}}
+ else{g.fillStyle="#EEF1F4";g.fillRect(0,0,W,H);img.draw(g,W,H)}
+ const url=cv.toDataURL("image/jpeg",.86);XR.cache.set(img,url);return url}
+function imgCard(img){if(!img)return"";const lab=img.kind==="photo"?"Clinical illustration":img.kind==="mri"?"Simulated MRI":img.kind==="ct"?"Simulated CT":"Simulated X-ray";
+ return `<figure class="cimg"><div class="cimgBox" data-ci="1" role="button" tabindex="0" aria-label="Enlarge image"><span class="cimgLoad">Developing film…</span><span class="cimgTag">${lab}${img.view?" · "+esc(img.view):""}</span><span class="cimgZoom">⤢</span></div>${img.cap?`<figcaption>${esc(img.cap)}</figcaption>`:""}</figure>`}
+function mountImg(root,img){const box=root.querySelector("[data-ci]");if(!box||!img)return;
+ xrRender(img).then(url=>{const im=new Image();im.src=url;im.alt=img.cap||"Case image";box.prepend(im);const l=box.querySelector(".cimgLoad");if(l)l.remove();
+  const open=()=>lightbox(url,img);box.onclick=open;box.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}}})
+ .catch(e=>{const l=box.querySelector(".cimgLoad");if(l)l.textContent="Image unavailable — the anatomy data could not be loaded."})}
+function lightbox(url,img){const d=document.createElement("div");d.className="lbox";d.innerHTML=`<img src="${url}" alt=""><button class="btn" aria-label="Close">✕ Close</button><p>${esc(img.cap||"")}<br><span class="muted">Pinch or scroll to zoom · drag to move · double-tap to reset</span></p>`;document.body.appendChild(d);
+ const im=d.querySelector("img");let s=1,tx=0,ty=0;const pts=new Map();let last=null,lastTap=0;
+ const ap=()=>{im.style.transform=`translate(${tx}px,${ty}px) scale(${s})`};
+ const dist=()=>{const a=[...pts.values()];return a.length<2?0:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)};
+ im.addEventListener("pointerdown",e=>{e.preventDefault();im.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});last={d:dist(),x:e.clientX,y:e.clientY,s};
+  const now=Date.now();if(pts.size===1&&now-lastTap<300){s=1;tx=ty=0;ap()}lastTap=now});
+ im.addEventListener("pointermove",e=>{if(!pts.has(e.pointerId))return;const p=pts.get(e.pointerId),dx=e.clientX-p.x,dy=e.clientY-p.y;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size>=2&&last&&last.d){s=Math.max(1,Math.min(6,last.s*dist()/last.d))}else{tx+=dx;ty+=dy}ap()});
+ const up=e=>{pts.delete(e.pointerId);last={d:dist(),s}};im.addEventListener("pointerup",up);im.addEventListener("pointercancel",up);
+ d.addEventListener("wheel",e=>{e.preventDefault();s=Math.max(1,Math.min(6,s*(e.deltaY<0?1.15:1/1.15)));ap()},{passive:false});
+ const close=()=>d.remove();d.querySelector("button").onclick=close;d.addEventListener("click",e=>{if(e.target===d)close()})}
+/* clinical illustration painter helpers */
+function xrBeak(g,pa,pb,sg){const mx=(pa[0]+pb[0])/2,my=pa[1]*.35+pb[1]*.65;g.fillStyle="rgba(246,246,246,.78)";g.beginPath();g.moveTo(pa[0],pa[1]);g.quadraticCurveTo(mx+sg*7,my,pb[0]+sg*1,pb[1]);g.lineTo(pb[0]-sg*4,pb[1]);g.quadraticCurveTo(mx-sg*3,my,pa[0]-sg*2,pa[1]);g.closePath();g.fill()}
+function ciSkin(g,path,fill,stroke){g.fillStyle=fill||"#E9B99A";g.strokeStyle=stroke||"#B57F62";g.lineWidth=2.5;g.lineJoin="round";g.beginPath();path(g);g.closePath();g.fill();g.stroke()}
+function drawClubfoot(g,W,H){const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,"#DCE6EE");bg.addColorStop(1,"#B9C8D6");g.fillStyle=bg;g.fillRect(0,0,W,H);
+ g.fillStyle="rgba(255,255,255,.55)";g.fillRect(0,H*.78,W,H*.22);
+ /* patient's RIGHT leg is on the viewer's LEFT (front view) — clubfoot; patient's left leg normal */
+ const leg=(cx)=>{const sd=(p,k)=>{p.moveTo(cx-k*70,20);p.bezierCurveTo(cx-k*84,110,cx-k*66,190,cx-k*42,262)};g.fillStyle="#E9B99A";g.beginPath();sd(g,1);g.lineTo(cx+42,262);g.bezierCurveTo(cx+66,190,cx+84,110,cx+70,20);g.closePath();g.fill();
+  g.strokeStyle="#B57F62";g.lineWidth=2.5;g.beginPath();sd(g,1);g.stroke();g.beginPath();sd(g,-1);g.stroke();g.lineWidth=1.5;g.strokeStyle="rgba(181,127,98,.7)";[[110,.55],[200,.45]].forEach(([y,w])=>{g.beginPath();g.moveTo(cx-60*w*1.6,y);g.quadraticCurveTo(cx,y+10,cx+60*w*1.6,y);g.stroke()})};
+ /* normal left foot (viewer's right): foot points forward/down, sole down — seen end-on from the front */
+ ciSkin(g,p=>{p.moveTo(398,245);p.bezierCurveTo(390,300,385,340,392,372);p.bezierCurveTo(400,398,480,398,490,372);p.bezierCurveTo(496,340,490,300,482,245)});
+ g.strokeStyle="#B57F62";g.lineWidth=1.6;[[404,382],[424,388],[444,390],[462,388],[478,381]].forEach(([x,y],i)=>{g.beginPath();g.ellipse(x,y-6,i?8:10,9,0,0,Math.PI*2);g.fillStyle="#EDC0A2";g.fill();g.stroke()});
+ /* right clubfoot (viewer's left): plantarflexed, inverted and adducted — sole turned to face medially (toward the other foot), forefoot curving in */
+ ciSkin(g,p=>{p.moveTo(160,240);p.bezierCurveTo(150,285,160,318,186,338);p.bezierCurveTo(222,366,276,372,318,350);p.bezierCurveTo(338,338,336,312,314,306);p.bezierCurveTo(286,300,262,296,250,276);p.bezierCurveTo(244,262,242,250,240,240)});
+ /* sole (plantar surface) visible, facing medially/upward */
+ g.fillStyle="#F2CDB4";g.beginPath();g.moveTo(244,262);g.bezierCurveTo(262,300,296,302,318,310);g.bezierCurveTo(330,316,330,334,316,342);g.bezierCurveTo(290,350,262,344,246,322);g.bezierCurveTo(236,304,236,284,244,262);g.fill();
+ /* deep medial and plantar creases */
+ g.strokeStyle="#8E5A42";g.lineWidth=3;g.beginPath();g.moveTo(250,282);g.bezierCurveTo(266,300,286,312,300,318);g.stroke();
+ g.lineWidth=2;g.beginPath();g.moveTo(256,300);g.bezierCurveTo(270,318,284,326,296,330);g.stroke();
+ /* toes pointing medially */
+ [[322,316],[326,330],[322,343],[312,352],[298,358]].forEach(([x,y],i)=>{g.beginPath();g.ellipse(x,y,i?7:9,7,-.6,0,Math.PI*2);g.fillStyle="#EDC0A2";g.fill();g.strokeStyle="#B57F62";g.lineWidth=1.4;g.stroke()});
+ /* small high heel, empty heel pad */
+ g.strokeStyle="#B57F62";g.lineWidth=2;g.beginPath();g.arc(176,286,18,Math.PI*.6,Math.PI*1.35);g.stroke();
+ leg(200);leg(440);g.fillStyle="#23303D";g.font="600 15px Figtree,sans-serif";g.textAlign="center";g.fillText("Right",200,452);g.fillText("Left",440,452);
+ g.font="12px 'IBM Plex Mono',monospace";g.fillStyle="#4A5A6A";g.fillText("Front view · newborn · illustration",W/2,472)}
+
+/* ---- ward-round images for existing cases (Update 44) ---- */
+const RHIP=()=>{const fem=LM.P("Right femur"),hs=headFit("Right femur",p=>p[1]>fem.hi[1]-.06&&p[0]>fem.hi[0]-.05),hc=hs.c,fa=LM.all("Right femur");
+ const gt=LM.ext(fa.filter(p=>p[0]<fem.lo[0]+.03&&p[1]>fem.hi[1]-.09),[0,1,0]),lt=LM.ext(fa.filter(p=>p[1]>hc[1]-.09&&p[1]<hc[1]-.045),[.7,0,-.7]);
+ return{hc,hr:Math.min(.03,Math.max(.018,hs.r)),nd:LM.nrm(LM.sub(LM.mid(gt,lt),hc)),gt,lt}};
+const XRIMG={
+ c2:{kind:"xray",view:"AP right hip",cap:"AP radiograph of the right hip after the fall.",spec:()=>{const h=RHIP();
+  return{parts:["Right hip bone","Right femur","Sacrum","Left hip bone","Fifth lumbar vertebra"],side:"right",skin:false,softX:[-.2,9],center:[h.hc[0]-.035,h.hc[1]-.045,h.hc[2]],size:.105,dir:[0,0,1],marker:{t:"R",x:"l"},
+   frags:[{part:"Right femur",n:h.nd,pt:LM.add(h.hc,LM.mul(h.nd,h.hr*1.02)),rot:[0,-.75,.1],move:[-.006,.019,0]}]}}},
+ c7:{kind:"xray",view:"AP pelvis",cap:"AP pelvis in the emergency department.",spec:()=>{const h=RHIP();
+  return{parts:["Right hip bone","Left hip bone","Sacrum","Fifth lumbar vertebra","Fourth lumbar vertebra","Right femur","Left femur"],softX:[-.205,.205],center:[0,h.hc[1]-.02,h.hc[2]],size:.135,dir:[0,0,1],marker:{t:"R",x:"l"},
+   frags:[{with:["Right femur"],pt:h.hc,rot:[-.45,.55,.3],move:[-.006,.032,-.03]}]}}}
+};
+CASES.forEach(c=>{if(XRIMG[c.id]&&!c.img)c.img=XRIMG[c.id]});
+CASES.push(
+ {id:"c9",title:"The dinner-fork wrist",tag:"Wrist trauma · X-ray",v:"A 68-year-old right-handed woman, independent and living alone, slipped on a wet floor and landed on her outstretched right hand. The wrist has a 'dinner-fork' deformity; the fingers are pink with normal sensation. Lateral radiograph of the wrist:",
+  img:{kind:"xray",view:"Lateral right wrist",cap:"Lateral radiograph of the right wrist (dorsal to the left of the image, volar to the right).",spec:()=>{const R="Right radius",rad=LM.P(R),y=rad.lo[1]+.024,sl=LM.cen(LM.slab(R,y,.004));
+   const hand=RA.data.parts.filter(p=>p.sys==="bone"&&/right (scaphoid|lunate|triquetral|pisiform|trapezium|trapezoid|capitate|hamate)|right (first|second|third|fourth|fifth) metacarpal|of right (thumb|index|middle|ring|little)/i.test(p.name)).map(p=>p.name);
+   return{parts:p=>p.name===R||p.name==="Right ulna"||hand.includes(p.name),side:"right",center:[sl[0],rad.lo[1]+.005,sl[2]],size:.06,ba:.024,bb:.24,dir:[-1,0,0],marker:{t:"R",x:"r"},
+    frags:[{part:R,n:[0,-1,0],pt:sl,rot:[.42,0,0],move:[0,.004,-.005],with:hand}]}}},
+  qs:[
+   {q:"The lateral radiograph shows:",o:["A dorsally angulated, dorsally displaced extra-articular distal radius fracture (Colles' type) — the carpus follows the distal fragment","A volarly angulated distal fragment (Smith's fracture)","A volar rim shear fracture-subluxation (volar Barton)","A perilunate dislocation with an intact radius"],a:0,e:"The distal fragment and the carpus are tilted and shifted dorsally — the bony basis of the dinner-fork deformity. In a Smith's fracture the fragment and hand go volarly (garden-spade)."},
+   {q:"On a true lateral view, the normal distal radial articular surface has:",o:["About 11° of palmar (volar) tilt","About 22° of dorsal tilt","Zero tilt","About 35° of palmar tilt"],a:0,e:"Normal values: palmar tilt ~11°, radial inclination ~22° and radial height ~11 mm on the PA view, ulnar variance about neutral."},
+   {q:"Lafontaine's risk factors for redisplacement after closed reduction include all EXCEPT:",o:["Female sex","Age over 60","Initial dorsal angulation over 20°","Dorsal comminution or an associated ulnar fracture"],a:0,e:"Lafontaine: age >60, dorsal angulation >20°, dorsal comminution, intra-articular radiocarpal involvement and an associated ulnar fracture — three or more suggest an unstable fracture."},
+   {q:"Her reduction holds in plaster with acceptable alignment. For a patient of 65 or older, the best-supported plan is:",o:["Continue cast treatment — trials in older adults (e.g. CROSSFIRE) show function at 12 months similar to volar locking plating","Volar locking plate for every displaced fracture in this age group","Bridging external fixation","Primary distal ulna excision"],a:0,e:"In older, lower-demand patients radiological malunion is often well tolerated. DRAFFT/DRAFFT 2 (all ages) found K-wires and casts comparable with plates for many dorsally displaced fractures."},
+   {q:"Six weeks later she cannot extend the thumb interphalangeal joint. The most likely cause is:",o:["Attritional rupture of extensor pollicis longus around Lister's tubercle","Posterior interosseous nerve palsy","Median nerve compression in the carpal tunnel","De Quervain tenosynovitis"],a:0,e:"Classically after undisplaced or minimally displaced fractures (intact retinaculum, local ischaemia). Treated by extensor indicis to EPL transfer."}
+  ]},
+ {id:"c10",title:"The bisphosphonate thigh",tag:"Metabolic bone · X-ray",v:"A 71-year-old woman who has taken oral alendronate for 9 years felt a snap in her right thigh while stepping off a kerb — a fall from standing height. For three months she had a dull ache in both thighs. AP radiograph of the right femur:",
+  img:{kind:"xray",view:"AP right femur",cap:"AP radiograph of the right proximal femur.",spec:()=>{const F="Right femur",fem=LM.P(F),y=fem.hi[1]-.135,sl=LM.cen(LM.slab(F,y,.004));
+   return{parts:[F,"Right hip bone"],side:"right",skin:false,softX:[-.2,9],center:[sl[0]-.01,fem.hi[1]-.12,sl[2]],size:.12,dir:[0,0,1],marker:{t:"R",x:"l"},
+    frags:[{part:F,n:[0,-1,0],pt:sl,rot:[0,0,.1],move:[.004,.004,0]}],
+    draw:(g,P)=>{const a=LM.ext(LM.slab(F,y+.02,.003),[-1,0,0]),b=LM.ext(LM.slab(F,y+.001,.002),[-1,0,0]),pa=P(a),pb=P(b);
+     xrBeak(g,pa,[pb[0],pb[1]-2],-1)}}}},
+  qs:[
+   {q:"The fracture is best described as:",o:["An atypical femoral fracture — transverse subtrochanteric fracture from the lateral cortex, minimal comminution and focal lateral cortical thickening ('beaking')","A pathological fracture through a lytic metastasis","A reverse-oblique intertrochanteric fracture","A basicervical femoral neck fracture"],a:0,e:"ASBMR major features: minimal trauma, a transverse line starting at the lateral cortex, a medial spike when complete, little or no comminution and localised lateral periosteal/endosteal thickening. Prodromal thigh pain is common."},
+   {q:"The next essential step in her work-up is:",o:["Imaging of the contralateral femur — atypical fractures are frequently bilateral","A skeletal survey for myeloma only","PET-CT for an occult primary","No further imaging is needed"],a:0,e:"Full-length radiographs of the other femur (and MRI or extended-femur DXA if negative but painful) — she already has pain in both thighs."},
+   {q:"Her LEFT femur radiograph is shown. With ongoing thigh pain, the best management is:",img:{kind:"xray",view:"AP left femur",cap:"AP radiograph of the left proximal femur — note the lateral cortex.",spec:()=>{const F="Left femur",fem=LM.P(F),y=fem.hi[1]-.135,sl=LM.cen(LM.slab(F,y,.004));
+     return{parts:[F,"Left hip bone"],side:"left",skin:false,softX:[-9,.2],center:[sl[0]+.01,fem.hi[1]-.12,sl[2]],size:.12,dir:[0,0,1],marker:{t:"L",x:"r"},
+      draw:(g,P)=>{const a=LM.ext(LM.slab(F,y+.012,.003),[1,0,0]),b=LM.ext(LM.slab(F,y-.012,.003),[1,0,0]),m=LM.ext(LM.slab(F,y,.002),[1,0,0]),pa=P(a),pb=P(b),pm=P(m),c=P(sl);
+       xrBeak(g,pa,pm,1);xrBeak(g,pb,pm,1);
+       g.strokeStyle="rgba(0,0,0,.85)";g.lineWidth=2;g.beginPath();g.moveTo(pm[0]+6,pm[1]);g.lineTo(pm[0]-(pm[0]-c[0])*.55,pm[1]+1.5);g.stroke()}}}},
+    o:["Prophylactic cephalomedullary nailing — an incomplete atypical fracture with a lucent line and pain","Observation and continue alendronate","Protected weight-bearing for two weeks, then normal activity","Plate fixation of the lateral cortex"],a:0,e:"Incomplete atypical fractures with pain and a visible fracture line ('dreaded black line') have a high risk of completing; nail them. Pain-free lesions without a line can be managed with stopping the bisphosphonate, limited weight-bearing and close review."},
+   {q:"Definitive fixation of the complete right fracture:",o:["A long cephalomedullary nail, avoiding varus malreduction","A dynamic hip screw","A short proximal femoral locking plate alone","Skeletal traction for 12 weeks"],a:0,e:"Intramedullary nailing is standard. Watch for varus at the fracture and bow mismatch (the bowed femur can drive the nail tip anteriorly); healing is slower than in ordinary fractures."},
+   {q:"Her osteoporosis treatment should now be:",o:["Stop the bisphosphonate; consider teriparatide, with calcium and vitamin D","Switch to intravenous zoledronate","Continue alendronate — the fracture proves she has osteoporosis","Start denosumab and stop it after a year"],a:0,e:"Antiresorptives (bisphosphonates and denosumab) are linked to atypical fractures; stopping denosumab abruptly also causes rebound vertebral fractures. Anabolic teriparatide may aid healing."}
+  ]},
+ {id:"c11",title:"A newborn's turned-in foot",tag:"Paediatric foot · Illustration",v:"A healthy full-term boy is reviewed on day 3 with a rigid right foot that cannot be passively brought to neutral. The hips are stable and the spine and neurological examination are normal.",
+  img:{kind:"photo",view:"front view",cap:"Clinical illustration — the baby's feet seen from the front.",draw:drawClubfoot},
+  qs:[
+   {q:"The diagnosis and components of the deformity are:",o:["Idiopathic congenital talipes equinovarus — cavus, forefoot adductus, hindfoot varus and equinus","Metatarsus adductus — forefoot only","Calcaneovalgus foot","Congenital vertical talus"],a:0,e:"Rigid equinus and varus with a deep medial and plantar crease. Always examine the hips and spine to exclude a syndromic or neurological cause."},
+   {q:"The Pirani score assesses:",o:["Three hindfoot and three midfoot signs, each scored 0, 0.5 or 1 (maximum 6)","Talocalcaneal angles on radiographs","Ankle dorsiflexion only","Tibial torsion"],a:0,e:"Hindfoot: posterior crease, emptiness of the heel, rigid equinus. Midfoot: lateral border curvature, medial crease, lateral head of the talus coverage. It tracks correction and predicts tenotomy."},
+   {q:"In the first Ponseti cast, the cavus is corrected by:",o:["Supinating the forefoot (elevating the first ray) to align it with the hindfoot","Pronating the forefoot","Forcing the heel out of varus","Dorsiflexing the ankle"],a:0,e:"Order CAVE: cavus, adductus, varus, equinus. Pronation worsens cavus."},
+   {q:"During the abduction casts, the counter-pressure fulcrum is placed over:",o:["The lateral head of the talus","The calcaneocuboid joint","The medial malleolus","The navicular"],a:0,e:"Pressure on the calcaneocuboid joint blocks calcaneal abduction under the talus (Kite's error)."},
+   {q:"After five casts the foot abducts to 60° but dorsiflexion is 0°. Next:",o:["Percutaneous Achilles tenotomy, then a final cast for 3 weeks","Posteromedial soft-tissue release","More casts until 20° dorsiflexion","Tibialis anterior transfer now"],a:0,e:"Around 90% need a tenotomy; aim for more than 15° dorsiflexion before bracing."},
+   {q:"Bracing after correction, and the commonest cause of relapse:",o:["Foot abduction brace full-time for ~3 months, then at night and naps until about 4 years — relapse is mostly from non-compliance","No brace is needed after a tenotomy","Daytime brace for 6 months only","Brace until walking; relapse is mostly genetic"],a:0,e:"A dynamic supination relapse after age ~2.5–3 years with a correctable foot is treated by recasting and transfer of the whole tibialis anterior tendon to the lateral cuneiform."}
+  ]}
+);
 
 /* ================= OPERATING ROOM ================= */
 function C_(c){
@@ -3459,7 +3618,113 @@ PROCS.push((()=>{const A=PROCS.find(p=>p.id==="achilles");
    Each operation family lists every standard approach (Hoppenfeld / Campbell's / AO).
    An entry with p:"<proc id>" is playable once that PROCS entry exists; others show greyed as "coming".
    To add an approach variant: PROCS.push({id, family:"<family>", ...}) and set p on its entry here. */
+/* ---------- SCAPHOID — PERCUTANEOUS DORSAL (PROXIMAL POLE) ---------- */
+PROCS.push((()=>{const SC=PROCS.find(p=>p.id==="scaphoid");
+ return{id:"scaphoid-dorsal",family:"scaphoid",apName:"Percutaneous dorsal (proximal pole)",name:"Scaphoid fracture fixation",region:"hand",ind:"Undisplaced proximal pole scaphoid fracture in a 22-year-old footballer, 10 days after a fall",approach:"Percutaneous dorsal approach · antegrade headless compression screw from the proximal pole",dir:[0,0,1],
+ build(c){SC.build(c);const L=LM,sp=L.all("Right scaphoid"),v=c.L.v,c1=L.cen(sp),dt=a=>a[0]*v[0]+a[1]*v[1]+a[2]*v[2];
+  const ts=sp.map(p=>dt(L.sub(p,c1))),tmin=Math.min(...ts),tmax=Math.max(...ts);
+  const lineD=p=>{const d=L.sub(p,c1),t=dt(d);return Math.hypot(...L.sub(d,L.mul(v,t)))};
+  let E=c.L.B,bd=1e9;sp.forEach((p,i)=>{if(ts[i]>tmax-.0035){const d=lineD(p)+(tmax-ts[i])*.5;if(d<bd){bd=d;E=p}}});
+  c.L.E2=E.slice();c.L.T2=L.add(c1,L.mul(v,tmin+.0022));c.L.Sk2=L.add(E,L.mul(v,.012));c.L.E2W=wp(c,E);
+ },
+ cam:SC.cam,
+ phases:[
+  {type:"tool",title:"Which route?",short:"Volar or dorsal?",prompt:"CT shows an undisplaced fracture of the proximal pole. Why is the dorsal (antegrade) route preferred here?",hint:"Where must the screw threads gain their purchase?",
+   o:[["The small proximal fragment needs the screw to start in its centre and lie along the central axis — only a dorsal entry through the proximal pole achieves that",1,"Correct. From the volar side the screw ends eccentrically in the proximal pole, with few threads across the fracture."],["The volar approach cannot reach the scaphoid at all",0,"Volar percutaneous fixation is standard for waist fractures."],["Proximal pole fractures heal reliably in a cast, so the route does not matter",0,"Proximal pole fractures have the highest non-union and AVN rates — most are fixed."]]},
+  SC.phases[1],
+  {type:"tool",title:"Positioning",short:"Find the ring",prompt:"How do you position the wrist to find the dorsal entry point?",hint:"Look down the long axis of the scaphoid.",fluoro:true,cam:c=>c.cams.pa,
+   o:[["Pronate and flex the wrist (with slight ulnar deviation) under the image intensifier until the scaphoid is seen end-on as a ring; the centre of the ring is the entry point",1,"Correct. The ring view lines the wire up with the central axis."],["Hyperextend and ulnar-deviate the wrist over a towel",0,"That is the set-up for the volar (distal pole) route."],["Leave the wrist neutral in supination",0,"In neutral the proximal pole is hidden under the dorsal rim of the radius."]]},
+  {type:"tool",title:"Dorsal stab",short:"Protect the tendons",prompt:"How do you reach the proximal pole safely?",hint:"Two compartments meet just distal to Lister's tubercle.",fluoro:true,cam:c=>c.cams.pa,
+   o:[["A 1 cm incision just distal to Lister's tubercle between the 3rd (EPL) and 4th (EDC/EIP) compartments, blunt spreading to the capsule and a drill sleeve against bone",1,"Correct. A bare wire or drill wraps up EPL and the extensor tendons; the terminal branch of the PIN lies in the floor of the 4th compartment."],["A stab directly through the 1st dorsal compartment",0,"That is radial — APL/EPB and the superficial radial nerve, nowhere near the proximal pole."],["A blind wire through the skin without a sleeve",0,"Wires through unprotected skin can skewer EPL or EDC tendons."]]},
+  {type:"aim",title:"Guidewire entry",short:"Tap the entry on the image",prompt:"Image view. Tap where the guidewire enters the scaphoid from dorsal.",hint:"The proximal pole, just radial to the scapholunate ligament insertion, in line with the central axis.",fluoro:true,on:["Right scaphoid","Right scaphoid#frag","Right lunate"],target:c=>c.L.E2W,tol:.2,cam:c=>c.cams.pa,
+   near:c=>[{p:c.L.EW,r:.35,fb:"That is the distal pole — the volar entry used for waist fractures."},{p:c.L.waistW,r:.3,fb:"That is the waist and the fracture line — start in the proximal pole so the threads gain purchase in the small fragment."}],
+   fb:"Correct — the proximal pole just radial to the scapholunate ligament. The wire is aimed at the base of the thumb along the central axis.",
+   after:async c=>{const L=c.L,w=sweepIn(c,"gw","metal",[L.Sk2,L.E2,L.T2],.0006,{rad:8},"Guidewire");w.geometry.setDrawRange(0,0);await grow(w,1100)}},
+  SC.phases[4],
+  {type:"tool",title:"Before extending the wrist",short:"Do not bend the wire",prompt:"You need to extend the wrist for a lateral view. What must you do first?",hint:"The wire crosses the radiocarpal joint while the wrist is flexed.",fluoro:true,cam:c=>c.cams.lat,
+   o:[["Advance the wire volarly until it exits the thenar skin and pull it through from the front, so the dorsal end sits below the radiocarpal joint — then the wrist can move",1,"Correct. Extending the wrist with the wire still across the joint bends or breaks it."],["Extend the wrist with the wire in place — it will flex",0,"The wire bends or snaps and can scuff the radial articular surface."],["Remove the wire and re-insert it in extension",0,"You would lose the ideal central position."]]},
+  SC.phases[5],
+  {type:"tool",title:"Compression screw",short:"Drill and bury it",prompt:"How do you insert the screw from the dorsal side?",hint:"The entry is through articular cartilage.",fluoro:true,cam:c=>c.cams.pa,
+   o:[["Drill over the wire with the wrist flexed again, then insert a cannulated headless compression screw until the head is countersunk below the proximal pole cartilage",1,"Correct. A proud head abrades the radius at the scaphoid fossa."],["Leave the screw head flush with the cartilage",0,"Flush is not enough — the head must be buried beneath the articular surface."],["Use a screw as long as the measured length",0,"Subtract about 4 mm so both ends are buried."]],
+   after:async c=>{const L=c.L;c.o.gw.visible=false;const s=sweepIn(c,"screw","metal",[LM.add(L.E2,LM.mul(L.v,-.0016)),LM.mid(L.E2,L.T2),L.T2],.0016,{rad:14},"Headless compression screw");s.geometry.setDrawRange(0,0);await grow(s,1200);await reduceTo(c.o.frag,c.L.pv,900)}},
+  SC.phases[7],SC.phases[8]
+ ]}})());
+
+/* ---------- OLECRANON — INTRAMEDULLARY SCREW ---------- */
+PROCS.push((()=>{const O=PROCS.find(p=>p.id==="olecranon");
+ return{id:"olecranon-screw",family:"olecranon",apName:"Posterior · intramedullary screw",name:"Olecranon fixation",region:"elbow",ind:"Simple transverse displaced olecranon fracture (Mayo IIA) in a 38-year-old with good bone",approach:"Posterior approach to the olecranon · long partially threaded intramedullary screw ± tension band",dir:null,
+ build(c){O.build(c);const L=LM,U="Right ulna",top=L.P(U).hi[1],tip=c.L.tip;
+  c.L.axial=[L.add(tip,[0,.006,-.001]),L.add(L.scen(U,top-.1),[0,0,0])];
+ },
+ cam:O.cam,
+ phases:[
+  {type:"tool",title:"Indication",short:"Is a screw enough?",prompt:"Which olecranon fracture suits a single long intramedullary screw?",hint:"Compression only works without comminution.",cam:c=>c.cams.post,
+   o:[["A simple transverse or short oblique, non-comminuted fracture (Mayo IIA) in good bone",1,"Correct. Comminuted, very oblique, osteoporotic or fracture-dislocation patterns need a plate."],["A comminuted Mayo IIB fracture",0,"Compression across comminution shortens the trochlear notch — plate it."],["A fracture-dislocation with a coronoid fragment",0,"That needs a plate (and coronoid fixation), not a single screw."]]},
+  O.phases[1],O.phases[2],O.phases[3],O.phases[4],O.phases[5],O.phases[6],
+  {type:"tool",title:"Choose the screw",short:"Length and type",prompt:"What screw do you use?",hint:"The threads must grip the canal well beyond the fracture.",cam:c=>c.cams.lat,fluoro:true,
+   o:[["A 6.5–7.3 mm partially threaded cancellous screw with a washer, long enough (often 90–110 mm) for the threads to engage the canal distal to the coronoid, all threads beyond the fracture",1,"Correct. Short screws that stop in the metaphysis loosen and lose compression."],["A 3.5 mm cortical screw of 40 mm",0,"Too thin and too short to hold in the wide proximal canal."],["A fully threaded screw",0,"Threads across the fracture prevent lag compression."]]},
+  {type:"tool",title:"Insert the screw",short:"Follow the canal",prompt:"How do you place the screw?",hint:"The proximal ulna is not straight.",cam:c=>c.cams.lat,fluoro:true,
+   o:[["From the tip down the medullary canal on lateral and AP fluoroscopy, watching that the long straight screw does not tilt or translate the fragment against the proximal ulnar varus and dorsal angulation",1,"Correct. The proximal ulna has a varus bow and a dorsal angulation (PUDA) — a straight screw that binds in the canal can malreduce the fracture."],["Aim the screw out through the anterior cortex",0,"That is a different technique (transcortical K-wires) — an anterior exit can endanger the anterior interosseous structures."],["Insert it before reducing the fracture",0,"Reduce first and hold with a clamp; the screw then compresses."]],
+   after:async c=>{const L=c.L;await growScrew(c,L.axial[0],LM.nrm(LM.sub(L.axial[1],L.axial[0])),.095,.0022,900);if(c.o.frag&&c.L.pv)await reduceTo(c.o.frag,c.L.pv,700)}},
+  {type:"tool",title:"Rotation control",short:"Augment it?",prompt:"After compression, the fragment can still rotate around the screw. What do you add?",hint:"Think of the tension band again.",cam:c=>c.cams.post,
+   o:[["A figure-of-eight tension-band wire anchored around the screw head/washer and through a transverse ulnar drill hole",1,"Correct. The screw plus tension band is stiffer than either alone and controls rotation."],["Nothing — a single screw always controls rotation",0,"A lone screw is weak in rotation and may back out."],["A long-arm cast for 6 weeks",0,"The goal of fixation is early motion."]]},
+  O.phases[12]
+ ]}})());
+
+/* ---------- REVERSE SHOULDER ARTHROPLASTY (deltopectoral) ---------- */
+PROCS.push((()=>{const LJ=PROCS.find(p=>p.id==="latarjet"),SC="Right scapula";
+ return{id:"rsa",name:"Reverse shoulder arthroplasty",region:"shoulder",ind:"Cuff tear arthropathy (Hamada 4A) with pseudoparalysis of forward elevation in a 74-year-old woman with an intact deltoid",approach:"Deltopectoral approach · subscapularis tenotomy · reverse (Grammont-type) prosthesis",dir:null,
+ build(c){LJ.build(c);const L=LM,hum=L.P("Right humerus"),top=hum.hi[1],hc=c.L.hc,sc=L.all(SC),{M,S:Sw}=C_(c);
+  const gl=sc.filter(p=>Math.hypot(...L.sub(p,hc))<c.L.hcr+.008),gcn=L.cen(gl),gn=c.L.gn,gi=L.ext(gl,[0,-1,0]),gs=L.ext(gl,[0,1,0]);
+  const B=L.add(gcn,L.mul(L.sub(gi,gcn),.6)),nb=L.nrm(L.add(gn,[0,-.17,0])),Gs=L.add(L.add(B,L.mul(nb,.005)),[0,-.003,0]);
+  c.L.rB=B;c.L.rBW=wp(c,B);c.L.rCW=wp(c,gcn);c.L.rSW=wp(c,L.add(gcn,L.mul(L.sub(gs,gcn),.6)));c.L.Gs=Gs;c.L.nb=nb;
+  const sc0=L.scen("Right humerus",top-.07),h=L.nrm(L.sub(hc,sc0));c.L.rh=h;c.L.rP=L.sub(hc,L.mul(h,.006));c.L.rD=L.scen("Right humerus",top-.16);
+  const q=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(...nb));
+  const bp=M("rbp","metal",new THREE.CylinderGeometry(.0135,.0135,.004,24),L.add(B,L.mul(nb,.002)),{},"Glenoid baseplate");bp.quaternion.copy(q);bp.visible=false;
+  const sg=M("rgs","metal",shellGeo(.018),Gs,{},"Glenosphere (36 mm)");sg.quaternion.copy(q);sg.visible=false;
+  const cup=M("rcup","cap",shellGeo(.0186),Gs,{},"Humeral polyethylene cup");cup.quaternion.copy(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(...nb.map(x=>-x))));cup.visible=false;
+  c.cams.glen=camOf(c,L.add(L.add(gcn,L.mul(gn,.11)),[0,.01,.1]),gcn);
+ },
+ cam:LJ.cam,
+ phases:[
+  {type:"tool",title:"Indication",short:"Why a reverse?",prompt:"She cannot raise the arm above 45° actively, but passive elevation is full; X-rays show superior migration of the head with acetabularisation of the acromion. The best operation is:",hint:"The cuff is irreparable; the deltoid is intact.",
+   o:[["Reverse total shoulder arthroplasty — the deltoid elevates the arm around a fixed, medialised centre of rotation",1,"Correct. Cuff tear arthropathy with pseudoparalysis in an older patient with a working deltoid is the classic indication (Hamada grades 4–5)."],["Anatomic total shoulder replacement",0,"An anatomic glenoid loosens early (rocking-horse effect) without a functioning cuff."],["Arthroscopic rotator cuff repair",0,"A massive retracted tear with arthropathy and fatty infiltration is irreparable."],["Isolated subacromial decompression",0,"It does nothing for pseudoparalysis and removes the coracoacromial arch that stops anterosuperior escape."]]},
+  {type:"tool",title:"Grammont principles",short:"How does it work?",prompt:"Which design features let the deltoid lift the arm without a rotator cuff?",hint:"Think of the centre of rotation and deltoid tension.",
+   o:[["A large glenosphere fixed on the glenoid medialises and lowers the centre of rotation, lengthening the deltoid lever arm and tensioning it, while the semi-constrained articulation stops the head escaping upwards",1,"Correct. Medialisation reduces shear on the baseplate; lowering the humerus restores deltoid tension."],["Lateralising the centre of rotation like a normal humeral head",0,"The original Grammont design deliberately medialised the centre of rotation (modern designs lateralise moderately to reduce notching)."],["Tightening the remaining cuff with a large humeral head",0,"That is the principle of a hemiarthroplasty, which fails in cuff tear arthropathy."]]},
+  LJ.phases[2],LJ.phases[3],LJ.phases[4],LJ.phases[5],
+  {type:"tap",title:"Subscapularis",short:"How do you take it down?",prompt:"Arm in external rotation. Tap the line along which you release subscapularis for a reverse shoulder.",hint:"Full access to the humeral head and the whole glenoid is needed.",zones:["zSS","zUp","zTen"],cam:c=>c.cams.lj,c:["zSS","zUp","zTen","Right subscapularis"],ok:["zTen"],
+   bad:{zSS:["A horizontal split is enough for a Latarjet, but a reverse needs the humeral head dislocated and the whole glenoid exposed.",20,1],zUp:["Splitting through the upper tendon does not give enough exposure for an arthroplasty.",20,1],"Right subscapularis":["Tap the release line itself.",0,0]},
+   fb:"Correct — a tenotomy (or peel, or lesser tuberosity osteotomy) near the lesser tuberosity, tagged for repair if it will reach.",after:LJ.phases[9].after},
+  LJ.phases[10],
+  {type:"tool",title:"Humeral cut",short:"Resect the head",prompt:"The head is dislocated anteriorly with extension and external rotation. How do you make the humeral cut for a Grammont-type (155°) prosthesis?",hint:"Version and level both matter.",cam:c=>c.cams.lj,
+   o:[["With a cutting guide in about 0–20° of retroversion, at the level of the anatomical neck or slightly lower, protecting the axillary nerve and the posterior cuff remnant (teres minor)",1,"Correct. More retroversion helps external rotation; a cut that is too low shortens the humerus and loses deltoid tension."],["As high as possible through the greater tuberosity",0,"A high cut leaves the humerus too long — the joint becomes overtight and the acromion is overloaded."],["In 40° of retroversion to maximise internal rotation",0,"Excess retroversion limits internal rotation and risks posterior instability; neutral to 20° is usual."]],
+   after:async c=>{const L=c.L,f=c.o.frag,d=f?[f.position.x-L.pv[0],f.position.y-L.pv[1],f.position.z-L.pv[2]]:[0,0,0],pl=new THREE.Plane().setFromNormalAndCoplanarPoint(new THREE.Vector3(...L.rh.map(x=>-x)),c.W(LM.add(L.rP,d)));
+    if(f)f.traverse(m=>{if(m.isMesh)clipAdd(m,pl)});const H=[c.o["Right humerus"],f].filter(Boolean);await Promise.all(H.map(m=>move(m,[-.014,-.006,-.004],900)));const HM=[];H.forEach(o=>o.traverse(m=>{if(m.isMesh)HM.push(m)}));await fade(600,.25,HM)}},
+  {type:"tool",title:"Glenoid exposure",short:"See the whole glenoid",prompt:"How do you expose the glenoid safely?",hint:"A 360° release, but mind the nerve below.",cam:c=>c.cams.glen,
+   o:[["Excise the labrum and release the capsule circumferentially, keeping the inferior release on bone with the axillary nerve protected below, with retractors posteriorly and anteroinferiorly",1,"Correct. Inferior exposure is essential — the baseplate must sit flush with the inferior rim."],["Divide the long head of triceps origin routinely",0,"Unnecessary; the release stays on the glenoid neck."],["Expose only the upper half of the glenoid",0,"The baseplate goes low — you must see the inferior rim."]]},
+  {type:"aim",title:"Baseplate position",short:"Tap where the baseplate goes",prompt:"Tap where you centre the glenoid baseplate.",hint:"Low on the glenoid, flush with the inferior rim — not the centre of the face.",on:[SC],target:c=>c.L.rBW,tol:.12,cam:c=>c.cams.glen,fluoro:true,
+   near:c=>[{p:c.L.rCW,r:.08,fb:"That is the centre of the glenoid face — a central baseplate lets the humeral cup hit the scapular neck in adduction (inferior notching)."},{p:c.L.rSW,r:.15,fb:"Too high — superior placement causes notching, instability and superior tilt of the baseplate."}],
+   fb:"Correct — low, flush with the inferior glenoid rim.",
+   after:async c=>{c.o.rbp.visible=true;c.o.rbp.scale.set(.01,1,.01);await tween(600,t=>c.o.rbp.scale.set(t+.01,1,t+.01))}},
+  {type:"tool",title:"Tilt and overhang",short:"Avoid notching",prompt:"How do you orientate the baseplate and glenosphere?",hint:"Scapular notching starts inferiorly.",cam:c=>c.cams.glen,fluoro:true,
+   o:[["Neutral to about 10° inferior tilt with the glenosphere overhanging the inferior glenoid by 2–4 mm (eccentric or larger sphere, or a lateralised design)",1,"Correct. These reduce inferior impingement of the cup on the scapular neck (notching, Sirveaux grades)."],["Superior tilt so the sphere faces up",0,"Superior tilt increases shear on the baseplate, loosening and notching."],["Place the sphere flush and medial with no overhang",0,"A medial sphere without overhang lets the cup hit the scapular neck — notching."]],
+   after:async c=>{const s=c.o.rgs;s.visible=true;s.scale.setScalar(.01);await tween(700,t=>s.scale.setScalar(t+.01))}},
+  {type:"tool",title:"Humeral component",short:"Stem, cup and tension",prompt:"After preparing the canal and trialling, how do you judge the soft-tissue tension?",hint:"Neither loose nor overstuffed.",cam:c=>c.cams.lj,
+   o:[["The conjoint tendon and deltoid become firm on reduction, the joint stays stable through motion with only slight shuck (distraction), and the arm comes to the side without gapping",1,"Correct. Too loose → dislocation; too tight → acromial or scapular spine stress fracture and loss of motion."],["Overstuff with the thickest liner to prevent any dislocation",0,"Overtensioning loads the acromion — stress fractures — and nerve stretch."],["As loose as possible to maximise range",0,"A loose reverse dislocates — the commonest early complication."]],
+   after:async c=>{const L=c.L,f=c.o.frag,H=[c.o["Right humerus"],f].filter(Boolean),d=f?[f.position.x-L.pv[0],f.position.y-L.pv[1],f.position.z-L.pv[2]]:[0,0,0],tg=LM.sub(L.Gs,LM.mul(L.nb,.009)),mv=LM.sub(tg,LM.add(L.rP,d));
+    await Promise.all(H.map(m=>move(m,mv,800)));const{S:Sw}=C_(c);const e=LM.add(LM.add(L.rD,d),mv);const st=Sw("rstem","metal",[tg,LM.mid(tg,e),e],.004,{},"Humeral stem");const u=c.o.rcup;u.visible=true;u.material.transparent=true;u.material.opacity=.85;const HM=[];H.forEach(o=>o.traverse(m=>{if(m.isMesh)HM.push(m)}));await fade(600,1,HM)}},
+  {type:"tool",title:"Complications",short:"What do you warn her about?",prompt:"Which complications are characteristic of reverse shoulder arthroplasty?",hint:"Bone, nerve, stability, infection.",
+   o:[["Scapular notching, instability/dislocation, acromial or scapular spine stress fractures, infection (Cutibacterium acnes), axillary nerve palsy and periprosthetic fracture",1,"Correct. Notching is graded by Sirveaux (I–IV); an acromial stress fracture presents as new pain and loss of elevation months later."],["Polyethylene wear of the glenoid is the main problem",0,"In a reverse the polyethylene is on the humeral side; notching and instability are more typical."],["Rotator cuff re-tear",0,"The cuff is already deficient — the deltoid drives the reverse."]]},
+  {type:"tool",title:"Closure and rehab",short:"Close and protect",prompt:"How do you close and rehabilitate?",hint:"The position of dislocation for a reverse.",
+   o:[["Repair subscapularis if it reaches, close the deltopectoral interval loosely, sling for a few weeks, and avoid combined extension, adduction and internal rotation (hand behind back) early on",1,"Correct. That position levers the humerus out anteriorly — the classic reverse dislocation mechanism."],["Immobilise in abduction for 3 months",0,"Prolonged immobilisation is unnecessary."],["Encourage reaching behind the back from day 1",0,"Extension–adduction–internal rotation is the dislocating position."]],
+   after:LJ.phases[14].after}
+ ]}})());
+
 const FAMILIES=[
+ {id:"rsa",name:"Reverse shoulder arthroplasty",aps:[
+  {n:"Deltopectoral",p:"rsa"},
+  {n:"Anterosuperior (superolateral, Mackenzie)",d:"Split between the anterior and middle deltoid from the acromion (≤5 cm — axillary nerve), detach part of the anterior deltoid/coracoacromial ligament; subscapularis preserved, good glenoid view but harder inferior exposure and more superior baseplate tilt."},
+  {n:"Transdeltoid (deltoid-split) for fracture",d:"Raphe between anterior and middle deltoid as in proximal humerus fixation — limited distal extension because of the axillary nerve."}]},
  {id:"tkr",name:"Total knee replacement",aps:[
   {n:"Medial parapatellar",p:"tkr"},
   {n:"Midvastus",p:"tkr-midvastus"},
@@ -3502,7 +3767,7 @@ const FAMILIES=[
  {id:"olecranon",name:"Olecranon fixation",aps:[
   {n:"Posterior · tension-band wiring",p:"olecranon"},
   {n:"Posterior · precontoured plate",p:"olecranon-plate"},
-  {n:"Posterior · intramedullary screw",d:"A 6.5 mm partially threaded screw (± tension band) down the ulnar canal; it must engage the canal past the proximal ulnar bow or the fragment malreduces."}]},
+  {n:"Posterior · intramedullary screw",p:"olecranon-screw",d:"A 6.5 mm partially threaded screw (± tension band) down the ulnar canal; it must engage the canal past the proximal ulnar bow or the fragment malreduces."}]},
  {id:"radshaft",name:"Radial shaft plating",aps:[
   {n:"Anterior (Henry) volar",p:"radshaft"},
   {n:"Dorsal (Thompson)",p:"radshaft-thompson"},
@@ -3536,7 +3801,7 @@ const FAMILIES=[
   {n:"Central transpatellar tendon (Gillquist)",d:"Through the middle of the patellar tendon about 1 cm below the patella — direct access to the notch and, past the PCL, the posteromedial compartment; damages the tendon and fat pad."}]},
  {id:"scaphoid",name:"Scaphoid fracture fixation",aps:[
   {n:"Percutaneous volar (distal pole)",p:"scaphoid"},
-  {n:"Percutaneous dorsal (proximal pole)",d:"Wrist flexed and pronated until the proximal pole shows as a ring; entry just radial to the scapholunate ligament insertion, through a small incision between the 3rd and 4th compartments to protect EPL and EDC — best for proximal pole fractures."},
+  {n:"Percutaneous dorsal (proximal pole)",p:"scaphoid-dorsal",d:"Wrist flexed and pronated until the proximal pole shows as a ring; entry just radial to the scapholunate ligament insertion, through a small incision between the 3rd and 4th compartments to protect EPL and EDC — best for proximal pole fractures."},
   {n:"Open volar (Russe)",d:"Over FCR, between FCR and the radial artery; open the volar capsule and divide the radioscaphocapitate ligament (repair it) — for humpback waist fractures and non-unions needing a wedge graft."},
   {n:"Open dorsal",d:"Through the 3rd–4th compartment interval; capsulotomy kept proximal and ulnar to spare the dorsal ridge vessels — for proximal pole fractures and non-unions, vascularised 1,2-ICSRA grafting."}]},
  {id:"clavicle",name:"Clavicle fracture fixation",aps:[
@@ -3601,6 +3866,28 @@ PROCS.forEach(p=>{const f=famOf(p);if(f){p.family=p.family||f.id;const a=f.aps.f
 
 /* ================= POST-OP VIVA (per-operation question banks) ================= */
 const OPQ={
+ "rsa":[
+  {q:"The classic indication for reverse shoulder arthroplasty is:",o:["Cuff tear arthropathy with pseudoparalysis in an older patient with a functioning deltoid","Primary osteoarthritis with an intact cuff in a 50-year-old","Axillary nerve palsy","Recurrent anterior instability in a young athlete"],a:0,e:"Other indications: irreparable massive cuff tears, complex proximal humerus fractures in the elderly, failed arthroplasty, tumour reconstruction. A non-functioning deltoid is a contraindication."},
+  {q:"Grammont's reverse design improves deltoid function mainly by:",o:["Medialising and lowering the centre of rotation, increasing the deltoid lever arm and tension","Lateralising the centre of rotation","Restoring the rotator cuff force couple","Replicating the native humeral head offset"],a:0,e:"Medialisation also reduces shear on the glenoid baseplate — the reason earlier reverse designs failed."},
+  {q:"The commonest radiological finding after reverse shoulder arthroplasty is:",o:["Scapular notching from impingement of the humeral cup on the inferior scapular neck","Glenoid polyethylene wear","Heterotopic ossification of the deltoid","Humeral stem subsidence in every case"],a:0,e:"Graded by Sirveaux (I–IV). Reduced by inferior baseplate placement, inferior tilt or neutral, inferior overhang and lateralised or larger glenospheres."},
+  {q:"New pain over the acromion with loss of active elevation months after a reverse shoulder suggests:",o:["An acromial or scapular spine stress fracture","Scapular notching","Rotator cuff re-tear","Axillary nerve neurapraxia"],a:0,e:"Risk rises with overlengthening (overtensioning) and osteoporosis; CT confirms it."},
+  {q:"The position most likely to dislocate a reverse shoulder in the early post-operative period is:",o:["Extension, adduction and internal rotation (e.g. hand behind the back or pushing up from a chair)","Forward flexion to 90°","Abduction with external rotation","Elbow flexion"],a:0,e:"Instability is more common after a deltopectoral approach without subscapularis repair, and with a loose construct."},
+  {q:"The organism most associated with late, indolent shoulder arthroplasty infection is:",o:["Cutibacterium (Propionibacterium) acnes","Escherichia coli","Pseudomonas aeruginosa","Streptococcus pyogenes"],a:0,e:"It is commoner in men and grows slowly — hold cultures for about 14 days."},
+  {q:"In the humeral cut for a reverse prosthesis, retroversion is usually set at:",o:["About 0–20°","40–50°","Exactly 30° anteversion","Version does not matter"],a:0,e:"More retroversion improves external rotation but reduces internal rotation; neutral to 20° is the common compromise."}],
+ "scaphoid-dorsal":[
+  {q:"The main advantage of dorsal (antegrade) percutaneous fixation of a proximal pole scaphoid fracture is:",o:["The screw starts in the centre of the small proximal fragment and lies along the central axis","It avoids crossing any articular cartilage","The wrist is kept extended throughout","It needs no fluoroscopy"],a:0,e:"Central placement gives a longer, stiffer screw with more threads in the proximal fragment — the volar route ends eccentrically in the proximal pole."},
+  {q:"To find the dorsal entry point, the wrist is flexed and pronated until on the PA image the scaphoid appears as:",o:["A ring (seen end-on), whose centre is the entry point","A 'signet ring' over the lunate","A crescent under the radial styloid","A humpback"],a:0,e:"Flexion lines the long axis up with the X-ray beam. (The 'signet ring' sign is the flexed scaphoid of scapholunate dissociation — a different finding.)"},
+  {q:"The structure most at risk from the dorsal percutaneous wire or drill is:",o:["Extensor pollicis longus (and the 4th compartment tendons)","The radial artery in the anatomical snuffbox","The median nerve","The ulnar artery"],a:0,e:"Use a 1 cm incision distal to Lister's tubercle, blunt spreading and a drill sleeve — wrap-around injuries of EPL and EDC are reported."},
+  {q:"With the guidewire across the radiocarpal joint, the wrist is extended for imaging. The risk is:",o:["Bending or breakage of the wire — advance it volarly out of the thenar skin first","Rupture of the scapholunate ligament","Median nerve compression","None — the wire flexes harmlessly"],a:0,e:"Advance the wire volarly so its dorsal end lies below the joint before moving the wrist."},
+  {q:"The dorsal entry for a proximal pole screw is located:",o:["In the proximal pole just radial to the scapholunate ligament insertion","At the scaphoid tubercle","At the scaphotrapezial joint","At the radial styloid"],a:0,e:"The wire is then aimed toward the base of the thumb along the central axis."},
+  {q:"Why must the screw head be countersunk in the dorsal technique?",o:["It enters through the articular cartilage of the proximal pole, which articulates with the scaphoid fossa of the radius","To improve compression","To avoid the superficial radial nerve","Because the scaphoid is hollow"],a:0,e:"A proud head wears the radial articular surface — bury it beneath the cartilage and check on live screening."}],
+ "olecranon-screw":[
+  {q:"The ideal olecranon fracture for intramedullary screw fixation is:",o:["A simple transverse, non-comminuted fracture (Mayo IIA) in good bone","A comminuted Mayo IIB fracture","A Mayo III fracture-dislocation","An osteoporotic tip fracture in a 90-year-old"],a:0,e:"Compression is only safe when the fracture can be compressed without shortening the trochlear notch."},
+  {q:"A single intramedullary olecranon screw should be:",o:["A large-diameter partially threaded cancellous screw long enough to grip the canal distal to the coronoid","A 2.7 mm cortical screw","As short as possible to avoid the canal","Fully threaded to resist rotation"],a:0,e:"Typically 6.5–7.3 mm and around 90–110 mm, with all threads beyond the fracture; short screws loosen."},
+  {q:"A long straight intramedullary screw can malreduce an olecranon fracture because:",o:["The proximal ulna has a varus bow and a dorsal angulation (PUDA), so the screw binds and shifts the fragment","The ulna is perfectly straight","The canal is wider than the screw","The triceps pulls the fragment distally"],a:0,e:"Watch the reduction on both views as the screw engages; templating the canal helps."},
+  {q:"Adding a tension-band wire to an intramedullary olecranon screw:",o:["Improves rotational control and overall stiffness of the construct","Is never needed","Converts it into a neutralisation plate","Prevents ulnar nerve injury"],a:0,e:"A lone screw is relatively weak in rotation; the wire can be looped around the screw head or washer."},
+  {q:"A potential advantage of a single intramedullary screw over K-wire tension-band wiring is:",o:["No K-wire back-out, a common cause of prominent hardware and reoperation after TBW","No need for reduction","It is suitable for every comminuted fracture","It allows immediate heavy weight-bearing through the arm"],a:0,e:"Hardware irritation still occurs at the screw head; evidence comparing the two is limited."},
+  {q:"An olecranon fracture best treated with a plate rather than an intramedullary screw:",o:["An oblique fracture distal to the midpoint of the trochlear notch with comminution","A simple transverse fracture at the mid-notch","An undisplaced fracture","A small tip avulsion in a low-demand patient"],a:0,e:"Plates hold comminution at length and resist the shear of oblique distal fractures and fracture-dislocations."}],
  "hemi-daa":[
   {q:"Compared with the posterior approach, the main advantage of a direct anterior approach for hip hemiarthroplasty is:",o:["A lower dislocation rate, because the posterior capsule and short external rotators are left intact","Easier access to the femoral canal","A lower rate of intraoperative femoral fracture","No learning curve"],a:0,e:"The trade-off is a harder femoral exposure, with more intraoperative fractures early in a surgeon's experience."},
   {q:"To elevate the femur in a direct anterior approach, the soft-tissue releases are performed in the order:",o:["Superior (posterolateral) capsule first, then the conjoint tendon (obturator internus/gemelli) if needed, keeping piriformis wherever possible","Piriformis first, then the capsule","Gluteus medius tendon first","Iliopsoas from the lesser trochanter first"],a:0,e:"Release step by step only until the femur lifts — every extra release increases posterior instability."},
@@ -3963,6 +4250,10 @@ const OPQ={
   {q:"The Bartoníček–Rammelt classification describes:",o:["Posterior malleolar fractures on CT, by size, position and involvement of the fibular notch","Pilon fractures by comminution","Talar neck fractures by displacement","Lateral ankle ligament injuries"],a:0,e:"Type 1 extraincisural, 2 posterolateral, 3 posteromedial two-part, 4 large posterolateral triangular, 5 irregular osteoporotic."},
   {q:"A posteriorly placed (antiglide) plate on a Weber B fibula fracture:",o:["Resists the proximal-posterior displacement of the distal fragment, but placed too distally it irritates the peroneal tendons","Is weaker than a lateral neutralisation plate","Cannot be used with a lag screw","Must always be removed"],a:0,e:"It buttresses the apex of the oblique SER fracture; keep the distal end out of the peroneal groove."}],
  "proxhum-delt":[
+  {q:"The distance from the acromion to the axillary nerve on the deep surface of the deltoid:",o:["Shortens when the arm is abducted, and is shorter in patients with shorter arms","Is a fixed 7 cm in every patient","Lengthens with abduction","Is unaffected by arm position"],a:0,e:"The nerve lies on average ~5–6 cm below the acromion but moves proximally with abduction — keep the arm adducted while splitting and limit the split to about 5 cm."},
+  {q:"The correct height for a proximal humeral locking plate is:",o:["About 5–8 mm below the tip of the greater tuberosity, just lateral to the bicipital groove","Flush with the top of the greater tuberosity","2–3 cm below the tuberosity","Anterior to the bicipital groove"],a:0,e:"A plate placed too high impinges under the acromion; too low and the head screws miss the calcar and subchondral bone."},
+  {q:"The commonest complication after locking-plate fixation of a proximal humerus fracture is:",o:["Varus collapse with secondary screw perforation (cut-out) into the joint","Deep infection","Radial nerve palsy","Nonunion of the humeral shaft"],a:0,e:"Prevent it with anatomical reduction of the medial hinge, an inferomedial calcar screw, screws short of subchondral bone and augmentation (e.g. fibular strut or cement) in poor bone."},
+  {q:"After fixation, the head–shaft angle should be restored to about:",o:["130–135°","90–100°","150–160°","110°"],a:0,e:"Residual varus (head–shaft angle under about 120°) is a strong predictor of loss of fixation and screw cut-out."},
   {q:"In the deltoid-split approach, the split is made through:",o:["The raphe between the anterior and middle heads, starting at the anterolateral corner of the acromion","The deltopectoral groove","The middle of the posterior deltoid","The deltoid insertion on the humerus"],a:0,e:"The raphe is relatively avascular and lies directly over the greater tuberosity and lateral humerus."},
   {q:"On the deep surface of the deltoid, the axillary nerve runs:",o:["Horizontally from posterior to anterior around the surgical neck, with the posterior circumflex humeral vessels","Vertically down the anterior deltoid","Within the deltopectoral groove","Through the rotator interval"],a:0,e:"It emerges from the quadrangular space and wraps around the humerus about 5–7 cm below the acromion."},
   {q:"Division of the axillary nerve distal to a deltoid split most specifically weakens:",o:["The anterior deltoid (anterior to the split), affecting forward elevation","The supraspinatus","The teres major","The long head of biceps"],a:0,e:"The anterior branch supplies the anterior and middle deltoid from behind; a split carried too far distally cuts the fibres anterior to it off from their nerve."},
