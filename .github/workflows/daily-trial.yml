@@ -2,7 +2,7 @@ name: Daily AI trial
 on:
   push:
     branches: [apk-shell]
-    paths: [".github/workflows/daily-trial.yml"]
+    paths: [".github/workflows/daily-trial.yml", "trial/orthoss-prep/tools/daily_ai.js"]
 permissions:
   contents: write
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: |
-          cd trial && DAILY_NEW=20 DAILY_PROOF=20 MAX_MINUTES=40 node orthoss-prep/tools/daily_ai.js run 2>&1 | tee run.log
+          cd trial && DAILY_NEW=20 DAILY_PROOF=20 MAX_MINUTES=45 node orthoss-prep/tools/daily_ai.js run 2>&1 | tee run.log
           node orthoss-prep/tools/daily_ai.js apply | tee -a run.log
       - run: |
           git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
