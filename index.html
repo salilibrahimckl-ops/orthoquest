@@ -195,7 +195,7 @@ p{margin:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:48,hue:129,date:"1 Nov 2026, 22:40 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Fix: the 3D Atlas and ward-round X-rays could get stuck loading on the phone — the core anatomy now loads from inside the app first, and the extra nerves and lymph nodes are added afterwards only if they download in time","Everything from Update 47 is kept: reverse shoulder arthroplasty, new approaches, ward-round X-rays and case of the day"]};
+const BUILD={n:49,hue:266,date:"1 Nov 2026, 23:10 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Faster 3D Atlas: the anatomy is unpacked natively and kept on your phone after the first load, so the Atlas and ward X-rays open much faster from the second time","The extra nerves and lymph nodes now download at the same time as the main anatomy instead of after it, and tapping structures uses a lighter method that needs far less memory"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -898,19 +898,25 @@ function decodeReal(man,bufs){const parts=[],by={};
   const noff=off+v*6,nrm=new Int8Array(b,noff,v*3);let io=noff+v*3;io=(io+3)&~3;const idx=v<65536?new Uint16Array(b,io,ic):new Uint32Array(b,io,ic);
   const p={i,name,sys,pos,nrm,idx,lo,hi,v,c};parts.push(p);by[name.toLowerCase()]=p});
  return{parts,by,nerves:man.nerves}}
+const ADB={db:null,open(){if(this.p)return this.p;this.p=new Promise(res=>{try{const q=indexedDB.open("oq-anatomy",1);q.onupgradeneeded=()=>q.result.createObjectStore("c");q.onsuccess=()=>{this.db=q.result;res(this.db)};q.onerror=()=>res(null)}catch(e){res(null)}});return this.p},
+ async get(k){const d=await this.open();if(!d)return null;return new Promise(res=>{try{const r=d.transaction("c").objectStore("c").get(k);r.onsuccess=()=>res(r.result||null);r.onerror=()=>res(null)}catch(e){res(null)}})},
+ async put(k,v){const d=await this.open();if(!d)return;try{d.transaction("c","readwrite").objectStore("c").put(v,k)}catch(e){}}};
 async function loadReal(prog){if(RA.data)return RA.data;if(RA.loading)return RA.loading;
  const tmo=(pr,ms)=>Promise.race([pr,new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms))]);
- const chunk=async(n,ms)=>{const r=await tmo(fetch(RA.base+n+".b64.txt"),ms);if(!r.ok)throw new Error("The anatomy data could not be loaded.");const tx=(await tmo(r.text(),ms)).trim(),bs=atob(tx),u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);let ab=u8.buffer;const u=new Uint8Array(ab,0,2);
-  if(u[0]===0x1f&&u[1]===0x8b){if(typeof DecompressionStream==="undefined")throw new Error("This browser cannot unpack the anatomy data — please update Android System WebView.");ab=await new Response(new Blob([ab]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()}return ab};
+ const unpack=async tx=>{let res;try{res=await fetch("data:application/octet-stream;base64,"+tx)}catch(e){res=null}
+  let ab;if(res&&res.ok)ab=await res.arrayBuffer();else{const bs=atob(tx),u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);ab=u8.buffer}
+  const u=new Uint8Array(ab,0,2);if(u[0]===0x1f&&u[1]===0x8b){if(typeof DecompressionStream==="undefined")throw new Error("This browser cannot unpack the anatomy data — please update Android System WebView.");ab=await new Response(new Blob([ab]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()}return ab};
+ const chunk=async(c,ms)=>{const key=c.n+":"+(c.gz||c.bytes||0);const hit=await ADB.get(key);if(hit&&hit.byteLength===(c.bytes||hit.byteLength))return hit;
+  const r=await tmo(fetch(RA.base+c.n+".b64.txt"),ms);if(!r.ok)throw new Error("The anatomy data could not be loaded.");const ab=await unpack((await tmo(r.text(),ms)).trim());ADB.put(key,ab);return ab};
  RA.loading=(async()=>{
-  /* 1. core anatomy (bundled inside the Android app, proven path) */
+  /* detail add-on (nerves, lymphatics) starts downloading at once, in parallel, and is optional */
+  const det=(async()=>{const r2=await tmo(fetch(RA.base+"anatomy2.json"),20000);if(!r2.ok)throw new Error("no detail");const m2=await r2.json();const cd=m2.chunks[3];if(!cd)throw new Error("no detail");const db=await chunk(cd,40000);return{m2,db}})();det.catch(()=>{});
+  /* core anatomy (bundled inside the Android app, proven path) */
   const r0=await fetch(RA.base+"anatomy.json");if(!r0.ok)throw new Error("The anatomy data could not be loaded.");const man=await r0.json();let done=0;
-  const bufs=await Promise.all(man.chunks.map(async c=>{const ab=await chunk(c.n,90000);done++;if(prog)prog(done/(man.chunks.length+1));return ab}));
+  const bufs=await Promise.all(man.chunks.map(async c=>{const ab=await chunk(c,90000);done++;if(prog)prog(done/(man.chunks.length+1));return ab}));
   const D=decodeReal(man,bufs);RA.data=D;RA.detail=false;
-  /* 2. detail add-on (nerves, lymphatics) — optional, never blocks the core */
-  try{const r2=await tmo(fetch(RA.base+"anatomy2.json"),20000);if(r2.ok){const m2=await r2.json();const ext=m2.parts.filter(x=>x[2]===3);const cd=m2.chunks[3];
-    if(ext.length&&cd){const db=await chunk(cd.n,30000);const sub=decodeReal({parts:ext,nerves:{}},[null,null,null,db]);const base=D.parts.length;
-     sub.parts.forEach((p,j)=>{p.i=base+j;D.parts.push(p);D.by[p.name.toLowerCase()]=D.by[p.name.toLowerCase()]||p});Object.assign(D.nerves,m2.nerves||{});RA.detail=true}}}catch(e){console.warn("detail anatomy skipped",e)}
+  try{const {m2,db}=await tmo(det,25000);const ext=m2.parts.filter(x=>x[2]===3);const sub=decodeReal({parts:ext,nerves:{}},[null,null,null,db]);const base=D.parts.length;
+   sub.parts.forEach((p,j)=>{p.i=base+j;D.parts.push(p);D.by[p.name.toLowerCase()]=D.by[p.name.toLowerCase()]||p});Object.assign(D.nerves,m2.nerves||{});RA.detail=true}catch(e){console.warn("detail anatomy skipped",e)}
   if(prog)prog(1);return D})();
  try{return await RA.loading}catch(e){RA.loading=null;throw e}}
 function partGeo(p){if(p.geo)return p.geo;const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(p.pos,3));g.setAttribute("normal",new THREE.BufferAttribute(p.nrm,3,true));g.setIndex(new THREE.BufferAttribute(p.idx,1));
@@ -1124,7 +1130,7 @@ function buildRealAtlas(){const D=RA.data,sc=new THREE.Scene();lights(sc);const 
  const At={scene:sc,root,layers:{bone:[],muscle:[],nerve:[],vessel:[],lymph:[],skin:[]},pick:[],real:true,sel:null,mats:{},clip:new THREE.Plane(new THREE.Vector3(0,-1,0),2)};
  const groups={};D.parts.forEach(p=>{(groups[p.sys]=groups[p.sys]||[]).push(p)});
  Object.entries(groups).forEach(([sys,list])=>{let nv=0,ni=0;list.forEach(p=>{nv+=p.v;ni+=p.idx.length});const pos=new Float32Array(nv*3),nrm=new Int8Array(nv*3),col=new Uint8Array(nv*3),uv=new Float32Array(nv*2),idx=new Uint32Array(ni);let ov=0,oi=0;
-  list.forEach((p,j)=>{pos.set(p.pos,ov*3);nrm.set(p.nrm,ov*3);const b=RCOL2[sys]||[220,220,220],jit=sys==="muscle"?(((j*37)%11)-5)*3:sys==="bone"?(((j*13)%5)-2)*3:0;const r=Math.max(0,Math.min(255,b[0]+jit)),g=Math.max(0,Math.min(255,b[1]+jit*.8)),bb=Math.max(0,Math.min(255,b[2]+jit*.7));
+  const ranges=new Int32Array(list.length),rparts=list;list.forEach((p,j)=>{ranges[j]=oi/3;pos.set(p.pos,ov*3);nrm.set(p.nrm,ov*3);const b=RCOL2[sys]||[220,220,220],jit=sys==="muscle"?(((j*37)%11)-5)*3:sys==="bone"?(((j*13)%5)-2)*3:0;const r=Math.max(0,Math.min(255,b[0]+jit)),g=Math.max(0,Math.min(255,b[1]+jit*.8)),bb=Math.max(0,Math.min(255,b[2]+jit*.7));
    const cx=(p.lo[0]+p.hi[0])/2,cz=(p.lo[2]+p.hi[2])/2,tall=(p.hi[1]-p.lo[1])>=Math.max(p.hi[0]-p.lo[0],p.hi[2]-p.lo[2])*.6;
    for(let k=0;k<p.v;k++){const o=(ov+k)*3;col[o]=r;col[o+1]=g;col[o+2]=bb;const x=p.pos[k*3]-cx,y=p.pos[k*3+1]-p.lo[1],z=p.pos[k*3+2]-cz;
     if(tall){uv[(ov+k)*2]=(Math.atan2(z,x)/(2*Math.PI)+.5)*2;uv[(ov+k)*2+1]=y*30}else{uv[(ov+k)*2]=(Math.atan2(z,y)/(2*Math.PI)+.5)*2;uv[(ov+k)*2+1]=(p.pos[k*3]-p.lo[0])*30}}
@@ -1138,9 +1144,8 @@ function buildRealAtlas(){const D=RA.data,sc=new THREE.Scene();lights(sc);const 
   else if(sys==="nerve"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("nerve"),bumpMap:tex("nerve"),bumpScale:.006,roughness:.35,clearcoat:.55,emissive:0x2a2000,side:THREE.DoubleSide});patchCut(m,"vec3(.95,.86,.55)","ncut")}
   else if(sys==="lymph"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("lymph"),bumpMap:tex("lymph"),bumpScale:.006,roughness:.3,clearcoat:.65,emissive:0x0c1a00,side:THREE.DoubleSide})}
   else{m=new THREE.MeshPhysicalMaterial({vertexColors:true,roughness:.24,clearcoat:.75,clearcoatRoughness:.25,side:THREE.DoubleSide});patchCut(m,sys==="art"?"vec3(.45,.05,.05)":"vec3(.12,.16,.35)",sys+"cut")}
-  const mesh=new THREE.Mesh(g,m);mesh.renderOrder=sys==="skin"?2:0;root.add(mesh);const L=SYSLAYER[sys]||"muscle";At.layers[L].push(mesh);(At.mats[sys]=At.mats[sys]||[]).push(m)});
+  const mesh=new THREE.Mesh(g,m);mesh.renderOrder=sys==="skin"?2:0;root.add(mesh);const L=SYSLAYER[sys]||"muscle";if(sys!=="skin"){mesh.userData={layer:L,ranges,rparts};At.pick.push(mesh)}At.layers[L].push(mesh);(At.mats[sys]=At.mats[sys]||[]).push(m)});
  const PM=new THREE.MeshBasicMaterial({side:THREE.DoubleSide});
- D.parts.forEach(p=>{if(p.sys==="skin")return;const m=new THREE.Mesh(partGeo(p),PM);m.visible=false;m.userData={kind:SYSKIND[p.sys],name:p.name,part:p,layer:SYSLAYER[p.sys]};root.add(m);At.pick.push(m)});
  return At}
 const AT={ghost:1,sec:null,secV:.5,iso:false};
 function atlasMats(){return A&&A.real?Object.entries(A.mats).flatMap(([k,arr])=>arr.map(m=>[k,m])):[]}
@@ -1201,7 +1206,7 @@ function viewAtlas(arg){
  applyLayers();st.prepend(E.r.domElement);E.scene=A.scene;
  if(A.real){E.ctl.minDistance=.08;E.ctl.maxDistance=8;E.view([0,.95,4.3],[0,.9,0],true)}else{E.ctl.minDistance=2.5;E.ctl.maxDistance=45;E.view([0,9.5,31],[0,9,0],true)}
  E.onFrame=()=>{if(autoRot)A.root.rotation.y+=.003};E.onUserMove=()=>{autoRot=false;syncRot()};
- E.onTap=e=>{if(A.real){E.ray.setFromCamera(E.ndc(e),E.cam);const h=E.ray.intersectObjects(A.pick.filter(m=>LAYERS[m.userData.layer]),false)[0];if(!h)return;const u=h.object.userData,local=A.root.worldToLocal(h.point.clone());
+ E.onTap=e=>{if(A.real){E.ray.setFromCamera(E.ndc(e),E.cam);const h=E.ray.intersectObjects(A.pick.filter(m=>LAYERS[m.userData.layer]!==false),false)[0];if(!h)return;const R=h.object.userData.ranges;let lo=0,hi=R.length-1;while(lo<hi){const md=(lo+hi+1)>>1;if(R[md]<=h.faceIndex)lo=md;else hi=md-1}const pp=h.object.userData.rparts[lo];const u={kind:SYSKIND[pp.sys],name:pp.name,part:pp,layer:SYSLAYER[pp.sys]},local=A.root.worldToLocal(h.point.clone());
    const reg=u.kind==="bone"?realRegion(u.name,local.y):null;if(reg&&!pendingApproach){selectRegion(reg);const lab=document.getElementById("stageLabel");if(lab)lab.textContent=u.name}else selectSoft({part:u.part,userData:{kind:u.kind==="tendon"?"tendon":u.kind,name:u.name,info:atlasFact(u.name,u.kind)||softInfo(u.name)||""}});return}
   const h=E.pick(e,A.pick);if(!h)return;const u=h.object.userData;if(u.kind==="bone"&&u.region)selectRegion(u.region);else selectSoft(h.object)};
  engineActive(true);
