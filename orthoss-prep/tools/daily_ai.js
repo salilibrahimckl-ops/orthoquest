@@ -25,7 +25,7 @@ const STD = {"INI-SS":"INI-SS (AIIMS-run MCh entrance: MCh Joint Replacement, MC
  "FNB":"FNB / FET (NBEMS fellowship entrance in arthroplasty, spine, sports, hand, trauma, paediatric orthopaedics). Subspecialty-depth recall and decision questions; classifications, indications, surgical approaches, implant biomechanics, landmark trials."};
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-const timeLeft = () => (Date.now() - T0) / 60000 < MAX_MIN;
+const timeLeft = (reserve = 0) => (Date.now() - T0) / 60000 < MAX_MIN - reserve;
 const shuf = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]] } return a };
 const normT = t => String(t || '').toLowerCase().replace(/<[^>]+>/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
 const STOPW = new Set('the of a an is in to and for which following all except are with by on at as or most not be from what true false'.split(' '));
@@ -86,7 +86,7 @@ async function run() {
 
   // 1. New questions
   let batch = 0, genFails = 0, proofFails = 0;
-  while (newItems.length < N_NEW && batch < 45 && timeLeft()) {
+  while (newItems.length < N_NEW && batch < 45 && timeLeft(Math.min(30, Math.ceil(N_PROOF / 4)))) {
     const topic = TOPICS[(dnum + batch) % TOPICS.length], subs = SUBT[topic], sub = subs[(dnum * 3 + batch) % subs.length];
     const exam = ['INI-SS', 'NEET-SS', 'FNB'][(dnum + batch) % 3]; batch++;
     const recall = bank.filter(q => q.set && q.topic === topic).concat(custom.filter(q => q.src === 'Recall PYQ' && q.topic === topic));
@@ -104,13 +104,13 @@ ${ex.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
 - Mix clinical vignettes (about 40%), one-line recall ("Most common…", "Investigation of choice…", "…is classified as"), "All of the following EXCEPT" and statement questions.
 - Exactly 4 options, one clearly correct; distractors from the same category; no "all/none of the above"; vary the correct letter.
 - "e" explains in 1-3 sentences why the answer is right.
-Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}]`, 'medium'))
+Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}]`, 'low'))
         .filter(x => x && typeof x.q === 'string' && Array.isArray(x.o) && x.o.length === 4 && +x.a >= 0 && +x.a < 4)
         .map(x => ({ q: x.q.trim(), o: x.o.map(o => String(o).replace(/^\s*(?:\(?[A-Ea-e][.)]\s+)+/, '').trim()), a: +x.a, e: String(x.e || '').trim() }))
         .filter(x => new Set(x.o.map(normT)).size === 4 && x.q.length > 15);
       if (!gen.length) continue;
       // two independent answer passes; keep only questions where both agree with the intended key
-      const v1 = new Map(arr(await ai(answerPrompt(gen), 'medium')).map(c => [+c.i, c]));
+      const v1 = new Map(arr(await ai(answerPrompt(gen), 'low')).map(c => [+c.i, c]));
       const order2 = [];
       let kept = 0;
       for (let i = 0; i < gen.length; i++) {
@@ -122,7 +122,7 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
       if (order2.length) {
         // second pass sees the surviving questions with their options in a different order, so agreement isn't just positional
         const perm = order2.map(x => { const idx = shuf([0, 1, 2, 3]); return { q: x.q, o: idx.map(k => x.o[k]), map: idx } });
-        const c2 = new Map(arr(await ai(answerPrompt(perm), 'high')).map(c => [+c.i, c]));
+        const c2 = new Map(arr(await ai(answerPrompt(perm), 'low')).map(c => [+c.i, c]));
         order2.forEach((x, k) => {
           const c = c2.get(k + 1); if (!c || c.bad || !(+c.a >= 0 && +c.a < 4) || perm[k].map[+c.a] !== x.a) return;
           const sg = qSig(x.q, x.o); if (sigs.some(s => sameQ(sg, s))) return;
@@ -143,12 +143,12 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
     try {
       const res = arr(await ai(`You are proofreading an orthopaedic superspeciality exam question bank. For each item decide whether the marked answer is correct and whether the question, options or explanation contain a clear factual error, internal contradiction or ambiguity (two defensible answers). Be conservative: flag only clear problems, not style.
 ${b.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
-Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":null,"issue":""}] where "correct" is the 0-based index of the right option if the marked answer is wrong, otherwise null, and "issue" briefly states the problem.`, 'medium'));
+Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":null,"issue":""}] where "correct" is the 0-based index of the right option if the marked answer is wrong, otherwise null, and "issue" briefly states the problem.`, 'low'));
       const fl = [];
       for (const r of res) { const q = b[+r.i - 1]; if (!q || r.ok !== false) continue; const c = r.correct == null ? null : +r.correct;
         fl.push({ q, sug: c != null && c >= 0 && c < 4 && c !== q.a ? q.o[c] : null, issue: String(r.issue || '').slice(0, 300) }) }
       if (fl.length) {
-        const sec = new Map(arr(await ai(answerPrompt(fl.map(f => f.q)), 'high')).map(c => [+c.i, c]));
+        const sec = new Map(arr(await ai(answerPrompt(fl.map(f => f.q)), 'low')).map(c => [+c.i, c]));
         fl.forEach((f, i) => { const c = sec.get(i + 1); const second = c && +c.a >= 0 && +c.a < 4 ? f.q.o[+c.a] : null;
           const strong = second != null && second !== f.q.o[f.q.a];
           if (strong || (!f.sug && f.issue)) flags.push({ id: f.q.id, q: f.q.q.slice(0, 200), key: f.q.o[f.q.a], sug: f.sug || (strong ? second : null), second, issue: f.issue, strong, day: today, t: Date.now() }) });
