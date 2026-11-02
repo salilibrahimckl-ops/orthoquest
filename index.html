@@ -195,7 +195,7 @@ p{margin:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:49,hue:266,date:"1 Nov 2026, 23:10 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Faster 3D Atlas: the anatomy is unpacked natively and kept on your phone after the first load, so the Atlas and ward X-rays open much faster from the second time","The extra nerves and lymph nodes now download at the same time as the main anatomy instead of after it, and tapping structures uses a lighter method that needs far less memory"]};
+const BUILD={n:50,hue:43,date:"2 Nov 2026, 07:00 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Atlas speed fix: the 3D Atlas now uses one shared graphics program instead of eight heavy ones — on phones the slow part was preparing those graphics, not the download","The Atlas info card shows how long the anatomy took to load, so any remaining slowness can be measured"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -886,6 +886,7 @@ function buildAtlas(){
  return At;
 }
 /* ================= REAL ANATOMY DATA (BodyParts3D, CC BY 4.0) ================= */
+window.__oqNew=()=>{try{if(document.getElementById("oqNew"))return;const d=document.createElement("div");d.id="oqNew";d.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--panel2);border:1px solid var(--build,var(--accent));border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:14px";d.innerHTML='<span>A new OrthoQuest update is ready.</span><button class="btn primary" style="padding:7px 12px">Load now</button>';d.querySelector("button").onclick=()=>{try{save()}catch(e){}try{window.OQApp.reload()}catch(e){location.reload()}};document.body.appendChild(d)}catch(e){}};
 const RA={data:null,loading:null,base:"anatomy/"};
 const LOWMEM=(navigator.deviceMemory||8)<=4;
 window.addEventListener("error",e=>{try{const m=(e&&e.message)||"";if(m&&!/ResizeObserver|Script error/.test(m))toast("Error: "+m.slice(0,90))}catch(_){}});
@@ -908,7 +909,7 @@ async function loadReal(prog){if(RA.data)return RA.data;if(RA.loading)return RA.
   const u=new Uint8Array(ab,0,2);if(u[0]===0x1f&&u[1]===0x8b){if(typeof DecompressionStream==="undefined")throw new Error("This browser cannot unpack the anatomy data — please update Android System WebView.");ab=await new Response(new Blob([ab]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()}return ab};
  const chunk=async(c,ms)=>{const key=c.n+":"+(c.gz||c.bytes||0);const hit=await ADB.get(key);if(hit&&hit.byteLength===(c.bytes||hit.byteLength))return hit;
   const r=await tmo(fetch(RA.base+c.n+".b64.txt"),ms);if(!r.ok)throw new Error("The anatomy data could not be loaded.");const ab=await unpack((await tmo(r.text(),ms)).trim());ADB.put(key,ab);return ab};
- RA.loading=(async()=>{
+ RA.t0=performance.now();RA.loading=(async()=>{
   /* detail add-on (nerves, lymphatics) starts downloading at once, in parallel, and is optional */
   const det=(async()=>{const r2=await tmo(fetch(RA.base+"anatomy2.json"),20000);if(!r2.ok)throw new Error("no detail");const m2=await r2.json();const cd=m2.chunks[3];if(!cd)throw new Error("no detail");const db=await chunk(cd,40000);return{m2,db}})();det.catch(()=>{});
   /* core anatomy (bundled inside the Android app, proven path) */
@@ -917,7 +918,7 @@ async function loadReal(prog){if(RA.data)return RA.data;if(RA.loading)return RA.
   const D=decodeReal(man,bufs);RA.data=D;RA.detail=false;
   try{const {m2,db}=await tmo(det,25000);const ext=m2.parts.filter(x=>x[2]===3);const sub=decodeReal({parts:ext,nerves:{}},[null,null,null,db]);const base=D.parts.length;
    sub.parts.forEach((p,j)=>{p.i=base+j;D.parts.push(p);D.by[p.name.toLowerCase()]=D.by[p.name.toLowerCase()]||p});Object.assign(D.nerves,m2.nerves||{});RA.detail=true}catch(e){console.warn("detail anatomy skipped",e)}
-  if(prog)prog(1);return D})();
+  RA.tLoad=Math.round(performance.now()-RA.t0);if(prog)prog(1);return D})();
  try{return await RA.loading}catch(e){RA.loading=null;throw e}}
 function partGeo(p){if(p.geo)return p.geo;const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(p.pos,3));g.setAttribute("normal",new THREE.BufferAttribute(p.nrm,3,true));g.setIndex(new THREE.BufferAttribute(p.idx,1));
  const cx=(p.lo[0]+p.hi[0])/2,cz=(p.lo[2]+p.hi[2])/2,uv=new Float32Array(p.v*2);for(let k=0;k<p.v;k++){const x=p.pos[k*3]-cx,z=p.pos[k*3+2]-cz;uv[k*2]=(Math.atan2(z,x)/(2*Math.PI)+.5)*2;uv[k*2+1]=(p.pos[k*3+1]-p.lo[1])*30}
@@ -1126,6 +1127,12 @@ function softInfo(name){const n=name.toLowerCase().replace(/\b(left|right)\b ?/g
  const extra={"saphenous":"Saphenous nerve: terminal branch of the femoral nerve; accompanies the great saphenous vein in the leg.","infrapatellar":"Crosses the anteromedial knee below the patella — commonly cut in midline and medial knee incisions, giving lateral scar numbness.","superior gluteal":"Runs between gluteus medius and minimus about 5 cm above the greater trochanter. Injury causes a Trendelenburg gait.","deep peroneal":"Anterior compartment; supplies tibialis anterior, EHL, EDL and the first web space.","superficial peroneal":"Lateral compartment; pierces the deep fascia in the distal leg — at risk with lateral ankle portals and fibula plating.","posterior interosseous":"Deep branch of the radial nerve through the arcade of Frohse and supinator. At risk in Thompson and Kocher approaches.","superficial branch of radial":"Runs under brachioradialis then dorsally over the radial styloid — neuroma risk in wrist incisions.","musculocutaneous":"Pierces coracobrachialis 5–8 cm below the coracoid; at risk with conjoint-tendon retraction.","cauda":"Lumbar and sacral roots below the conus; cauda equina syndrome is a surgical emergency."};
  for(const k in extra)if(n.includes(k))return extra[k];return bs>=.5?best:null}
 const RCOL2={bone:[255,250,238],conn:[255,255,255],muscle:[255,236,230],art:[214,52,44],vein:[66,96,190],nerve:[255,246,214],skin:[255,255,255],lymph:[255,255,255]};
+function atlMat(sys){/* ONE shader program for every atlas layer (fast first draw on phones): standard material + vertex colour + map; cut faces darkened */
+ const T={skin:"skin",bone:"bone",muscle:"muscle",conn:"tendon",nerve:"nerve",lymph:"lymph"}[sys];
+ if(!TX.plain)TX.plain=cvs(4,4,(g,w,h)=>{g.fillStyle="#fff";g.fillRect(0,0,w,h)});
+ const m=new THREE.MeshStandardMaterial({vertexColors:true,map:T?tex(T):TX.plain,roughness:sys==="bone"?.6:sys==="skin"?.7:sys==="muscle"?.45:.3,metalness:0,side:THREE.DoubleSide,emissive:sys==="nerve"?0x2a2000:sys==="lymph"?0x0c1a00:0x000000});
+ if(sys==="skin"){m.transparent=true;m.opacity=.24;m.depthWrite=false}
+ m.onBeforeCompile=sh=>{sh.fragmentShader=sh.fragmentShader.replace("#include <map_fragment>","#include <map_fragment>\nif(!gl_FrontFacing){diffuseColor.rgb*=vec3(.82,.62,.58);}")};m.customProgramCacheKey=()=>"acut";return m}
 function buildRealAtlas(){const D=RA.data,sc=new THREE.Scene();lights(sc);const f=new THREE.DirectionalLight(0xffe8dc,.35);f.position.set(0,6,-12);sc.add(f);const root=new THREE.Group();sc.add(root);
  const At={scene:sc,root,layers:{bone:[],muscle:[],nerve:[],vessel:[],lymph:[],skin:[]},pick:[],real:true,sel:null,mats:{},clip:new THREE.Plane(new THREE.Vector3(0,-1,0),2)};
  const groups={};D.parts.forEach(p=>{(groups[p.sys]=groups[p.sys]||[]).push(p)});
@@ -1136,14 +1143,7 @@ function buildRealAtlas(){const D=RA.data,sc=new THREE.Scene();lights(sc);const 
     if(tall){uv[(ov+k)*2]=(Math.atan2(z,x)/(2*Math.PI)+.5)*2;uv[(ov+k)*2+1]=y*30}else{uv[(ov+k)*2]=(Math.atan2(z,y)/(2*Math.PI)+.5)*2;uv[(ov+k)*2+1]=(p.pos[k*3]-p.lo[0])*30}}
    for(let k=0;k<p.idx.length;k++)idx[oi+k]=p.idx[k]+ov;ov+=p.v;oi+=p.idx.length});
   const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("normal",new THREE.BufferAttribute(nrm,3,true));g.setAttribute("color",new THREE.BufferAttribute(col,3,true));g.setAttribute("uv",new THREE.BufferAttribute(uv,2));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeBoundingSphere();
-  let m;
-  if(sys==="skin")m=new THREE.MeshStandardMaterial({vertexColors:true,map:tex("skin"),roughness:.7,transparent:true,opacity:.24,depthWrite:false,side:THREE.DoubleSide});
-  else if(sys==="bone"){m=new THREE.MeshStandardMaterial({vertexColors:true,map:tex("bone"),bumpMap:tex("bone"),bumpScale:.006,roughness:.55,side:THREE.DoubleSide});patchBone(m)}
-  else if(sys==="muscle"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("muscle"),bumpMap:tex("muscle"),bumpScale:.008,roughness:.42,clearcoat:.4,clearcoatRoughness:.35,side:THREE.DoubleSide});patchCut(m,"vec3(.58,.17,.14)","mcut")}
-  else if(sys==="conn"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("tendon"),roughness:.3,clearcoat:.55,side:THREE.DoubleSide});patchCut(m,"vec3(.86,.82,.74)","tcut")}
-  else if(sys==="nerve"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("nerve"),bumpMap:tex("nerve"),bumpScale:.006,roughness:.35,clearcoat:.55,emissive:0x2a2000,side:THREE.DoubleSide});patchCut(m,"vec3(.95,.86,.55)","ncut")}
-  else if(sys==="lymph"){m=new THREE.MeshPhysicalMaterial({vertexColors:true,map:tex("lymph"),bumpMap:tex("lymph"),bumpScale:.006,roughness:.3,clearcoat:.65,emissive:0x0c1a00,side:THREE.DoubleSide})}
-  else{m=new THREE.MeshPhysicalMaterial({vertexColors:true,roughness:.24,clearcoat:.75,clearcoatRoughness:.25,side:THREE.DoubleSide});patchCut(m,sys==="art"?"vec3(.45,.05,.05)":"vec3(.12,.16,.35)",sys+"cut")}
+  const m=atlMat(sys);
   const mesh=new THREE.Mesh(g,m);mesh.renderOrder=sys==="skin"?2:0;root.add(mesh);const L=SYSLAYER[sys]||"muscle";if(sys!=="skin"){mesh.userData={layer:L,ranges,rparts};At.pick.push(mesh)}At.layers[L].push(mesh);(At.mats[sys]=At.mats[sys]||[]).push(m)});
  const PM=new THREE.MeshBasicMaterial({side:THREE.DoubleSide});
  return At}
@@ -1199,7 +1199,7 @@ function viewAtlas(arg){
   <div id="atlasInfo"></div></div>`;
  const en=engine(),st=document.getElementById("stage");
  if(!en){st.insertAdjacentHTML("beforeend",`<p class="muted" style="padding:40px 16px;text-align:center">The 3D engine did not load. Check your connection and reopen this page.</p>`);return}
- if(RA.data&&(!A||!A.real)){A=buildRealAtlas();autoRot=true}
+ if(RA.data&&(!A||!A.real)){const tb=performance.now();A=buildRealAtlas();try{E.r.compile(A.scene,E.cam)}catch(e){}A.tBuild=Math.round(performance.now()-tb);autoRot=true}
  if(!A)A=buildAtlas();
  if(!RA.data){const l=document.getElementById("ldm");l.hidden=false;l.textContent="Loading scan-based anatomy… 0%";
   loadReal(f=>{const x=document.getElementById("ldm");if(x)x.textContent=`Loading scan-based anatomy… ${Math.round(f*100)}%`}).then(()=>{if(current==="atlas")viewAtlas(arg)}).catch(e=>{const x=document.getElementById("ldm");if(x)x.textContent=e.message+" Showing the simplified model."})}
@@ -1232,7 +1232,7 @@ function renderAtlasInfo(){const el=document.getElementById("atlasInfo");if(!el)
  if(selSoft){const u=selSoft.userData;const kn={muscle:"Muscle",nerve:"Nerve",art:"Artery",vein:"Vein",tendon:"Tendon / ligament / fascia",bone:"Bone",lymph:"Lymphatic"}[u.kind]||"";const col={muscle:"#E07A70",nerve:"var(--warn)",art:"var(--bad)",vein:"#7C9BFF",tendon:"var(--muted)",bone:"var(--bone)",lymph:"#8DBF5A"}[u.kind];
   lab.textContent=u.name;el.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:8px"><span class="kind" style="color:${col}">${kn}</span><h2>${esc(u.name)}</h2>${u.info?`<p style="max-width:65ch">${esc(u.info)}</p>`:""}${A&&A.real&&selSoft.part?`<div class="row"><button class="btn" id="isoBtn" style="padding:7px 12px">${AT.iso?"Show everything":"Isolate in context"}</button></div>`:""}<p class="muted" style="font-size:13px">Toggle layers, ghost the muscles or slice a cross-section to see what lies deep to it.${(u.kind==="nerve"||u.kind==="lymph")&&A&&A.real?" Limb, trunk and plexus nerves and the lymph node groups are modelled along their textbook course on the scan anatomy (the scan dataset contains no peripheral nerves or nodes) — node size and number are representative.":""}</p></div>`;
   const ib=document.getElementById("isoBtn");if(ib)ib.onclick=()=>{AT.iso=!AT.iso;applyAtlasLook();renderAtlasInfo()};return}
- if(!selRegion){lab.textContent="Tap any structure";el.innerHTML=`<div class="card"><p class="eyebrow">How to use</p><h3 style="margin:4px 0 8px">Explore in layers</h3><p class="muted">Switch skin, muscles and tendons, vessels, nerves and bones on or off. Tap a bone for regional high-yield facts and approaches, or tap any muscle, vessel or nerve to identify it. Incisions appear in violet, like a skin marker.</p>${A&&A.real?`<p class="muted" style="font-size:12px;margin-top:8px">Anatomy: BodyParts3D, © The Database Center for Life Science, CC BY 4.0 (adapted), with modelled peripheral nerves and lymphatics. ${RA.data.parts.length} structures. Search above, use the eye button to ghost muscles, or the slicer for cross-sections.</p>`:""}</div>`;return}
+ if(!selRegion){lab.textContent="Tap any structure";el.innerHTML=`<div class="card"><p class="eyebrow">How to use</p><h3 style="margin:4px 0 8px">Explore in layers</h3><p class="muted">Switch skin, muscles and tendons, vessels, nerves and bones on or off. Tap a bone for regional high-yield facts and approaches, or tap any muscle, vessel or nerve to identify it. Incisions appear in violet, like a skin marker.</p>${A&&A.real?`<p class="muted" style="font-size:12px;margin-top:8px">Anatomy: BodyParts3D, © The Database Center for Life Science, CC BY 4.0 (adapted), with modelled peripheral nerves and lymphatics. ${RA.data.parts.length} structures${RA.tLoad?` · data ${(RA.tLoad/1000).toFixed(1)} s`:""}${A&&A.tBuild?` · 3D ${(A.tBuild/1000).toFixed(1)} s`:""}. Search above, use the eye button to ghost muscles, or the slicer for cross-sections.</p>`:""}</div>`;return}
  const R=REGIONS[selRegion];lab.textContent=pendingApproach?pendingApproach.name:R.name;
  const aps=R.aps.map(id=>APPROACHES.find(a=>a.id===id));const prs=PROCS.filter(p=>p.region===selRegion);
  el.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:12px">
