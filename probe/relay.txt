@@ -1,0 +1,27 @@
+== publish small
+HTTP/2 200 
+server: nginx
+date: Mon, 02 Nov 2026 02:37:28 GMT
+content-type: application/json
+content-length: 136
+access-control-allow-origin: *
+
+{"id":"kg0Jefo9acFK","time":1793587048,"expires":1793630248,"event":"message","topic":"orthossprobe91413097","message":"{\"hello\":1}"}
+== publish 3.5KB
+{"id":"62SQEmThKzWz","time":1793587049,"expires":1793630249,"event":"message","topic":"orthossprobe91413097","message":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+== publish 9KB
+{"id":"u741KNP3YUQ7","time":1793587049,"expires":1793630249,"event":"message","topic":"orthossprobe91413097","message":"You received a file: attachment.txt","attachment":{"name":"attachment.txt","type":"text/plain; charset=utf-8","size":9000,"expires":1793597849,"url":"https://ntfy.sh/file/u741KNP3YUQ7.txt"}}
+
+== preflight
+HTTP/2 200 
+server: nginx
+date: Mon, 02 Nov 2026 02:37:29 GMT
+content-length: 0
+access-control-allow-headers: *
+access-control-allow-methods: GET, PUT, POST, PATCH, DELETE
+access-control-allow-origin: *
+
+== poll
+{"id":"kg0Jefo9acFK","time":1793587048,"expires":1793630248,"event":"message","topic":"orthossprobe91413097","message":"{\"hello\":1}"}
+{"id":"62SQEmThKzWz","time":1793587049,"expires":1793630249,"event":"message","topic":"orthossprobe91413097","message":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+{"id":"u741KNP3YUQ7","time":1793587049,"expires":1793630249,"event":"message","topic":"orthossprobe91413097","message":"You received a file: attachment.txt","attachment":{"name":"attachment.txt","type":"text/plain; charset=utf-8","size":9000,"expires":1793597849,"url":"https://ntfy.sh/file/u741KNP3Y
