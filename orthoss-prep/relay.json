@@ -1,0 +1,10 @@
+{
+ "topic": "orthoss-relay-34579b664d64ce8d71",
+ "pub": {
+  "kty": "EC",
+  "crv": "P-256",
+  "x": "V7JeA4x-usgL2-D7kqNwRoDt2ESexClfh_Zs3vizTxk",
+  "y": "N8P2Ahuy9u0iJJ64Kwks5T-4QlATtbY-Shf966ODmN0"
+ },
+ "note": "Public verification key for developer uploads (ECDSA P-256). Uploads are signed on the developer phone."
+}

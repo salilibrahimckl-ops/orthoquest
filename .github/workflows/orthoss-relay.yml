@@ -1,0 +1,35 @@
+name: Ortho preSSaleel - publish developer uploads
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: orthoss-relay
+  cancel-in-progress: false
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Merge signed uploads
+        run: |
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            node orthoss-prep/tools/relay_merge.js || exit 1
+            if [ -s orthoss-prep/.relay-changed ]; then
+              rm -f orthoss-prep/.relay-changed
+              git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+              git add orthoss-prep/my-questions.json
+              git commit -qm "Developer upload: questions from the app [skip ci]" || exit 0
+              git push -q origin HEAD:main && exit 0
+              sleep $((i*5))
+            else
+              exit 0
+            fi
+          done
