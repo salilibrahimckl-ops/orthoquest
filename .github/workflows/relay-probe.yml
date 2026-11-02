@@ -1,0 +1,27 @@
+name: Relay probe
+on:
+  push:
+    branches: [apk-shell]
+    paths: [".github/workflows/relay-probe.yml"]
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set +e; mkdir -p probe; T=orthossprobe$RANDOM$RANDOM; O=probe/relay.txt; : > $O
+          echo "== publish small" >> $O
+          curl -s -D - -m 20 -H "Origin: null" -X POST -d '{"hello":1}' https://ntfy.sh/$T | head -40 >> $O
+          echo "== publish 3.5KB" >> $O
+          head -c 3500 /dev/zero | tr '\0' 'x' > /tmp/b; curl -s -m 20 -X POST --data-binary @/tmp/b https://ntfy.sh/$T | head -c 400 >> $O; echo >> $O
+          echo "== publish 9KB" >> $O
+          head -c 9000 /dev/zero | tr '\0' 'y' > /tmp/c; curl -s -m 20 -X POST --data-binary @/tmp/c https://ntfy.sh/$T | head -c 600 >> $O; echo >> $O
+          echo "== preflight" >> $O
+          curl -s -D - -o /dev/null -m 20 -X OPTIONS -H "Origin: null" -H "Access-Control-Request-Method: POST" https://ntfy.sh/$T >> $O
+          sleep 3; echo "== poll" >> $O
+          curl -s -m 20 "https://ntfy.sh/$T/json?poll=1&since=all" | cut -c1-300 >> $O
+      - run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add probe; git commit -m "relay probe [skip ci]" || exit 0; git push
