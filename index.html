@@ -198,7 +198,7 @@ li:has(.k3img.big){flex-direction:column}.k3w:has(.big){flex:auto}.k3w:has(.big)
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:56,hue:133,date:"2 Nov 2026, 13:00 IST",try:"opd",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["New: OPD Clinic — 33 outpatient cases tagged by region (Kerala, South, North, West & Central, East & Northeast India)","Each case: history and examination, pick the investigations you would order (essential, useful or not needed, with reasons), make the diagnosis, then see medical, surgical and physiotherapy management, red flags and a NEET-SS/FET pearl","Regional cases include Pott spine, skeletal fluorosis, Madura foot, leprosy claw hand, sickle cell AVN, coconut-tree fall calcaneal fracture, post-polio paralysis and a bone-setter malunion"]};
+const BUILD={n:56,hue:133,date:"2 Nov 2026, 13:00 IST",try:"opd",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["OPD cases now show investigation results: X-ray, CT, MRI, ultrasound, nerve conduction, lab reports, DEXA and microscopy. First examples: lumbar MRI (sciatica), NCS (carpal tunnel), urate crystals and labs (gout), DEXA and bone profile (osteoporosis). More come with each daily update","New: OPD Clinic — 33 outpatient cases tagged by region (Kerala, South, North, West & Central, East & Northeast India)","Each case: history and examination, pick the investigations you would order (essential, useful or not needed, with reasons), make the diagnosis, then see medical, surgical and physiotherapy management, red flags and a NEET-SS/FET pearl","Regional cases include Pott spine, skeletal fluorosis, Madura foot, leprosy claw hand, sickle cell AVN, coconut-tree fall calcaneal fracture, post-polio paralysis and a bone-setter malunion"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -1851,6 +1851,7 @@ const OPD=[
  surg:"Microdiscectomy for disabling sciatica beyond 6–12 weeks, a significant or progressive motor deficit, or recurrent attacks. Emergency decompression within 48 h for cauda equina syndrome.",
  pt:"Stay active, McKenzie extension exercises if the pain centralises, nerve-gliding, core stabilisation (transversus abdominis, multifidus), then graded return to work and ergonomic sitting with lumbar support.",
  red:"Saddle anaesthesia, urinary retention or incontinence, progressive weakness, fever, weight loss, age < 20 or > 50 with new pain, cancer history.",
+ res:[{kind:"mri",view:"Sagittal T2 LS spine",cap:"Sagittal T2 MRI: the L4–5 disc is dark (desiccated) and extrudes posteriorly into the canal (arrow), indenting the thecal sac. The other discs keep their bright nucleus.",draw:drawMRILumbarSag({level:"L4-5"})}],
  pearl:"About 90% of disc herniations improve without surgery within 6–12 weeks; sequestrated fragments regress most. Surgery gives faster relief, but outcomes converge by 1–2 years (SPORT, Peul trials)."},
 {id:"o4",t:"Back pain, evening fever and a hump",tag:"Infection · Spine",reg:"NWEKSA",
  v:"28-year-old daily-wage labourer. Mid-back pain for 4 months, evening rise of temperature, night sweats, loss of appetite and 6 kg weight loss. For 2 weeks, both legs feel weak and he trips on walking.",
@@ -1871,6 +1872,7 @@ const OPD=[
  surg:"Open (or endoscopic) carpal tunnel release — indicated now because of thenar wasting and weakness, or for failed conservative care or severe NCS findings. Incision in line with the radial border of the ring finger to avoid the recurrent motor and palmar cutaneous branches.",
  pt:"Median nerve and tendon gliding exercises, ergonomic advice (avoid prolonged wrist flexion), post-op early finger movement and scar massage; pinch strengthening after 3–4 weeks.",
  red:"Bilateral symptoms with other features of acromegaly, amyloidosis or pregnancy; wasting with no sensory symptoms (think motor neurone disease).",
+ res:[{kind:"ncs",view:"Right median nerve",cap:"Prolonged distal motor latency (5.8 ms) and absent-to-low median sensory response across the wrist, with normal forearm conduction velocity and a normal ulnar nerve — severe carpal tunnel syndrome.",draw:drawNCS({nerve:"right median",slow:true,rows:[["Median motor wrist","5.8","3.1 mV","52",1],["Median sensory","4.6","6 µV","38",1],["Ulnar motor wrist","2.9","9.4 mV","58",0],["Ulnar sensory","2.6","22 µV","55",0]],note:"Normal: DML < 4.2 ms, sensory CV > 50 m/s"})}],
  pearl:"Commonest entrapment neuropathy. The recurrent motor branch is usually extraligamentous (Lanz classification). Pillar pain is the commonest complaint after release."},
 {id:"o6",t:"Wrist pain in a new mother",tag:"Hand · Tendon",reg:"KSNWEA",
  v:"30-year-old woman, 3 months after delivery. Pain over the radial side of the right wrist for 6 weeks, worse while lifting her baby and wringing clothes.",
@@ -1911,6 +1913,7 @@ const OPD=[
  surg:null,surgN:"Not needed. Excision of tophi only for ulceration, infection or nerve compression.",
  pt:"Rest, ice and elevation in the acute attack; resume walking as pain settles. Weight loss and regular exercise long-term.",
  red:"Fever with rigors, a single joint with Gram-positive cocci, or immunosuppression — treat as septic arthritis until proven otherwise.",
+ res:[{kind:"micro",view:"Synovial fluid, polarised light",cap:"Needle-shaped crystals that are yellow when parallel to the compensator axis and blue when perpendicular — negatively birefringent monosodium urate. Gram stain showed no organisms.",draw:drawCrystals({})},{kind:"lab",view:"Blood and fluid report",cap:"Serum urate is only mildly raised during the attack; inflammatory markers are up. Synovial fluid is inflammatory, not septic.",draw:drawLab({title:"Laboratory report",sub:"Blood + synovial fluid (1st MTP) · simulated",rows:[["Serum uric acid","7.4","mg/dL","3.5–7.2","H"],["ESR","48","mm/h","0–15","H"],["CRP","32","mg/L","< 5","H"],["Creatinine","1.1","mg/dL","0.7–1.3",""],["Synovial WBC","18,000","/mm³","< 2,000","H"],["Gram stain","No organisms","","",""]]})}],
  pearl:"Gout: needle-shaped, negatively birefringent (yellow when parallel to the compensator). Pseudogout: rhomboid, weakly positively birefringent. Uric acid can be normal in up to 40% during an attack."},
 {id:"o10",t:"Sudden back pain in an elderly woman",tag:"Metabolic bone",reg:"KSNWEA",
  v:"68-year-old woman, menopause at 45, on long-term steroids for asthma. Sudden severe mid-back pain after lifting a water bucket 10 days ago. No leg weakness. She has lost 4 cm of height in 5 years.",
@@ -1921,6 +1924,7 @@ const OPD=[
  surg:"Vertebroplasty or kyphoplasty only for severe pain persisting beyond 4–6 weeks (evidence is mixed). Instrumented surgery only for neurological deficit or progressive deformity.",
  pt:"Back-extensor strengthening, postural training, balance and fall-prevention exercises (Tai chi), walking. Avoid flexion exercises and heavy lifting. Home safety: grab bars, good lighting.",
  red:"Pain at rest or at night, weight loss, a fracture above T5, or neurological signs.",
+ res:[{kind:"dexa",view:"DEXA and bone profile",cap:"Lumbar spine T-score −3.1 and hip −2.7 confirm osteoporosis; vitamin D is deficient with a raised PTH — correct vitamin D before or with antiresorptive therapy.",draw:drawLab({title:"DEXA + bone profile",sub:"Densitometry and blood · simulated",rows:[["L1–L4 T-score","−3.1","SD","≥ −1.0","L"],["Total hip T-score","−2.7","SD","≥ −1.0","L"],["Femoral neck T-score","−2.9","SD","≥ −1.0","L"],["Serum calcium","8.7","mg/dL","8.5–10.5",""],["25-OH vitamin D","14","ng/mL","30–100","L"],["PTH","78","pg/mL","15–65","H"],["ALP","110","U/L","40–129",""],["Serum protein electrophoresis","No M band","","",""]],note:"WHO: T ≤ −2.5 = osteoporosis"})}],
  pearl:"A fragility fracture is diagnostic of osteoporosis regardless of T-score. FRAX estimates the 10-year fracture probability. Treatment lowers vertebral fracture risk by about 50–70%."},
 {id:"o11",t:"Bowed legs in a toddler",tag:"Paediatric · Metabolic",reg:"NWEKSA",
  v:"2½-year-old child, exclusively breastfed till 1 year, rarely taken outdoors. Delayed walking, legs bowing progressively, frequent chest infections.",
@@ -2153,26 +2157,69 @@ const OPD=[
  red:"New weakness and fatigue decades later (post-polio syndrome) — avoid overuse.",
  pearl:"Polio affects the anterior horn cells — sensation is preserved. The hand-to-knee gait compensates for quadriceps weakness. A tendon transfer needs a muscle of at least grade 4 power."}
 ];
+
+/* OPD images: c.img (array, shown with the examination — clinical photos, presenting films) and c.res (array, shown after the investigation step — X-ray, CT, MRI results). Same {kind,view,cap,spec|draw} objects as the Case Ward. */
+function opdImgs(arr){return (arr||[]).map((im,i)=>`<div class="opdImg" data-oi="${i}">${imgCard(im)}</div>`).join("")}
+function opdMount(root,arr){(arr||[]).forEach((im,i)=>{const w=root.querySelector(`.opdImg[data-oi="${i}"]`);if(w)mountImg(w,im)})}
+/* Simulated sagittal T2 MRI of the lumbosacral spine: opts {level:"L4-5"|"L5-S1", side:"left"|"right"} draws a posterolateral disc extrusion */
+function drawMRILumbarSag(o={}){return(g,W,H)=>{g.fillStyle="#000";g.fillRect(0,0,W,H);
+ const cx=W*.47,lv=["L1","L2","L3","L4","L5","S1"],vh=58,dh=17,top=24,bad=o.level==="L5-S1"?4:3;
+ const grad=(x,y,w,h,c1,c2)=>{const gr=g.createLinearGradient(x,y,x+w,y);gr.addColorStop(0,c1);gr.addColorStop(1,c2);return gr};
+ g.fillStyle=grad(cx+70,0,120,H,"#3a3a3a","#141414");g.fillRect(cx+70,0,140,H);
+ g.fillStyle="#1d1d1d";g.fillRect(cx-210,0,120,H);
+ g.fillStyle="#d8d8d8";g.beginPath();g.moveTo(cx+38,0);g.lineTo(cx+70,0);g.lineTo(cx+74,H);g.lineTo(cx+40,H);g.closePath();g.fill();
+ g.fillStyle="#6f6f6f";g.beginPath();g.moveTo(cx+48,0);g.lineTo(cx+60,0);g.lineTo(cx+62,top+vh*3.6);g.lineTo(cx+56,top+vh*4.2);g.lineTo(cx+50,top+vh*3.6);g.closePath();g.fill();
+ let y=top;for(let i=0;i<6;i++){const tilt=i>=4?(i-3)*7:0,x0=cx-70+tilt*.4,w=i===5?96:104;g.save();g.translate(x0+w/2,y+vh/2);g.rotate((i>=4?(i-3)*.12:0));
+  g.fillStyle=grad(-w/2,0,w,vh,"#7a7a7a","#5e5e5e");g.beginPath();g.roundRect?g.roundRect(-w/2,-vh/2,w,vh,6):g.rect(-w/2,-vh/2,w,vh);g.fill();g.fillStyle="#9a9a9a";g.fillRect(-w/2,-vh/2,w,3);g.fillRect(-w/2,vh/2-3,w,3);g.restore();
+  g.fillStyle="#bfbfbf";g.font="bold 13px sans-serif";g.fillText(lv[i],cx-128,y+vh/2+5);
+  if(i<5){const dy=y+vh+1,d=i===bad||i===bad+0;g.save();g.translate(cx-18+ (i>=3?(i-2)*4:0),dy+dh/2);g.rotate(i>=3?(i-2)*.1:0);
+   g.fillStyle="#3c3c3c";g.beginPath();g.ellipse(0,0,54,dh/2,0,0,7);g.fill();
+   g.fillStyle=i===bad?"#5a5a5a":"#e9e9e9";g.beginPath();g.ellipse(-4,0,30,dh/2-3,0,0,7);g.fill();
+   if(i===bad){g.fillStyle="#2d2d2d";g.beginPath();g.moveTo(44,-6);g.quadraticCurveTo(78,-2,74,12);g.quadraticCurveTo(66,24,50,8);g.closePath();g.fill()}
+   g.restore()}
+  y+=vh+dh+2}
+ for(let i=0;i<5;i++){const yy=top+i*(vh+dh+2)+12;g.fillStyle="#4a4a4a";g.fillRect(cx+82,yy,40,vh-20);}
+ g.fillStyle="#fff";g.font="12px sans-serif";g.fillText("SAG T2",14,H-34);g.fillText("A",12,H/2);g.fillText("P",W-20,H/2);g.fillText(o.label||"",14,H-16);
+ if(o.arrow!==false){const ay=top+(bad+1)*(vh+dh+2)-dh/2-1;g.strokeStyle="#ffd34d";g.fillStyle="#ffd34d";g.lineWidth=3;g.beginPath();g.moveTo(cx+150,ay-50);g.lineTo(cx+80,ay-4);g.stroke();g.beginPath();g.moveTo(cx+78,ay-2);g.lineTo(cx+92,ay-4);g.lineTo(cx+84,ay-16);g.closePath();g.fill()}}}
+
+/* Report-style images for miscellaneous investigations. drawLab({title,sub,rows:[[test,value,unit,range,flag "H"|"L"|""]],note}) */
+function drawLab(o){return(g,W,H)=>{g.fillStyle="#fbfbf8";g.fillRect(0,0,W,H);g.fillStyle="#1f3b5c";g.fillRect(0,0,W,46);g.fillStyle="#fff";g.font="bold 17px sans-serif";g.fillText(o.title||"Laboratory report",16,29);
+ g.fillStyle="#555";g.font="12px sans-serif";g.fillText(o.sub||"Specimen: blood · simulated for teaching",16,66);const cols=[16,250,345,420];g.font="bold 12px sans-serif";g.fillStyle="#222";["Test","Result","Unit","Reference"].forEach((t,i)=>g.fillText(t,cols[i],92));
+ g.strokeStyle="#ccc";g.beginPath();g.moveTo(12,100);g.lineTo(W-12,100);g.stroke();let y=122;(o.rows||[]).forEach(r=>{const f=r[4];g.font="13px sans-serif";g.fillStyle="#222";g.fillText(r[0],cols[0],y);g.font=f?"bold 13px sans-serif":"13px sans-serif";g.fillStyle=f==="H"?"#c0392b":f==="L"?"#1f63b5":"#222";g.fillText(r[1]+(f?" "+f:""),cols[1],y);g.font="12px sans-serif";g.fillStyle="#555";g.fillText(r[2]||"",cols[2],y);g.fillText(r[3]||"",cols[3],y);y+=26});
+ if(o.note){g.fillStyle="#333";g.font="italic 12px sans-serif";g.fillText(o.note,16,Math.min(H-16,y+14))}}}
+/* Polarised microscopy of synovial fluid: needle-shaped (gout) or rhomboid (CPPD) crystals */
+function drawCrystals(o={}){return(g,W,H)=>{const r=Math.min(W,H)*.46;g.fillStyle="#000";g.fillRect(0,0,W,H);const cg=g.createRadialGradient(W/2,H/2,10,W/2,H/2,r);cg.addColorStop(0,"#d9478c");cg.addColorStop(1,"#5d1747");g.fillStyle=cg;g.beginPath();g.arc(W/2,H/2,r,0,7);g.fill();
+ g.save();g.beginPath();g.arc(W/2,H/2,r,0,7);g.clip();let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+ for(let i=0;i<55;i++){const x=W/2+(rnd()-.5)*r*1.8,y=H/2+(rnd()-.5)*r*1.8,a=rnd()*Math.PI,L=o.cppd?10+rnd()*8:22+rnd()*26,par=Math.abs(Math.cos(a))>.7;g.save();g.translate(x,y);g.rotate(a);g.fillStyle=o.cppd?(par?"#5aa0ff":"#ffe14d"):(par?"#ffe14d":"#5aa0ff");
+  if(o.cppd)g.fillRect(-L/2,-L/4,L,L/2);else{g.beginPath();g.moveTo(-L/2,0);g.lineTo(0,-1.6);g.lineTo(L/2,0);g.lineTo(0,1.6);g.closePath();g.fill()}g.restore()}
+ for(let i=0;i<10;i++){g.fillStyle="rgba(240,230,240,.8)";g.beginPath();g.arc(W/2+(rnd()-.5)*r*1.6,H/2+(rnd()-.5)*r*1.6,9,0,7);g.fill()}g.restore();
+ g.strokeStyle="#fff";g.lineWidth=2;g.beginPath();g.moveTo(W-100,H-30);g.lineTo(W-40,H-30);g.stroke();g.fillStyle="#fff";g.font="12px sans-serif";g.fillText("γ compensator",W-140,H-40);g.fillText("× 400, polarised",14,H-16)}}
+/* NCS report: motor (CMAP) and sensory (SNAP) traces with a value table. o={nerve,rows:[[segment,latency,amplitude,cv,flag]],slow:true} */
+function drawNCS(o){return(g,W,H)=>{g.fillStyle="#fbfbf8";g.fillRect(0,0,W,H);g.fillStyle="#1f3b5c";g.fillRect(0,0,W,40);g.fillStyle="#fff";g.font="bold 15px sans-serif";g.fillText("Nerve conduction study — "+(o.nerve||""),14,26);
+ [[60,"Motor (APB)",o.slow?1.9:1,o.slow?.55:1],[180,"Sensory (digit 2)",o.slow?1.8:1,o.slow?.35:1]].forEach(([y0,t,lat,amp])=>{g.strokeStyle="#ddd";for(let x=20;x<280;x+=20){g.beginPath();g.moveTo(x,y0);g.lineTo(x,y0+100);g.stroke()}
+  g.fillStyle="#333";g.font="12px sans-serif";g.fillText(t,20,y0-6);g.strokeStyle="#c0392b";g.lineWidth=2;g.beginPath();for(let x=0;x<250;x++){const tt=x-40*lat;const v=tt>0?Math.sin(tt/10)*Math.exp(-tt/30)*45*amp:0;x?g.lineTo(20+x,y0+50-v):g.moveTo(20+x,y0+50)}g.stroke();g.lineWidth=1});
+ const cx=W/2-10;g.font="bold 12px sans-serif";g.fillStyle="#222";["Segment","Lat ms","Amp","CV m/s"].forEach((t,i)=>g.fillText(t,cx+[0,140,190,260][i],70));let y=96;(o.rows||[]).forEach(r=>{g.font="12px sans-serif";g.fillStyle="#222";g.fillText(r[0],cx,y);g.fillStyle=r[4]?"#c0392b":"#222";g.font=r[4]?"bold 12px sans-serif":"12px sans-serif";[r[1],r[2],r[3]].forEach((v,i)=>g.fillText(v,cx+[140,190,260][i],y));y+=24});
+ if(o.note){g.fillStyle="#333";g.font="italic 12px sans-serif";g.fillText(o.note,cx,y+12)}}}
 let opdReg=(()=>{try{return localStorage.getItem("orthoquest.opdReg")||"K"}catch(e){return"K"}})();
 function opdCases(){return opdReg==="A"?OPD:OPD.filter(c=>c.reg.includes(opdReg))}
 function viewOPD(){S.opd=S.opd||{};const list=opdCases();
  $m.innerHTML=`<div class="view"><div><p class="eyebrow">OPD Clinic</p><h1 style="margin-top:4px">Outpatient cases</h1><p class="muted" style="margin-top:6px">Cases you meet in OPD in your region. Take the history and examination, order only the investigations you need, make the diagnosis, then plan medical, surgical and physiotherapy management.</p></div>
  <div class="chips">${OPD_REG.map(([k,t])=>`<button class="chip" data-r="${k}" aria-pressed="${opdReg===k}">${t}${k==="A"?` ${OPD.length}`:` ${OPD.filter(c=>c.reg.includes(k)).length}`}</button>`).join("")}</div>
- <div class="grid2">${list.map(c=>{const b=S.opd[c.id];return `<button class="apcard" data-o="${c.id}"><span class="tagline">${esc(c.tag)}</span><h3>${esc(c.t)}</h3><span class="plane">${c.inv.length} tests to choose from · ${[c.med?"Medical":"",c.surg?"Surgical":"",c.pt?"Physio":""].filter(Boolean).join(" + ")}</span>${b!=null?`<span class="best">Best ${b}%</span>`:`<span class="best" style="color:var(--muted)">Not seen</span>`}</button>`}).join("")}</div></div>`;
+ <div class="grid2">${list.map(c=>{const b=S.opd[c.id];return `<button class="apcard" data-o="${c.id}"><span class="tagline">${esc(c.tag)}</span><h3>${esc(c.t)}</h3><span class="plane">${(c.img||[]).length+(c.res||[]).length?`<span style="color:var(--build)">🩻 ${(c.img||[]).length+(c.res||[]).length} image${(c.img||[]).length+(c.res||[]).length>1?"s":""}</span> · `:""}${c.inv.length} tests · ${[c.med?"Medical":"",c.surg?"Surgical":"",c.pt?"Physio":""].filter(Boolean).join(" + ")}</span>${b!=null?`<span class="best">Best ${b}%</span>`:`<span class="best" style="color:var(--muted)">Not seen</span>`}</button>`}).join("")}</div></div>`;
  $m.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{opdReg=b.dataset.r;try{localStorage.setItem("orthoquest.opdReg",opdReg)}catch(e){}viewOPD()});
  $m.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>runOPD(OPD.find(c=>c.id===b.dataset.o)));}
 function runOPD(c){let pts=0,max=0;const ord=shuffle(c.inv.map((_,i)=>i)),pick=new Set();
  $m.innerHTML=`<div class="view"><div class="row" style="justify-content:space-between"><div><p class="eyebrow">OPD · ${esc(c.tag)}</p><h2 style="margin-top:2px">${esc(c.t)}</h2></div><button class="btn ghost" id="quit" style="padding:7px 12px">Leave</button></div>
- <div class="vignette"><b>History</b><br>${esc(c.v)}</div><div class="vignette"><b>Examination</b><br>${esc(c.ex)}</div><div id="ob" style="display:flex;flex-direction:column;gap:14px"></div></div>`;
- document.getElementById("quit").onclick=()=>go("opd");const body=document.getElementById("ob");
+ <div class="vignette"><b>History</b><br>${esc(c.v)}</div><div class="vignette"><b>Examination</b><br>${esc(c.ex)}</div>${opdImgs(c.img)}<div id="ob" style="display:flex;flex-direction:column;gap:14px"></div></div>`;
+ document.getElementById("quit").onclick=()=>go("opd");opdMount($m.querySelector(".view"),c.img);const body=document.getElementById("ob");
  function inv(){body.innerHTML=`<div class="step-meta"><span>STEP 1 / 3 · INVESTIGATIONS</span><span>Pick what you would order</span></div><p class="prompt">Which investigations do you need? Tap all that apply — unnecessary tests cost points.</p>
   <div class="opts">${ord.map(i=>`<button class="opt" data-i="${i}" aria-pressed="false"><span class="k">☐</span><span>${esc(c.inv[i][0])}</span></button>`).join("")}</div><button class="btn primary" id="sub">Order these tests</button>`;
   body.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(pick.has(i))pick.delete(i);else pick.add(i);const on=pick.has(i);b.setAttribute("aria-pressed",on);b.querySelector(".k").textContent=on?"☑":"☐";b.style.borderColor=on?"var(--accent)":""});
   document.getElementById("sub").onclick=()=>{let g=0,m=0;c.inv.forEach(([n,l],i)=>{if(l===2){m+=2;if(pick.has(i))g+=2}else if(l===1){if(pick.has(i))g+=1}else if(pick.has(i))g-=1});pts+=Math.max(0,g);max+=m;
    body.innerHTML=`<div class="step-meta"><span>STEP 1 / 3 · INVESTIGATIONS</span><span>${Math.max(0,g)}/${m} points</span></div>
    <div class="card" style="display:flex;flex-direction:column;gap:10px">${ord.map(i=>{const [n,l,w]=c.inv[i],p=pick.has(i);const col=l===2?"var(--ok)":l===1?"#6E8FC9":"var(--bad)";const lab=l===2?"Essential":l===1?"Useful":"Not needed";
-    return `<div style="border-left:3px solid ${col};padding-left:10px"><b>${p?"☑":"☐"} ${esc(n)}</b> <span style="color:${col};font-size:12px;font-weight:700">${lab}${p&&l===0?" · −1":!p&&l===2?" · missed":""}</span><br><span class="muted" style="font-size:13px">${esc(w)}</span></div>`}).join("")}</div><button class="btn primary" id="nx">Make the diagnosis</button>`;
-   document.getElementById("nx").onclick=dx}}
+    return `<div style="border-left:3px solid ${col};padding-left:10px"><b>${p?"☑":"☐"} ${esc(n)}</b> <span style="color:${col};font-size:12px;font-weight:700">${lab}${p&&l===0?" · −1":!p&&l===2?" · missed":""}</span><br><span class="muted" style="font-size:13px">${esc(w)}</span></div>`}).join("")}</div>${c.res&&c.res.length?`<p class="eyebrow">Results</p><div id="ores">${opdImgs(c.res)}</div>`:""}<button class="btn primary" id="nx">Make the diagnosis</button>`;
+   if(c.res)opdMount(document.getElementById("ores"),c.res);document.getElementById("nx").onclick=dx}}
  function dx(){const o=shuffle(c.dx.o.map((_,i)=>i));body.innerHTML=`<div class="step-meta"><span>STEP 2 / 3 · DIAGNOSIS</span><span>${pts} points</span></div><p class="prompt">What is your diagnosis?</p><div class="opts">${o.map((x,i)=>`<button class="opt" data-d="${x}"><span class="k">${"ABCD"[i]}</span><span>${esc(c.dx.o[x])}</span></button>`).join("")}</div>`;
   body.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{const ok=+b.dataset.d===0;max+=4;if(ok)pts+=4;body.querySelectorAll("[data-d]").forEach(x=>{x.disabled=true;if(+x.dataset.d===0)x.classList.add("ok");else if(x===b)x.classList.add("bad")});
    body.insertAdjacentHTML("beforeend",`<div class="fb ${ok?"":"bad"}"><b>${ok?"Correct":"Not quite"}.</b> ${esc(c.dx.e)}</div><button class="btn primary" id="nx">See the management plan</button>`);document.getElementById("nx").onclick=plan})}
@@ -2218,7 +2265,7 @@ function xrMat(a,b){return new THREE.ShaderMaterial({uniforms:{a:{value:a},b:{va
  fragmentShader:"uniform float a;uniform float b;varying vec3 vN;\n#include <clipping_planes_pars_fragment>\nvoid main(){\n#include <clipping_planes_fragment>\nfloat f=1.0-abs(normalize(vN).z);gl_FragColor=vec4(vec3(a+b*f*f),1.0);}"})}
 async function xrRender(img){if(XR.cache.has(img))return XR.cache.get(img);
  const W=XR.W,H=XR.H,cv=document.createElement("canvas");cv.width=W;cv.height=H;const g=cv.getContext("2d");
- if(img.kind==="xray"||img.kind==="ct"){const D=await loadReal();const sp=img.spec();
+ if((img.kind==="xray"||img.kind==="ct")&&img.spec){const D=await loadReal();const sp=img.spec();
   if(!XR.r){XR.r=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});XR.r.setPixelRatio(1);XR.r.localClippingEnabled=true}
   const r=XR.r;r.setSize(W,H,false);r.setClearColor(0x000000,1);
   const sc=new THREE.Scene(),V=a=>new THREE.Vector3(...a),mats=[],BA=sp.ba||.05,BB=sp.bb||.42;const mk=(a,b)=>{const m=xrMat(a,b);mats.push(m);return m};
@@ -2249,7 +2296,7 @@ async function xrRender(img){if(XR.cache.has(img))return XR.cache.get(img);
    const w=g.measureText(t).width;g.fillStyle="rgba(255,255,255,.92)";g.fillRect(sp.marker.x==="r"?x-w-6:x-6,14,w+12,30);g.fillStyle="#000";g.fillText(t,x,18)}}
  else{g.fillStyle="#EEF1F4";g.fillRect(0,0,W,H);img.draw(g,W,H)}
  const url=cv.toDataURL("image/jpeg",.86);XR.cache.set(img,url);return url}
-function imgCard(img){if(!img)return"";const lab=img.kind==="photo"?"Clinical illustration":img.kind==="mri"?"Simulated MRI":img.kind==="ct"?"Simulated CT":"Simulated X-ray";
+function imgCard(img){if(!img)return"";const lab=({photo:"Clinical illustration",mri:"Simulated MRI",ct:"Simulated CT",usg:"Simulated ultrasound",lab:"Lab report",ncs:"Nerve conduction study",dexa:"DEXA report",micro:"Microscopy",scan:"Nuclear scan",ecg:"ECG"})[img.kind]||"Simulated X-ray";
  return `<figure class="cimg"><div class="cimgBox" data-ci="1" role="button" tabindex="0" aria-label="Enlarge image"><span class="cimgLoad">Developing film…</span><span class="cimgTag">${lab}${img.view?" · "+esc(img.view):""}</span><span class="cimgZoom">⤢</span></div>${img.cap?`<figcaption>${esc(img.cap)}</figcaption>`:""}</figure>`}
 function mountImg(root,img){const box=root.querySelector("[data-ci]");if(!box||!img)return;
  xrRender(img).then(url=>{const im=new Image();im.src=url;im.alt=img.cap||"Case image";box.prepend(im);const l=box.querySelector(".cimgLoad");if(l)l.remove();
