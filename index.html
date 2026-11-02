@@ -172,8 +172,9 @@ p{margin:0}
 .lbox img{max-width:100%;max-height:72vh;touch-action:none;transform-origin:center;user-select:none;-webkit-user-drag:none}
 .lbox button{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px}
 .lbox p{font-size:13px;text-align:center;max-width:60ch;color:#dfe6ee}
+.k3w{display:flex;flex-direction:column;gap:2px;flex:none}.k3cr{font-size:9px;color:var(--muted);max-width:112px;line-height:1.2}
 .k3img{width:112px;height:68px;object-fit:cover;border-radius:8px;background:#0b0f14;border:1px solid var(--line);flex:none;opacity:.35;transition:opacity .3s,width .2s,height .2s;cursor:zoom-in}.k3img.big{width:min(100%,360px);height:auto;cursor:zoom-out}
-li:has(.k3img.big){flex-direction:column}
+li:has(.k3img.big){flex-direction:column}.k3w:has(.big){flex:auto}.k3w:has(.big) .k3cr{max-width:none}
 .loadmsg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(14,21,30,.9);border:1px solid var(--line);padding:10px 14px;border-radius:8px;font-family:var(--mono);font-size:12px;text-align:center;max-width:80%}
 </style>
 
@@ -197,7 +198,7 @@ li:has(.k3img.big){flex-direction:column}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:52,hue:317,date:"2 Nov 2026, 08:20 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Implants & instruments now show realistic 3D-rendered pictures — locking plates with screws, cannulated and headless screws, nails, K-wires, knee, hip and reverse-shoulder prostheses, sliding hip screw, suture buttons, external fixators, drills, reamers, arthroscope, retractors, elevators, clamps, osteotomes — rendered on your phone in polished titanium, steel, cobalt-chrome, polyethylene and ceramic. Tap a picture to enlarge it"]};
+const BUILD={n:52,hue:317,date:"2 Nov 2026, 08:20 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Implants & instruments now show realistic 3D-rendered pictures — locking plates with screws, cannulated and headless screws, nails, K-wires, knee, hip and reverse-shoulder prostheses, sliding hip screw, suture buttons, external fixators, drills, reamers, arthroscope, retractors, elevators, clamps, osteotomes — rendered on your phone in polished titanium, steel, cobalt-chrome, polyethylene and ceramic. Tap a picture to enlarge it","Real photographs from Wikimedia Commons (free-licensed, credited) for hip and knee replacements, plates and screws, proximal femoral nail, osteotome and retractor when you are online; the 3D picture is used if a photo cannot load"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -776,11 +777,13 @@ function k3render(kind){if(K3.cache[kind])return K3.cache[kind];const r=k3Init()
  const cam=new THREE.PerspectiveCamera(30,360/220,.1,100);const dist=Math.max(sz.x/1.64,sz.y,sz.z)*1.55+.6;cam.position.set(0,dist*.25,dist);cam.lookAt(0,0,0);r.render(sc,cam);const url=r.domElement.toDataURL("image/jpeg",.86);
  sc.traverse(o=>{if(o.isMesh){o.geometry.dispose();if(o.material.dispose)o.material.dispose()}});sc.background.dispose();K3.cache[kind]=url;return url}
 function k3pump(){if(K3.busy)return;const job=K3.q.shift();if(!job)return;K3.busy=true;setTimeout(()=>{try{const url=k3render(job.k);document.querySelectorAll(`img[data-k3="${job.k}"]`).forEach(im=>{im.src=url;im.style.opacity=1})}catch(e){console.warn(e)}K3.busy=false;k3pump()},16)}
-function k3queue(root){(root||document).querySelectorAll("img[data-k3]:not([data-q])").forEach(im=>{im.dataset.q=1;const k=im.dataset.k3;if(K3.cache[k]){im.src=K3.cache[k];im.style.opacity=1}else if(!K3.q.find(j=>j.k===k))K3.q.push({k})});k3pump()}
+const K3PHOTO={hip:"Hip_replacement_Image_3684-PH.jpg",knee:"Knee_Replacement.jpg",lockplate:"2016-10-27-Osteosynthesematerial-8690.jpg",plate:"2016-10-27-Osteosynthesematerial-8695.jpg",cmn:"Proximal_femur_nail.jpg",osteotome:"Osteotome.1ger.jpg",hohmann:"Surgical_retractor.jpg"};
+const k3photoUrl=f=>"https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f)+"?width=480";
+function k3queue(root){(root||document).querySelectorAll("img[data-k3]:not([data-q])").forEach(im=>{im.dataset.q=1;const k=im.dataset.k3;if(K3PHOTO[k]&&navigator.onLine!==false&&!im.dataset.nophoto){im.onload=()=>{im.style.opacity=1;if(!/^https/.test(im.src))return;const cr=im.parentElement&&im.parentElement.querySelector('.k3cr');if(cr)cr.hidden=false};im.onerror=()=>{im.onerror=null;im.onload=null;im.dataset.nophoto=1;delete im.dataset.q;k3queue(im.parentElement)};im.src=k3photoUrl(K3PHOTO[k]);return}if(K3.cache[k]){im.src=K3.cache[k];im.style.opacity=1}else if(!K3.q.find(j=>j.k===k))K3.q.push({k})});k3pump()}
 
 let kitQ="";
 function viewKit(arg){const fams=FAMILIES.filter(f=>KIT[f.id]);const open=arg&&arg.fam;
- const row=(a,b,k)=>{const k3k=(k==="tool"&&k3tool(a))||k3kind(a);return `<li style="display:flex;gap:10px;align-items:flex-start">${k3k?`<img data-k3="${k3k}" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" class="k3img">`:kitSvg(k||kitKind(a))}<div style="min-width:0"><b>${esc(a)}</b><br><span class="muted" style="font-size:13px">${esc(b)}</span></div></li>`};
+ const row=(a,b,k)=>{const k3k=(k==="tool"&&k3tool(a))||k3kind(a);return `<li style="display:flex;gap:10px;align-items:flex-start">${k3k?`<span class="k3w"><img data-k3="${k3k}" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" class="k3img">${K3PHOTO[k3k]?`<a class="k3cr" hidden href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(K3PHOTO[k3k])}" target="_blank" rel="noopener">Photo: Wikimedia Commons · author & licence</a>`:""}</span>`:kitSvg(k||kitKind(a))}<div style="min-width:0"><b>${esc(a)}</b><br><span class="muted" style="font-size:13px">${esc(b)}</span></div></li>`};
  const sec=(t,arr,k)=>arr&&arr.length?`<p class="eyebrow" style="margin-top:6px">${t}</p><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">${arr.map(x=>row(x[0],x[1],k)).join("")}</ul>`:"";
  $m.innerHTML=`<div class="view"><div><p class="eyebrow">Theatre kit</p><h1 style="margin-top:4px">Implants & instruments</h1><p class="muted" style="margin-top:6px">What the scrub nurse lays out for each operation, the implants in daily use, and what is new. Generic names — brands omitted.</p></div>
  <input id="kitQ" type="search" value="${esc(kitQ)}" placeholder="Search — e.g. locking plate, reamer, suture button" style="width:100%;font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 12px">
