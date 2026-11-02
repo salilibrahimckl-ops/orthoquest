@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=23;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=24;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -190,6 +190,29 @@ nav.tabs button[aria-current="page"] svg{background:var(--accent-soft);border-ra
 </div>
 <nav class="tabs" aria-label="Sections"><div class="in" id="tabs"></div></nav>
 
+<script>
+/* A different colour theme for each day of the week (Sunday = 0). Light values are tuned for readable text; dark mode is derived from the same hue. */
+(function(){
+  var T=[
+    {n:"Teal",h:188,bg:"#ECF9FA",sunk:"#D8F0F2",line:"#C3E4E7",ink:"#0B2A2E",muted:"#4C6C70",accent:"#0B6E7F",soft:"#D7F3F6",g1:"#0B7285",g2:"#15AABF",g3:"#4DABF7"},
+    {n:"Violet",h:258,bg:"#F4F2FF",sunk:"#ECE8FB",line:"#E0DAF5",ink:"#1C1640",muted:"#6A6390",accent:"#6C3CE9",soft:"#EEE7FF",g1:"#6C3CE9",g2:"#D63AA0",g3:"#FF8A3D"},
+    {n:"Ocean",h:218,bg:"#EEF5FF",sunk:"#DFEBFB",line:"#CFDFF3",ink:"#0F1E3A",muted:"#55678A",accent:"#1D5FD1",soft:"#E1ECFF",g1:"#1D5FD1",g2:"#0E9FB1",g3:"#7C4DFF"},
+    {n:"Green",h:130,bg:"#F0F9EF",sunk:"#E0F1DE",line:"#CDE6CA",ink:"#132A12",muted:"#56704F",accent:"#2B7A3B",soft:"#E1F5DF",g1:"#2B8A3E",g2:"#37B24D",g3:"#A9E34B"},
+    {n:"Amber",h:38,bg:"#FFF8EA",sunk:"#F9EDCF",line:"#EFDDB3",ink:"#2A1E05",muted:"#7A6740",accent:"#965400",soft:"#FFEFCC",g1:"#D97706",g2:"#DC2626",g3:"#EAB308"},
+    {n:"Rose",h:330,bg:"#FFF0F6",sunk:"#FBE0EC",line:"#F1CCDD",ink:"#2E0F1F",muted:"#7D5468",accent:"#B8175A",soft:"#FFE0EE",g1:"#BE185D",g2:"#9333EA",g3:"#F97316"},
+    {n:"Indigo",h:232,bg:"#EEF1F9",sunk:"#DEE3F1",line:"#CDD5E8",ink:"#131A33",muted:"#566180",accent:"#3949AB",soft:"#E3E7FB",g1:"#1E2A47",g2:"#3949AB",g3:"#7E57C2"}];
+  var t=T[new Date().getDay()],r=document.documentElement;window.DAY_THEME=t.n;
+  function hsl(s,l){return "hsl("+t.h+","+s+"%,"+l+"%)"}
+  function apply(){
+    var dark=r.getAttribute("data-theme")==="dark"||(r.getAttribute("data-theme")!=="light"&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);
+    var v=dark?{bg:hsl(35,9),surface:hsl(30,14),sunk:hsl(30,19),line:hsl(26,27),ink:hsl(60,95),muted:hsl(22,73),accent:hsl(85,74),"accent-ink":hsl(60,11),"accent-soft":hsl(40,24),g1:t.g1,g2:t.g2,g3:t.g3}
+      :{bg:t.bg,surface:"#FFFFFF",sunk:t.sunk,line:t.line,ink:t.ink,muted:t.muted,accent:t.accent,"accent-ink":"#FFFFFF","accent-soft":t.soft,g1:t.g1,g2:t.g2,g3:t.g3};
+    for(var k in v)r.style.setProperty("--"+k,v[k]);
+    var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t.g1)}
+  apply();try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",apply)}catch(e){}
+  try{new MutationObserver(apply).observe(r,{attributes:true,attributeFilter:["data-theme"]})}catch(e){}
+})();
+</script>
 <script>
 // Ortho SS question bank. Format: [topicIndex, kind, question, [A,B,C,D], answerIndex, explanation]
 const TOPICS = ["Trauma","Spine","Arthroplasty","Sports & Arthroscopy","Paediatric Ortho","Hand & Upper Limb","Foot & Ankle","Oncology","Basic Sciences","Infection & Metabolic"];
