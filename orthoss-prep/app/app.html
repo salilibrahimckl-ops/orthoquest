@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=24;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=25;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -1516,6 +1516,23 @@ function recordAttempt(id,ok){const a=S.att[id]||{n:0,c:0};a.n++;if(ok)a.c++;a.l
   const k=dkey();S.daily[k]=(S.daily[k]||0)+1;
   const r=S.srs[id];if(!ok)S.srs[id]={ivl:1,due:Date.now()+DAY};
   else if(r){const nx={1:3,3:7,7:21}[r.ivl];if(nx)S.srs[id]={ivl:nx,due:Date.now()+nx*DAY};else delete S.srs[id];}}
+/* ---- Exam countdown. Built-in dates; an updated list is downloaded from GitHub (exam-dates.json) so dates can change without an app update. ---- */
+const EXAMS_BUILTIN={updated:"2026-11-02",exams:[
+  {id:"neetss",name:"NEET-SS 2026",date:"2026-12-11",status:"confirmed",note:"11–12 Dec 2026 · NBEMS · apply by 18 Nov"},
+  {id:"fet",name:"FET 2027",date:"2027-03-13",status:"expected",note:"Expected around mid-March 2027 · NBEMS · date not announced yet (FET 2026 was on 14 Mar)"},
+  {id:"iniss",name:"INI-SS July 2027 session",date:"2027-05-01",status:"expected",note:"Expected May 2027 · AIIMS · date not announced yet"}]};
+function examList(){let d=null;try{d=JSON.parse(localStorage.getItem("orthoss_exam_dates")||"null")}catch(e){}
+  if(!d||!Array.isArray(d.exams)||String(d.updated||"")<EXAMS_BUILTIN.updated)d=EXAMS_BUILTIN;return d.exams}
+function examDays(e){return Math.ceil((new Date((e.date)+"T09:00").getTime()-Date.now())/DAY)}
+function examCard(){const list=examList().filter(e=>examDays(Object.assign({},e,{date:e.end||e.date}))>=0).sort((a,b)=>a.date<b.date?-1:1);if(!list.length)return "";
+  return `<section class="card stack" style="gap:10px"><div class="row" style="justify-content:space-between;align-items:baseline"><h3>Exam countdown</h3><span class="small muted">~ = expected date</span></div>
+   ${list.map(e=>{const d=examDays(e),exp=e.status!=="confirmed";return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--sunk)">
+     <div class="stack" style="gap:2px;min-width:0;flex:1"><div style="font-weight:700">${esc(e.name)}</div><div class="small muted">${esc(e.note||"")}</div>
+      ${S.examDate===e.date?`<span class="small" style="color:var(--accent);font-weight:600">Your exam</span>`:`<button type="button" class="linkbtn small" data-exset="${esc(e.date)}" style="align-self:flex-start">Set as my exam</button>`}</div>
+     <div style="text-align:right;flex:none"><div class="mono" style="font-size:1.6rem;font-weight:700;color:var(--accent);line-height:1.1">${d>0?(exp?"~":"")+d:d===0?"Today":"Now"}</div><div class="small muted">${d>0?"days":""}</div></div></div>`}).join("")}
+  </section>`}
+function examFetch(){if(IN_CLAUDE)return;fetch("https://raw.githubusercontent.com/salilibrahimckl-ops/orthoquest/main/orthoss-prep/exam-dates.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{
+  if(!d||!Array.isArray(d.exams))return;const old=localStorage.getItem("orthoss_exam_dates");const nw=JSON.stringify(d);if(old===nw)return;try{localStorage.setItem("orthoss_exam_dates",nw)}catch(e){}if(tab==="home")vHome()}).catch(()=>{})}
 function todayCard(){
   const n=S.daily[dkey()]||0,g=S.goal,st=streak(),due=allQ().filter(q=>isDue(q.id)).length;
   const days=S.examDate?Math.ceil((new Date(S.examDate+"T09:00").getTime()-Date.now())/DAY):null;
@@ -1591,6 +1608,7 @@ function vHome(){
   V().innerHTML=`
   ${S.showDemo?`<div class="demo-banner"><span>Showing demo progress so you can see the analytics. Your own results are unchanged.</span><button type="button" id="demoOff" class="ghost small">Show my progress</button></div>`:""}
   ${todayCard()}
+  ${examCard()}
   <section class="card hero">
     ${ring(st.score,true)}
     <div class="stack" style="gap:12px;min-width:0">
@@ -1618,6 +1636,7 @@ function vHome(){
   const off=document.getElementById("demoOff");if(off)off.onclick=()=>{S.showDemo=false;save();render()};
   const ex=document.getElementById("exd");if(ex)ex.onchange=()=>{S.examDate=ex.value;save();vHome()};
   const exc=document.getElementById("exc");if(exc)exc.onclick=()=>{S.examDate="";save();vHome()};
+  V().querySelectorAll("[data-exset]").forEach(b=>b.onclick=()=>{S.examDate=b.dataset.exset;save();vHome()});
   document.getElementById("goal").onclick=e=>{const b=e.target.closest("[data-g]");if(b){S.goal=+b.dataset.g;save();vHome()}};
   const du=document.getElementById("due");if(du)du.onclick=()=>{cfg.topics=[];cfg.filter="due";cfg.src="all";cfg.count=0;startPractice()};
   const dr=document.getElementById("drill");if(dr)dr.onclick=()=>{cfg.topics=focus.map(t=>t.t);cfg.filter="all";tab="practice";startPractice();};
@@ -2860,6 +2879,7 @@ if(!IN_CLAUDE){const ub=document.getElementById("updBtn");if(ub){ub.hidden=false
   setTimeout(()=>updCheck().then(u=>{if(u.app||u.bank){const d=document.getElementById("updDot");if(d)d.hidden=false}}).catch(()=>{}),4000)}
 loadLive();
 render();
+setTimeout(examFetch,1500);
 try{localStorage.setItem("orthoss_app_ok",String(window.__APPV||0))}catch(e){} /* orthoss-app-ok: this version started fine */
 applyOvr();
 if(!IN_CLAUDE)setTimeout(()=>syncNow(false),800);

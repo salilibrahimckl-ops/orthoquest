@@ -1,0 +1,5 @@
+{"updated":"2026-11-02","exams":[
+ {"id":"neetss","name":"NEET-SS 2026","date":"2026-12-11","end":"2026-12-12","status":"confirmed","note":"11–12 Dec 2026 · NBEMS · apply by 18 Nov"},
+ {"id":"fet","name":"FET 2027","date":"2027-03-13","status":"expected","note":"Expected around mid-March 2027 · NBEMS · date not announced yet (FET 2026 was on 14 Mar)"},
+ {"id":"iniss","name":"INI-SS July 2027 session","date":"2027-05-01","status":"expected","note":"Expected May 2027 · AIIMS · date not announced yet"}
+]}
