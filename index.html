@@ -198,7 +198,7 @@ li:has(.k3img.big){flex-direction:column}.k3w:has(.big){flex:auto}.k3w:has(.big)
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 /* ================= BUILD MARKER (bump n, hue +137, date and news on every publish) ================= */
-const BUILD={n:54,hue:231,date:"2 Nov 2026, 19:30 IST",try:"tkr",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Implants & instruments: no two items in a surgery share a picture any more — all 48 duplicates found and replaced","About 60 new models, including a hinged knee, cones with stem, a robotic arm, ceramic and CoCr heads, a dual-mobility cup, a revision cup with augment, retrograde and coated nails, a magnetic targeter, a traction tower, variable-angle locking, a syndesmotic button, an interbody cage, a neuromonitoring screen, ring frames vs hexapod, NPWT, a compartment monitor, Lapidus and MTP plates, a burr, an augmented glenoid baseplate and more"]};
+const BUILD={n:55,hue:2,date:"2 Nov 2026, 09:30 IST",try:"rsa",fresh:["rsa","scaphoid-dorsal","olecranon-screw"],news:["Implants & instruments rechecked against current designs, and the ones that did not match were rebuilt","Reverse shoulder: porous baseplate with central and peripheral screws, glenosphere, PE cup on tray, 145° inlay stem; stemless and lateralised versions","DHS: 135° barrel plate with the lag screw sliding in the barrel (plus an anti-rotation screw version). IM nails: wider proximal segment, dynamic slot, oblique and static locking holes, end cap","Rebuilt: laminar spreader, bending irons, Weber pointed clamp, cement gun, extramedullary tibial guide with ankle clamp, knee trials, TLIF cage with teeth, windows and markers, interference screw, mobile C-arm, walker boot, Lapidus plate, triplanar correction guide, tourniquet cuff, ultrasound probe, Austin Moore","Tall items are no longer cropped in their pictures"]};
 try{document.documentElement.style.setProperty("--build",`hsl(${BUILD.hue},75%,65%)`)}catch(e){}
 /* ================= CONTENT ================= */
 const REGIONS={
@@ -774,7 +774,7 @@ function k3render(kind){if(K3.cache[kind])return K3.cache[kind];const r=k3Init()
  const bg=document.createElement("canvas");bg.width=4;bg.height=128;const bx=bg.getContext("2d"),gr=bx.createLinearGradient(0,0,0,128);gr.addColorStop(0,"#26313f");gr.addColorStop(1,"#0b0f14");bx.fillStyle=gr;bx.fillRect(0,0,4,128);sc.background=new THREE.CanvasTexture(bg);
  sc.add(new THREE.HemisphereLight(0xffffff,0x223344,.6));const d=new THREE.DirectionalLight(0xffffff,1.6);d.position.set(4,6,8);sc.add(d);const d2=new THREE.DirectionalLight(0xA9C4FF,.7);d2.position.set(-6,2,-4);sc.add(d2);
  const m=k3model(kind);sc.add(m);const box=new THREE.Box3().setFromObject(m),c=box.getCenter(new THREE.Vector3()),sz=box.getSize(new THREE.Vector3());m.position.sub(c);
- const cam=new THREE.PerspectiveCamera(30,480/300,.1,100);const rad=box.getBoundingSphere(new THREE.Sphere()).radius;const dist=rad/Math.sin(THREE.MathUtils.degToRad(15))*.72;cam.position.set(0,dist*.25,dist);cam.lookAt(0,0,0);r.render(sc,cam);const url=r.domElement.toDataURL("image/jpeg",.86);
+ const cam=new THREE.PerspectiveCamera(30,480/300,.1,100);const rad=box.getBoundingSphere(new THREE.Sphere()).radius;const tn=Math.tan(THREE.MathUtils.degToRad(15)),dist=Math.min(rad/Math.sin(THREE.MathUtils.degToRad(15)),Math.max(sz.y/2/tn,sz.x/2/(tn*1.6))*1.12+sz.z/2);cam.position.set(0,dist*.25,dist);cam.lookAt(0,0,0);r.render(sc,cam);const url=r.domElement.toDataURL("image/jpeg",.86);
  sc.traverse(o=>{if(o.isMesh){o.geometry.dispose();if(o.material.dispose)o.material.dispose()}});sc.background.dispose();K3.cache[kind]=url;return url}
 function k3pump(){if(K3.busy)return;const job=K3.q.shift();if(!job)return;K3.busy=true;setTimeout(()=>{try{const url=k3render(job.k);document.querySelectorAll(`img[data-k3="${job.k}"]`).forEach(im=>{im.src=url;im.style.opacity=1})}catch(e){console.warn(e)}K3.busy=false;k3pump()},16)}
 const K3PHOTO={};
@@ -1004,6 +1004,123 @@ const k3kind_v2=k3kind,k3tool_v2=k3tool;
 function kitPick(name,isTool){for(const [re,k] of KITMAP)if(re.test(name))return k;return(isTool&&k3tool_v2(name))||k3kind_v2(name)}
 const _k3model_v2=k3model;k3model=function(kind){return KV[kind]?KV[kind]():_k3model_v2(kind)};
 
+/* ---- v4: models re-checked against current device designs ---- */
+const KQ=(o,dir)=>{o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(...dir).normalize());return o};
+const KL=(pts,m,seg=48)=>{const g=new THREE.LatheGeometry(pts.map(p=>new THREE.Vector2(p[0],p[1])),seg);const me=new THREE.Mesh(g,m);me.material.side=THREE.DoubleSide;return me};
+const KD=d=>d*Math.PI/180;
+/* Reverse shoulder: glenoid baseplate + central screw + glenosphere, humeral PE cup on tray, 145° inlay stem */
+function k3rsa(o={}){const g=KM.grp(),R=o.R||.8;
+ const cup=KL([[0,.14],[.4,.2],[.66,.33],[.84,.44],[.9,.44],[.9,0],[.001,0]],K3M.pe());g.add(cup);
+ if(!o.stemless){g.add(KM.at(KL([[.88,0],[.88,-.14],[.7,-.3],[.42,-.85],[.001,-.9]],K3M.ti()),0,0,0));
+  const d=[Math.sin(KD(55)),-Math.cos(KD(55)),0];const st=new THREE.Mesh(new THREE.CylinderGeometry(.26,.13,3,32),K3M.ti());KQ(st,[-d[0],-d[1],0]);st.position.set(d[0]*1.9,-.55+d[1]*1.9,0);g.add(st);
+  const fin=k3box(.06,.9,.7,K3M.ti());fin.position.set(.45,-.75,0);fin.rotation.z=KD(-30);g.add(fin)}
+ else{g.add(KM.at(KL([[.88,0],[.88,-.14],[.5,-.2],[.001,-.2]],K3M.ti()),0,0,0));g.add(KM.at(new THREE.Mesh(new THREE.CylinderGeometry(.5,.36,.7,24),K3M.por()),0,-.55,0));
+  for(let i=0;i<4;i++){const f=k3box(.05,.75,.5,K3M.ti());f.position.y=-.55;f.rotation.y=i*Math.PI/4;g.add(f)}}
+ const gl=KM.grp();gl.add(new THREE.Mesh(new THREE.SphereGeometry(R,56,28,0,Math.PI*2,Math.PI/2,Math.PI/2),K3M.cocr()));
+ const bp=new THREE.Mesh(new THREE.CylinderGeometry(.55,.55,o.lat?.38:.16,40),K3M.por());bp.position.y=o.lat?.2:.09;gl.add(bp);
+ const cs=k3screw({len:1.6,r:.17,m:K3M.ti()});cs.rotation.set(Math.PI,0,0);cs.position.y=(o.lat?.4:.18)+1.6+.2;gl.add(cs);
+ [[.32,0],[-.32,0]].forEach(([x,z])=>{const s=k3screw({len:1.1,r:.1,m:K3M.ano()});s.rotation.set(Math.PI,0,x>0?-.25:.25);s.position.set(x,(o.lat?.4:.18)+1.2,z);gl.add(s)});
+ gl.position.y=.45+R+.25;g.add(gl);
+ const w=KM.grp(g);g.rotation.z=KD(-55);w.rotation.y=.5;return w}
+k3shoulder=function(){return k3rsa({})};
+KV.shoulder=()=>k3rsa({});KV.stemless=()=>k3rsa({stemless:true});KV.bigGlenosphere=()=>k3rsa({R:.95,lat:true});
+/* DHS: 135° barrel side-plate with lag screw sliding in the barrel */
+k3dhs=function(o={}){const g=KM.grp(),ss=K3M.ss();const pl=k3plate({holes:4,m:ss});pl.rotation.set(0,0,Math.PI/2);pl.position.set(0,-1.75,0);g.add(pl);
+ const d=[-Math.sin(KD(45)),Math.cos(KD(45)),0],o0=[0,-.3,0];
+ const br=k3cyl(.25,.25,1.2,ss);KQ(br,d);br.position.set(o0[0]+d[0]*.6,o0[1]+d[1]*.6,.04);g.add(br);
+ const lag=k3screw({len:2.4,r:.21,partial:true,m:ss});KQ(lag,[-d[0],-d[1],0]);const tip=3.1;lag.position.set(o0[0]+d[0]*tip,o0[1]+d[1]*tip,.04);g.add(lag);
+ [-1.2,-2.4].forEach(y=>{const c=k3screw({len:1.2,r:.12,m:ss});c.rotation.set(-Math.PI/2,0,0);c.position.set(0,y,-1.2);g.add(c)});
+ if(o.ar){const c=k3screw({cann:true,partial:true,len:2.2,r:.14,m:K3M.ti()});KQ(c,[-d[0],-d[1],0]);c.position.set(o0[0]+d[0]*2.9+.35,o0[1]+d[1]*2.9+.35,.04);g.add(c)}
+ const w=KM.grp(g);w.rotation.set(.1,.45,0);return w};
+KV.dhs=()=>k3dhs();KV.antirot=()=>k3dhs({ar:true});
+/* Cement gun: pistol grip, transparent cartridge, long nozzle, plunger */
+k3cement=function(){const g=KM.grp();g.add(KM.at(k3cyl(.42,.42,2.4,new THREE.MeshPhysicalMaterial({color:0xe9f2ff,transparent:true,opacity:.5,roughness:.1})),.3,0,0,0,0,Math.PI/2));
+ g.add(KM.at(k3cyl(.36,.36,2.2,KM.mat(0xf3eee2,0,.7)),.3,0,0,0,0,Math.PI/2));
+ g.add(KM.at(new THREE.Mesh(new THREE.CylinderGeometry(.08,.3,2.2,24),K3M.pe()),2.6,0,0,0,0,-Math.PI/2));
+ g.add(KM.at(k3box(.9,.9,.7,KM.mat(0x8a96a6,.5,.4)),-1.3,0,0));g.add(KM.at(k3box(.45,1.7,.5,KM.mat(0x3b4656,.2,.6)),-1.55,-1.1,0,0,0,-.25));
+ g.add(KM.at(k3box(.15,.8,.25,KM.mat(0x8a96a6,.5,.4)),-1.0,-.9,0,0,0,-.2));g.add(KM.at(k3cyl(.06,.06,2.4,K3M.ss(),12),-2.6,.15,0,0,0,Math.PI/2));
+ g.add(KM.at(k3box(.15,.5,.5,K3M.ss()),-3.8,.15,0));g.rotation.set(.15,-.35,0);return g};
+/* Laminar spreader: serrated jaws, curved handles, ratchet bar */
+k3spreader=function(){const g=KM.grp(),m=K3M.ss();
+ [1,-1].forEach(s=>{g.add(KM.tube([[0,0,0],[s*.25,.6,0],[s*.45,1.3,0]],.09,m));const jaw=k3box(.18,.5,.45,m);jaw.position.set(s*.5,1.5,0);g.add(jaw);
+  for(let k=0;k<4;k++)g.add(KM.at(new THREE.Mesh(new THREE.ConeGeometry(.05,.12,4),m),s*.6,1.35+k*.1,-.1+((k%2)*.2),0,0,-s*Math.PI/2));
+  g.add(KM.tube([[0,0,0],[-s*.3,-.8,0],[-s*.6,-1.7,0],[-s*.65,-2.1,0]],.1,m))});
+ g.add(KM.at(KM.sph(.16,m),0,0,0));g.add(KM.tube([[-.55,-1.7,0],[0,-1.85,0],[.55,-1.7,0]],.04,m));
+ for(let k=0;k<8;k++)g.add(KM.at(k3box(.04,.1,.06,m),-.45+k*.13,-1.86+Math.abs(-.45+k*.13)*.25,0));g.rotation.set(.2,.4,.15);return g};
+/* Plate bending irons (pair) with a plate between */
+k3bender=function(){const g=KM.grp(),m=K3M.ss();[-.7,.7].forEach((x,i)=>{const it=KM.grp(KM.at(k3cyl(.11,.11,3.4,m,20),0,0,0),KM.at(k3box(.55,.5,.3,m),0,1.9,0));
+  it.add(KM.at(k3box(.5,.1,.32,K3M.dark()),0,1.9,0));it.position.set(x,0,0);it.rotation.z=i?-.35:.35;g.add(it)});
+ const p=k3plate({holes:7});p.position.set(0,1.9,0);p.scale.setScalar(.6);g.add(p);g.rotation.set(.2,.4,0);return g};
+/* Weber pointed reduction clamp */
+KV.periClamp=()=>{const g=KM.grp(),m=K3M.ss();[1,-1].forEach(s=>{g.add(KM.tube([[s*.6,-2.3,0],[s*.35,-1,0],[0,0,0],[-s*.55,.8,0],[-s*.85,1.7,0],[-s*.45,2.5,0],[-s*.06,2.62,0]],.09,m));
+  g.add(KM.at(KM.tor(.3,.07,m),s*.7,-2.6,0));g.add(KM.at(new THREE.Mesh(new THREE.ConeGeometry(.07,.2,12),m),-s*.02,2.63,0,0,0,s*Math.PI/2))});
+ g.add(KM.at(k3cyl(.13,.13,.2,m),0,0,0,Math.PI/2));g.add(KM.at(k3box(.7,.06,.08,m),0,-1.7,0,0,0,.08));g.rotation.set(.2,.35,-.15);return g};
+/* Interference screw: headless, fully threaded, tapered, cannulated, hex drive */
+k3interf=function(){const g=KM.grp(),m=K3M.ti();g.add(new THREE.Mesh(new THREE.CylinderGeometry(.32,.2,2,40),m));
+ const pts=[];const T=13;for(let i=0;i<=T*24;i++){const t=i/(T*24),a=t*T*Math.PI*2,r=.2+t*.12+.03;pts.push(new THREE.Vector3(Math.cos(a)*r,-1+t*2,Math.sin(a)*r))}
+ g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),T*30,.075,8,false),m));
+ g.add(KM.at(new THREE.Mesh(new THREE.CylinderGeometry(.14,.14,.05,6),K3M.dark()),0,1.01,0));g.rotation.set(.5,0,-.9);return g};
+KV.interf=()=>k3interf();
+/* Mobile C-arm: C arc, image intensifier on top, tube below, L-arm, column, wheeled base */
+k3carm=function(){const m=KM.mat(0xE8EBEF,.2,.45),d=KM.mat(0x5b6878,.3,.5);const g=KM.grp();
+ g.add(KM.at(new THREE.Mesh(new THREE.TorusGeometry(1.6,.16,12,64,KD(220)),m),0,0,0,0,0,KD(70)));
+ const e1=[1.6*Math.cos(KD(70)),1.6*Math.sin(KD(70))],e2=[1.6*Math.cos(KD(290)),1.6*Math.sin(KD(290))];
+ g.add(KM.at(k3cyl(.6,.5,.55,m),e1[0],e1[1]-.1,0));g.add(KM.at(k3cyl(.62,.62,.06,d),e1[0],e1[1]-.4,0));g.add(KM.at(k3box(.7,.55,.6,m),e2[0],e2[1]+.15,0));
+ g.add(KM.at(k3box(1.2,.3,.3,m),-2.1,0,0));g.add(KM.at(k3box(.5,2.6,.6,m),-2.75,-1.1,0));g.add(KM.at(k3box(1.8,.5,1.1,m),-2.75,-2.6,0));
+ [[-3.4,.45],[-2.1,.45],[-3.4,-.45],[-2.1,-.45]].forEach(([x,z])=>g.add(KM.at(k3cyl(.16,.16,.12,d),x,-2.9,z,Math.PI/2)));
+ g.rotation.y=.45;return g};
+KV.carm=()=>k3carm();
+/* Extramedullary tibial guide: ankle clamp, telescopic rod, slope-set cutting block + stylus */
+KV.tibguide=()=>{const g=KM.grp(),m=K3M.ss();g.add(k3cyl(.08,.08,4.6,m,16));g.add(KM.at(k3cyl(.12,.12,1.2,m,16),0,-1.4,0));
+ const blk=KM.grp(k3box(1.6,.5,.4,m),KM.at(k3box(1.5,.05,.42,K3M.dark()),0,.05,0));blk.position.set(0,2.4,.3);g.add(blk);
+ g.add(KM.tube([[.5,2.65,.3],[.5,3.1,.3],[.5,3.1,1],[.5,2.9,1.3]],.03,m));[-.5,.5].forEach(x=>g.add(KM.at(k3cyl(.03,.03,.9,m,8),x,2.4,.3,Math.PI/2)));
+ g.add(KM.at(k3box(.5,.3,.5,m),0,-2.35,.2));[1,-1].forEach(s=>g.add(KM.at(KM.tor(.55,.05,m,Math.PI*.8),s*.05,-2.4,.6,Math.PI/2,0,s>0?KD(-60):KD(100))));
+ g.add(KM.at(k3box(.3,.25,.3,K3M.blue()),0,-.8,0));g.rotation.set(.15,.6,0);return g};
+/* Knee trials: femoral trial, tibial trial plate with handle, patella clamp */
+KV.spacer=()=>{const g=KM.grp(),tr=KM.mat(0xc9ced6,.9,.45);const f=k3femcomp();f.traverse(o=>{if(o.isMesh)o.material=tr});f.scale.setScalar(.7);f.rotation.set(.25,.9,0);f.position.set(-1.3,.6,0);g.add(f);
+ const t=k3tibtray();t.traverse(o=>{if(o.isMesh)o.material=tr});t.scale.setScalar(.7);t.position.set(1.2,.2,0);g.add(t);g.add(KM.at(k3box(.2,.12,1.8,tr),1.2,.3,1.4));
+ g.add(KM.at(new THREE.Mesh(new THREE.SphereGeometry(.45,32,16,0,Math.PI*2,0,Math.PI/3),K3M.pe()),0,-1.4,0));g.add(KM.at(k3cyl(.42,.42,.08,K3M.pe()),0,-1.42,0));return g};
+/* TLIF interbody cage: banana PEEK body, toothed surfaces, graft windows, tantalum markers */
+KV.cage=()=>{const s=new THREE.Shape();s.absarc(0,0,1.4,KD(25),KD(155),false);s.absarc(0,0,.85,KD(155),KD(25),true);
+ [[KD(65)],[KD(115)]].forEach(([a])=>{const h=new THREE.Path();h.absarc(Math.cos(a)*1.12,Math.sin(a)*1.12,.17,0,7,true);s.holes.push(h)});
+ const peek=KM.mat(0xD8CCAF,0,.55);const body=k3ext(s,.5,peek,.04);const g=KM.grp(body);
+ for(let i=0;i<14;i++){const a=KD(30+i*9);[0,.58].forEach(z=>g.add(KM.at(new THREE.Mesh(new THREE.ConeGeometry(.06,.1,4),peek),Math.cos(a)*1.12,Math.sin(a)*1.12,z===0?-.07:.6,z===0?-Math.PI/2:Math.PI/2)))}
+ [KD(30),KD(150),KD(90)].forEach(a=>g.add(KM.at(k3cyl(.03,.03,.5,K3M.ss(),8),Math.cos(a)*1.2,Math.sin(a)*1.2,.25,Math.PI/2)));
+ g.rotation.set(-1.05,0,.2);return g};
+/* Walker boot: rocker sole, posterior shell, lateral struts, straps */
+KV.boot=()=>{const m=KM.mat(0x2a2f36,.1,.8),s=new THREE.Shape();s.moveTo(-1.4,0);s.quadraticCurveTo(0,-.35,1.4,0);s.lineTo(1.4,.3);s.lineTo(-1.4,.3);s.closePath();
+ const sole=k3ext(s,1,m,.06);sole.position.set(.4,-1.6,-.5);const g=KM.grp(sole,KM.at(k3box(1,3,.15,KM.mat(0x3a4048,.1,.6)),-.9,0,0),KM.at(k3box(.9,3,.9,KM.mat(0x8b939c,0,.9)),-.5,0,0));
+ [.55,-.55].forEach(z=>g.add(KM.at(k3box(.12,3,.18,K3M.ti()),-.45,-.1,z)));[1,.2,-.6].forEach(y=>g.add(KM.at(k3box(1.05,.22,1.25,KM.mat(0x1d2126,0,.9)),-.45,y,0)));g.rotation.y=.7;return g};
+/* Lapidus: plantar-medial compression plate with slot + crossing screw */
+KV.lapidusSys=()=>{const s=new THREE.Shape();s.moveTo(-1.8,-.3);s.lineTo(1.8,-.3);s.lineTo(1.8,.3);s.lineTo(-1.8,.3);s.closePath();
+ [-1.4,-.75,.75,1.4].forEach(x=>{const h=new THREE.Path();h.absarc(x,0,.12,0,7,true);s.holes.push(h)});const sl=new THREE.Path();sl.absellipse(0,0,.3,.12,0,7,true);s.holes.push(sl);
+ const p=k3ext(s,.08,K3M.ti(),.03);const g=KM.grp(p);const sc=k3screw({len:2.2,r:.12,m:K3M.ano()});sc.rotation.set(0,0,KD(-60));sc.position.set(-.6,.4,.6);g.add(sc);g.rotation.set(-.9,.3,.15);return g};
+/* Triplanar correction system: cut guide with two slots, rotational positioner, biplanar plates */
+KV.triplanar=()=>{const g=KM.grp(),m=K3M.ss();const cg=KM.grp(k3box(1.2,.7,.6,m));[-.12,.12].forEach(x=>cg.add(KM.at(k3box(.04,.72,.62,K3M.dark()),x,0,0)));
+ [-.45,.45].forEach(x=>cg.add(KM.at(k3cyl(.03,.03,1.4,m,8),x,.2,0)));g.add(cg);
+ const pos=KM.grp(KM.at(k3box(2.2,.18,.25,K3M.blue()),0,0,0),KM.at(k3cyl(.18,.18,.3,K3M.rub()),1.1,0,0,0,0,Math.PI/2),KM.at(k3cyl(.03,.03,1.2,m,8),-1,-.5,0),KM.at(k3cyl(.03,.03,1.2,m,8),.9,-.5,0));pos.position.set(.2,-1.2,.3);g.add(pos);
+ const p1=k3plate({holes:4,w:.35});p1.scale.setScalar(.55);p1.position.set(1.8,.4,0);p1.rotation.z=1.2;g.add(p1);const p2=p1.clone();p2.position.set(2.2,-.2,0);p2.rotation.set(1.2,0,1.2);g.add(p2);
+ g.rotation.set(.35,.5,0);return g};
+/* Pneumatic tourniquet cuff (flat contoured cuff, open, with tubing and connector) */
+KV.tourniquet=()=>{const g=KM.grp();const c=new THREE.Mesh(new THREE.CylinderGeometry(1,1.15,.9,48,1,true,0,KD(320)),KM.mat(0x2c57b8,0,.85));c.material.side=THREE.DoubleSide;g.add(c);
+ g.add(KM.at(k3box(.05,.85,.6,KM.mat(0xdcdcdc,0,.9)),1.05,0,-.25,0,KD(20),0));g.add(KM.tube([[.4,.45,.9],[.8,1.2,1.4],[1.8,1.6,1.6]],.05,KM.mat(0x8aa1c4,0,.5)));g.add(KM.at(k3box(.25,.2,.2,K3M.ss()),1.9,1.62,1.6));g.rotation.set(.45,.3,0);return g};
+/* Linear ultrasound probe with needle in-plane */
+KV.usProbe=()=>{const m=KM.mat(0xe9edf2,.1,.4);const g=KM.grp(KL([[.001,1.2],[.25,1.1],[.32,.2],[.001,.2]],m),KM.at(k3box(1.2,.35,.45,m),0,0,0),KM.at(k3box(1.15,.06,.4,K3M.dark()),0,-.2,0));
+ g.add(KM.tube([[0,1.2,0],[.2,1.9,0],[.9,2.4,0]],.06,K3M.dark()));g.add(KM.at(k3cyl(.02,.02,2.4,K3M.ss(),8),1.3,-.6,0,0,0,KD(60)));g.rotation.set(.2,.5,0);return g};
+/* Austin Moore: fenestrated, collared monoblock with integral head */
+KV.moore=()=>{const g=k3stem();g.traverse(o=>{if(o.isMesh)o.material=K3M.ss()});g.add(KM.at(KM.sph(.58,K3M.ss()),.98,1.45,0));g.add(KM.at(k3box(.75,.1,.5,K3M.ss()),.45,.75,0,0,0,KD(-40)));
+ [[.12,-.15],[.3,.35]].forEach(([x,y])=>g.add(KM.at(k3cyl(.12,.12,.52,K3M.dark(),20),x,y,0,Math.PI/2)));return g};
+
+
+/* IM nail: anterior bow, wider proximal segment, dynamic slot, static and oblique locking holes, bullet tip, end cap */
+k3nail=function(o={}){const g=KM.grp(),m=o.m||K3M.ti(),dk=K3M.dark();const pts=[];for(let i=0;i<=24;i++){const t=i/24;pts.push(new THREE.Vector3((t-.5)*6,Math.sin(t*Math.PI)*.3+(o.bend&&t<.15?(.15-t)*2:0),0))}
+ const cv=new THREE.CatmullRomCurve3(pts);g.add(new THREE.Mesh(new THREE.TubeGeometry(cv,96,.15,28,false),m));
+ const p0=cv.getPointAt(0),p1=cv.getPointAt(.18);const sl=new THREE.Mesh(new THREE.CylinderGeometry(.2,.17,p0.distanceTo(p1),28),m);KQ(sl,[p1.x-p0.x,p1.y-p0.y,0]);sl.position.copy(p0.clone().add(p1).multiplyScalar(.5));g.add(sl);
+ [[.04,0],[.1,.5],[.88,0],[.94,Math.PI/2]].forEach(([t,a])=>{const p=cv.getPointAt(t);const h=k3cyl(.075,.075,.48,dk,16);h.rotation.set(Math.PI/2,a,0);h.position.copy(p);g.add(h)});
+ const ps=cv.getPointAt(.15);g.add(KM.at(k3box(.36,.14,.46,dk),ps.x,ps.y,0));
+ const pe=cv.getPointAt(1);g.add(KM.at(KM.sph(.15,m),pe.x,pe.y,0));g.add(KM.at(k3cyl(.21,.21,.2,K3M.gold()),p0.x-.12,p0.y,0,0,0,Math.PI/2));
+ if(o.head){const hs=k3screw({len:1.6,r:.16,m:K3M.ss()});hs.rotation.set(0,0,.9);hs.position.set(-2.6,.4,0);g.add(hs)}
+ g.rotation.set(.3,.3,.1);return g};
 function viewKit(arg){const fams=FAMILIES.filter(f=>KIT[f.id]);const open=arg&&arg.fam;
  const row=(a,b,k)=>{const k3k=kitPick(a,k==="tool");return `<li style="display:flex;gap:10px;align-items:flex-start">${k3k?`<span class="k3w"><img data-k3="${k3k}" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" class="k3img">${K3PHOTO[k3k]?`<a class="k3cr" hidden href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(K3PHOTO[k3k])}" target="_blank" rel="noopener">Photo: Wikimedia Commons · author & licence</a>`:""}</span>`:kitSvg(k||kitKind(a))}<div style="min-width:0"><b>${esc(a)}</b><br><span class="muted" style="font-size:13px">${esc(b)}</span></div></li>`};
  const sec=(t,arr,k)=>arr&&arr.length?`<p class="eyebrow" style="margin-top:6px">${t}</p><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">${arr.map(x=>row(x[0],x[1],k)).join("")}</ul>`:"";
