@@ -1,6 +1,6 @@
 // Ortho preSSaleel daily AI job, run by GitHub Actions on a schedule (no phone needed).
 //   node daily_ai.js run    -> writes out/new-items.json, out/flags.json, out/state.json
-//   node daily_ai.js apply  -> merges those into my-questions.json, proof-flags.json, ai-state.json
+//   node daily_ai.js apply  -> adds them to ai-drafts.json (pending) for Claude's morning review; updates ai-state.json
 // Uses the free Pollinations text API (no key). New questions are kept only when two
 // independent answers from the AI agree with the intended key; proofreading flags a
 // question only when an independent second answer also disagrees with the marked key.
@@ -79,7 +79,8 @@ async function run() {
   fs.mkdirSync(OUT, { recursive: true });
   const { bank, custom, all } = loadAll();
   const state = readJ(path.join(DIR, 'ai-state.json'), { pidx: 0, runs: [] });
-  const sigs = all.map(q => qSig(q.q, q.o));
+  const drafts = readJ(path.join(DIR, 'ai-drafts.json'), {});
+  const sigs = all.concat(drafts.pending || [], drafts.items || []).map(q => qSig(q.q, q.o));
   const today = new Date().toISOString().slice(0, 10), dnum = Math.floor(Date.now() / 864e5);
   const newItems = [], flags = [];
   console.log(`Bank ${bank.length} + added ${custom.length}. Target ${N_NEW} new, ${N_PROOF} proofread.`);
@@ -166,22 +167,20 @@ Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":n
 }
 
 function apply() {
+  // Nothing goes straight to the app: new questions and suspected errors wait in ai-drafts.json
+  // until Claude's morning review corrects or rejects them and publishes the good ones.
   const items = readJ(path.join(OUT, 'new-items.json'), []), flags = readJ(path.join(OUT, 'flags.json'), []), st = readJ(path.join(OUT, 'state.json'), null);
-  const mf = path.join(DIR, 'my-questions.json'), mine = readJ(mf, { items: [], deleted: [], overrides: {} });
-  const have = new Set((mine.items || []).map(q => q.id)); let added = 0;
-  const proofed = new Set((st && st.proofedIds) || []);
-  (mine.items || []).forEach(q => { if (proofed.has(q.id)) q.proofed = true });
-  items.forEach(q => { if (!have.has(q.id)) { mine.items.push(q); added++ } });
-  mine.updated = new Date().toISOString();
-  fs.writeFileSync(mf, JSON.stringify(mine));
-  const ff = path.join(DIR, 'proof-flags.json'), pf = readJ(ff, { flags: [] });
-  const seen = new Set(pf.flags.map(f => f.id + '|' + f.key));
-  flags.forEach(f => { if (!seen.has(f.id + '|' + f.key)) pf.flags.unshift(f) });
-  pf.flags = pf.flags.slice(0, 500); pf.updated = new Date().toISOString();
-  fs.writeFileSync(ff, JSON.stringify(pf));
+  const df = path.join(DIR, 'ai-drafts.json'), d = readJ(df, {});
+  d.pending = d.pending || []; d.pendingFlags = d.pendingFlags || [];
+  const have = new Set(d.pending.map(q => q.id)); let added = 0;
+  items.forEach(q => { if (!have.has(q.id)) { d.pending.push(q); added++ } });
+  const seen = new Set(d.pendingFlags.map(f => f.id + '|' + f.key));
+  flags.forEach(f => { if (!seen.has(f.id + '|' + f.key)) d.pendingFlags.push(f) });
+  d.pending = d.pending.slice(-600); d.pendingFlags = d.pendingFlags.slice(-300); d.updated = new Date().toISOString();
+  fs.writeFileSync(df, JSON.stringify(d, null, 1));
   if (st) { const sf = path.join(DIR, 'ai-state.json'), old = readJ(sf, { runs: [] });
-    fs.writeFileSync(sf, JSON.stringify({ pidx: st.pidx, last: st.last, runs: [st.last].concat(old.runs || []).slice(0, 30) })) }
-  console.log(`Applied: ${added} new questions, ${flags.length} flags.`);
+    fs.writeFileSync(sf, JSON.stringify({ pidx: st.pidx, last: Object.assign({}, st.last, { pendingReview: true }), runs: [st.last].concat(old.runs || []).slice(0, 30) })) }
+  console.log(`Queued for Claude review: ${added} new questions, ${flags.length} flags.`);
 }
 
 (process.argv[2] === 'apply' ? Promise.resolve(apply()) : run()).catch(e => { console.error(e); process.exit(1) });
