@@ -6,7 +6,9 @@
 // question only when an independent second answer also disagrees with the marked key.
 const fs = require('fs'), path = require('path');
 const DIR = path.join(__dirname, '..'), OUT = path.join(process.cwd(), 'out');
-const N_NEW = +(process.env.DAILY_NEW || 100), N_PROOF = +(process.env.DAILY_PROOF || 100);
+let N_NEW = +(process.env.DAILY_NEW || 100), N_PROOF = +(process.env.DAILY_PROOF || 100);
+// If Claude's review is behind (e.g. usage limit reached), stop adding to the backlog once it is this large.
+const MAX_PENDING = 600, MAX_PENDING_FLAGS = 300;
 const MAX_MIN = +(process.env.MAX_MINUTES || 100), T0 = Date.now();
 const L = 'ABCD';
 const TOPICS = ["Trauma","Spine","Arthroplasty","Sports & Arthroscopy","Paediatric Ortho","Hand & Upper Limb","Foot & Ankle","Oncology","Basic Sciences","Infection & Metabolic"];
@@ -80,6 +82,9 @@ async function run() {
   const { bank, custom, all } = loadAll();
   const state = readJ(path.join(DIR, 'ai-state.json'), { pidx: 0, runs: [] });
   const drafts = readJ(path.join(DIR, 'ai-drafts.json'), {});
+  const backlog = (drafts.pending || []).length, flagBacklog = (drafts.pendingFlags || []).length;
+  if (backlog >= MAX_PENDING) { console.log(`Review backlog is ${backlog} questions; not writing new drafts tonight.`); N_NEW = 0 }
+  if (flagBacklog >= MAX_PENDING_FLAGS) { console.log(`Review backlog is ${flagBacklog} flags; not proofreading tonight.`); N_PROOF = 0 }
   const sigs = all.concat(drafts.pending || [], drafts.items || []).map(q => qSig(q.q, q.o));
   const today = new Date().toISOString().slice(0, 10), dnum = Math.floor(Date.now() / 864e5);
   const newItems = [], flags = [];
@@ -176,7 +181,7 @@ function apply() {
   items.forEach(q => { if (!have.has(q.id)) { d.pending.push(q); added++ } });
   const seen = new Set(d.pendingFlags.map(f => f.id + '|' + f.key));
   flags.forEach(f => { if (!seen.has(f.id + '|' + f.key)) d.pendingFlags.push(f) });
-  d.pending = d.pending.slice(-600); d.pendingFlags = d.pendingFlags.slice(-300); d.updated = new Date().toISOString();
+  d.updated = new Date().toISOString();
   fs.writeFileSync(df, JSON.stringify(d, null, 1));
   if (st) { const sf = path.join(DIR, 'ai-state.json'), old = readJ(sf, { runs: [] });
     fs.writeFileSync(sf, JSON.stringify({ pidx: st.pidx, last: Object.assign({}, st.last, { pendingReview: true }), runs: [st.last].concat(old.runs || []).slice(0, 30) })) }
