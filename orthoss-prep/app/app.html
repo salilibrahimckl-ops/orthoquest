@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=25;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=26;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -1512,13 +1512,13 @@ const DAY=86400000;
 const dkey=(t=Date.now())=>{const d=new Date(t);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 function streak(){let n=0,t=Date.now();if(!S.daily[dkey(t)])t-=DAY;while(S.daily[dkey(t)]){n++;t-=DAY}return n}
 const isDue=id=>S.srs[id]&&S.srs[id].due<=Date.now();
-function recordAttempt(id,ok){const a=S.att[id]||{n:0,c:0};a.n++;if(ok)a.c++;a.last=ok?1:0;a.t=Date.now();S.att[id]=a;
+function recordAttempt(id,ok){try{const q0=allQ().find(x=>x.id===id);if(q0)planCount(q0)}catch(e){}const a=S.att[id]||{n:0,c:0};a.n++;if(ok)a.c++;a.last=ok?1:0;a.t=Date.now();S.att[id]=a;
   const k=dkey();S.daily[k]=(S.daily[k]||0)+1;
   const r=S.srs[id];if(!ok)S.srs[id]={ivl:1,due:Date.now()+DAY};
   else if(r){const nx={1:3,3:7,7:21}[r.ivl];if(nx)S.srs[id]={ivl:nx,due:Date.now()+nx*DAY};else delete S.srs[id];}}
 /* ---- Exam countdown. Built-in dates; an updated list is downloaded from GitHub (exam-dates.json) so dates can change without an app update. ---- */
 const EXAMS_BUILTIN={updated:"2026-11-02",exams:[
-  {id:"neetss",name:"NEET-SS 2026",date:"2026-12-11",status:"confirmed",note:"11–12 Dec 2026 · NBEMS · apply by 18 Nov"},
+  {id:"neetss",name:"NEET-SS 2026 · Orthopaedics Group",date:"2026-12-11",status:"confirmed",note:"Fri 11 Dec 2026, afternoon shift 2:00–4:30 PM · entry 12:00–1:30 PM · NBEMS bulletin"},
   {id:"fet",name:"FET 2027",date:"2027-03-13",status:"expected",note:"Expected around mid-March 2027 · NBEMS · date not announced yet (FET 2026 was on 14 Mar)"},
   {id:"iniss",name:"INI-SS July 2027 session",date:"2027-05-01",status:"expected",note:"Expected May 2027 · AIIMS · date not announced yet"}]};
 function examList(){let d=null;try{d=JSON.parse(localStorage.getItem("orthoss_exam_dates")||"null")}catch(e){}
@@ -1533,6 +1533,96 @@ function examCard(){const list=examList().filter(e=>examDays(Object.assign({},e,
   </section>`}
 function examFetch(){if(IN_CLAUDE)return;fetch("https://raw.githubusercontent.com/salilibrahimckl-ops/orthoquest/main/orthoss-prep/exam-dates.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{
   if(!d||!Array.isArray(d.exams))return;const old=localStorage.getItem("orthoss_exam_dates");const nw=JSON.stringify(d);if(old===nw)return;try{localStorage.setItem("orthoss_exam_dates",nw)}catch(e){}if(tab==="home")vHome()}).catch(()=>{})}
+
+/* ---------- NEET-SS study plan: every day until the exam gets topics to read and that topic's MCQs to finish the same day;
+   one full study pass, then two revision rounds, then a full mock. Missed days carry over (backlog first). ---------- */
+const PLAN_ORDER=["Trauma","Spine","Arthroplasty","Sports & Arthroscopy","Paediatric Ortho","Hand & Upper Limb","Foot & Ankle","Oncology","Infection & Metabolic","Basic Sciences"];
+const PHASE={study:["Study","First full pass: read, then do every question of the topic"],rev1:["Revision 1","Re-read and redo mistakes, plus a fresh set"],rev2:["Revision 2","Quick re-read, mistakes and due questions"],mock:["Mock test","Full NEET-SS mock: 150 questions, 3 timed sections"],final:["Final review","Mistakes and bookmarks only; rest well"]};
+function neetDate(){const e=examList().find(x=>x.id==="neetss");return e?e.date:"2026-12-11"}
+function dAdd(k,n){const d=new Date(k+"T12:00");d.setDate(d.getDate()+n);return dkey(d.getTime())}
+function planMake(){
+  const exam=neetDate(),start=dkey();const dates=[];for(let k=start;k<exam;k=dAdd(k,1))dates.push(k);
+  const N=dates.length;if(N<1)return null;
+  const cnt={};allQ().forEach(q=>{cnt[q.topic]=(cnt[q.topic]||0)+1});
+  const tops=PLAN_ORDER.filter(t=>cnt[t]).concat(Object.keys(cnt).filter(t=>!PLAN_ORDER.includes(t)&&cnt[t]>=20));
+  const Q=tops.reduce((a,t)=>a+cnt[t],0);
+  const fin=N>=12?2:N>=4?1:0,rest=N-fin;
+  let st=rest>=12?Math.round(rest*0.6):rest,r1=rest>=12?Math.round(rest*0.25):0,r2=rest-st-r1;
+  st=Math.max(st,Math.min(rest,1));
+  // study days per topic, proportional to its number of questions (largest remainder)
+  const SB=tops.reduce((a,t)=>a+(SUBT[t]||[t]).length,0);
+  const raw=tops.map(t=>st*(cnt[t]/Q+(SUBT[t]||[t]).length/SB)/2);let alloc=raw.map(x=>Math.max(1,Math.floor(x)));
+  while(alloc.reduce((a,b)=>a+b,0)>st&&alloc.some(x=>x>1)){const i=alloc.indexOf(Math.max(...alloc));alloc[i]--}
+  while(alloc.reduce((a,b)=>a+b,0)<st){let bi=0,bv=-1;raw.forEach((x,i)=>{const v=x-alloc[i];if(v>bv){bv=v;bi=i}});alloc[bi]++}
+  const days=[];let di=0;
+  const push=(type,topics,read,target)=>{if(di<N)days.push({d:dates[di++],type,topics,read,target,n:0,readDone:false})};
+  if(st>=tops.length||true){
+    // if fewer study days than topics, several topics share a day
+    if(st<tops.length){const per=Math.ceil(tops.length/st);for(let i=0;i<tops.length;i+=per){const g=tops.slice(i,i+per);push("study",g,g.flatMap(t=>(SUBT[t]||[t]).map(x=>t+": "+x)),g.reduce((a,t)=>a+cnt[t],0))}}
+    else tops.forEach((t,i)=>{const k=alloc[i],sub=SUBT[t]||[t];for(let j=0;j<k;j++){const a=Math.floor(j*sub.length/k),b=Math.floor((j+1)*sub.length/k);
+      push("study",[t],sub.slice(a,Math.max(b,a+1)),Math.ceil(cnt[t]/k))}})}
+  const revRound=(type,nd,frac)=>{if(!nd)return;const T=tops.length;
+    if(nd>=T){/* more days than topics: the biggest topics get two days */const units=tops.map(t=>({t,k:1}));
+      for(let x=T;x<nd;x++){const u=units.reduce((a,b)=>cnt[a.t]/a.k>=cnt[b.t]/b.k?a:b);u.k++}
+      units.forEach(u=>{const sub=SUBT[u.t]||[u.t];for(let j=0;j<u.k;j++){const a=Math.floor(j*sub.length/u.k),b=Math.floor((j+1)*sub.length/u.k);
+        push(type,[u.t],u.k>1?sub.slice(a,b).map(x=>u.t+": "+x):[u.t+": all subtopics"],Math.max(10,Math.round(cnt[u.t]*frac/u.k)))}});return}
+    for(let i=0;i<nd;i++){const g=tops.slice(Math.floor(i*T/nd),Math.floor((i+1)*T/nd));
+      push(type,g,g.map(t=>t+": all subtopics"),g.reduce((a,t)=>a+Math.max(10,Math.round(cnt[t]*frac)),0))}};
+  revRound("rev1",r1,0.35);revRound("rev2",r2,0.2);
+  if(fin>=2)push("mock",[],["Take the NEET-SS full mock in the Mock test tab under exam conditions"],150);
+  if(fin>=1)push("final",[],["Go through your wrong answers and bookmarks; sleep early"],40);
+  while(di<N)push("rev2",tops,["Revise weak topics"],40);
+  return {v:1,exam,made:start,days}}
+function planToday(){if(!S.plan)return null;const k=dkey();return S.plan.days.find(d=>d.d===k)||null}
+function planDone(d){return d.n>=d.target&&(d.readDone||!d.read.length||d.type==="mock")}
+function planBacklog(){if(!S.plan)return [];const k=dkey();return S.plan.days.filter(d=>d.d<k&&!planDone(d))}
+function planCount(q){if(!S.plan)return;const k=dkey();const open=S.plan.days.filter(d=>d.d<=k&&d.n<d.target&&(!d.topics.length||d.topics.includes(q.topic)));if(open.length)open[0].n++}
+function planQs(d){
+  const tp=d.topics,inT=q=>!tp.length||tp.includes(q.topic);const all=allQ().filter(inT);
+  const wrong=all.filter(q=>S.att[q.id]&&S.att[q.id].last===0),due=all.filter(q=>isDue(q.id)&&!wrong.includes(q)),fresh=all.filter(q=>!S.att[q.id]);
+  const rest=all.filter(q=>!wrong.includes(q)&&!due.includes(q)&&!fresh.includes(q));
+  const order=d.type==="study"?[fresh,wrong,due,rest]:d.type==="final"?[wrong,due,S.bm.map(id=>all.find(q=>q.id===id)).filter(Boolean),rest]:[wrong,due,fresh,rest];
+  const seen=new Set(),out=[];order.forEach(g=>shuffle(g.slice()).forEach(q=>{if(!seen.has(q.id)){seen.add(q.id);out.push(q)}}));
+  return out.slice(0,Math.max(5,d.target-d.n))}
+function planStart(d){if(d.type==="mock"){tab="mock";render();window.scrollTo(0,0);return}
+  const qs=planQs(d);if(!qs.length)return;S.showDemo=false;save();P={qs,i:0,ans:{},done:false,plan:d.d};tab="practice";render();window.scrollTo(0,0)}
+function planDayHTML(d,label){const ph=PHASE[d.type],pct=Math.min(100,Math.round(d.n/d.target*100)),done=planDone(d);
+  return `<div class="stack" style="gap:8px;padding:12px;border-radius:14px;background:var(--sunk)">
+   <div class="row" style="justify-content:space-between;align-items:center"><div class="label" style="color:var(--accent)">${label} · ${ph[0]}</div>${done?`<span class="chip c-good">Done</span>`:""}</div>
+   ${d.topics.length?`<div class="row" style="gap:6px">${d.topics.map(t=>`<span class="chip tchip" style="background:${tc(t)}">${esc(t)}</span>`).join("")}</div>`:""}
+   <div class="small muted">${esc(ph[1])}</div>
+   <div class="small"><b>Read:</b> ${d.read.map(esc).join(" · ")}</div>
+   ${d.type!=="mock"&&d.read.length?`<label class="small" style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" data-pread="${d.d}" style="width:auto"${d.readDone?" checked":""}> I've finished today's reading</label>`:""}
+   <div class="small"><b>MCQs:</b> ${Math.min(d.n,d.target)} of ${d.target}${d.type==="mock"?" (mock questions)":""}</div><div class="progress"><i style="width:${pct}%"></i></div>
+   ${d.n<d.target?`<button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":d.n?"Continue MCQs":"Start MCQs"}</button>`:""}</div>`}
+function planCard(){
+  if(IN_CLAUDE&&!S.plan)return "";
+  if(!S.plan)return `<section class="card stack" style="gap:10px;border:2px solid var(--accent)"><h3>NEET-SS study plan</h3>
+    <p class="small muted" style="margin:0">A day-by-day timetable to 11 December: each day a topic to read and its MCQs to finish the same day, one full study pass, then 2 revision rounds and a full mock. Missed days carry over.</p>
+    <button type="button" class="primary" id="planMake">Make my NEET-SS plan</button></section>`;
+  const t=planToday(),bl=planBacklog(),k=dkey();const idx=S.plan.days.findIndex(d=>d.d===k);
+  const left=Math.ceil((new Date(S.plan.exam+"T09:00")-Date.now())/DAY);
+  const rows=S.plan.days.map((d,i)=>{const st=planDone(d)?"✓":d.d<k?"✗":d.d===k?"●":"";const ph=PHASE[d.type][0];
+    return `<div style="display:grid;grid-template-columns:62px 1fr auto;gap:8px;padding:6px 0;border-top:1px solid var(--line);${d.d===k?"font-weight:700;":""}"><span class="mono small">${new Date(d.d+"T12:00").toLocaleDateString(undefined,{day:"numeric",month:"short"})}</span><span class="small">${ph}${d.topics.length?": "+esc(d.topics.join(", ")):""}${d.type==="study"?`<br><span class="muted">${esc(d.read.join(", "))}</span>`:""}</span><span class="small" style="color:${planDone(d)?"var(--good)":d.d<k?"var(--bad)":"var(--accent)"}">${st}</span></div>`}).join("");
+  return `<section class="card stack" style="gap:12px;border:2px solid var(--accent)">
+   <div class="row" style="justify-content:space-between;align-items:baseline"><h3>NEET-SS plan${idx>=0?` · day ${idx+1} of ${S.plan.days.length}`:""}</h3><span class="mono small muted">${left>0?left+" days to go":""}</span></div>
+   ${bl.length?`<div class="msg err" style="margin:0">${bl.length} missed day${bl.length===1?"":"s"} to catch up. Finish ${bl.length===1?"it":"them"} first; questions you answer count towards the oldest unfinished day.</div>`:""}
+   ${bl.slice(0,2).map(d=>planDayHTML(d,"Catch up "+new Date(d.d+"T12:00").toLocaleDateString(undefined,{day:"numeric",month:"short"}))).join("")}
+   ${t?planDayHTML(t,"Today"):`<p class="small muted" style="margin:0">${k<S.plan.days[0].d?"Your plan starts on "+S.plan.days[0].d+".":"The plan has finished. All the best for the exam!"}</p>`}
+   <details><summary class="small" style="cursor:pointer;font-weight:600">Full timetable (${S.plan.days.filter(planDone).length} of ${S.plan.days.length} days done)</summary><div style="margin-top:6px">${rows}</div>
+    <div class="row" style="margin-top:10px"><button type="button" class="ghost small" id="planRe">Re-plan from today</button></div></details>
+  </section>`}
+function bindPlan(){
+  const mk=document.getElementById("planMake");if(mk)mk.onclick=()=>{S.plan=planMake();if(!S.examDate)S.examDate=neetDate();save();render()};
+  V().querySelectorAll("[data-pgo]").forEach(b=>b.onclick=()=>{const d=S.plan.days.find(x=>x.d===b.dataset.pgo);if(d)planStart(d)});
+  V().querySelectorAll("[data-pread]").forEach(c=>c.onchange=()=>{const d=S.plan.days.find(x=>x.d===c.dataset.pread);if(d){d.readDone=c.checked;save();render()}});
+  const re=document.getElementById("planRe");if(re)re.onclick=()=>{if(confirmRe()){S.plan=planMake();save();render()}}}
+function confirmRe(){const b=document.getElementById("planRe");if(b.dataset.sure)return true;b.dataset.sure=1;b.textContent="Tap again to rebuild the plan from today (your answers stay)";return false}
+function planNag(){const t=planToday(),bl=planBacklog(),d=bl[0]||t;if(!d||planDone(d))return "";
+  return `<section class="card stack" style="gap:8px;border:2px solid var(--accent)"><div class="label" style="color:var(--accent)">${bl.length?"Catch up first":"Today's NEET-SS plan"}</div>
+   <div><b>${esc(d.topics.join(", ")||PHASE[d.type][0])}</b> · ${Math.min(d.n,d.target)} of ${d.target} MCQs done</div>
+   <button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":"Do today's plan MCQs"}</button>
+   <span class="small muted">Other practice is allowed, but only questions from these topics count towards today's plan.</span></section>`}
 function todayCard(){
   const n=S.daily[dkey()]||0,g=S.goal,st=streak(),due=allQ().filter(q=>isDue(q.id)).length;
   const days=S.examDate?Math.ceil((new Date(S.examDate+"T09:00").getTime()-Date.now())/DAY):null;
@@ -1607,6 +1697,7 @@ function vHome(){
   const li=a=>a.length?a.map(t=>`<li>${esc(t.t)} <span class="mono muted">${t.acc}% accuracy</span></li>`).join(""):"";
   V().innerHTML=`
   ${S.showDemo?`<div class="demo-banner"><span>Showing demo progress so you can see the analytics. Your own results are unchanged.</span><button type="button" id="demoOff" class="ghost small">Show my progress</button></div>`:""}
+  ${planCard()}
   ${todayCard()}
   ${examCard()}
   <section class="card hero">
@@ -1637,6 +1728,7 @@ function vHome(){
   const ex=document.getElementById("exd");if(ex)ex.onchange=()=>{S.examDate=ex.value;save();vHome()};
   const exc=document.getElementById("exc");if(exc)exc.onclick=()=>{S.examDate="";save();vHome()};
   V().querySelectorAll("[data-exset]").forEach(b=>b.onclick=()=>{S.examDate=b.dataset.exset;save();vHome()});
+  bindPlan();
   document.getElementById("goal").onclick=e=>{const b=e.target.closest("[data-g]");if(b){S.goal=+b.dataset.g;save();vHome()}};
   const du=document.getElementById("due");if(du)du.onclick=()=>{cfg.topics=[];cfg.filter="due";cfg.src="all";cfg.count=0;startPractice()};
   const dr=document.getElementById("drill");if(dr)dr.onclick=()=>{cfg.topics=focus.map(t=>t.t);cfg.filter="all";tab="practice";startPractice();};
@@ -1655,7 +1747,7 @@ function vPractice(){
   const n=pool(cfg.topics,cfg.filter,cfg.src).length;
   const fl=[["all","All"],["new","Unattempted"],["wrong","Got wrong"],["due","Due for revision"],["bm","Bookmarked"]];
   const sr=[["all","All sources"],["Exam-style","Exam-style"],["Recall PYQ","Recall PYQ"],["fnb","FNB/INI-SS recall topics"]];
-  V().innerHTML=`<section class="card stack">
+  V().innerHTML=`${planNag()}<section class="card stack">
    <div><h2>Practice</h2><p class="muted small" style="margin:4px 0 0">Answers and explanations appear as soon as you pick an option.</p></div>
    <div class="stack" style="gap:8px"><div class="label">Subjects ${cfg.topics.length?"("+cfg.topics.length+")":"(all)"}</div>
     <div class="pick" id="ptopics">${topicList().map(t=>`<button type="button" data-t="${esc(t)}" aria-pressed="${cfg.topics.includes(t)}">${esc(t)}</button>`).join("")}</div></div>
@@ -1669,6 +1761,7 @@ function vPractice(){
   document.getElementById("psrc").onclick=e=>{const b=e.target.closest("[data-s]");if(b){cfg.src=b.dataset.s;vPractice()}};
   document.getElementById("pcount").onclick=e=>{const b=e.target.closest("[data-c]");if(b){cfg.count=+b.dataset.c;vPractice()}};
   document.getElementById("pstart").onclick=startPractice;
+  V().querySelectorAll("[data-pgo]").forEach(b=>b.onclick=()=>{const d=S.plan.days.find(x=>x.d===b.dataset.pgo);if(d)planStart(d)});
 }
 function startPractice(){
   let qs=shuffle(pool(cfg.topics,cfg.filter,cfg.src));if(cfg.count)qs=qs.slice(0,cfg.count);
