@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=27;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=28;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -2948,10 +2948,11 @@ function bindSync(){
 
 /* ---- Update button: new app features, question-bank corrections and shared questions, straight from GitHub ---- */
 const GH_BASE="https://raw.githubusercontent.com/salilibrahimckl-ops/orthoquest/main/orthoss-prep/";
-const APPV=window.__APPV||0;let UPD={busy:false,app:null,bank:null};
+const APPV=window.__APPV||0;const GH_API="https://api.github.com/repos/salilibrahimckl-ops/orthoquest/contents/orthoss-prep/";let UPD={busy:false,app:null,bank:null};
 async function updCheck(){
   const out={app:null,bank:null};const nc="?t="+Date.now();
-  try{const v=await fetch(GH_BASE+"app/version.json"+nc,{cache:"no-store"}).then(r=>r.ok?r.json():null);if(v&&APPV&&+v.v>APPV)out.app=v}catch(e){}
+  try{let v=await fetch(GH_API+"app/version.json?ref=main",{cache:"no-store",headers:{Accept:"application/vnd.github.raw"}}).then(r=>r.ok?r.json():null).catch(()=>null);
+    if(!v)v=await fetch(GH_BASE+"app/version.json"+nc,{cache:"no-store"}).then(r=>r.ok?r.json():null);if(v&&APPV&&+v.v>APPV)out.app=v}catch(e){}
   try{const d=await fetch(GH_BASE+"questions.json"+nc,{cache:"no-store"}).then(r=>r.ok?r.json():null);
     const cur=window.__bankUpd||BANK_UPDATED;if(d&&Array.isArray(d.raw)&&(d.raw.length>BANK.length||(d.raw.length===BANK.length&&String(d.updated||"")>cur)))out.bank=d}catch(e){}
   return out}
@@ -2960,7 +2961,9 @@ async function updRun(){
   if(UPD.busy)return;UPD.busy=true;const b=document.getElementById("updBtn");if(b){b.textContent="Updating…";b.disabled=true}
   updShow("Checking for updates…");
   try{const before=S.custom.length;const u=await updCheck();let reload=false,parts=[];
-    if(u.app){const h=await fetch(GH_BASE+"app/app.html?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.text():"");
+    if(u.app){const want="window.__APPV="+u.app.v+";";let h=await fetch(GH_BASE+"app/app.html?v="+u.app.v+"&t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.text():"").catch(()=>"");
+      if(h.indexOf(want)<0)h=await fetch(GH_API+"app/app.html?ref=main",{cache:"no-store",headers:{Accept:"application/vnd.github.raw"}}).then(r=>r.ok?r.text():"").catch(()=>"");
+      if(h.indexOf(want)<0)h="";
       if(h.length>100000&&h.indexOf("orthoss-app-ok")>0){try{localStorage.setItem("orthoss_app_html",h);localStorage.setItem("orthoss_app_v",String(u.app.v));localStorage.removeItem("orthoss_app_bad");reload=true;parts.push("new app version "+(u.app.name||u.app.v))}catch(e){parts.push("couldn't save the new app version (phone storage full)")}}}
     if(u.bank){try{localStorage.setItem("orthoss_remote_bank",JSON.stringify(u.bank));reload=true;const n=u.bank.raw.length-BANK.length;parts.push(n>0?n+" new bank question"+(n===1?"":"s"):"question corrections")}catch(e){}}
     await syncNow(false);const got=S.custom.length-before;if(got>0)parts.push(got+" new shared question"+(got===1?"":"s"));
