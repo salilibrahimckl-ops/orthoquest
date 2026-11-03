@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=28;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=29;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -1523,7 +1523,8 @@ const EXAMS_BUILTIN={updated:"2026-11-02",exams:[
   {id:"iniss",name:"INI-SS July 2027 session",date:"2027-05-01",status:"expected",note:"Expected May 2027 · AIIMS · date not announced yet"}]};
 function examList(){let d=null;try{d=JSON.parse(localStorage.getItem("orthoss_exam_dates")||"null")}catch(e){}
   if(!d||!Array.isArray(d.exams)||String(d.updated||"")<EXAMS_BUILTIN.updated)d=EXAMS_BUILTIN;return d.exams}
-function examDays(e){return Math.ceil((new Date((e.date)+"T09:00").getTime()-Date.now())/DAY)}
+function daysTo(k){/* whole calendar days from today to date k (YYYY-MM-DD); drops by one at midnight */const a=dkey().split("-").map(Number),b=String(k).split("-").map(Number);return Math.round((Date.UTC(b[0],b[1]-1,b[2])-Date.UTC(a[0],a[1]-1,a[2]))/DAY)}
+function examDays(e){return daysTo(e.date)}
 function examCard(){const list=examList().filter(e=>examDays(Object.assign({},e,{date:e.end||e.date}))>=0).sort((a,b)=>a.date<b.date?-1:1);if(!list.length)return "";
   return `<section class="card stack" style="gap:10px"><div class="row" style="justify-content:space-between;align-items:baseline"><h3>Exam countdown</h3><span class="small muted">~ = expected date</span></div>
    ${list.map(e=>{const d=examDays(e),exp=e.status!=="confirmed";return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--sunk)">
@@ -1601,7 +1602,7 @@ function planCard(){
     <p class="small muted" style="margin:0">A day-by-day timetable to 11 December: each day a topic to read and its MCQs to finish the same day, one full study pass, then 2 revision rounds and a full mock. Missed days carry over.</p>
     <button type="button" class="primary" id="planMake">Make my NEET-SS plan</button></section>`;
   const t=planToday(),bl=planBacklog(),k=dkey();const idx=S.plan.days.findIndex(d=>d.d===k);
-  const left=Math.ceil((new Date(S.plan.exam+"T09:00")-Date.now())/DAY);
+  const left=daysTo(S.plan.exam);
   const rows=S.plan.days.map((d,i)=>{const st=planDone(d)?"✓":d.d<k?"✗":d.d===k?"●":"";const ph=PHASE[d.type][0];
     return `<div style="display:grid;grid-template-columns:62px 1fr auto;gap:8px;padding:6px 0;border-top:1px solid var(--line);${d.d===k?"font-weight:700;":""}"><span class="mono small">${new Date(d.d+"T12:00").toLocaleDateString(undefined,{day:"numeric",month:"short"})}</span><span class="small">${ph}${d.topics.length?": "+esc(d.topics.join(", ")):""}${d.type==="study"?`<br><span class="muted">${esc(d.read.join(", "))}</span>`:""}</span><span class="small" style="color:${planDone(d)?"var(--good)":d.d<k?"var(--bad)":"var(--accent)"}">${st}</span></div>`}).join("");
   return `<section class="card stack" style="gap:12px;border:2px solid var(--accent)">
@@ -1625,7 +1626,7 @@ function planNag(){const t=planToday(),bl=planBacklog(),d=bl[0]||t;if(!d||planDo
    <span class="small muted">Other practice is allowed, but only questions from these topics count towards today's plan.</span></section>`}
 function todayCard(){
   const n=S.daily[dkey()]||0,g=S.goal,st=streak(),due=allQ().filter(q=>isDue(q.id)).length;
-  const days=S.examDate?Math.ceil((new Date(S.examDate+"T09:00").getTime()-Date.now())/DAY):null;
+  const days=S.examDate?daysTo(S.examDate):null;
   return `<section class="card stack" style="gap:14px">
    <div class="today">
     <div class="stack" style="gap:4px"><div class="label">Today</div><div class="v">${n}<span class="muted">/${g}</span></div><div class="progress"><i style="width:${Math.min(100,n/g*100)}%"></i></div></div>
