@@ -1864,46 +1864,7 @@
   "ai20261101_092",
   "ai20261101_093"
  ],
- "pending": [
-  {
-   "id": "ai20261102_076",
-   "topic": "Arthroplasty",
-   "kind": "AI-daily",
-   "q": "A patient 6 months after a proximally preserved Hemiarthroplasty for femoral neck fracture reports a clicking sound on hip abduction. Radiographs show a well‑positioned stem and a normal joint space. The likely complication is",
-   "o": [
-    "Stem subsidence",
-    "Femoral head impingement on the greater trochanter",
-    "Delayed acetabular erosion",
-    "Post‑operative heterotopic ossification"
-   ],
-   "a": 1,
-   "e": "The clicking on abduction suggests femoral head–trochanteric impingement, a common issue when the greater trochanter is prominent or the femoral head is slightly undersized relative to the acetabular component.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261102_077",
-   "topic": "Sports & Arthroscopy",
-   "kind": "AI-daily",
-   "q": "In a patient with combined cam and pincer morphology undergoing hip arthroscopy, which of the following intraoperative findings is most predictive of persistent postoperative groin pain?\nA. Residual acetabular rim over‑resection of < 2 mm\nB. Incomplete labral reconstruction\nC. Subtle capsular laxity without overt instability\nD. Inadequate correction of the femoral head‑to‑neck offset by < 1.5 mm",
-   "o": [
-    "A",
-    "B",
-    "C",
-    "D"
-   ],
-   "a": 3,
-   "e": "Studies show that failing to reduce the cam offset by at least 1.5 mm during osteoplasty correlates with persistent groin pain; adequate resection is essential to restore impingement‑free range.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  }
- ],
+ "pending": [],
  "pendingFlags": [],
  "updated": "2026-11-02T23:09:44.734Z",
  "reviewLog": [
@@ -1935,6 +1896,16 @@
    "flagsConfirmed": 0,
    "flagsDiscarded": 0,
    "remaining": 2,
+   "remainingFlags": 0
+  },
+  {
+   "at": "2026-11-03T00:11:58.493547Z",
+   "kept": 0,
+   "fixed": 0,
+   "rejected": 2,
+   "flagsConfirmed": 0,
+   "flagsDiscarded": 0,
+   "remaining": 0,
    "remainingFlags": 0
   }
  ]
