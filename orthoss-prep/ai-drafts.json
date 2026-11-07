@@ -1864,9 +1864,1754 @@
   "ai20261101_092",
   "ai20261101_093"
  ],
- "pending": [],
- "pendingFlags": [],
- "updated": "2026-11-06T23:01:30.218Z",
+ "pending": [
+  {
+   "id": "ai20261107_001",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 4‑year‑old presents with a painful, swollen left knee, fever of 39.2 °C, ESR 35 mm/h, and a normal WCC. The joint aspirate is turbid but cultures are negative after 48 h. Which is the most likely diagnosis? (Clinical vignette)",
+   "o": [
+    "Acute hematogenous osteomyelitis",
+    "Septic arthritis",
+    "Transient synovitis",
+    "Juvenile idiopathic arthritis"
+   ],
+   "a": 1,
+   "e": "The presence of fever, elevated ESR and a very painful, swollen joint that is difficult to aspirate points toward septic arthritis; transient synovitis usually has low ESR and is less painful.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_002",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "Investigation of choice to confirm osteomyelitis in an otherwise healthy child with a normal plain radiograph but clinical suspicion of bone infection? (Recall)",
+   "o": [
+    "2‑D ultrasound",
+    "MRI of the involved limb",
+    "X‑ray of the entire skeleton",
+    "CT of the involved bone"
+   ],
+   "a": 1,
+   "e": "MRI is highly sensitive and specific for early osteomyelitis, detecting marrow edema before radiographic changes appear.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_003",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "Weber fracture‑dislocation of the hip is most commonly caused by which pathogen in a child? (All of the following EXCEPT)",
+   "o": [
+    "Staphylococcus aureus",
+    "Streptococcus pyogenes",
+    "Salmonella enterica",
+    "Pseudomonas aeruginosa"
+   ],
+   "a": 3,
+   "e": "Staphylococcus aureus is the classic organism for septic arthritis of the hip; Salmonella is associated with osteomyelitis in sickle‑cell disease, whereas pseudomonas is rare.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_004",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 6‑year‑old boy with a history of fever and weight loss is found to have a lytic lesion in the proximal tibial metaphysis. The plain radiograph shows a periosteal reaction and an internal matrix suggestive of onion‑skin layering. The most likely bone infection is: (Clinical vignette)",
+   "o": [
+    "Actinomycosis",
+    "Tubercular osteomyelitis",
+    "Nocardia osteomyelitis",
+    "Chronic osteomyelitis"
+   ],
+   "a": 1,
+   "e": "Tubercular osteomyelitis commonly produces a chronic, lytic lesion with onion‑skin periosteal reaction in long bones of children.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_005",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "All of the following are classifications of distal radius articular fractures EXCEPT:",
+   "o": [
+    "AO/OTA 23A",
+    "Mayo 3‑column",
+    "Colles type",
+    "Schatzker"
+   ],
+   "a": 3,
+   "e": "Schatzker classification is for distal tibia fractures, not for radius. The others are established for wrist fractures.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_006",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 22‑year‑old athlete sustains an isolated complete tear of the long extensor tendon sheath at the base of the DIP joint of the ring finger and is managed with primary repair. Which tendon sheath is being repaired?",
+   "o": [
+    "Ring finger extensor tendon sheath",
+    "Middle finger extensor tendon sheath",
+    "Small finger extensor tendon sheath",
+    "Thumb extensor tendon sheath"
+   ],
+   "a": 0,
+   "e": "The long extensor tear at the DIP of the ring finger involves the extensor tendon sheath that spans the dorsal metacarpal and interphalangeal spaces, which is repaired to restore extensor lag.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_007",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "Which of the following is the most common intra‑operative complication during a standard open Achilles tendon repair using an end‑oscissors technique?",
+   "o": [
+    "Delayed ankle joint arthrosis",
+    "Post‑operative sural nerve palsy",
+    "Tendon‐deltoid contracture",
+    "Stump infection"
+   ],
+   "a": 1,
+   "e": "Sural nerve irritation or injury is the most frequent complication during open Achilles tendon repair, particularly when the tendon is mobilised proximally or a rigid sural retinaculum is violated.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_008",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 6‑year‑old boy has a lytic lesion in the femoral neck that is diagnosed as an aneurysmal bone cyst (ABC). Which of the following is the investigation of choice to confirm the diagnosis and exclude associated lesions?",
+   "o": [
+    "Plain X‑ray",
+    "MRI of the involved segment",
+    "CT scan of the pelvis",
+    "Bone scan with Tc‑99m"
+   ],
+   "a": 1,
+   "e": "MRI shows the characteristic fluid‑fluid levels of ABC and rules out a secondary ABC within a giant cell tumor or a metastatic lesion.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_009",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "Which of the following statements about giant cell tumor of bone is FALSE?",
+   "o": [
+    "It most commonly occurs in the epiphysis of long bones",
+    "It is more common in males than females",
+    "It has a recurrence rate of about 10 % after curettage with bone grafting",
+    "It can metastasise to the lungs in approximately 1 % of cases"
+   ],
+   "a": 1,
+   "e": "Giant cell tumor is actually slightly more common in females; incidence is roughly equal but marginally higher in women.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_010",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "In a giant cell tumor of bone, the most appropriate treatment modality for a lesion involving the meta‑physis of a 32‑year‑old with no prior surgery is:",
+   "o": [
+    "Percutaneous radiofrequency ablation with bone grafting",
+    "Intralesional curettage with high‑velocity lavage and cementoplasty",
+    "Wide resection with endoprosthetic replacement",
+    "Observation and serial radiographs"
+   ],
+   "a": 1,
+   "e": "Curettage with high‑speed lavage and cement filling gives good local control and preserves limb function.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_011",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "During a routine EMG of a patient with chronic wrist drop, fibrillation potentials are first seen in the abductor pollicis brevis. This indicates degeneration of which nerve component?",
+   "o": [
+    "Axonotmesis",
+    "Neurotmesis",
+    "Neuropraxia",
+    "Conduction block"
+   ],
+   "a": 0,
+   "e": "Fibrillations arise from axonal degeneration, a hallmark of axonotmesis (Sunderland grade 2).",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_012",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "Which muscle is the primary antagonist to the iliopsoas during lumbar flexion?",
+   "o": [
+    "Quadratus lumborum",
+    "Erector spinae",
+    "Hamstrings",
+    "Gracilis"
+   ],
+   "a": 1,
+   "e": "Erector spinae extends the lumbar spine, opposing the flexing action of iliopsoas.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_013",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "The most common nerve injury encountered during arthroscopic rotator cuff repair is:",
+   "o": [
+    "Axillary",
+    "Suprascapular",
+    "Radial",
+    "Median"
+   ],
+   "a": 0,
+   "e": "The axillary nerve runs near the surgical area and is most frequently injured arthroscopically.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_014",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "Which muscle fascicle orientation allows the quadriceps to generate high torque against the femur?",
+   "o": [
+    "Parallel to femur condyles",
+    "Perpendicular to joint line",
+    "Short and wide",
+    "Long and thin"
+   ],
+   "a": 1,
+   "e": "A perpendicular orientation to the joint line provides a mechanical advantage for torque generation in the quadriceps.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_015",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "A 60‑year‑old man presents with an acute, painful swelling of the right knee. Synovial fluid analysis shows monosodium urate crystals. Which of the following is the most appropriate first‑line therapy for this acute attack?",
+   "o": [
+    "NSAIDs",
+    "Allopurinol",
+    "Colchicine",
+    "Corticosteroid injection"
+   ],
+   "a": 0,
+   "e": "Non‑steroidal anti‑inflammatory drugs are the preferred initial treatment for acute gout, providing rapid pain relief and reducing inflammation.  Allopurinol is a urate‑lowering therapy used in the chronic phase, not for acute attacks.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_016",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "Which of the following statements about crystal morphology in gout and pseudogout is FALSE?",
+   "o": [
+    "Needle‑shaped, negatively birefringent crystals are characteristic of gout.",
+    "Rhomboid‑shaped, positively birefringent calcium‑pyrophosphate crystals are typical of pseudogout.",
+    "A positively birefringent, rhomboid crystal is diagnostic of gout.",
+    "Crystal shape can be identified under polarized light."
+   ],
+   "a": 2,
+   "e": "The description of a positively birefringent rhomboid crystal as diagnostic of gout is incorrect; such crystals are hallmark of pseudogout, not gout.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_017",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "Which radiographic finding is most specific for calcium pyrophosphate deposition disease (pseudogout)?",
+   "o": [
+    "Subchondral cysts in the femoral head",
+    "Chondrocalcinosis of the knee joint space",
+    "Periarticular osteophytes of the first carpometacarpal joint",
+    "Erosions of the sacroiliac joints"
+   ],
+   "a": 1,
+   "e": "Chondrocalcinosis—linear or punctate calcification of cartilage—is the classic X‑ray sign of pseudogout.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_018",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 24‑year‑old male involved in a motor‑vehicle crash falls from a height onto his pelvis. X‑ray reveals a stable posterior wall acetabular fracture with a small osseous fragment displaced 7 mm. What is the most appropriate next step in management?",
+   "o": [
+    "Immediate open reduction and internal fixation (ORIF) under general anaesthesia",
+    "Percutaneous screw fixation",
+    "External fixation of the pelvis with a circular frame",
+    "Conservative treatment with crutches and partial weight bearing"
+   ],
+   "a": 0,
+   "e": "The fragment is minimally displaced and the posterior wall is stable, so a percutaneous lag screw is adequate and avoids the morbidity of an open approach.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_019",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "During evaluation of an elderly patient with a suspected high‑energy pubic rami fracture, which imaging modality gives the most accurate assessment of associated sacral fractures?",
+   "o": [
+    "AP pelvis radiograph",
+    "CT scan of the pelvis and sacrum",
+    "MRI of the pelvis",
+    "Ultrasound of the pelvis"
+   ],
+   "a": 1,
+   "e": "CT provides detailed cortical bone anatomy and is the investigation of choice for detecting occult sacral fractures in pelvic ring injuries.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_020",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "Which acetabular fracture pattern is most commonly associated with a posterior hip dislocation sustained under high‑energy trauma?",
+   "o": [
+    "T‑shaped posterior wall fracture",
+    "Transverse fracture through the ilium",
+    "Row of multiple displaced column fractures",
+    "Anterior column fracture with posterior wall fragment"
+   ],
+   "a": 0,
+   "e": "High‑energy posterior dislocations often create a transverse or T‑shaped fracture involving the posterior wall due to the lever action of the femur.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_021",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 32‑year‑old woman presents with a displaced ventral (anterior) column acetabular fracture 4 h after injury. Which of the following is the preferred fixation method?",
+   "o": [
+    "Open reduction and plating via the Kocher–Langenbeck approach",
+    "Open reduction and plating via the ilio‑femoral approach",
+    "Percutaneous screw fixation through the pelvis",
+    "Intramedullary nail introducer through the ischial spine"
+   ],
+   "a": 1,
+   "e": "The anterior column is best approached and fixed via the ilio‑femoral (Smith–Petersen) approach to expose the superior and inferior pubic rami.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_022",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "According to the most recent North American Spine Society (NASS) guideline, which of the following findings best predicts a positive response to lumbar microdiscectomy in patients with a single‑level disc protrusion?",
+   "o": [
+    "Pain >6 hours between meals",
+    "Positive straight‑leg raise test >20°",
+    "Protrusion >8 mm on MRI",
+    "Subluxation of the operative segment on dynamic X‑ray"
+   ],
+   "a": 1,
+   "e": "A straight‑leg raise >20° correlates with nerve root compression and is the most robust predictor of symptomatic relief after microdiscectomy.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_023",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "All of the following are indications for surgery in lumbar spinal stenosis EXCEPT:",
+   "o": [
+    "Lumbosacral degenerative spondylolisthesis >3 mm with motor deficit",
+    "Symptoms refractory to ≥12 weeks of spinal manipulation and NSAIDs",
+    "VAS >8 despite bracing",
+    "Intradural tumour causing axial pain only"
+   ],
+   "a": 3,
+   "e": "An intradural tumour presenting with only axial pain is less likely to benefit from decompression alone; additional oncologic treatment is required.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_024",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old male with a history of heavy lifting presents with neurogenic claudication. MRI reveals central disc bulge and a 6 mm protrusion impinging the dural sac at L5‑S1. Which of the following intraoperative monitoring modalities is most reliable for detecting transient nerve root injury during decompression?",
+   "o": [
+    "Somatosensory evoked potentials (SSEPs)",
+    "Motor evoked potentials (MEPs)",
+    "Direct neurophysiological monitoring of dorsal root ganglia",
+    "Cortical evoked potentials (CLEPs)"
+   ],
+   "a": 1,
+   "e": "MEPs record corticospinal tract integrity and are highly sensitive to transient root injuries during posterior approaches.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_025",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old woman with a well‑fixed cemented total hip arthroplasty presents with sudden groin pain radiating to the knee following a minor fall. X‑ray shows a radiolucent line around the acetabular cup with no obvious fracture. The most likely complication is:",
+   "o": [
+    "Periprosthetic joint infection",
+    "Abdominal hernia",
+    "Paprosky type IIA loosening of the acetabular component",
+    "Avascular necrosis of the femoral head"
+   ],
+   "a": 2,
+   "e": "The pattern of a radiolucent line around a fixed cup with a floating femoral head suggests progressive loosening—classically Paprosky type IIA. Infection would show soft‑tissue changes, and an AVN of the head is unlikely after cemented implantation.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_026",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "The most common early (<6 mm) postoperative complication after primary total hip arthroplasty performed via the posterior approach is:",
+   "o": [
+    "Dislocation",
+    "DVT",
+    "Stem subsidence",
+    "Hip abductor weakness"
+   ],
+   "a": 0,
+   "e": "Dislocation rates after a posterior approach are the highest among early complications, especially within the first 6 months postoperatively.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_027",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 27‑year‑old male soccer player presents with groin pain after a forced internal rotation during a tackle. Physical exam reveals a positive iliopsoas impingement sign and a normal ROM. MRI shows a type II cam deformity with an alpha angle of 66°. Which investigation is most appropriate to confirm the diagnosis and guide surgical planning?",
+   "o": [
+    "Plain standing AP pelvis radiograph with true AP and obturator oblique views",
+    "Dynamic hip arthrogram",
+    "CT scan with 3‑D reconstruction of the femoral head‑neck junction",
+    "Magnetic resonance arthrography (MRA) with intra‑articular contrast"
+   ],
+   "a": 2,
+   "e": "CT with 3‑D reconstruction provides the most accurate measurement of the alpha angle and the extent of the cam lesion, which is crucial for determining the need and extent of arthroscopic osteoplasty.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_028",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "During hip arthroscopy for cam‑type FAI, a surgeon creates a central compartment portal under direct visualization. If the joint is found to be in the “blue‑port” position, which condition best explains the difficulty in identifying the labrum?",
+   "o": [
+    "The hip is abducted and externally rotated, causing the acetabulum to be rotated backwards",
+    "The hip is adducted and internally rotated, making the acetabulum face away from the scope",
+    "The hip is flexed 30° with slight internal rotation, flattening the ilio‑femoral ligament",
+    "The hip is completely flexed to 90° causing the femoral head to dislocate anteriorly"
+   ],
+   "a": 1,
+   "e": "When the hip is adducted and internally rotated the acetabular rim turns away from the arthroscope, making the labrum hard to see; this is the classic “blue‑port” impingement.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_029",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "Which of the following is the most common complication of capsular augmentation during femoroplasty for cam‑type FAI?",
+   "o": [
+    "Post‑operative osteoarthritis of the hip",
+    "Iliopsoas tendinopathy due to suture anchor irritation",
+    "Genitourinary nerve injury causing erectile dysfunction",
+    "Deep vein thrombosis from prolonged tourniquet use"
+   ],
+   "a": 1,
+   "e": "Suture anchors placed too close to the iliopsoas tendon can irritate the tendon, leading to postoperative groin pain—this is the most frequently reported complication of capsular augmentation.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_030",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "The alpha angle measured on MRI is 68° in a patient with symptomatic hip FAI. Which classification does this measurement best fit?",
+   "o": [
+    "I. Normal (0–50°)",
+    "II. Mildly increased (51–60°)",
+    "III. Moderately increased (61–70°)",
+    "IV. Severely increased (>70°)"
+   ],
+   "a": 2,
+   "e": "An alpha angle of 68° falls in the 61‑70° range, which is considered moderately increased and correlates with cam‑type impingement.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_031",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 3‑year‑old boy presents with a rigid, soft‑tissue‑tight clubfoot that has been treated with Ponseti casting for 6 months. On review, the Pirani score is 0/6. Which of the following is the most appropriate next step to minimise recurrence?",
+   "o": [
+    "Initiate an abduction brace for 3 months",
+    "Re‑apply the Ponseti cast for 4 weeks",
+    "Schedule corrective surgical release",
+    "Prescribe oral nifedipine for 2 weeks"
+   ],
+   "a": 0,
+   "e": "A patient who has achieved complete correction but is still within the age when soft tissues are still lax should be maintained in a foot abduction brace. Prolonged bracing (typically until 4 years) is the accepted method to reduce recurrence. Casting or surgery at this stage is unnecessary.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_032",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 2‑year‑old female has a left foot that is rigidly flat‑footed with a pronounced plantar fascia contracture. Which imaging modality is best to confirm the presence of a congenital talonavicular coalition?",
+   "o": [
+    "Weight‑bearing AP foot radiograph",
+    "Plain lateral foot X‑ray",
+    "CT scan with 3‑D reconstruction",
+    "MRI of the foot"
+   ],
+   "a": 2,
+   "e": "A congenital talonavicular coalition is best visualised on CT with 3‑D reconstruction, which delineates the cortical bridging between the talus and navicular. Plain radiographs may miss subtle coalitions, and MRI is less reliable for bony detail.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_033",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "In a 4‑year‑old child with a history of polio, progressive foot deformity has developed. Which of the following is the most likely underlying pathomechanism?",
+   "o": [
+    "Recurrent subclinical osteitis",
+    "Post‑inflammatory scar contracture of the plantar fascia",
+    "Unbalanced muscle activity leading to calcaneal and metatarsal hypertrophy",
+    "Congenital malunion of the calcaneus"
+   ],
+   "a": 2,
+   "e": "Post‑polio foot deformities arise from unbalanced muscle activity: weakened dorsiflexors and strong plantar‑flexors cause a rigid equinus‑plantar‑flexed foot with calcaneal and metatarsal enlargement. Inflammation and congenital malunion are unrelated.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_034",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 28‑year‑old cyclist presents with a wrist swelling that becomes more prominent on axial loading of the forearm. Radiographs show a clear separation between the scaphoid and lunate with a tapered scaphoid waist but no obvious fracture. The most characteristic dynamic sign seen on the lateral wrist view is:",
+   "o": [
+    "Lateral wrist abduction with scapholunate saw‑tooth widening",
+    "Supination of forearm with carpal tunnel deepening",
+    "Pronation of forearm with scaphoid shortening",
+    "Ulnar deviation with lunate rocking"
+   ],
+   "a": 0,
+   "e": "The classic dynamic test for scapholunate dissociation is an axial load while the forearm is supinated – the scaphoid widens its waist and separates from the lunate, producing the ‘lateral saw‑tooth’ appearance.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_035",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "An otherwise healthy adolescent examines with a wrist that is painful during use of a forearm cranking motion. MRI shows a small marrow‑signal abnormality confined to the volar aspect of the proximal pole of the scaphoid without cortical breach. The condition is best classified as:",
+   "o": [
+    "Scaphoid waist fracture",
+    "Scaphoid body avascular necrosis",
+    "Scaphoid follicular cyst",
+    "Scaphoid body bone bruise"
+   ],
+   "a": 3,
+   "e": "The imaging findings describe a bone bruise rather than fracture or avascular necrosis; the marrow signal changes are focal, transient, and limited to the volar proximal pole.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_036",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 50‑year‑old patient complains of a nondescript ‘lump’ over the dorsomedial side of the wrist that becomes more prominent with wrist circumduction. X‑ray shows a smooth, cortically isostrophic double‑tubercle of the lunate. Which rare instability is this imaging finding most characteristic of?",
+   "o": [
+    "Ring finger double‑tubercle sign in lunotriquetral instability",
+    "Rotor sign in scapholunate injury",
+    "Double‑tubercle deformity of the lunate in chronic lunotriquetral dissociation",
+    "Melo‑torsion in dorsal intercalated segment volar displacement"
+   ],
+   "a": 2,
+   "e": "The geometric double‑tubercle appearance of the lunate is classic for chronic lunotriquetral instability, reflecting progressive dorsal splitting of the lunate’s cortex.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_037",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 58‑year‑old male presents with progressive pain in the left femoral diaphysis and no history of primary malignancy. Radiographs show a largely lytic lesion with aggressive periosteal reaction. The most likely initial investigation to rule out a metastatic source is",
+   "o": [
+    "Whole‑body PET‑CT",
+    "Bone marrow aspirate",
+    "Serum alkaline phosphatase",
+    "MRI of the pelvis"
+   ],
+   "a": 0,
+   "e": "Whole‑body PET‑CT is the modality of choice for detecting occult primary tumors and metastases in patients with suspected metastatic bone disease.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_038",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "In the classification of metastatic bone disease, lesions are termed lytic, blastic, or mixed. Which of the following primary tumors is most commonly associated with blastic bone metastases?",
+   "o": [
+    "Breast carcinoma",
+    "Prostate carcinoma",
+    "Lung carcinoma",
+    "Melanoma"
+   ],
+   "a": 1,
+   "e": "Prostate carcinoma frequently produces blastic lesions, whereas breast and lung more often produce lytic or mixed changes.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_039",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old woman with known breast cancer develops a pathological fracture of the right tibia. Mirels score for this fracture is 9. The recommended management is",
+   "o": [
+    "External beam radiotherapy in single fraction",
+    "Definitive arthroplasty of the proximal tibia",
+    "Internal fixation with a long‑segment intramedullary nail",
+    "Observation and analgesics only"
+   ],
+   "a": 2,
+   "e": "A Mirels score ≥9 warrants prophylactic internal fixation to prevent imminent fracture; the tibial shaft is best stabilized with an IM nail.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_040",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "In the perioperative period for total knee arthroplasty, which analgesic regimen is most appropriate for a patient with a high risk of postoperative nausea and vomiting (PONV) while maintaining opioid-sparing effects?",
+   "o": [
+    "Continuous intravenous morphine infusion with ondansetron",
+    "Intravenous parecoxib immediately post‑op followed by oral naproxen",
+    "Intrathecal morphine 100 µg + oral acetaminophen",
+    "Oral tramadol 100 mg q6h with routine antiemetics"
+   ],
+   "a": 1,
+   "e": "Intravenous parecoxib (a COX‑2 inhibitor) provides potent, opioid‑free analgesia within the first 24 h and reduces the need for morphine, thereby lowering PONV risk. Oral naproxen continues analgesia and is well tolerated.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_041",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old man undergoing hip hemiarthroplasty is prescribed phenprocoumon. What is the most important perioperative adjustment to avoid excessive anticoagulation?",
+   "o": [
+    "Stop phenomenoxan 24 h before surgery and start 10 mg LMWH 12 h before",
+    "Continue phenprocoumon until the day of surgery and give fresh frozen plasma intra‑op",
+    "Discontinue phenprocoumon 5 days before surgery and bridge with LMWH 24 h prior",
+    "Switch to low‑dose aspirin 1 week before surgery"
+   ],
+   "a": 2,
+   "e": "Phenprocoumon is a long‑acting vitamin K antagonist. It should be stopped 5 days pre‑op to allow INR to fall to 1–1.5, then bridged with therapeutic LMWH 24 h before surgery to maintain anticoagulation without excessive risk of bleeding.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_042",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "Which of the following is the preferred prophylactic agent for venous thromboembolism (VTE) in a patient with a BMI > 35 undergoing shoulder arthroscopy under regional anaesthesia?",
+   "o": [
+    "Enoxaparin 30 mg SC BID",
+    "Rivaroxaban 10 mg PO daily",
+    "Low‑dose aspirin 81 mg daily",
+    "Fondaparinux 2.5 mg SC daily"
+   ],
+   "a": 0,
+   "e": "For high‑BMI patients undergoing upper‑limb surgery, low‑molecular‑weight heparin (enoxaparin 30 mg SC twice daily) provides reliable VTE prophylaxis and is recommended by current orthopaedic guidelines.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_043",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "In the management of aseptic loosening of a total hip prosthesis, which medication is commonly used to inhibit osteoclast‑mediated bone resorption while waiting for revision surgery?",
+   "o": [
+    "Clodronate oral 1200 mg twice daily",
+    "Zoledronic acid 5 mg IV yearly",
+    "Denosumab 60 mg SC every 6 months",
+    "Alendronate 70 mg PO weekly"
+   ],
+   "a": 2,
+   "e": "Denosumab, a RANK‑L inhibitor, blocks osteoclast activity and is effective for short‑term suppression of bone resorption in cases of prosthetic loosening, giving the bone time to stabilize before revision.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_044",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "A 28‑year‑old patient with a recent open fracture of the tibia develops a sudden, severe pain and swelling in the knee joint within 3 days. Which complication is most likely?",
+   "o": [
+    "Acute septic arthritis",
+    "Gomphosis",
+    "Pseudarthrosis",
+    "Epidural abscess"
+   ],
+   "a": 0,
+   "e": "Early onset joint pain and swelling after a traumatic open fracture is characteristic of acute septic arthritis, usually due to *Staphylococcus aureus*.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_045",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "The early clinical triad of acute osteomyelitis includes fever, local pain, and which of the following?",
+   "o": [
+    "Systemic rash",
+    "Decreased skin temperature",
+    "Rapid joint swelling",
+    "Pulsatile bruit over the bone"
+   ],
+   "a": 2,
+   "e": "Rapid onset joint swelling is part of the classic triad (fever, pain, swelling) that prompts urgent evaluation for osteomyelitis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_046",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "According to the Phemister triad, a chronic osteoarticular TB shows which of the following on radiographs?",
+   "o": [
+    "Erosions with proliferative periosteal reaction",
+    "Sequestrum formation",
+    "Bony swelling with periosteal reaction",
+    "Tram-track erosion with surrounding osteoporosis"
+   ],
+   "a": 3,
+   "e": "Tram‑track erosions with adjacent osteopenia are the classic radiographic sign of chronic osteoarticular tuberculosis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_047",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "A 60‑year‑old male with chronic osteomyelitis of the tibia has a sequestrum surrounded by involucrum. What does the presence of involucrum indicate?",
+   "o": [
+    "Early infection phase",
+    "Healing with new bone formation",
+    "Failure of treatment",
+    "Abscess formation"
+   ],
+   "a": 1,
+   "e": "Involucrum represents new bone growth that walls off a dead bone segment (sequestrum) and indicates a chronic infection with a reparative response.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_048",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old female presents with a displaced intracapsular femoral neck fracture. Which of the following is considered the most reliable single factor for deciding between internal fixation and arthroplasty in a patient with good active life‑span?",
+   "o": [
+    "Garden classification",
+    "Pauwels angle",
+    "Age ≥ 65 years",
+    "Presence of pre‑existing osteoarthritis"
+   ],
+   "a": 3,
+   "e": "Age ≥65 years is the standard threshold where arthroplasty is preferred over internal fixation for displaced intracapsular fractures in active patients. The other factors influence fixation choice but are not primary decision points.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_049",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old male sustains a reverse oblique intertrochanteric (AO/OTA 31A3) fracture with a 30° neck–shaft angle. The most appropriate acute surgical approach for fixation is:",
+   "o": [
+    "Proximal femoral nail anti‑rotation (PFNA)",
+    "Dynamite double‑blade sliding hip screw (DHS)",
+    "Cement‑augmented cannulated screws",
+    "Open reduction internal fixation (ORIF) with a standard DHS"
+   ],
+   "a": 0,
+   "e": "Reverse oblique fractures are best managed with a PFNA, which provides stable anti‑rotation and compression for the load‑bearing... The DHS alone may fail due to rotational instability.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_050",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "In a polytrauma patient with an unstable pertrochanteric fracture (AO/OTA 31A2) and a CT‑verified posterolateral wall fracture of the acetabulum, selecting the surgical fixations that provide dual stability is:",
+   "o": [
+    "Cephalomedullary nail alone",
+    "Dual screw DHS with plaster of Paris slab",
+    "Percutaneous screw fixation of the acetabular wall + intramedullary nail",
+    "External fixator for the pelvis + hip arthroplasty"
+   ],
+   "a": 2,
+   "e": "Fixing the acetabular wall percutaneously restores pelvic ring integrity, while the intramedullary nail secures the femur—giving both fractures robust fixation.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_051",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 23‑year‑old jogger presents with anteromedial thigh pain and decreased hip flexion. Radiographs are normal initially. The imaging study of choice to detect an occult femoral neck fracture is:",
+   "o": [
+    "CT scan",
+    "Ultrasound",
+    "MRI",
+    "Bone scan"
+   ],
+   "a": 2,
+   "e": "MRI is the most sensitive and specific modality for occult femoral neck fractures, detecting bone marrow oedema before cortical changes appear.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_052",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 70‑year‑old male with a Pauwels type III intertrochanteric fracture is managed with a cephalomedullary nail. Postoperatively, the patient develops thigh pain and a gradual increase in chest pain. The most likely cause is:",
+   "o": [
+    "Fat embolism",
+    "DVT with pulmonary embolism",
+    "Sepsis from the fracture site",
+    "Nail breakage"
+   ],
+   "a": 1,
+   "e": "Thigh pain followed by chest symptoms suggests a pulmonary embolus secondary to deep venous thrombosis, a common complication after hip fractures.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_053",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "In a 28‑year‑old HIV‑positive worker with chronic back pain, MRI of the lumbar spine shows multiple paradiscal enhancing lesions with a central abscess at L4‑L5. He has no constitutional symptoms. The most appropriate initial management is:",
+   "o": [
+    "Long‑term anti‑tubercular therapy alone",
+    "Percutaneous CT‑guided needle aspiration followed by ATT",
+    "Immediate posterior instrumented fusion",
+    "Early vertebral osteomyelitis biopsy followed by ATT"
+   ],
+   "a": 1,
+   "e": "Percutaneous CT‑guided aspiration is the least invasive way to obtain material for Mycobacterium tuberculosis culture and drug sensitivity while avoiding unnecessary surgery.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_054",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old man with a 6‑month history of back pain and progressive paraplegia has a plain radiograph showing vertebral destruction at the T12‑L1 junction. Which classification is most useful to guide surgical approach?",
+   "o": [
+    "Pott’s classification",
+    "Goh & Mavuduru staging",
+    "Modified Manila classification",
+    "Raviv classification"
+   ],
+   "a": 2,
+   "e": "The Modified Manila classification specifically grades spinal TB based on vertebral destruction, kyphosis, and neurological status to direct surgical planning.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_055",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "All of the following are accepted indications for surgery in spinal tuberculosis EXCEPT:",
+   "o": [
+    "Progressive kyphosis >30° despite 6‑month ATT",
+    "Neurological deficit not improving after 4 weeks of ATT",
+    "HIV‑positive status with higher bacterial load",
+    "Spinal instability with a disk space collapse >50%"
+   ],
+   "a": 2,
+   "e": "HIV‑positive status alone is not an indication for surgery; it simply modifies therapy duration and monitoring.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_056",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 60‑year‑old diabetic male presents with fever, back pain, and left foot drop. CT shows a paravertebral abscess extending from T9 to T11. The most suitable imaging modality to assess the extent of epidural involvement and plan debridement is:",
+   "o": [
+    "MRI of the whole spine",
+    "CT of the involved levels with contrast",
+    "CT myelography",
+    "X‑ray of the thoracic spine"
+   ],
+   "a": 0,
+   "e": "Whole‑spine MRI best visualises marrow, disc, epidural space, and neural elements, guiding the surgical corridor.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_057",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 32‑year‑old man is treated for multi‑drug resistant pulmonary TB. Five months later he develops a sudden lumbar pain with bladder dysfunction. Which diagnostic step is most critical before initiating any invasive therapy?",
+   "o": [
+    "Obtain a CT scan of lumbar spine",
+    "Send an MRI of lumbar spine",
+    "Discuss drug‑resistance patterns",
+    "Order a lumbar puncture for TB meningitis"
+   ],
+   "a": 1,
+   "e": "MRI of the lumbar spine quickly identifies an epidural abscess compressing the conus, which dictates urgent decompression.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_058",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "The K2 sign on plain radiograph is characteristic of:",
+   "o": [
+    "Pott’s spine with vertebral wedging",
+    "Spinal TB involving the posterior elements only",
+    "Chronic pyogenic spondylitis",
+    "Severe cervical myelopathy due to OPLL"
+   ],
+   "a": 0,
+   "e": "K2 sign (double sacro‑vertebral angle) indicates classic vertebral wedge deformity seen in TB of the spine.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_059",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "Which of the following polyethylene modifications is specifically designed to reduce premature oxidation without compromising mechanical strength?",
+   "o": [
+    "Vitamin‑E doping in UHMWPE",
+    "Cross‐linking by γ‑irradiation with vacuum sterilisation",
+    "Blending with polyethylene terephthalate (PET)",
+    "Sterilisation with ethylene oxide"
+   ],
+   "a": 0,
+   "e": "Vitamin‑E is a free‑radical scavenger incorporated into UHMWPE to neutralise oxidative damage while preserving the material’s toughness. Cross‑linking alone or vacuum sterilisation do not address oxidation, and PET blends or ethylene oxide do not provide the same antioxidant effect.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_060",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "During a revision total knee arthroplasty for a patient with a compromised polyethylene liner, the surgeon opts for a cobalt‑chromium femoral component with a highly cross‑linked UHMWPE insert. Which statement best describes the expected clinical outcome regarding wear?",
+   "o": [
+    "Higher wear rate than a conventional polyethylene liner",
+    "Lower wear rate but increased risk of metal ion release",
+    "Comparable wear rate but lower osteolysis risk",
+    "No change in wear but better survivorship"
+   ],
+   "a": 1,
+   "e": "The highly cross‑linked polyethylene reduces the creep and wear‑induced debris, yet the cobalt‑chromium femoral head can release metal ions, particularly if the liner is thin or positioned suboptimally. Hence the correct choice emphasises the trade‑off between reduced wear and increased metal ion exposure.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_061",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "A 72‑year‑old patient underwent a primary total knee arthroplasty with a cobalt‑chromium on ultra‑high‑molecular‑weight polyethylene articular surface. Seven years later, MRI shows a cystic lesion adjacent to the tibial tray. Which of the following best represents the pathogenesis of this lesion?",
+   "o": [
+    "Metal ion‑induced osteolysis",
+    "Polyethylene wear‑particle‑induced osteolysis",
+    "Linier abrasion wearing causing subchondral bone loss",
+    "Acetabular micro‑fractures from micro‑migration"
+   ],
+   "a": 1,
+   "e": "Cystic lesions around polyethylene inserts are most commonly caused by local reaction to polyethylene wear particles, leading to osteolytic bone loss. Metal ions can also cause lesions, but the classic presentation for a tibial tray with a PMMA‑like cavity is polyethylene wear‑particle osteolysis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_062",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "In a primary total hip arthroplasty using a highly cross‑linked UHMWPE liner, the surgeon chooses a femoral head diameter of 32 mm. What is the main advantage of opting for this head size when considering bearing surface wear?",
+   "o": [
+    "Reduces peak contact stresses on the polyethylene",
+    "Prevents dislocation due to larger femoral head",
+    "Lowers risk of abductor weakness",
+    "Increases osseointegration of the femoral stem"
+   ],
+   "a": 0,
+   "e": "A larger head distributes load across a greater area of the liner, which lowers peak contact stresses and consequently reduces volumetric wear. Dislocation risk is also reduced, but the question focuses on wear mechanics.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_063",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 22‑year‑old competitive rugby player presents with a sudden right shoulder pain after a diving tackle. Physical examination reveals a rotator cuff tear with a small supraspinatus footprint defect. MRI shows a PASTA (partial articular supraspinatus tendon avulsion) lesion. Which of the following statements about PASTA lesions is correct?",
+   "o": [
+    "They are always treated with arthroscopic debridement",
+    "They represent a sub‑deltoid tendon injury",
+    "They are classified by the arcs of the deltoid around the humeral head",
+    "They involve the articular surface of the supraspinatus tendon rim without a bony fragment"
+   ],
+   "a": 3,
+   "e": "PASTA lesions involve the articular margin of the supraspinatus tendon rim and do not contain a bony fragment. They are usually arthroscopically repaired or debrided depending on size.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_064",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "During a 2024 WADA annual meeting, a new category of prohibited substances was added. Which type of doping is now explicitly banned?",
+   "o": [
+    "Gene‑editing techniques that alter athlete DNA",
+    "Homeopathy preparations used for performance enhancement",
+    "Herbal supplements marketed for muscle recovery",
+    "Erythropoietin‑stimulating growth factors available over the counter"
+   ],
+   "a": 0,
+   "e": "WADA expanded its prohibited list in 2024 to include genetic manipulation technologies that can modify an athlete’s DNA, i.e., gene‑editing and related therapies.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_065",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 19‑year‑old soccer player sustains a grade II lateral ankle sprain during a match. The decision tree for an ankle sprain with persistent instability advises which surgical procedure?",
+   "o": [
+    "Medial cuneiform osteotomy",
+    "Arthroscopic in‑situ repair of the anterior talofibular ligament",
+    "Open Broström repair with medial reefing",
+    "Lateral de‑compression arthroscopy"
+   ],
+   "a": 2,
+   "e": "Open Broström repair is the standard operation for grade II–III lateral ankle ligament instability when conservative treatment fails.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_066",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "In arthroscopic ACL reconstruction, the preferred femoral tunnel placement is described in the \"tunnel plug\" technique. What is the anatomical landmark for the anteromedial portal entry?",
+   "o": [
+    "Lateral femoral condyle notch floor",
+    "Intercondylar notch rim at the level of the posterior cruciate ligament insertion",
+    "The posterior edge of the lateral femoral condyle",
+    "The medial femoral condyle at the course of the posterior horn of the lateral meniscus"
+   ],
+   "a": 1,
+   "e": "The anteromedial portal for femoral tunnel drilling is positioned at the intercondylar notch rim, just above the PCL insertion.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_067",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "Which of the following is the most reliable method for detecting blood‑type performance enhancement in athletes?",
+   "o": [
+    "Rapid serum viscosity test",
+    "Red cell volume expansion via plasma volume measurement",
+    "Hemoglobin mass quantification with the CO rebreathing method",
+    "Urinary myoglobin concentration after strenuous exercise"
+   ],
+   "a": 2,
+   "e": "The CO rebreathing method accurately quantifies total hemoglobin mass, allowing detection of artificial increases in red cell volume.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_068",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "Which of the following is NOT a classic radiographic feature of rickets in a 2‑year‑old?",
+   "o": [
+    "Osteopenia with widened growth plates",
+    "Cupping of the metaphyses",
+    "Bowing of long bones",
+    "Severe metaphyseal fraying due to excessive mineralisation"
+   ],
+   "a": 3,
+   "e": "Rickets shows thinning and fraying of metaphyses; severe fraying from excessive mineralisation is seen in conditions like Type II collagen defects, not rickets.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_069",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 4‑year‑old girl with a known diagnosis of hypophosphatasia presents with bowed tibiae and a loosening of calcium in the teeth. What enzyme deficiency underlies this disorder?",
+   "o": [
+    "Alkaline phosphatase",
+    "Phosphatidylinositol‑4‑phosphate 5‑kinase",
+    "Cytosolic phospholipase A2",
+    "Matrix Gla protein"
+   ],
+   "a": 0,
+   "e": "Hypophosphatasia results from loss‑of‑function mutations in the ALPL gene, encoding tissue‑non‑specific alkaline phosphatase.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_070",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 52‑year‑old male presents with crescent‑shaped cords in the palm causing fixed flexion of the ring and little fingers. He complains of difficulty grasping objects but no pain. Which surgical option is most appropriate for this stage of disease?",
+   "o": [
+    "Conservative management with collagenase injections",
+    "Open fasciectomy of the affected fingers",
+    "Needle aponeurotomy only for the index finger",
+    "Arthroscopic release of the intrinsic muscles"
+   ],
+   "a": 1,
+   "e": "Stage III Dupuytren disease with fixed flexion best responds to open fasciectomy; less invasive options are inadequate for complete loss of extension.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_071",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "Dupuytren disease is staged by:",
+   "o": [
+    "The thickness of the palmar fascia on ultrasound",
+    "The presence of skin ulceration",
+    "The Knuckle-Bend Debonding Score",
+    "The Crowley classification based on clinical extension loss"
+   ],
+   "a": 3,
+   "e": "The Crowley classification, ranging from stage I (no fixed flexion) to stage III (fixed flexion >50°), is commonly used to decide treatment and prognosis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_072",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A patient with established rheumatoid arthritis of the hand is experiencing progressive erosions despite methotrexate therapy. The next step in medical management should be:",
+   "o": [
+    "Increase methotrexate dose",
+    "Add a non‑steroidal anti‑inflammatory drug",
+    "Start a tumor necrosis factor (TNF) inhibitor",
+    "Begin oral corticosteroids only"
+   ],
+   "a": 2,
+   "e": "TNF inhibitors have proven efficacy in halting joint destruction once methotrexate alone is insufficient.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_073",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "The most common postoperative complication after Dupuytren fasciectomy is:",
+   "o": [
+    "Infection at the incision site",
+    "Recurrence of the contracture",
+    "Digital nerve injury",
+    "Skin necrosis over the palmar surface"
+   ],
+   "a": 1,
+   "e": "Despite meticulous technique, recurrence of the contracture remains the leading issue, occurring in up to 30% within 5 years.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_074",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old woman with longstanding rheumatoid arthritis presents with pain, swelling, and limited range of motion in her right ankle. Radiographs show obliteration of the ankle mortise and a narrowed joint space. Which of the following is the most appropriate surgical intervention?",
+   "o": [
+    "Debridement and synovectomy",
+    "Total ankle arthroplasty",
+    "Ankle arthrodesis",
+    "Lateral release"
+   ],
+   "a": 2,
+   "e": "In a patient with inflammatory arthritis and advanced joint degeneration, ankle arthrodesis provides durable pain relief and stability. Arthroplasty is reserved for isolated osteoarthritic disease without active synovitis.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_075",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old recreational runner sustains a multifragmentary talar dome fracture with posterior displacement of the posterior talar facet. What is the most critical surgical goal to prevent post‑traumatic arthritis?",
+   "o": [
+    "Restore the medial malleolar height",
+    "Achieve anatomical reduction of the posterior facet",
+    "Uneventful closure of the anterior ankle capsule",
+    "Place a temporary external fixator"
+   ],
+   "a": 1,
+   "e": "The posterior talar facet is the weight‑bearing surface of the ankle. Anatomical reduction of this facet is paramount to restoring joint congruency and preventing cartilage wear.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_076",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 52‑year‑old man has a chronic lateral ankle instability with a positive anterior drawer test and talar tilt. He desires to resume high‑impact sports. Which surgical approach provides the best balance between stability and motion?",
+   "o": [
+    "Anterior talofibular ligament reconstruction with a semitendinosus autograft",
+    "Broström procedure with tendon augmentation",
+    "Medial malleolar osteotomy",
+    "Total ankle replacement"
+   ],
+   "a": 1,
+   "e": "The Broström augmentation restores native ligament function while preserving joint kinematics, making it preferred for active patients seeking return to sport.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_077",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "Which ligament is most commonly injured in acute ankle sprains that lead to chronic instability?",
+   "o": [
+    "Deltoid ligament",
+    "Anterior talofibular ligament",
+    "Posterior talofibular ligament",
+    "Calcaneofibular ligament"
+   ],
+   "a": 1,
+   "e": "The anterior talofibular ligament is the most frequently ruptured ligament in ankle sprains and is the primary contributor to lateral instability.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_078",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 12‑year‑old presents with a slowly enlarging, painless swelling over the distal femur. Radiography shows a sharply marginated, cartilage‑like mass with peripheral calcification. The most likely diagnosis is:",
+   "o": [
+    "Osteochondroma",
+    "Enchondroma",
+    "Chondrosarcoma",
+    "Giant cell tumour"
+   ],
+   "a": 0,
+   "e": "Osteochondromas are the commonest benign cartilage tumours; they present as subarticular, smoothly contoured ossified masses with a cartilage cap and perichondrium.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_079",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "Which of the following histologic features is characteristic of an enchondroma?",
+   "o": [
+    "Binucleate chondrocytes in a matrix of hyaline cartilage",
+    "Palisading nuclear arrangement with mitotic figures",
+    "Sheets of fusiform cells with storiform pattern",
+    "Malignant chondrocytes with high nuclear pleomorphism"
+   ],
+   "a": 0,
+   "e": "Enchondromas show lobules of hyaline cartilage with bland, binucleate chondrocytes and a paucity of mitoses.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_080",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 34‑year‑old man has a painful mass on the medial aspect of the proximal tibia. MRI reveals a lobulated tumour with intratumoural calcification and a thin, high‑signal cartilage cap. Which imaging finding best predicts that this is a malignant cartilage tumour?",
+   "o": [
+    "Cartilage cap thickness > 1.5 cm",
+    "Necrotic centre",
+    "Peritumoral bone marrow edema",
+    "Cystic degeneration within the mass"
+   ],
+   "a": 0,
+   "e": "A cartilage cap over 1.5 cm in a lesion older than four years strongly suggests a chondrosarcoma; other imaging features are less specific.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_081",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "Chondrosarcoma of the pelvis is primarily treated with:",
+   "o": [
+    "Wide en bloc resection",
+    "Radiation therapy alone",
+    "Chemotherapy alone",
+    "Combination of chemotherapy and radiotherapy"
+   ],
+   "a": 0,
+   "e": "Pelvic chondrosarcomas are radio‑resistant and largely chemosensitive; definitive treatment relies on wide resection, with adjuvant therapy reserved for high‑grade or residual disease.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_082",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "Which of the following statements about juvenile (atypical) chondroblastoma is FALSE?",
+   "o": [
+    "It occurs in skeletally immature patients",
+    "It is most common in the epiphysis of long bones",
+    "It is typically treated with curettage and bone grafting",
+    "It shows large, bizarre nuclear pleomorphism with high mitotic activity"
+   ],
+   "a": 3,
+   "e": "Juvenile chondroblastoma is a low‑grade, benign tumour; histology shows small, round chondroblasts with chondroid matrix but lacks the high‑grade atypia described.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_083",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old woman has a 5‑cm juxtacortical mass on the distal femur. The lesion is destructive, expansile, and shows chaotic calcification on X‑ray. The most appropriate next step is:",
+   "o": [
+    "Open biopsy with a wide margin",
+    "Fine‑needle aspiration cytology",
+    "CT‑guided core needle biopsy",
+    "MRI of the region"
+   ],
+   "a": 2,
+   "e": "CT‑guided core needle biopsy provides adequate tissue for grading while minimizing tumour spread; open biopsy is reserved for cases where needle sampling is inconclusive.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_084",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old woman on long‑term oral bisphosphonate therapy presents with a femoral neck fracture after a low‑energy fall. Which laboratory value is most likely abnormal in this patient?",
+   "o": [
+    "Serum calcium",
+    "Serum phosphate",
+    "Serum alkaline phosphatase",
+    "Serum 25‑hydroxyvitamin D"
+   ],
+   "a": 0,
+   "e": "Bisphosphonates suppress bone turnover, leading to secondary hypocalcaemia; normal phosphate and alkaline phosphatase and adequate vitamin D are usually preserved.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_085",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "Which of the following is NOT an indication for initiating denosumab therapy in an osteoporotic patient?",
+   "o": [
+    "Postmenopausal woman with T‑score ≤ −2.5",
+    "A patient with severe renal impairment (eGFR < 30 mL/min)",
+    "A patient with osteoporosis secondary to glucocorticoid use",
+    "A patient with osteopenia (T‑score between −1.0 and −2.5) and vertebral fractures"
+   ],
+   "a": 1,
+   "e": "Denosumab is contraindicated in severe renal impairment because it can worsen hypocalcaemia; other options are valid indications.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_086",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "A 55‑year‑old man with osteoporosis is started on a selective estrogen receptor modulator (SERM). What is the most characteristic adverse effect of this class?",
+   "o": [
+    "Venous thromboembolism",
+    "Osteoarthritis progression",
+    "Hyperthyroidism",
+    "Hypogonadism"
+   ],
+   "a": 0,
+   "e": "SERMs (e.g., raloxifene) carry a risk of venous thromboembolism similar to estrogen therapy.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_087",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old man with chronic low back pain is found to have a sagittal vertical axis (SVA) of 7 cm and a pelvic incidence–lumbar lordosis mismatch of 25°. He has no neurological deficit. What is the most likely spinopelvic parameter that explains his symptomatic sagittal imbalance?",
+   "o": [
+    "Low pelvic tilt",
+    "Over‑lordosis of the lumbar spine",
+    "Excessive thoracic kyphosis",
+    "High sagittal vertical axis"
+   ],
+   "a": 3,
+   "e": "The high sagittal vertical axis (>5 cm) indicates that the C7 plumb line falls too far anterior to the sacrum, producing a global sagittal deformity that is the primary driver of symptoms.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_088",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 60‑year‑old patient with osteoporotic vertebral fracture at L3 deforms sagittally. Preoperative standing full‑spine films show a pelvic incidence of 70°, pelvic tilt of 20°, sacral slope of 50°, and lumbar lordosis of 30°. What is the most likely compensation mechanism for the sagittal imbalance?",
+   "o": [
+    "Increase in lumbar lordosis",
+    "Increase in pelvic tilt",
+    "Increase in thoracic kyphosis",
+    "Increase in sacral slope"
+   ],
+   "a": 1,
+   "e": "With sagittal imbalance, the pelvis retroverts (increased PT) to bring the upper body back over the sacrum while lumbar lordosis cannot fully compensate.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_089",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 35‑year‑old male athlete is diagnosed with spondylolisthesis at L4‑S1 producing a sagittal vertical axis of 10 cm. During a posterior approach, the surgeon notes a PODI (posterior offset of the three‑column disruption index) of 6 mm. Which of the following best describes the relationship between PODI and sagittal balance?",
+   "o": [
+    "PODI is independent of sagittal balance",
+    "A higher PODI typically worsens sagittal imbalance",
+    "A lower PODI indicates better sagittal alignment",
+    "PODI correlates only with lumbar flexion"
+   ],
+   "a": 1,
+   "e": "PODI reflects the antero‑posterior offset of the vertebral body; a larger offset disrupts the C7 plumb line over the pelvis, aggravating sagittal imbalance.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261107_090",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "Which of the following is NOT a characteristic of the ’classic’ spinopelvic junctional failure pattern after high‑level lumbar fusion?",
+   "o": [
+    "Progression of sagittal vertical axis >5 cm",
+    "Adaptive increase in pelvic tilt",
+    "Normal lumbar lordosis at the fusion level",
+    "Highly symptomatic back pain"
+   ],
+   "a": 2,
+   "e": "After a high‑level lumbar fusion, the fused segment typically loses lordosis, not maintains it; thus a normal lordosis at the fusion level is not seen in classic junctional failure.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  }
+ ],
+ "pendingFlags": [
+  {
+   "id": "cmvvzbs8qy7frc",
+   "q": "A patient with severe recurvatum deformity (>15°) undergoes revision TKA. To correct the recurvatum and prevent hyperextension instability, which strategy is most appropriate?",
+   "key": "Distalize the joint line by augmenting the distal femur and using a thicker polyethylene insert",
+   "sug": "Proximalize the femoral component, augment distal femur, and increase posterior tibial slope",
+   "second": "Proximalize the femoral component, augment distal femur, and increase posterior tibial slope",
+   "issue": "Marked C is incorrect; the appropriate strategy is to proximalize the femoral component, augment the distal femur, and increase posterior tibial slope (option B).",
+   "strong": true,
+   "day": "2026-11-07",
+   "t": 1794091660943
+  },
+  {
+   "id": "cmvwntz7jmfbvk",
+   "q": "In a patient who has received a ceramic head after a head fracture, what is the recommended bearing for revision?",
+   "key": "Ceramic head with sleeve and synovectomy",
+   "sug": "CoCr head on polyethylene",
+   "second": "CoCr head on polyethylene",
+   "issue": "When a ceramic head fractures, revision typically uses a metal‑on‑polyethylene (CoCr head on polyethylene) bearing rather than another ceramic head with a sleeve.",
+   "strong": true,
+   "day": "2026-11-07",
+   "t": 1794092020291
+  },
+  {
+   "id": "cmvy0169fynytv",
+   "q": "A 45‑year‑old man presents with a right flank abdominal pain after a motorcycle crash. CT demonstrates an isolated L3 burst fracture with a pars fracture and a small inferior facet fracture, but the n",
+   "key": "6",
+   "sug": "5",
+   "second": "5",
+   "issue": "TLICS score miscalculated—probable score is 5, not 6.",
+   "strong": true,
+   "day": "2026-11-07",
+   "t": 1794092318782
+  }
+ ],
+ "updated": "2026-11-07T22:58:39.350Z",
  "reviewLog": [
   {
    "at": "2026-11-03T00:10:37.199663Z",
