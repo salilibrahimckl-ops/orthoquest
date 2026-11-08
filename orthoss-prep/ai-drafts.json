@@ -2866,9 +2866,9 @@
   },
   {
    "at": "2026-11-08T00:11:45.426309Z",
-   "kept": 2,
-   "fixed": 17,
-   "rejected": 6,
+   "kept": 1,
+   "fixed": 16,
+   "rejected": 8,
    "written": 0,
    "flagsFixed": 0,
    "flagsDiscarded": 0,
