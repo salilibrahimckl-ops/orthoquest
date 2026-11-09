@@ -1864,179 +1864,7 @@
   "ai20261101_092",
   "ai20261101_093"
  ],
- "pending": [
-  {
-   "id": "ai20261108_076",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "In an elderly patient with Paget disease who develops a megaprosthetic femoral fracture, the preferred fixation strategy is:",
-   "o": [
-    "Cemented hemiarthroplasty with long stem",
-    "Cementless total hip arthroplasty",
-    "Non‑cemented short stem arthroplasty",
-    "Internal fixation with locking plates"
-   ],
-   "a": 0,
-   "e": "Cemented long‑stem hemiarthroplasty achieves immediate stability and accommodates distorted bone architecture seen in Paget disease.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_077",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "A 60‑year‑old woman with primary hyperparathyroidism presents with a brown tumour of the distal phalanx. Which biochemical finding is most characteristic of this condition?",
-   "o": [
-    "Low 25‑hydroxyvitamin D",
-    "Hypercalcaemia and hypophosphataemia",
-    "Elevated PTH‑binding protein",
-    "Increased urinary calcium excretion"
-   ],
-   "a": 1,
-   "e": "Primary hyperparathyroidism causes hypercalcaemia and hypophosphataemia due to PTH‑mediated bone resorption and phosphaturia.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_078",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "Which of the following histological features is classically seen in the thickened, enlarged trabeculae of Paget bone?",
-   "o": [
-    "Angiomatous stroma with capillary proliferation",
-    "Osteoblast nests with high nuclear-to-cytoplasmic ratios",
-    "Glandular mucinous metaplasia",
-    "Trabecular thinness and sclerosis"
-   ],
-   "a": 0,
-   "e": "Paget bone shows increased vascularity with capillary proliferation surrounding the remodelled trabeculae, reflecting the exaggerated osteoclastic activity.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_079",
-   "topic": "Trauma",
-   "kind": "AI-daily",
-   "q": "A 58‑year‑old man sustained a displaced 3‑part proximal humerus fracture and subsequently developed a 7 cm rotator‑cuff tear intra‑operatively. Which of the following fixation methods has the BEST biomechanical advantage in preserving the posterolateral load distribution?",
-   "o": [
-    "Neer double‑dipped type plate",
-    "PHILOS locking plate",
-    "Intramedullary Gamma nail",
-    "Lateral clavicle hook plate"
-   ],
-   "a": 1,
-   "e": "The PHILOS locking plate preserves the lateral column integrity and provides superior load sharing across the articular surface, especially important when the rotator cuff is compromised.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_080",
-   "topic": "Trauma",
-   "kind": "AI-daily",
-   "q": "A 35‑year‑old athlete suffers a posterior glenohumeral dislocation after a tackle. During the reduction attempt, he reports a sudden, sharp pain and a ‘popping’ sound. The subsequent radiographs show a Hill‑Sachs lesion involving the anteromedial surface of the humeral head. Which of the following is the most appropriate surgical procedure for this type of lesion in an overhead athlete?",
-   "o": [
-    "Arthroscopic debridement and microfracture",
-    "Arthroscopic remplissage",
-    "Open humeral head osteotomy",
-    "Reverse total shoulder arthroplasty"
-   ],
-   "a": 1,
-   "e": "Remplissage fills the Hill‑Sachs defect and restores joint stability, preserving the native joint, which is crucial for an overhead athlete.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_081",
-   "topic": "Spine",
-   "kind": "AI-daily",
-   "q": "In a 30‑year‑old male with a thoracolumbar burst fracture (T12) after a road‑traffic collision, which feature on plain radiographs most strongly predicts a subsequent neurological deficit?",
-   "o": [
-    "Vertebral body height loss of <20 %",
-    "Posterior wall retropulsion >4 mm",
-    "Fracture‑gap widening of <1 cm",
-    "Fracture extending into the pedicle only"
-   ],
-   "a": 1,
-   "e": "The most sensitive prognostic sign for nerve root contact in burst fractures is posterior wall retropulsion >4 mm, which indicates potential canal compromise.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_082",
-   "topic": "Spine",
-   "kind": "AI-daily",
-   "q": "A 45‑year‑old woman presents with an L2–L3 facet‑dislocation secondary to a fall. Which imaging study is preferred to delineate the extent of the ligamentous injury?",
-   "o": [
-    "X‑ray AP and lateral views",
-    "CT scan with 3‑D reconstruction",
-    "MRI of the lumbar spine",
-    "Bone‑scan with technetium‑99m"
-   ],
-   "a": 2,
-   "e": "MRI best visualises the posterior ligamentous complex, intervertebral disc and soft‑tissue injuries that define the instability in a facet dislocation.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_083",
-   "topic": "Spine",
-   "kind": "AI-daily",
-   "q": "All of the following are indications for immediate surgical decompression in a thoracolumbar burst fracture EXCEPT:",
-   "o": [
-    "Clinical cauda equina syndrome",
-    "Neurological deficit of ASIA A",
-    "Ventral retropulsion into the canal >50 % of canal diameter",
-    "Excellent pre‑injury neurological status"
-   ],
-   "a": 3,
-   "e": "An intact neurological exam is not an indication for surgery; the other options represent classic surgical indications.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261108_084",
-   "topic": "Spine",
-   "kind": "AI-daily",
-   "q": "Which of the following best explains the prognosis for a patient with an L3 burst fracture who has a dural tear but no neurological deficits?",
-   "o": [
-    "Dural tear guarantees permanent neurological loss",
-    "Early dural repair reduces the risk of long‑term CSF leakage but usually does not affect neurological outcome",
-    "Observation alone is sufficient; dural repair is unnecessary",
-    "The patient should be admitted to ICU for 7 days irrespective of repair"
-   ],
-   "a": 1,
-   "e": "A dural tear increases CSF leak risk; repairing it early mitigates pseudomeningocele formation, but the absence of neurologic deficit generally predicts a good neuro‑prognosis.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  }
- ],
+ "pending": [],
  "pendingFlags": [],
  "updated": "2026-11-08T22:57:25.363Z",
  "reviewLog": [
@@ -2362,6 +2190,17 @@
    "flagsFixed": 0,
    "flagsDiscarded": 0,
    "remaining": 9,
+   "remainingFlags": 0
+  },
+  {
+   "at": "2026-11-09T00:14:51.819307Z",
+   "kept": 2,
+   "fixed": 6,
+   "rejected": 1,
+   "written": 0,
+   "flagsFixed": 0,
+   "flagsDiscarded": 0,
+   "remaining": 0,
    "remainingFlags": 0
   }
  ]
