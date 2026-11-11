@@ -1864,217 +1864,7 @@
   "ai20261101_092",
   "ai20261101_093"
  ],
- "pending": [
-  {
-   "id": "ai20261110_076",
-   "topic": "Arthroplasty",
-   "kind": "AI-daily",
-   "q": "When the glenoid bone stock is intact (≤10 mm of erosion) on the preoperative CT, the preferred fixation method for the glenoid component is:",
-   "o": [
-    "Cemented polyethylene component",
-    "Cementless porous‑coated component",
-    "Augmented metal block with cemented polyethylene",
-    "Hydroxyapatite‑coated metal component with a modular sleeve"
-   ],
-   "a": 0,
-   "e": "For well‑prepared glenoids, cemented polyethylene provides immediate stability and long‑term osseointegration; cementless fixation is reserved for younger, high‑load patients with severe bone loss.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_077",
-   "topic": "Arthroplasty",
-   "kind": "AI-daily",
-   "q": "Which surgical approach is most commonly used for an anatomic TSA while preserving the axillary nerve?",
-   "o": [
-    "Deltopectoral approach",
-    "Deltoid‑split (Conventional) approach",
-    "Superior lateral approach",
-    "Lateral transdeltoid approach"
-   ],
-   "a": 0,
-   "e": "The deltopectoral exposure keeps the axillary nerve behind the deltoid and forearm muscles, reducing the risk of neuropraxia.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_078",
-   "topic": "Arthroplasty",
-   "kind": "AI-daily",
-   "q": "Which factor is a key predictor of early glenoid component loosening after an anatomic TSA?",
-   "o": [
-    "Soft‑tissue imbalance with 10° of postoperative laxity",
-    "Glenoid bone loss of more than 20% of the articular surface",
-    "Implant twist of 2° during placement",
-    "Use of a polyethylene insert larger than 28 mm in diameter"
-   ],
-   "a": 1,
-   "e": "Substantial bone loss (>20%) compromises fixation and contributes to micromotion and loosening of the glenoid component.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_079",
-   "topic": "Sports & Arthroscopy",
-   "kind": "AI-daily",
-   "q": "A 24‑year‑old professional tennis player presents with sudden pain and swelling in the right ankle while serving. MRI shows a lateral ligament sprain with only the peroneus brevis tendon involved. Which of the following is the most appropriate imaging modality to confirm a tibialis posterior tendon tear in this context?",
-   "o": [
-    "Ultrasound",
-    "CT scan",
-    "X‑ray",
-    "Plain MRI"
-   ],
-   "a": 0,
-   "e": "High‑resolution musculoskeletal ultrasound is the first‑choice imaging for suspected tendon ruptures and can differentiate peroneal sprains from posterior drawer injuries of the ankle.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_080",
-   "topic": "Sports & Arthroscopy",
-   "kind": "AI-daily",
-   "q": "A 30‑year‑old footballer complains of groin pain that increases with forced adduction. The FADIR test is positive. Which anatomical structure is most likely responsible for this pattern of pain?",
-   "o": [
-    "Hip joint capsule",
-    "Iliopsoas tendon",
-    "Adductor brevis",
-    "Obturator externus"
-   ],
-   "a": 2,
-   "e": "A positive FADIR test indicates iliopsoas or adductor irritation; the adductor brevis is the most common source of adductor‑related groin pain in athletes.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_081",
-   "topic": "Sports & Arthroscopy",
-   "kind": "AI-daily",
-   "q": "In the management of a basketball player with a non‑acute ACL tear, which of the following anti‑doping substances is most likely to be prohibited due to its effect on collagen synthesis?",
-   "o": [
-    "Anabolic steroids",
-    "Erythropoietin",
-    "Growth hormone",
-    "Beta‑endorphins"
-   ],
-   "a": 2,
-   "e": "Human growth hormone is banned as it promotes extracellular matrix production, potentially aiding ligament repair and giving an unfair advantage.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_082",
-   "topic": "Sports & Arthroscopy",
-   "kind": "AI-daily",
-   "q": "A 28‑year‑old swimmer has recurrent shoulder instability with no previous dislocation. Physical examination shows a positive sulcus sign but a negative apprehension test. Which labral pathology most commonly explains this presentation?",
-   "o": [
-    "SLAP lesion",
-    "Bankart tear",
-    "Posterior labral tear",
-    "Tears of the rotator cuff"
-   ],
-   "a": 2,
-   "e": "A posterior labral tear causes a subtle sulcus sign without the classic apprehension reaction seen in anterior Bankart lesions.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_083",
-   "topic": "Sports & Arthroscopy",
-   "kind": "AI-daily",
-   "q": "In the International Olympic Committee's anti‑doping program, the Athlete Biological Passport monitors which of the following parameters to detect blood manipulation?",
-   "o": [
-    "Blood hemoglobin levels",
-    "Serum testosterone/epitestosterone ratio",
-    "Urine cortisol excretion",
-    "Saliva progesterone concentration"
-   ],
-   "a": 0,
-   "e": "The biological passport tracks hemoglobin and reticulocyte indices, which reveal hidden erythropoiesis‑boosting practices.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_084",
-   "topic": "Paediatric Ortho",
-   "kind": "AI-daily",
-   "q": "A 4‑month‑old male newborn is brought for a routine check‑up. On examination, the right hip is shortened, the femoral head is palpable as a lump in the groin, and the right knee is episiotrophic. The most appropriate next step is",
-   "o": [
-    "X‑ray pelvis in AP and Frog‑leg position",
-    "Ultrasound of the right hip",
-    "MRI of the pelvis",
-    "Immediate referral for surgical dislocation"
-   ],
-   "a": 1,
-   "e": "The classic presentation of developmental dysplasia of the hip (DDH) in a newborn warrants an ultrasound, which is the investigation of choice for infants < 6 months. Plain radiographs may miss the ossification center at this age.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_085",
-   "topic": "Paediatric Ortho",
-   "kind": "AI-daily",
-   "q": "A 3‑year‑old boy presents with a limping gait. Radiographs reveal a shallow acetabulum with a femoral head that is subluxated but not dislocated. The most appropriate management is",
-   "o": [
-    "Immediate surgical dislocation",
-    "Observation with physiotherapy",
-    "Closed reduction under anesthesia",
-    "Percutaneous pinning of the femoral head"
-   ],
-   "a": 1,
-   "e": "A type II or III Perthes‑like radiographic picture in a toddler typically responds to closed reduction because the femoral head is still above most of the pubis; surgery is reserved for more severe displacements.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  },
-  {
-   "id": "ai20261110_086",
-   "topic": "Paediatric Ortho",
-   "kind": "AI-daily",
-   "q": "In children aged 1–2 years, delayed ossification of the femoral head on plain radiographs is",
-   "o": [
-    "A normal variant",
-    "Indicative of femoral head subluxation",
-    "Suggestive of Legg–Calve–Perthes disease",
-    "Characteristic of cervical spine pathology"
-   ],
-   "a": 0,
-   "e": "In toddlers, the femoral head is not yet ossified and appears radiolucent; this is a normal finding and does not indicate dysplasia or other disease.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true
-  }
- ],
+ "pending": [],
  "pendingFlags": [],
  "updated": "2026-11-10T23:02:58.858Z",
  "reviewLog": [
@@ -2543,6 +2333,17 @@
    "flagsFixed": 0,
    "flagsDiscarded": 0,
    "remaining": 11,
+   "remainingFlags": 0
+  },
+  {
+   "at": "2026-11-11T00:16:22.269634Z",
+   "kept": 2,
+   "fixed": 8,
+   "rejected": 1,
+   "written": 15,
+   "flagsFixed": 0,
+   "flagsDiscarded": 0,
+   "remaining": 0,
    "remainingFlags": 0
   }
  ]
