@@ -5303,6 +5303,1735 @@
    "year": "",
    "fresh": true,
    "proofed": true
+  },
+  {
+   "id": "ai20261113_001",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 32‑year‑old construction worker falls onto a partially outstretched foot. He presents with pain and swelling but no visible deformity. Plain radiographs reveal a displaced fracture of the posterolateral fragment of the talar dome and a concurrent It–type (Delbet I) fracture of the fibular neck. Which narratical feature best justifies operative fixation?",
+   "o": [
+    "Ankle instability on physical examination",
+    "Displacement of the posterior malleolus more than 25 mm",
+    "Associated ankle sprain",
+    "Patient's age over 30"
+   ],
+   "a": 0,
+   "e": "A displaced posterior malleolus exceeds 25 mm, creating joint incongruity and instability; it must be fixed to restore the articular surface and prevent post‑traumatic arthritis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_002",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "In a Schatzker type IV (medial malleolus) fracture with an associated articular step of 5 mm, the gold‑standard investigation to decide the need for open reduction is:",
+   "o": [
+    "Ultrasound of the ankle",
+    "Magnetic resonance imaging of the ankle",
+    "Computed tomography scan of the ankle",
+    "Fluoroscopy during manipulation"
+   ],
+   "a": 2,
+   "e": "CT accurately delineates the articular step, fragment morphology and posterior malleolar involvement, guiding fixation decisions.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_003",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 28‑year‑old male has a Weber B fibular fracture with intra‑articular displacement of less than 2 mm. The ankle remains stable on weight‑bearing stress radiographs. The most appropriate initial treatment is:",
+   "o": [
+    "Immediate open reduction and internal fixation",
+    "Closed reduction with internal fixation by percutaneous screws",
+    "External fixation only",
+    "Splinting and close observation"
+   ],
+   "a": 3,
+   "e": "If displacement is minimal and the joint is stable, non‑operative treatment with a functional brace allows early mobilisation and avoids surgical risks.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_004",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "Which complication is most frequently seen after open reduction and internal fixation of an ankle fracture involving the lateral malleolus in a low‑energy mechanism?",
+   "o": [
+    "The Hawkins sign of posterior ankle impingement",
+    "Ankle joint stiffness",
+    "Osteomyelitis of the distal tibia",
+    "Delayed union of the fibula"
+   ],
+   "a": 1,
+   "e": "Stiffness is the commonest morbidity following ORIF of a lateral malleolus due to postoperative immobilisation and early scarring.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_005",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 58‑year‑old man with degenerative scoliosis presents with increased lumbar lordosis after surgery. On standing full‑length radiographs, the lumbar lordosis is measured at 75°. Which spinopelvic parameter is most strongly correlated with lumbar lordosis and is used to assess global sagittal balance?",
+   "o": [
+    "Pelvic tilt",
+    "Sacral slope",
+    "Lumbar sagittal vertical axis",
+    "Pelvic incidence"
+   ],
+   "a": 3,
+   "e": "Pelvic incidence is a fixed anatomic parameter that determines the amount of lumbar lordosis needed for a balanced posture.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_006",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 35‑year‑old woman with S1 coronal decompensation has PI‑LL mismatch of 20°. Which of the following surgical goals is most critical for restoring sagittal balance?",
+   "o": [
+    "Achieve a lumbar lordosis equal to the patient’s T1 slope",
+    "Reduce the PI‑LL mismatch to less than 10°",
+    "Preserve the sacral slope above 45°",
+    "Increase the lumbar kyphosis to 10°"
+   ],
+   "a": 1,
+   "e": "A PI‑LL mismatch >10° predicts postoperative back pain; the primary surgical aim is to reduce it below 10°.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_007",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "In the Scoliosis Research Society‑Schwab classification for adult spinal deformity, what defines a grade ‘B’ pelvic tilt?",
+   "o": [
+    "PT >25°",
+    "PT 10°–25°",
+    "PT <10°",
+    "PT 0°–10°"
+   ],
+   "a": 1,
+   "e": "Grade B corresponds to a moderate pelvic retroversion with PT between 10° and 25°.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_008",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 72‑year‑old patient has a global sagittal vertical axis (gSVA) of 33 cm on standing radiographs. Which parameter is least likely to explain this large positive SVA?",
+   "o": [
+    "Excess lumbar lordosis",
+    "Advanced cervical kyphosis",
+    "Pelvic retroversion",
+    "Anterior pelvic tilt"
+   ],
+   "a": 0,
+   "e": "Excess lumbar lordosis would actually reduce SVA; the large positive SVA is most related to cervical kyphosis, pelvic retroversion, or anterior pelvic tilt.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_009",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "A 55‑year‑old man with a failed hemi‑arthroplasty and a fractured head of the humerus is scheduled for a stem‑shortening revision. Which implant feature is most critical to restore the humeral offset?",
+   "o": [
+    "Length of the femoral component",
+    "Lateral humeral offset of the stem",
+    "Medial wall thickness of the head",
+    "Superior inclination of the humeral head"
+   ],
+   "a": 1,
+   "e": "Restoring lateral humeral offset re‑establishes the deltoid lever arm and reduces subacromial impingement; thus, the stem’s lateral offset is the key parameter in a short‑stem revision.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_010",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "The proximal humerus necrosis score is used to decide implant choice in shoulder arthroplasty. A grade 4v case would most likely receive which component?",
+   "o": [
+    "Hemi‑arthroplasty with a bipolar head",
+    "Anatomic total shoulder arthroplasty",
+    "Reverse total shoulder arthroplasty",
+    "Stemless hemi‑arthroplasty"
+   ],
+   "a": 2,
+   "e": "Grade 4v indicates extensive humeral head collapse with rotator cuff deficiency; reverse arthroplasty is the standard of care for such advanced glenohumeral disease.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_011",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "What is the key limitation of using a fully coated glenoid component in the setting of osteopenic glenoid bone?",
+   "o": [
+    "Excessive wear of polyethylene",
+    "Elevated dislocation rate",
+    "Difficulty achieving initial fixation",
+    "Uncontrolled polyethylene debris"
+   ],
+   "a": 2,
+   "e": "In osteopenic bone, porous coating cannot achieve adequate bone ingrowth, leading to a weak initial fixation that predisposes to early loosening.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_012",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 25‑year‑old footballer presents with medial knee pain after a pivoting maneuver. Arthroscopy reveals a longitudinal tear of the posterior horn of the medial meniscus and a meniscal flap excised with a meniscal ramp lesion. The most common associated intra‑articular injury in this scenario is:",
+   "o": [
+    "Anterior cruciate ligament rupture",
+    "Lateral collateral ligament sprain",
+    "Posterior communicating ligament tear",
+    "Hyaline cartilage loss of the medial femoral condyle"
+   ],
+   "a": 0,
+   "e": "Longitudinal posterior horn meniscus tears are frequently accompanied by ACL injuries because the same shear forces that tear the meniscus also stretch the ACL.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_013",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 35‑year‑old skier has a vertical tibial plateau fracture with a 4‑mm step‑off of the articular surface. Which of the following is the best surgical principle to achieve a low‑grade arthrosis risk?",
+   "o": [
+    "Open reduction with a single cortical screw",
+    "Arthroscopically assisted reduction and fixation using a neutral beam screw",
+    "Osteotomy of the tibial plateau with a bone graft",
+    "Primary arthroplasty of the tibial plateau"
+   ],
+   "a": 1,
+   "e": "For vertical plateau fractures, an arthroscopically assisted placement of a neutral beam screw aligns the joint surface accurately and minimizes joint incongruity, reducing arthrosis risk.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_014",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "The most common pattern of meniscal tear in a young athlete after a sudden change of direction is:",
+   "o": [
+    "Horizontal cleavage tear",
+    "Complex tear with radial component",
+    "Longitudinal flap tear",
+    "Root tear"
+   ],
+   "a": 2,
+   "e": "Sudden pivoting places a longitudinal shear on the meniscus, making longitudinal flap tears the most frequent injury pattern in young athletes.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_015",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "Which of the following is NOT a recognised risk factor for developmental dysplasia of the hip in neonates?",
+   "o": [
+    "Male sex",
+    "Breech presentation",
+    "Family history of DDH",
+    "Steroid exposure in utero"
+   ],
+   "a": 3,
+   "e": "Steroid exposure in utero is not linked to DDH. Male sex, breech delivery, and a family history are well‑established risk factors.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_016",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "The most appropriate first‑line investigation for a 5‑day‑old with a suspected unilateral hip dislocation is",
+   "o": [
+    "Conventional AP pelvis radiograph",
+    "Ultrasound of the hips",
+    "MRI of the pelvis",
+    "CT scan of the hips"
+   ],
+   "a": 1,
+   "e": "Ultrasound is the modality of choice for hips <6 months of age; it visualises the cartilaginous structures and detects dislocation without radiation.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_017",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 2‑year‑old girl presents with a shallow, high‑riding acetabulum on the right side. She is still ambulant with no limp. According to the Tönnis classification, what grade does her hip most likely fall into?",
+   "o": [
+    "Grade I",
+    "Grade II",
+    "Grade III",
+    "Grade IV"
+   ],
+   "a": 0,
+   "e": "Grade I correlates with a shallow, high‑riding acetabulum and minimal displacement; higher grades involve progressive femoral head migration.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_018",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "Which of the following statements about the use of the Pemberton osteotomy in treatment of DDH is TRUE?",
+   "o": [
+    "It is indicated for patients older than 20 years with residual acetabular dysplasia",
+    "It creates a complete detachment of the triradiate cartilage",
+    "It reconstructs the acetabulum by medially angulating the subperiosteal fragment",
+    "It is contraindicated in neonates"
+   ],
+   "a": 2,
+   "e": "The Pemberton osteotomy re‑orients the acetabular roof by medially angulating the subperiosteal fragment, improving coverage. It is used primarily in early childhood, not in neonates or adults.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_019",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 6‑year‑old boy was treated with a Pavlik harness for a left hip diagnosed as Graf type IIa. The harness was kept for 12 weeks. At 1‑year follow‑up the acetabular index remains 27°. Which complication should be investigated as a probable sequela of prolonged harness use?",
+   "o": [
+    "Hip subluxation",
+    "Legg–Calvé–Perthes disease",
+    "Avascular necrosis of the femoral head",
+    "Osteoarthritis of the knee"
+   ],
+   "a": 2,
+   "e": "Prolonged harness use can lead to avascular necrosis of the femoral head due to sustained traction on the medial femoral circumflex artery.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_020",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 34‑year‑old woman presents with a painful lateral foot swelling and a swelling over the first metatarsophalangeal joint that worsens with wearing high‑heeled shoes. Plain radiographs show a lateral deviation of the first metatarsal head and a first‑to‑second metatarsal angle of 20°. Which osteotomy is most appropriate in a non‑obese patient with mild deformity?",
+   "o": [
+    "1st metatarsal medial column osteotomy",
+    "Lapidus (first tarsometatarsal) arthrodesis",
+    "Chevron osteotomy of the first metatarsal head",
+    "Grass arthrodesis of the 1st MTP joint"
+   ],
+   "a": 2,
+   "e": "In a mild, non‑obese hallux valgus (angle <25°) a Chevron (distal medial rotation) osteotomy corrects the deformity while preserving joint function. The other options are for moderate–severe deformity or for joint arthrodesis when the joint is arthritic.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_021",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 38‑year‑old sprinter presents with a dorsal foot swelling over the 2nd metatarsal region that does not improve with rest. Radiographs show a stress fracture of the proximal phalanx of the second toe. The most appropriate imaging modality to confirm a possible osteonecrosis of the proximal phalanx is:",
+   "o": [
+    "Ultrasound",
+    "Plain radiograph",
+    "CT scan",
+    "MRI"
+   ],
+   "a": 3,
+   "e": "MRI is the gold standard for early osteonecrosis, showing bone marrow edema and subchondral cysts before sclerosis appears on X‑ray or CT.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_022",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 15‑year‑old presents with a rapidly enlarging, firm, non‑mobile mass over the left femoral diaphysis. MRI shows a permeative lytic lesion with cortical destruction. Which histological finding is most characteristic of Ewing sarcoma?",
+   "o": [
+    "Seventy‑percent small, round, blue cells with a mitotic count >10/10 high‑power fields",
+    "Cell nests of uniform spindle cells with a whorled pattern",
+    "Large, pleomorphic osteoblasts forming lamellar bone",
+    "Infiltration of mature adipocytes with a myxoid stroma"
+   ],
+   "a": 0,
+   "e": "Ewing sarcoma is defined by sheets of small, round, blue cells; high mitotic activity is typical.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_023",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "An ENTP (4‑year‑old) with a central lytic lesion of the proximal tibia shows a ‘honeycomb’ appearance on radiograph. What is the most common histopathological type in this age group?",
+   "o": [
+    "Osteogenic sarcoma",
+    "Osteoclastoma",
+    "Osteoblastoma",
+    "Eosinophilic granuloma"
+   ],
+   "a": 3,
+   "e": "Eosinophilic granuloma (Langerhans cell histiocytosis) is the frequent cause of lytic lesions in children.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_024",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "The translocation t(11;22)(q24;q12) is diagnostic for which small round‑cell tumour?",
+   "o": [
+    "Rhabdomyosarcoma",
+    "Neuroblastoma",
+    "Ewing sarcoma",
+    "Desmoplastic small round cell tumour"
+   ],
+   "a": 2,
+   "e": "Ewing sarcoma harbours the characteristic t(11;22) translocation.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_025",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "All of the following are indications for neoadjuvant chemotherapy in high‑grade osteosarcoma EXCEPT:",
+   "o": [
+    "Large tumour >10 cm in diameter",
+    "Axial localisation",
+    "Disease confined to bone with no metastasis",
+    "Localised disease with a favourable response after a 3‑week course of MAP"
+   ],
+   "a": 3,
+   "e": "Neoadjuvant chemo is used to shrink tumours or treat micrometastases; a favourable response after 3 weeks isn’t an indication for its use.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_026",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "Which imaging modality is most sensitive for detecting early bone marrow oedema in a suspected osteoid osteoma?",
+   "o": [
+    "Conventional radiography",
+    "CT scan",
+    "Plain X‑ray and bone scan combined",
+    "MRI"
+   ],
+   "a": 3,
+   "e": "MRI detects marrow oedema and the nidus with high sensitivity; bone scan adds functional information.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_027",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "In a meta‑analysis of 12 RCTs comparing minimally invasive total ankle replacement (MISTR) with open total ankle replacement (OTAR), heterogeneity was quantified as I² = 62 %. Which of the following is the most appropriate interpretation?",
+   "o": [
+    "The results are homogeneous; pooling is justified.",
+    "There is considerable variability; a random‑effects model should be used.",
+    "The I² value indicates a high risk of bias in the studies.",
+    "Heterogeneity is too low to affect the overall estimate."
+   ],
+   "a": 1,
+   "e": "An I² of over 50 % reflects substantial heterogeneity; consequently, a random‑effects model is preferred to account for between‑study variation.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_028",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "Which of the following statements about the GRADE system for evaluating evidence quality is false?",
+   "o": [
+    "Randomized trials start as high‑quality evidence.",
+    "Observational studies begin as low‑quality evidence.",
+    "A large magnitude of effect can upgrade observational studies.",
+    "The presence of publication bias always downgrades evidence."
+   ],
+   "a": 3,
+   "e": "Publication bias is a consideration but does not automatically downgrade evidence; it is one of several factors assessed.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_029",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "A patient with osteoarthritis of the knee undergoes a 12‑week supervised exercise program. The mean pain score before treatment is 6.5 (SD = 1.2); after treatment it is 4.8 (SD = 1.0). Assuming a paired t‑test was performed, the p‑value reported was 0.04. Which conclusion is most accurate?",
+   "o": [
+    "The exercise program caused a statistically significant reduction in pain.",
+    "The pain reduction is clinically significant but not statistically significant.",
+    "The reduction is likely due to chance since the p‑value is close to 0.05.",
+    "The study lacks power to detect a true effect."
+   ],
+   "a": 0,
+   "e": "A p‑value of 0.04 indicates that the observed difference is unlikely to have occurred by chance at the conventional 5 % threshold, thus it is statistically significant.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_030",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "In a prospective registry of 1,200 patients undergoing reverse shoulder arthroplasty, the 2‑year revision rate for glenoid loosening was 3.5 %. The 95 % confidence interval for the event rate was stated as 2.6 % to 4.6 %. What does this confidence interval represent?",
+   "o": [
+    "The true revision rate in the population is exactly 3.5 %.",
+    "There is a 95 % chance that any future study will find a revision rate between 2.6 % and 4.6 %.",
+    "We can be 95 % confident that the population revision rate lies within 2.6 % to 4.6 %.",
+    "The interval reflects the variability between individual patient outcomes."
+   ],
+   "a": 2,
+   "e": "A 95 % confidence interval gives a range within which the true population parameter is expected to lie with 95 % confidence, based on the sample data.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_031",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "During surgical fixation of a hip fracture in a patient with Paget disease, the most appropriate prophylactic measure to prevent intra‑operative bleeding is:",
+   "o": [
+    "Pre‑operative bisphosphonate infusion",
+    "Pre‑operative anabolic osteoanabolic therapy",
+    "High‑dose vitamin D",
+    "Post‑operative steroids"
+   ],
+   "a": 0,
+   "e": "High‑dose bisphosphonates given pre‑operatively reduce bone turnover and intra‑operative bleeding in Paget disease.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_032",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "In a 45‑year‑old man with type 2 diabetes, serum calcium, phosphate and PTH are normal. He complains of diffuse bone pain. The investigation of choice to diagnose vitamin D‑deficiency osteomalacia is:",
+   "o": [
+    "Serum 25‑hydroxyvitamin D",
+    "Serum 1‑hydroxyvitamin D",
+    "Alkaline phosphatase",
+    "Bone mineral density scan"
+   ],
+   "a": 0,
+   "e": "25‑hydroxyvitamin D reflects body stores and is the screening test for vitamin D deficiency.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_033",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "A 52‑year‑old woman on long‑term oral glucocorticoids develops painful subchondral bone loss in the femoral head. The imaging feature most typical of spontaneous osteonecrosis in this context is:",
+   "o": [
+    "Subchondral crescent sign",
+    "Codman’s triangle",
+    "Punctate fractures",
+    "Sharp cortical thinning"
+   ],
+   "a": 0,
+   "e": "The subchondral crescent sign (sequestrum‑like radiolucency) on X‑ray or MRI is classic for osteonecrosis of the femoral head.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_034",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old male presents with an acute humeral head fracture following a ground‑level fall. X‑ray shows a displaced 3‑part fracture with a large inferior fragment and no displacement of the humeral shaft. According to the Neer classification, the most appropriate treatment is:",
+   "o": [
+    "Closed reduction and percutaneous pinning",
+    "Open reduction and internal fixation with a locked plate",
+    "Surgical arthroplasty (reverse shoulder arthroplasty)",
+    "Observation with analgesics only"
+   ],
+   "a": 2,
+   "e": "A 3‑part Neer fracture involving the greater and lesser tuberosities with a sizable inferior fragment indicates a poor prognosis for fixation and is best managed by reverse shoulder arthroplasty.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_035",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 25‑year‑old construction worker sustains a displaced posterior dislocation of the shoulder due to a fall from height. Which neurovascular structure is most commonly compromised?",
+   "o": [
+    "Median nerve",
+    "Axillary nerve",
+    "Radial nerve",
+    "Median cubital vein"
+   ],
+   "a": 1,
+   "e": "Posterior shoulder dislocations stretch the axillary nerve against the surgical neck; axillary nerve palsy is the classic neurovascular injury.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_036",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "In the setting of a proximal humerus fracture with a recognized 50% head‑to‑neck ratio loss, the surgical approach that preserves the rotator cuff insertion and is commonly preferred for fixation is:",
+   "o": [
+    "Deltoid‑pectoral approach",
+    "Lateral‐skull approach",
+    "Biceps‑plasty approach",
+    "Posterior scar re‑entry approach"
+   ],
+   "a": 0,
+   "e": "The deltoid‑pectoral approach provides direct exposure of the medial and lateral columns while preserving rotator cuff tendons.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_037",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 55‑year‑old woman sustains a horizontal fracture of the scapular spine after a fall on her shoulder. The fracture is displaced and angulated. Which implant is most suitable for fixation?",
+   "o": [
+    "A single 3‑mm cannulated screw",
+    "A multiplanar locking plate",
+    "A single K‑wire",
+    "A tension band wire"
+   ],
+   "a": 1,
+   "e": "A scapular spine fracture needs angular stability; a multiplanar locking plate provides rigid fixation for displaced, angulated fractures.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_038",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "In a TKA patient with a varus deformity and a narrow medullary canal, which intraoperative technique best prevents tibial component subsidence?",
+   "o": [
+    "Use of a cemented tibial tray with a thicker tibial stem",
+    "Uncemented tibial fixation with large polyethylene insert",
+    "External fixation of the tibia during insertion",
+    "Application of a posterior‑sleeve component"
+   ],
+   "a": 0,
+   "e": "A longer tibial stem (or a thicker one) increases the surface area and transfers load medially, reducing the risk of subsidence in a narrow canal.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_039",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "A 65‑year‑old man presents with a 12° fixed valgus deformity. The best surgical plan to achieve a balanced extension gap without compromising tibial component alignment is:",
+   "o": [
+    "Lateral distal femoral osteotomy followed by TKA",
+    "Medial opening–wedge high tibial osteotomy and simultaneous TKA",
+    "Lateral closing–wedge high tibial osteotomy with tibial plateau replacement",
+    "Complete uncommitted TKA after complete soft‑tissue releases"
+   ],
+   "a": 1,
+   "e": "A medial opening–wedge HTO restores mechanical axis while allowing the tibial component to be positioned perpendicular to the mechanical axis, giving a well‑balanced extension gap.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_040",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "Which intra‑operative measurement is most reliable for confirming that the flexion gap equals the extension gap after a TKA?",
+   "o": [
+    "Navigation‑assisted gap measurement",
+    "Static fluoroscopic assessment of gaps",
+    "Intra‑operative percussion test of the joint",
+    "Palpation of the tibial plateau with the leg in full extension"
+   ],
+   "a": 0,
+   "e": "Computer navigation provides precise, quantitative gap data throughout the range of motion, allowing accurate balancing of flexion and extension spaces.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_041",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 24‑year‑old professional beach‑volleyball player reports recurrent anterior shoulder dislocations after a sudden overhead spike. Physical exam shows a positive apprehension sign and a hyper‑laxity grade 3 on the Beighton score. Which ligamentous structure is most likely the primary source of instability in this patient?",
+   "o": [
+    "Anterior inferior glenoid labrum",
+    "Posterior inferior glenoid labrum",
+    "Superior glenoid labrum",
+    "Under‑arm capsule"
+   ],
+   "a": 0,
+   "e": "Anterior inferior labrum lesions (SLAP/I‑S tears) are the commonest cause of anterior instability in throwing athletes and overhead players.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_042",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "In the frozen shoulder (adhesive capsulitis), the most characteristic MRI finding is:",
+   "o": [
+    "Loss of coracohumeral ligament thickness",
+    "Capsular thickening with fluid collection in posterior glenohumeral joint",
+    "Heterogeneous signal within subacromial / subdeltoid bursa",
+    "Tear of subscapularis tendon"
+   ],
+   "a": 1,
+   "e": "Imaging typically shows capsular thickening and a fluid‑filled joint space, especially in the posterior capsule.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_043",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "All of the following are indications for arthroscopic Latarjet procedure in anterior shoulder instability EXCEPT:",
+   "o": [
+    "History of 3 or more dislocations",
+    "Engaged Hill‑Sachs lesion",
+    "Glenoid bone loss >15% of articular surface",
+    "Presence of an unstable glenoid labrum with intact capsule"
+   ],
+   "a": 3,
+   "e": "An intact capsule means arthroscopic Bankart repair is usually favored; the Latarjet is for bone loss or gross instability.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_044",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 28‑year‑old footballer presents with a Bankart lesion and a glenoid bone defect measuring 12 mm (≈18% of the glenoid surface). What is the preferred surgical approach?",
+   "o": [
+    "Open Bankart repair",
+    "Arthroscopic Bankart repair",
+    "Arthroscopic Latarjet",
+    "Open Latarjet"
+   ],
+   "a": 2,
+   "e": "For bone loss >15% an Latarjet is recommended; arthroscopic technique is preferred for better visualization and less morbidity.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_045",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 13‑year‑old girl presents with an isolated sharp‑tipped pain in the thigh after a bicycle crash. Radiographs show a non‑displaced, minimally angulated fracture of the proximal tibial metaphysis (AO type 42AP). The most appropriate treatment is:",
+   "o": [
+    "Elastic stable intramedullary nailing (ESIN)",
+    "Simple longitudinal traction and cast for 4 weeks",
+    "Plate fixation with a 3.5‑mm locking compression plate",
+    "Internal fixation with two crossed K‑wires"
+   ],
+   "a": 0,
+   "e": "The proximal tibial metaphysis in children has a good capacity for remodeling. ESIN provides stable fixation with minimal soft‑tissue disruption and allows early mobilization, which is the preferred method for this type of fracture.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_046",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 15‑month‑old boy has sustained a fall from a table and now complains of right wrist pain. X‑ray shows a buckling (torus) fracture of the distal radius with <10° angulation. The most appropriate management is:",
+   "o": [
+    "Closed reduction and a short arm cast",
+    "Percutaneous Kirschner wire fixation",
+    "Observation with no immobilisation",
+    "Immediate surgery with a volar locking plate"
+   ],
+   "a": 0,
+   "e": "Buckling fractures with minimal angulation are best treated with closed reduction and a well‑applied short arm cast, allowing natural remodeling while avoiding the complications of surgery.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_047",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 10‑year‑old girl falls and sustains a displaced Salter‑Harris type IV fracture of the proximal tibial physis. Which of the following is the most important factor to consider when selecting a fixation device?",
+   "o": [
+    "Ability to withstand varus‑valgus stress",
+    "Minimum of three screws for stability",
+    "Use of a cross‑K wire technique",
+    "Preservation of the medial collateral ligament insertion"
+   ],
+   "a": 3,
+   "e": "The medial collateral ligament inserts on the proximal tibial metaphysis. Fixation must preserve this attachment to prevent postoperative instability and growth disturbances.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_048",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 5‑year‑old boy presents with a midshaft femoral shaft fracture following a scooter accident. The best initial treatment is:",
+   "o": [
+    "Intramedullary elastic nailing",
+    "Open reduction and plating with a dual‑layer plate",
+    "Malleolar traction and cast for 12 weeks",
+    "Functional bracing using a hip‑abduction splint"
+   ],
+   "a": 0,
+   "e": "Intramedullary elastic nailing offers stable internal fixation, minimal soft‑tissue damage, and permits early weight bearing, making it the preferred treatment for diaphyseal femoral fractures in children.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_049",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 42‑year‑old runner develops a painful, swollen left wrist after a repetitive wrist extension injury. X‑ray shows a transverse fracture of the proximal radius. Which type of infection is most concerning if the fracture is not treated promptly?\nA. Parenteral osteomyelitis\nB. Bacterial septic arthritis of the wrist joint\nC. Cellulitis of the forearm\nD. Tendon sheath abscess",
+   "o": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "a": 1,
+   "e": "A distal radius fracture can create a communication between the fracture site and the wrist joint; untreated, this can lead to septic arthritis, the most dreaded complication.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_050",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "The most common pathogen isolated in infective flexor tendon sheath tenosynovitis affecting the fingers is:\nA. *Streptococcus pyogenes*\nB. *Staphylococcus aureus*\nC. *Pseudomonas aeruginosa*\nD. *Escherichia coli*",
+   "o": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "a": 1,
+   "e": "Staphylococcus aureus accounts for the majority of flexor tendon sheath infections in the hand.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_051",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "An adult hand surgeon identifies a thick, yellow‑ish mass within the second and third finger flexor tendon sheath during surgery for sepsis. Which of the following is most likely the underlying cause?\nA. Infectious granuloma\nB. Infective tenosynovitis caused by *S. aureus*\nC. Tenosynovial cyst malignant transformation\nD. Synovial osteochondromatosis",
+   "o": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "a": 1,
+   "e": "A yellow‑tinged mass in the flexor sheath during septic tenosynovitis typically represents an abscess of pus from *S. aureus* infection.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_052",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "All of the following statements about the Broström repair for chronic lateral ankle instability are TRUE EXCEPT:",
+   "o": [
+    "It involves tightening of the ATFL and CFL",
+    "It is performed via an open medial approach",
+    "It can be augmented with a semitendinosus allograft",
+    "It is indicated for high‑risk patients such as athletes"
+   ],
+   "a": 1,
+   "e": "The Broström repair is an open lateral (not medial) approach; the statement that it is performed via a medial approach is incorrect.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_053",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "Which of the following is a CLASSICAL INDICATION for an ankle arthrodesis in a patient with end‑stage ankle arthritis?",
+   "o": [
+    "Bilateral compartmental arthritis",
+    "Unicompartmental degenerative changes with preserved range of motion",
+    "Symptomatic classic osteoarthritis with radiographic joint space obliteration",
+    "Patients >70 years old with mild pain"
+   ],
+   "a": 2,
+   "e": "End‑stage arthritic joint space obliteration with pain unresponsive to conservative measures is the classic indication for ankle arthrodesis. “Unicompartmental” disease is usually treated with osteochondral procedures, not fusion.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_054",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "In the TNM staging of bone sarcomas, which of the following best describes the M component?",
+   "o": [
+    "Presence of any regional lymph node metastases",
+    "Metabolic activity of the primary tumour on PET imaging",
+    "Evidence of distant organ or marrow spread at diagnosis",
+    "Involvement of the adjacent soft tissues beyond the cortex"
+   ],
+   "a": 2,
+   "e": "M stands for ‘metastasis’ and is defined by the documented spread of tumour cells to distant organs or bone marrow at the time of diagnosis.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_055",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 28‑year‑old woman has a large, deep soft‑tissue mass in the thigh that has grown rapidly over 6 weeks. The surgeon performs an excisional biopsy. Which of the following gross features of the specimen is most characteristic of a high‑grade rhabdomyosarcoma?",
+   "o": [
+    "Well‑circumscribed, encapsulated with clear margins",
+    "Extensive necrosis with haemorrhagic foci",
+    "Predominantly cystic with serous fluid",
+    "Multiple brownish nodules surrounded by yellow fatty tissue"
+   ],
+   "a": 1,
+   "e": "High‑grade rhabdomyosarcomas typically show frank necrosis and haemorrhage, reflecting their aggressive biology and rapid growth.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_056",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old man with a known primary high‑grade osteosarcoma of the humerus undergoes whole‑body imaging. Which modality is preferred as the investigation of choice to detect pulmonary metastases?",
+   "o": [
+    "Contrast‑enhanced CT of the thorax",
+    "Bone scintigraphy",
+    "Magnetic resonance imaging of the chest",
+    "Ultrasound of the lungs"
+   ],
+   "a": 0,
+   "e": "Computed tomography of the chest with contrast is the gold standard for detecting small pulmonary nodules that represent the most common site of metastasis in osteosarcoma.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_057",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "In the context of soft‑tissue sarcoma, the term ‘core needle biopsy’ is preferred over a ‘punch biopsy’ because:",
+   "o": [
+    "It provides a larger tissue sample for histology and molecular studies",
+    "It is less invasive and avoids the need for general anaesthesia",
+    "It guarantees a negative margin with a single pass",
+    "It allows for immediate frozen section diagnosis during surgery"
+   ],
+   "a": 0,
+   "e": "Core needle biopsy yields a larger, cylindric tissue core that is suitable for both routine histopathology and ancillary molecular testing, whereas a punch biopsy provides only a small, superficial specimen.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_058",
+   "topic": "Oncology",
+   "kind": "AI-daily",
+   "q": "A 60‑year‑old patient with a newly diagnosed lower‑extremity soft‑tissue sarcoma is staged as T2N0M0. Which of the following statements regarding its staging is FALSE?",
+   "o": [
+    "T2 indicates a tumour size greater than 5 cm",
+    "N0 means no clinically evident regional lymph node involvement",
+    "M0 confirms absence of distant metastasis at diagnosis",
+    "The Staging is based on the 8th edition of the TNM system for soft‑tissue sarcoma"
+   ],
+   "a": 3,
+   "e": "Staging of soft‑tissue sarcomas uses the 8th edition of the TNM system for all tumours, not just the 7th edition, so statement D is incorrect.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_059",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "In the process of bone remodeling, which molecule produced by osteoblasts is essential for the differentiation of osteoclast precursors into mature osteoclasts?",
+   "o": [
+    "RANKL expressed on osteoblast surfaces",
+    "Osteonectin secreted by osteocytes",
+    "Osteoprotegerin released by osteoblasts",
+    "M-CSF produced by osteoprogenitors"
+   ],
+   "a": 0,
+   "e": "RANKL binds to RANK on osteoclast precursors, triggering their differentiation. Osteoprotegerin acts as a decoy receptor to inhibit this, while osteonectin and M‑CSF play supportive roles but are not the primary initiators.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_060",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "Which component of the inorganic bone matrix is primarily responsible for endowing cortical bone with its ability to resist compressive forces?",
+   "o": [
+    "Hydroxyapatite crystals",
+    "Type I collagen fibers",
+    "Osteocalcin",
+    "Osteonectin"
+   ],
+   "a": 0,
+   "e": "Hydroxyapatite is the mineralized, calcium‑phosphate crystal that provides compressive strength; collagen gives tensile strength and osteocalcin and osteonectin act mainly as regulatory proteins.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_061",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "During osteoclastic resorption, which cell type is chiefly responsible for secreting the proton pump that dissolves hydroxyapatite?",
+   "o": [
+    "Osteoclast",
+    "Osteoblast",
+    "Osteocyte",
+    "Osteoprogenitor"
+   ],
+   "a": 0,
+   "e": "Osteoclasts secrete H⁺ via the vacuolar ATPase in the ruffled border, creating an acidic microenvironment that dissolves hydroxyapatite before collagen degradation.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_062",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "A 22‑year‑old male presents with painless wrist swelling; X‑ray shows cortical thinning and pseudofractures. The typical defect in bone biology responsible for this picture is:",
+   "o": [
+    "Decreased osteoid secretion",
+    "Increased osteoid phosphorylation",
+    "Defective matrix metalloproteinase activity",
+    "Impaired cleavage of the N‑terminal propeptide of type I collagen by osteoblasts"
+   ],
+   "a": 3,
+   "e": "The lack of cleavage of the N‑terminal propeptide (N‑propeptide) by osteoblasts prevents proper mineralization, leading to osteomalacia, visualized as pseudofractures and cortical thinning.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_063",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "Which signaling pathway directly links the removal of bone by osteoclasts to the stimulation of new bone formation by osteoblasts during normal remodeling?",
+   "o": [
+    "Wnt/β‑catenin",
+    "Hedgehog",
+    "Notch",
+    "RANK/RANKL/OPG"
+   ],
+   "a": 3,
+   "e": "The RANK/RANKL/OPG axis is fundamental in coupling remodeling: RANKL stimulation of osteoclasts is counteracted by osteoprotegerin, and the resorption phase releases factors that promote osteoblastogenesis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_064",
+   "topic": "Basic Sciences",
+   "kind": "AI-daily",
+   "q": "The most common monogenic disorder characterized by low bone density and frequent fractures in childhood is:",
+   "o": [
+    "Osteogenesis imperfecta",
+    "Achondroplasia",
+    "Cleidocranial dysplasia",
+    "Hypophosphatasia"
+   ],
+   "a": 0,
+   "e": "Osteogenesis imperfecta is an autosomal‑dominant collagen‑type I defect that results in brittle long bones and frequent fractures, making it the classic inherited bone fragility disorder.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_065",
+   "topic": "Infection & Metabolic",
+   "kind": "AI-daily",
+   "q": "Which of the following is not a risk factor for developing spinal tuberculosis in India?",
+   "o": [
+    "HIV infection",
+    "Chronic malnutrition",
+    "Recent migration from a non‑TB endemic country",
+    "Immunosuppressive therapy"
+   ],
+   "a": 2,
+   "e": "Recent migration from a non‑TB endemic country is not a risk factor; on the contrary, being from an endemic area increases risk. HIV, malnutrition and immunosuppression are well‑documented predisposing factors.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_066",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "A 24‑year‑old male presents with a painful, swollen right elbow after a motorcycle crash. AP and lateral radiographs show an partially displaced Monteggia equivalent fracture: fracture of the left ulna shaft, posterior radial head dislocation, and a fragment of the coronoid process. Which surgical approach is most appropriate to achieve anatomical reduction and stable fixation?",
+   "o": [
+    "Posterior olecranon osteotomy with grasping hook for coronoid fragment and posterior plate for ulna",
+    "Anterior Henry's approach with radial head excision and ulna plate",
+    "Posterior medial approach with locked plate for ulna and radial head replacement",
+    "Anterior approach with radial head repair and cast immobilisation"
+   ],
+   "a": 0,
+   "e": "The posterior olecranon osteotomy gives direct view of the coronoid fragment and allows careful reduction of the dislocated radial head. A stable ulna plate and fixation of the coronoid restore the hinge necessary for elbow stability.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_067",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "In a 19‑year‑old with an AO/OTA 23‑C3 distal radius fracture, the surgeon chooses a volar locking plate. Which of the following is the most common complication specifically associated with volar plating at the metaphyseal‑diaphyseal junction?",
+   "o": [
+    "Ulnar nerve neuropraxia",
+    "Radial styloid fragment non‑union",
+    "Pulley injury of the finger flexors",
+    "Coronal shear fracture of the radius head"
+   ],
+   "a": 0,
+   "e": "Volar plates placed across the distal radius can impinge on the ulnar nerve at the distal ulna, leading to neuropraxia. The other options are unrelated to the volar plating site.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_068",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "The mnemonic 'GOLD' is often used to remember key imaging views for a suspected distal radius fracture. What does the 'L' stand for?",
+   "o": [
+    "Lateral view",
+    "Longitudinal view",
+    "Lateral oblique view",
+    "Laterally oriented view"
+   ],
+   "a": 0,
+   "e": "'L' refers to the standard lateral view, which evaluates the sagittal alignment and the volar tilt of the distal radius.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_069",
+   "topic": "Trauma",
+   "kind": "AI-daily",
+   "q": "During reduction of a posterior Monteggia lesion, the surgeon notices a 10° anterior angulation of the radial head relative to the capitellum. Which named radiographic sign best quantifies this angulation?",
+   "o": [
+    "Bouchard sign",
+    "Berrettini sign",
+    "Bennett‑Hetero angle",
+    "Cooper line"
+   ],
+   "a": 2,
+   "e": "The Bennett‑Hetero angle measures the anterior angulation of the radial head on a lateral elbow film; a 10° angulation is considered significant and warrants surgical correction.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_070",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 52‑year‑old man presents with progressive bilateral buttock pain that radiates to the thighs in a ‘seated‑wide‑hip’ posture. MRI shows central canal stenosis at L4‑L5 with mild disc height loss but no spondylolisthesis. What is the most appropriate first‑line management?",
+   "o": [
+    "Immediate posterior lumbar decompression and fusion",
+    "Conservative management with traction, exercise and NSAIDs",
+    "Intermittent vertebral column prosthesis",
+    "Lateral interbody fusion alone"
+   ],
+   "a": 1,
+   "e": "Conservative care is the standard first step for degenerative stenosis without neurological deficit, as MRI shows no instability or severe myelopathy.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_071",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old woman with known L5‑S1 degenerative disc disease has a sudden, sharp back pain after lifting. X‑ray shows acute spondylolisthesis. MRI demonstrates a large paracentral disc prolapse compressing the S1 root. Which of the following is the recommended surgical technique?",
+   "o": [
+    "Posterior percutaneous endoscopic discectomy",
+    "Anterior lumbar interbody fusion with pedicle screws",
+    "Laminectomy with posterior fusion",
+    "Transforaminal lumbar interbody fusion (TLIF) with pedicle fixation"
+   ],
+   "a": 3,
+   "e": "TLIF with pedicle screws achieves disc removal, decompression, and instrumentation in the same stage and is preferred for symptomatic spondylolisthesis with a disc herniation.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_072",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "Which of the following is NOT a typical imaging feature of lumbar spinal stenosis on MRI?",
+   "o": [
+    "Central canal narrowing with loss of cerebrospinal fluid on axial images",
+    "Engorged epidural fat extending into the dorsal recess",
+    "Facet joint hypertrophy and disc bulge",
+    "Subtle diffuse enlargement of the vascular pedicles"
+   ],
+   "a": 3,
+   "e": "The pedicles do not enlarge; instead they may remain unchanged. Osteophytes and disc bulges are characteristic, while epidural fat loss is common.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_073",
+   "topic": "Spine",
+   "kind": "AI-daily",
+   "q": "A 55‑year‑old patient with a history of moderate lumbar disc degeneration undergoes a lumbar MRI every 5 years. At the 10‑year review, the disc height above L3 has decreased by 30 %. What does this finding most likely indicate?",
+   "o": [
+    "Active inflammatory spondylitis",
+    "Accelerated disc degeneration due to mechanical overload",
+    "Early-stage vertebral body fracture",
+    "Progression towards an occult spondylolisthesis"
+   ],
+   "a": 1,
+   "e": "Disc height loss indicates accelerated degeneration, a hallmark of discogenic back pain; it is not an early fracture or inflammatory process.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_074",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "A 68‑year‑old man presents for revision of a well‑fixed cemented total hip arthroplasty with early aseptic loosening of the femoral stem. Which of the following is the preferred strategy to achieve stable fixation of the new stem?",
+   "o": [
+    "Use an uncemented, short‑tapered titanium stem with a hydroxyapatite coating",
+    "Use a modular, cementless, fully porous‑coated cobalt–chromium distal–extended stem",
+    "Re‑cement the existing stem after full debridement",
+    "Convert to a cemented head‑less revision with femoral head reconstruction"
+   ],
+   "a": 1,
+   "e": "A full‑length, fully porous‑coated cobalt–chromium distal‑extended stem provides immediate metaphyseal fixation and avoids the risk of cement mantle failure that has already manifested; the other options either rest on the failed cement or rely on biological fixation that is not suitable in the setting of early aseptic loosening.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_075",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "In revision total knee arthroplasty patients who have lost more than 10 mm of distal femur bone because of previous osteotomies, which component is most likely to provide sufficient fixation?",
+   "o": [
+    "A cemented, fully convex cobalt–chromium femoral component",
+    "An uncemented, modular cobalt–chromium distal‑extended stem",
+    "A cemented, highly porous‑coated tibial tray with bone graft",
+    "A hinged knee prosthesis with a distal femoral replacement"
+   ],
+   "a": 1,
+   "e": "A modular distal‑extended stem reaches intact bone beyond the defect, giving immediate stability; the other options either lack the required length (cemented convex) or address the tibia (tibial tray), and hinge components are reserved for instability rather than bone loss.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_076",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "A 55‑year‑old athlete undergoes revision of a failed total shoulder arthroplasty. Which of the following is the most appropriate choice of glenoid component to restore joint stability?",
+   "o": [
+    "A cemented, full‑polished double‑tapered replaceable glenosphere",
+    "A cementless, porous‑coated, metal‑back glenoid with a 12‑mm central peg",
+    "A bi‑phasic, hydroxyapatite‑coated, bone‑allograft‑filled cup",
+    "A low‑profile, threaded, polyethylene glenoid component"
+   ],
+   "a": 1,
+   "e": "A porous‑coated metal‑back glenoid with a central peg offers the best primary and long‑term stability in revision shoulders, while the other options either lack sufficient fixation (cemented polished), need bone grafting (allograft cup) or are designed for primary use (low‑profile polyethylene).",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_077",
+   "topic": "Arthroplasty",
+   "kind": "AI-daily",
+   "q": "In a patient undergoing revision of a primary total knee arthroplasty for polyethylene wear, which of the following intra‑operative findings would most strongly favour the use of a modern, highly cross‑linked polyethylene insert?",
+   "o": [
+    "Presence of a 12‑mm of osteolytic bone loss on the tibial plateau",
+    "Evident damage to the tibial cruciate ligaments",
+    "Observation of a large, well‑defined osteophyte on the lateral femur",
+    "No visible bone loss and intact ligaments"
+   ],
+   "a": 0,
+   "e": "Osteolysis indicates extensive wear particle reaction; a highly cross‑linked polyethylene insert reduces wear particle formation and is therefore the best choice in the presence of osteolysis.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_078",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "A 28‑year‑old male cyclist presents with groin pain that worsens with hip flexion and a positive impingement test. MRI shows a cam lesion with a alpha angle of 62°. Which intra‑operative finding is most likely to be addressed during arthroscopic FAI correction?",
+   "o": [
+    "A shallow acetabular labral tear",
+    "A pedunculated osteophyte at the femoral head-neck junction",
+    "A psoas tendon hypertrophy",
+    "A vertical acetabular rim fracture"
+   ],
+   "a": 1,
+   "e": "Conventional arthroscopic FAI routinely excises the cam‑shaped bony bump at the head‑neck junction to restore the normal offset. Acetabular labral tears are repaired, not necessarily excised for impingement.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_079",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "Which of the following is NOT a recognised indication for arthroscopic femoroacetabular impingement surgery in adults?",
+   "o": [
+    "A persistent groin pain unresponsive to conservative care for >6 months",
+    "B a combined cam and pincer morphology with a combined alpha angle of >55° and LCE angle >40°",
+    "C asymptomatic labral tear discovered incidentally on MRI",
+    "D a patient with radiographic arthritis (Tönnis grade ≥2)"
+   ],
+   "a": 2,
+   "e": "Incidental, asymptomatic labral tears are not indications for surgery; they are managed conservatively unless symptoms develop.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_080",
+   "topic": "Sports & Arthroscopy",
+   "kind": "AI-daily",
+   "q": "During hip arthroscopy, what is the sensitivity of in‑situ intra‑operative fluoroscopic assessment of the Lateral Center Edge angle compared with postoperative plain radiographs?",
+   "o": [
+    "A 40 %",
+    "B 60 %",
+    "C 85 %",
+    "D 100 %"
+   ],
+   "a": 2,
+   "e": "Fluoroscopy provides near‑accurate LCE angle readings intra‑operatively, with sensitivity around 85 % compared to standard radiographs, facilitating real‑time correction.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_081",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 7‑month‑old infant has a temperature of 39.5°C, erythema, warmth, and pain over the left proximal tibia. X‑ray is normal. Which investigation is the investigation of choice to confirm osteomyelitis?",
+   "o": [
+    "Ultrasound of the bone",
+    "MRI with gadolinium",
+    "CT scan of the right knee",
+    "Plain radiograph of the left tibia"
+   ],
+   "a": 1,
+   "e": "MRI with gadolinium is the most sensitive modality for early osteomyelitis, detecting bone marrow edema before plain films show changes.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_082",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "Which of the following is NOT a recognised cause for septic arthritis of the hip in an infant under 12 months?",
+   "o": [
+    "Staphylococcus aureus via hematogenous spread",
+    "Iatrogenic inoculation during a dental procedure",
+    "Group B Streptococcus in a neonate",
+    "Direct inoculation after a traumatic puncture"
+   ],
+   "a": 1,
+   "e": "Dental procedures do not typically inoculate the hip joint; septic arthritis in infants is usually hematogenous or traumatic.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_083",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "A 5‑year‑old boy with a history of prior healed osteomyelitis of the tibia now presents with a new, painful swelling over the distal tibial metaphysis. Blood cultures are sterile. What is the most likely diagnosis?",
+   "o": [
+    "Lymphoma",
+    "Ewing sarcoma",
+    "Chronic recurrent multifocal osteomyelitis",
+    "Fibrous dysplasia"
+   ],
+   "a": 2,
+   "e": "The recurrent, sterile inflammatory episodes in a child after previous osteomyelitis are characteristic of chronic recurrent multifocal osteomyelitis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_084",
+   "topic": "Paediatric Ortho",
+   "kind": "AI-daily",
+   "q": "In a child with an acute osteoarticular infection of the ankle, which of the following is the investigation of choice to assess the extent of joint involvement?",
+   "o": [
+    "Plain X‑ray AP and lateral views",
+    "Ultrasound of the ankle",
+    "MRI of the ankle and adjacent joints",
+    "Bone scan with technetium‑99m"
+   ],
+   "a": 2,
+   "e": "MRI provides detailed assessment of soft tissue, bone marrow and joint structures, making it the best tool to delineate the full extent of infection in the ankle.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_085",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 22‑year‑old basketball player presents with sudden inability to flex the fingers at the distal interphalangeal joints after a hyper‑extended fall. Clinical exam reveals a gap in the tendon sheath of the flexor digitorum profundus of the middle finger. The most likely injury is:",
+   "o": [
+    "Traumatic rupture of the FDP tendon",
+    "Laceration of the volar plate",
+    "A rupture of the slip of the extensor digitorum",
+    "Dupuytren contracture"
+   ],
+   "a": 0,
+   "e": "In hyper‑extension, the distal FDP tendon most commonly avulses from its insertion on the distal phalanx, producing a classic finger‑gap and loss of flexion, whereas volar plate damage and extensor slips cause different patterns of joint laxity.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_086",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "In the case of a type II chronic scapholunate dissociation with a widened scapholunate gap and intact dorsal interosseous ligament, the surgical option that best restores the articular congruity is:",
+   "o": [
+    "Open reduction and internal fixation with a Herbert screw",
+    "Scapholunate advanced collapse (SLAC) arthrodesis",
+    "Scapholunate interosseous ligament reconstruction with a palmaris longus graft",
+    "Scaphoid excision plus radiolunate fusion"
+   ],
+   "a": 2,
+   "e": "Reconstructing the interosseous ligament with an autograft bridges the gap and re‑establishes the scapholunate complex without removing bone, which is advantageous in staged patients.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_087",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "Which tendon is most frequently used for a flexor digitorum superficialis (FDS) transfer to restore thumb opposition after a brachial plexus injury?",
+   "o": [
+    "Flexor digitorum profundus of the ring finger",
+    "Flexor profundus of the index finger",
+    "Flexor carpi ulnaris",
+    "Palmaris longus"
+   ],
+   "a": 1,
+   "e": "The FDS of the index finger is harvested because its excursion is similar to the needed opposition movement, preserving grip strength while providing adequate distal pull.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_088",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 28‑year‑old marathon runner presents with a dull, aching pain 5 cm proximal to the calcaneal insertion of the Achilles tendon, worse after running and relieved by over‑the‑counter NSAIDs. Ultrasound shows a hypoechoic defect measuring 1.5 cm in length within the mid‑portion tendon. Which of the following is the most appropriate initial management?",
+   "o": [
+    "Immediate surgical repair with Achilles tendon graft",
+    "Rest, ice, and non‑steroidal anti‑inflammatory medication",
+    "Duplex ultrasound‑guided core debridement",
+    "Steroid injection into the tendon"
+   ],
+   "a": 1,
+   "e": "Mid‑portion Achilles tendinopathy is usually managed conservatively with rest, ice, and NSAIDs. Surgery or steroid injections are reserved for refractory or ruptured cases.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_089",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "Which of the following radiographic signs is pathognomonic for a chronic Achilles tendon rupture with retraction?",
+   "o": [
+    "The Haglund’s bump",
+    "The Retrocalcaneal bursitis triangle",
+    "The ‘V’ sign on lateral foot view",
+    "The ‘H’ sign on posterior‑talar view"
+   ],
+   "a": 2,
+   "e": "The classic ‘V’ sign—an angular widening of the heel on a lateral radiograph—indicates a retracted tear of the Achilles.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_090",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "The most common location for a spontaneous (atraumatic) rupture of the Achilles tendon occurs",
+   "o": [
+    "Insertion at the calcaneus",
+    "Mid‑portion 2–6 cm proximal to the insertion",
+    "Tibial attachment of the proximal tendon",
+    "Near the musculotendinous junction 10 cm proximal to insertion"
+   ],
+   "a": 1,
+   "e": "Spontaneous ruptures most frequently involve the mid‑portion 2–6 cm proximal to the insertion, where the tendon has the weakest micro‑architecture.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
+  },
+  {
+   "id": "ai20261113_091",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "Which imaging modality is considered the gold standard for diagnosing an acute distal Achilles tendon rupture in the emergency setting?",
+   "o": [
+    "Plain AP foot radiograph",
+    "MRI of the ankle",
+    "Ultrasound (two‑view protocol)",
+    "CT scan with contrast"
+   ],
+   "a": 2,
+   "e": "Dynamic, two‑view ultrasound rapidly identifies a gap in the Achilles tendon, making it the preferred first‑line imaging in the emergency context.",
+   "src": "Exam-style",
+   "exam": "INI-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true
   }
  ],
  "pendingFlags": [
@@ -5329,7 +7058,7 @@
    "t": 1794439845945
   }
  ],
- "updated": "2026-11-12T23:07:29.951Z",
+ "updated": "2026-11-13T23:08:21.152Z",
  "reviewLog": [
   {
    "at": "2026-11-03T00:10:37.199663Z",
