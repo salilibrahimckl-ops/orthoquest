@@ -1,0 +1,61 @@
+== model list
+[{"name":"openai-fast","description":"GPT-OSS 20B Reasoning LLM (OVH)","reasoning":true,"tier":"anonymous","community":false,"input_modalities":["text"],"output_modalities":["text"],"tools":true,"aliases":["openai","gpt-oss","gpt-oss-20b","ovh-reasoning"],"vision":false,"audio":false}]
+== openai
+gpt-oss-20b :: **MCQ – NEET‑SS Orthopaedics**
+
+A 9‑year‑old boy diagnosed with Perthes disease is classified as **Herring lateral pillar stage B**.  
+This stage is associated with:  
+
+A) Excellent prognosis for femoral head sphericity  
+B) Poor prognosis for femoral head sphericity  
+C) **Moderate prognosis for femoral head sphericity**  
+D) No prognostic significance  
+
+**Answer:** C  
+
+**Explanation:**  
+Stage B indicates that 25–50 % of the lateral pillar is involved; the head is likely to remodel moderately, preserving~50–70 % of its sphericity at skeletal maturity.
+
+== openai-fast
+gpt-oss-20b :: **MCQ – NEET‑SS Orthopaedics**
+
+A 9‑year‑old boy diagnosed with Perthes disease is classified as **Herring lateral pillar stage B**.  
+This stage is associated with:  
+
+A) Excellent prognosis for femoral head sphericity  
+B) Poor prognosis for femoral head sphericity  
+C) **Moderate prognosis for femoral head sphericity**  
+D) No prognostic significance  
+
+**Answer:** C  
+
+**Explanation:**  
+Stage B indicates that 25–50 % of the lateral pillar is involved; the head is likely to remodel moderately, preserving~50–70 % of its sphericity at skeletal maturity.
+
+== openai-large
+ :: {"code":"NOT_FOUND","message":"Model \"openai-large\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:02:21.559Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== deepseek
+ :: {"code":"NOT_FOUND","message":"Model \"deepseek\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:03:11.875Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== deepseek-reasoning
+ :: {"code":"NOT_FOUND","message":"Model \"deepseek-reasoning\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:04:02.198Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== mistral
+ :: {"code":"NOT_FOUND","message":"Model \"mistral\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:04:52.517Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== qwen-coder
+ :: {"code":"NOT_FOUND","message":"Model \"qwen-coder\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:05:42.857Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== llama
+ :: {"code":"NOT_FOUND","message":"Model \"llama\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:06:33.162Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== gemini
+ :: {"code":"NOT_FOUND","message":"Model \"gemini\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:07:23.473Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== claude-hybridspace
+ :: {"code":"NOT_FOUND","message":"Model \"claude-hybridspace\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:08:13.783Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
+== grok
+ :: {"code":"NOT_FOUND","message":"Model \"grok\" isn't on the Classic API. Free models: https://text.pollinations.ai/models. Every model we offer is on https://enter.pollinations.ai/?ref=classic","timestamp":"2026-11-14T02:09:04.086Z","fixUrl":"https://enter.pollinations.ai/?ref=classic"}
+
