@@ -54,5 +54,12 @@
   "sub": "fracture healing and fixation principles",
   "changed": false,
   "summary": "Campbell ch29/59: verified distraction 1 mm/day in 0.25 mm steps, latency 5-7 days, nonunion concepts; no errors"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "polytrauma, open fractures and compartment syndrome",
+  "changed": true,
+  "summary": "Campbell ch53/74: verified MESS, Gustilo, fasciotomy compartments; added Campbell's pressure thresholds (over 30 mmHg / within 20 of diastolic / over 20 if hypotensive)"
  }
 ]
