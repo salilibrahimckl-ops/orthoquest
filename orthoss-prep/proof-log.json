@@ -26,5 +26,33 @@
   "sub": "ankle fractures",
   "changed": true,
   "summary": "Campbell ch54: verified clear spaces, posterior malleolus 25-30%; corrected superficial peroneal nerve level (10-12 cm) and trial citation (Kortekangas 3 vs 6 weeks)"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "proximal humerus and shoulder girdle",
+  "changed": true,
+  "summary": "Campbell ch57: verified Neer, ProFHER, Rockwood AC; refined humeral brace limits and radial nerve palsy incidence (12%)"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "distal radius and carpus",
+  "changed": false,
+  "summary": "Campbell ch57/69: verified LaFontaine criteria, vitamin C 500 mg for CRPS, scaphoid and perilunate content; no errors"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "elbow and forearm",
+  "changed": false,
+  "summary": "Campbell ch57: verified Bado, radial head safe zone, overstuffing, Galeazzi; no errors"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "fracture healing and fixation principles",
+  "changed": false,
+  "summary": "Campbell ch29/59: verified distraction 1 mm/day in 0.25 mm steps, latency 5-7 days, nonunion concepts; no errors"
  }
 ]
