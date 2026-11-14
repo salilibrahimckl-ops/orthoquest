@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=31;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=32;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -177,6 +177,10 @@ nav.tabs button[aria-current="page"] svg{background:var(--accent-soft);border-ra
 .impq label.ck input{width:auto}
 .updbtn{position:relative;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.55);border-radius:999px;padding:7px 16px;font-weight:700;min-height:0;box-shadow:none}
 .updbtn i{position:absolute;top:-3px;right:-3px;width:11px;height:11px;border-radius:50%;background:#FFE27A;box-shadow:0 0 0 2px rgba(0,0,0,.15)}
+.nt-body .nt-h{font-weight:800;color:var(--accent)}.nt-body h3.nt-h,.nt-body h2.nt-h{margin:14px 0 4px;font-size:1.08rem}.nt-cards{display:flex;flex-direction:column;gap:8px;margin:6px 0}.nt-card{background:var(--sunk);border-radius:10px;padding:8px 12px;font-size:.92rem;line-height:1.5}.nt-card-h{font-weight:700;margin-bottom:2px}.nt-lab{color:var(--muted);font-weight:600}.nt-body h4.nt-h{margin:10px 0 2px;font-size:.98rem}
+.nt-body p,.nt-body li{line-height:1.55}.nt-body ul,.nt-body ol{margin:4px 0 8px;padding-left:20px}.nt-body li{margin:3px 0}
+.nt-tw{overflow-x:auto;margin:6px 0}.nt-t{border-collapse:collapse;font-size:.88rem;min-width:100%}.nt-t th,.nt-t td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.nt-t th{background:var(--sunk)}
+.nt-pearl{border-left:4px solid var(--accent);background:var(--accent-soft);padding:8px 12px;border-radius:8px;margin:8px 0}
 </style>
 
 <div class="wrap">
@@ -1512,7 +1516,7 @@ const DAY=86400000;
 const dkey=(t=Date.now())=>{const d=new Date(t);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 function streak(){let n=0,t=Date.now();if(!S.daily[dkey(t)])t-=DAY;while(S.daily[dkey(t)]){n++;t-=DAY}return n}
 const isDue=id=>S.srs[id]&&S.srs[id].due<=Date.now();
-function recordAttempt(id,ok){try{const q0=allQ().find(x=>x.id===id);if(q0)planCount(q0)}catch(e){}const a=S.att[id]||{n:0,c:0};a.n++;if(ok)a.c++;a.last=ok?1:0;a.t=Date.now();S.att[id]=a;
+function recordAttempt(id,ok){if(String(id).indexOf("d_")===0)return;try{const q0=allQ().find(x=>x.id===id);if(q0)planCount(q0)}catch(e){}const a=S.att[id]||{n:0,c:0};a.n++;if(ok)a.c++;a.last=ok?1:0;a.t=Date.now();S.att[id]=a;
   const k=dkey();S.daily[k]=(S.daily[k]||0)+1;
   const r=S.srs[id];if(!ok)S.srs[id]={ivl:1,due:Date.now()+DAY};
   else if(r){const nx={1:3,3:7,7:21}[r.ivl];if(nx)S.srs[id]={ivl:nx,due:Date.now()+nx*DAY};else delete S.srs[id];}}
@@ -1592,7 +1596,8 @@ function planDayHTML(d,label){const ph=PHASE[d.type],pct=Math.min(100,Math.round
    <div class="row" style="justify-content:space-between;align-items:center"><div class="label" style="color:var(--accent)">${label} · ${ph[0]}</div>${done?`<span class="chip c-good">Done</span>`:""}</div>
    ${d.topics.length?`<div class="row" style="gap:6px">${d.topics.map(t=>`<span class="chip tchip" style="background:${tc(t)}">${esc(t)}</span>`).join("")}</div>`:""}
    <div class="small muted">${esc(ph[1])}</div>
-   <div class="small"><b>Read:</b> ${d.read.map(esc).join(" · ")}</div>
+   <div class="small"><b>Read:</b> ${d.read.map(r=>{const m=/^(.*): all subtopics$/.exec(r);const tp=m?m[1]:d.topics[0],sb=m?"":r;
+     return tp&&SUBT[tp]?`<button type="button" class="linkbtn small" data-note="${esc(tp)}|${esc(sb)}" style="padding:0;text-align:left">📖 ${esc(r)}</button>`:esc(r)}).join(" · ")}</div>
    ${d.type!=="mock"&&d.read.length?`<label class="small" style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" data-pread="${d.d}" style="width:auto"${d.readDone?" checked":""}> I've finished today's reading</label>`:""}
    <div class="small"><b>MCQs:</b> ${Math.min(d.n,d.target)} of ${d.target}${d.type==="mock"?" (mock questions)":""}</div><div class="progress"><i style="width:${pct}%"></i></div>
    ${d.n<d.target?`<button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":d.n?"Continue MCQs":"Start MCQs"}</button>`:""}</div>`}
@@ -1616,6 +1621,8 @@ function planCard(){
 function bindPlan(){
   const mk=document.getElementById("planMake");if(mk)mk.onclick=()=>{S.plan=planMake();if(!S.examDate)S.examDate=neetDate();save();render()};
   V().querySelectorAll("[data-pgo]").forEach(b=>b.onclick=()=>{const d=S.plan.days.find(x=>x.d===b.dataset.pgo);if(d)planStart(d)});
+  V().querySelectorAll("[data-note]").forEach(b=>b.onclick=()=>{const [t,sb]=b.dataset.note.split("|");openNotes(t,sb||null)});
+  {const no=document.getElementById("ntOpen");if(no)no.onclick=()=>openNotes(null,null)}
   V().querySelectorAll("[data-pread]").forEach(c=>c.onchange=()=>{const d=S.plan.days.find(x=>x.d===c.dataset.pread);if(d){d.readDone=c.checked;save();render()}});
   const re=document.getElementById("planRe");if(re)re.onclick=()=>{if(confirmRe()){S.plan=planMake();save();render()}}}
 function confirmRe(){const b=document.getElementById("planRe");if(b.dataset.sure)return true;b.dataset.sure=1;b.textContent="Tap again to rebuild the plan from today (your answers stay)";return false}
@@ -1624,6 +1631,87 @@ function planNag(){const t=planToday(),bl=planBacklog(),d=bl[0]||t;if(!d||planDo
    <div><b>${esc(d.topics.join(", ")||PHASE[d.type][0])}</b> · ${Math.min(d.n,d.target)} of ${d.target} MCQs done</div>
    <button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":"Do today's plan MCQs"}</button>
    <span class="small muted">Other practice is allowed, but only questions from these topics count towards today's plan.</span></section>`}
+
+/* ---------- High-yield notes (written and checked by Claude, kept on GitHub: notes/index.json + notes/<topic>.json) ---------- */
+const NOTES_BASE="https://raw.githubusercontent.com/salilibrahimckl-ops/orthoquest/main/orthoss-prep/notes/";
+let NT={topic:null,sub:null,busy:false,err:""};
+const ntSlug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,"-");
+function ntGet(k){try{return JSON.parse(localStorage.getItem("orthoss_nt_"+k)||"null")}catch(e){return null}}
+function ntPut(k,v){try{localStorage.setItem("orthoss_nt_"+k,JSON.stringify(v))}catch(e){}}
+async function ntFetch(name){const r=await fetch(NOTES_BASE+name+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}
+async function ntSync(topic){if(IN_CLAUDE)return;
+  try{const idx=await ntFetch("index.json");const old=ntGet("index");ntPut("index",idx);
+    const want=topic?[topic]:Object.keys(idx.topics||{});
+    for(const t of want){const e=idx.topics[t];if(!e)continue;const cur=ntGet(ntSlug(t));
+      if(!cur||!old||!old.topics||!old.topics[t]||JSON.stringify(old.topics[t])!==JSON.stringify(e)||!cur.subs||Object.keys(cur.subs).length!==e.subs.length){ntPut(ntSlug(t),await ntFetch(e.file))}}
+    NT.err=""}catch(e){NT.err="Couldn't download notes. Check your internet connection."}}
+function ntHas(topic,sub){const i=ntGet("index");return !!(i&&i.topics&&i.topics[topic]&&(!sub||i.topics[topic].subs.includes(sub)))}
+function ntCount(){const i=ntGet("index");return i&&i.topics?Object.values(i.topics).reduce((a,t)=>a+t.subs.length,0):0}
+function mdInline(t){return esc(t).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g,"$1<em>$2</em>")}
+function mdHTML(md){const L=String(md||"").split("\n");let h="",i=0;
+  while(i<L.length){const l=L[i];
+    if(/^\s*$/.test(l)){i++;continue}
+    let m;if((m=/^(#{1,4})\s+(.*)$/.exec(l))){const n=Math.min(4,m[1].length+1);h+=`<h${n} class="nt-h">${mdInline(m[2])}</h${n}>`;i++;continue}
+    if(/^\s*\|/.test(l)){const rows=[];while(i<L.length&&/^\s*\|/.test(L[i])){rows.push(L[i]);i++}
+      const cells=r=>r.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim());const body=rows.filter(r=>!/^\s*\|?\s*:?-{2,}/.test(r.replace(/\|/g,"").trim()?r:"---"));
+      const hd=cells(rows[0]),rest=rows.slice(1).filter(r=>!/^\s*\|[\s:|-]+\|\s*$/.test(r));
+      if(hd.length>=3){h+=`<div class="nt-cards">${rest.map(r=>{const c=cells(r);return `<div class="nt-card"><div class="nt-card-h">${mdInline(c[0]||"")}</div>${c.slice(1).map((x,k)=>x?`<div><span class="nt-lab">${mdInline(hd[k+1]||"")}:</span> ${mdInline(x)}</div>`:"").join("")}</div>`}).join("")}</div>`;continue}
+      h+=`<div class="nt-tw"><table class="nt-t"><thead><tr>${hd.map(c=>`<th>${mdInline(c)}</th>`).join("")}</tr></thead><tbody>${rest.map(r=>`<tr>${cells(r).map(c=>`<td>${mdInline(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;continue}
+    if(/^>\s?/.test(l)){let t=[];while(i<L.length&&/^>\s?/.test(L[i])){t.push(L[i].replace(/^>\s?/,""));i++}h+=`<div class="nt-pearl">${mdInline(t.join(" "))}</div>`;continue}
+    if(/^\s*([-*]|\d+\.)\s+/.test(l)){const ord=/^\s*\d+\./.test(l);let items=[];
+      while(i<L.length&&/^\s*([-*]|\d+\.)\s+/.test(L[i])){const ind=(/^(\s*)/.exec(L[i])[1]||"").length;items.push([ind,L[i].replace(/^\s*([-*]|\d+\.)\s+/,"")]);i++}
+      let out="",stack=[];const tag=ord?"ol":"ul";
+      items.forEach(([ind,t])=>{const lvl=ind>=2?1:0;while(stack.length>lvl+1){out+=`</li></${stack.pop()}>`}
+        if(stack.length===lvl){out+=`<${lvl?"ul":tag}>`;stack.push(lvl?"ul":tag)}else out+="</li>";out+=`<li>${mdInline(t)}`});
+      while(stack.length){out+=`</li></${stack.pop()}>`}h+=out.replace(/<\/li><\/li>/g,"</li>");continue}
+    let t=[];while(i<L.length&&L[i].trim()&&!/^(#{1,4}\s|\s*\||>|\s*([-*]|\d+\.)\s)/.test(L[i])){t.push(L[i]);i++}h+=`<p>${mdInline(t.join(" "))}</p>`}
+  return h}
+function openNotes(topic,sub){NT.topic=topic||null;NT.sub=sub||null;tab="notes";render();window.scrollTo(0,0);
+  if(topic&&!ntGet(ntSlug(topic))){NT.busy=true;vNotes();ntSync(topic).then(()=>{NT.busy=false;if(tab==="notes")vNotes()})}}
+function vNotes(){
+  const idx=ntGet("index"),T=NT.topic,data=T?ntGet(ntSlug(T)):null;
+  let body="";
+  if(!T){const tops=PLAN_ORDER.filter(t=>SUBT[t]);
+    body=`<section class="card stack"><h2>High-yield notes</h2><p class="small muted" style="margin:0">Short NEET-SS, FET and INI-SS revision notes for each subtopic in your timetable, to read before that day's MCQs. New subtopics are added every day ahead of the timetable.${idx?` ${ntCount()} subtopics ready.`:""}</p>
+     ${NT.err?`<div class="msg err">${esc(NT.err)}</div>`:""}${NT.busy?`<div class="small muted">Downloading notes…</div>`:""}
+     ${tops.map(t=>{const have=(idx&&idx.topics&&idx.topics[t]?idx.topics[t].subs:[]);return `<button type="button" class="ghost" data-ntop="${esc(t)}" style="display:flex;justify-content:space-between;align-items:center;text-align:left"><span><span class="chip tchip" style="background:${tc(t)}">${esc(t)}</span></span><span class="small muted">${have.length} of ${SUBT[t].length} ready</span></button>`}).join("")}</section>`}
+  else{const subs=SUBT[T]||[],have=data&&data.subs?data.subs:{};const show=NT.sub&&have[NT.sub]?[NT.sub]:subs.filter(x=>have[x]);
+    body=`<section class="card stack"><div class="row" style="justify-content:space-between;align-items:center"><button type="button" class="linkbtn" id="ntBack">← All topics</button><span class="chip tchip" style="background:${tc(T)}">${esc(T)}</span></div>
+      <div class="row" style="gap:6px">${subs.map(x=>`<button type="button" class="${NT.sub===x?"primary":"ghost"} small" data-nsub="${esc(x)}"${have[x]?"":" disabled"} style="padding:6px 10px">${esc(x)}${have[x]?"":" (soon)"}</button>`).join("")}${NT.sub?`<button type="button" class="ghost small" data-nsub="" style="padding:6px 10px">All</button>`:""}</div>
+      ${NT.busy?`<div class="small muted">Downloading notes…</div>`:""}${NT.err?`<div class="msg err">${esc(NT.err)}</div>`:""}
+      ${!NT.busy&&!show.length?`<p class="small muted" style="margin:0">${NT.sub?"Notes for "+esc(NT.sub)+" are being written; they appear before its day in the timetable.":"Notes for this topic are being written; they appear before its days in the timetable."}</p>`:""}</section>
+      ${show.map(x=>`<section class="card stack nt-body"><h2 style="margin:0">${esc(x)}</h2>${mdHTML(have[x].md)}<div class="small muted">Written by Claude · ${esc(have[x].updated||"")}. Report anything that looks wrong from the question screen.</div>
+        <button type="button" class="primary" data-ntq="${esc(x)}">Practise ${esc(T)} MCQs</button></section>`).join("")}`}
+  V().innerHTML=body;
+  V().querySelectorAll("[data-ntop]").forEach(b=>b.onclick=()=>openNotes(b.dataset.ntop,null));
+  V().querySelectorAll("[data-nsub]").forEach(b=>b.onclick=()=>{NT.sub=b.dataset.nsub||null;vNotes();window.scrollTo(0,0)});
+  V().querySelectorAll("[data-ntq]").forEach(b=>b.onclick=()=>{const t=planToday();const bl=planBacklog();const d=bl.find(x=>x.topics.includes(T))||(t&&t.topics.includes(T)?t:null);
+    if(d)planStart(d);else{cfg.topics=[T];tab="practice";render()}});
+  const bk=document.getElementById("ntBack");if(bk)bk.onclick=()=>openNotes(null,null);
+  if(!idx&&!NT.busy&&!IN_CLAUDE){NT.busy=true;ntSync(null).then(()=>{NT.busy=false;if(tab==="notes")vNotes()})}
+}
+function notesCard(){const n=ntCount();return `<section class="card stack" style="gap:8px"><div class="row" style="justify-content:space-between;align-items:center"><h3>High-yield notes</h3><span class="small muted">${n?n+" subtopics":""}</span></div>
+  <p class="small muted" style="margin:0">Read the day's notes before its MCQs. Tap a subtopic under "Read" in your plan, or browse all topics.</p><button type="button" class="ghost" id="ntOpen">Open notes</button></section>`}
+/* ---------- Daily AI drafts (developer): what the free AI wrote each night, before and after Claude's review ---------- */
+let DR={idx:null,day:null,items:null,busy:false,err:""};
+async function drLoad(day){DR.busy=true;DR.err="";try{const base="https://raw.githubusercontent.com/salilibrahimckl-ops/orthoquest/main/orthoss-prep/drafts/";
+  if(!DR.idx){const r=await fetch(base+"index.json?t="+Date.now(),{cache:"no-store"});DR.idx=r.ok?await r.json():{days:[]}}
+  const d=day||(DR.idx.days[0]&&DR.idx.days[0].day);DR.day=d||null;DR.items=null;
+  if(d){const r=await fetch(base+d+".json?t="+Date.now(),{cache:"no-store"});DR.items=r.ok?(await r.json()).items:[]}}catch(e){DR.err="Couldn't download the drafts."}DR.busy=false}
+function drHTML(){if(!DR.idx)return `<button type="button" class="ghost" id="drOpen">Show the free AI's daily drafts</button>`;
+  const days=DR.idx.days||[];const it=DR.items||[];const c=k=>it.filter(q=>q.status===k).length;const pub=c("kept")+c("fixed");
+  const lab={waiting:["Waiting for Claude","c-warn"],kept:["Published as is","c-good"],fixed:["Corrected and published","c-good"],rejected:["Rejected","c-bad"]};
+  return `<div class="stack" style="gap:8px"><div class="row" style="gap:6px">${days.slice(0,10).map(x=>`<button type="button" class="${x.day===DR.day?"primary":"ghost"} small" data-drday="${x.day}" style="padding:6px 10px">${new Date(x.day+"T12:00").toLocaleDateString(undefined,{day:"numeric",month:"short"})} (${x.n})</button>`).join("")||`<span class="small muted">No drafts saved yet. They appear after the next nightly run.</span>`}</div>
+   ${DR.err?`<div class="msg err">${esc(DR.err)}</div>`:""}${DR.busy?`<div class="small muted">Loading…</div>`:""}
+   ${DR.items?`<div class="small"><b>${it.length}</b> drafts: ${c("waiting")} waiting for Claude, ${pub} published (${c("fixed")} after correction), ${c("rejected")} rejected.</div>
+    <button type="button" class="ghost" id="drPrac"${it.length?"":" disabled"}>Practise these drafts (unchecked)</button>
+    ${it.map((q,i)=>`<details style="background:var(--sunk);border-radius:10px;padding:8px 10px"><summary class="small" style="cursor:pointer"><span class="chip ${lab[q.status||"waiting"][1]}">${lab[q.status||"waiting"][0]}</span> <span class="chip tchip" style="background:${tc(q.topic)}">${esc(q.topic)}</span> ${esc(q.q.slice(0,110))}${q.q.length>110?"…":""}</summary>
+      <div class="small" style="margin-top:6px">${esc(q.q)}<br>${q.o.map((o,k)=>`${"ABCD"[k]}. ${k===q.a?`<b>${esc(o)}</b> ✓`:esc(o)}`).join("<br>")}<br><span class="muted">${esc(q.e||"")}</span>${q.reason?`<br><b>Claude:</b> ${esc(q.reason)}`:""}${q.pub?`<br><span class="muted">In the app as ${esc(q.pub)}${q.status==="fixed"?" (corrected version)":""}.</span>`:""}</div></details>`).join("")}`:""}</div>`}
+function bindDrafts(){const g=id=>document.getElementById(id);const rr=()=>{if(tab==="bank")vBank()};
+  const o=g("drOpen");if(o)o.onclick=async()=>{DR.idx={days:[]};rr();DR.idx=null;await drLoad(null);rr()};
+  document.querySelectorAll("[data-drday]").forEach(b=>b.onclick=async()=>{DR.day=b.dataset.drday;DR.items=null;rr();await drLoad(b.dataset.drday);rr()});
+  const pr=g("drPrac");if(pr)pr.onclick=()=>{const qs=(DR.items||[]).map(q=>({id:"d_"+q.id,topic:q.topic,kind:q.status==="waiting"?"Unchecked AI draft":"AI draft ("+(q.status||"")+")",q:q.q,o:q.o,a:q.a,e:(q.e||"")+(q.reason?" [Claude: "+q.reason+"]":""),src:"Exam-style"}));
+    if(!qs.length)return;P={qs:shuffle(qs.slice()),i:0,ans:{},done:false};tab="practice";render();window.scrollTo(0,0)}}
 function todayCard(){
   const n=S.daily[dkey()]||0,g=S.goal,st=streak(),due=allQ().filter(q=>isDue(q.id)).length;
   const days=S.examDate?daysTo(S.examDate):null;
@@ -1659,7 +1747,7 @@ document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.cl
   if(M&&!M.done&&b.dataset.tab!=="mock"){tab="mock";render();return;}
   tab=b.dataset.tab;render();window.scrollTo(0,0);});
 const V=()=>document.getElementById("view");
-function render(){renderTabs();({home:vHome,practice:vPractice,mock:vMock,review:vReview,bank:vBank})[tab]();}
+function render(){renderTabs();({home:vHome,practice:vPractice,mock:vMock,review:vReview,bank:vBank,notes:vNotes})[tab]();}
 
 let RINGN=0;
 function ring(score,prog){
@@ -1699,6 +1787,7 @@ function vHome(){
   V().innerHTML=`
   ${S.showDemo?`<div class="demo-banner"><span>Showing demo progress so you can see the analytics. Your own results are unchanged.</span><button type="button" id="demoOff" class="ghost small">Show my progress</button></div>`:""}
   ${planCard()}
+  ${notesCard()}
   ${todayCard()}
   ${examCard()}
   <section class="card hero">
@@ -2561,8 +2650,9 @@ async function autoRun(force){
 function autoHTML(){
   const fl=AUTO.flags;
   return `<section class="card stack" id="autoCard"><h3>AI proofreader and daily questions</h3>
-   <p class="small muted" style="margin:0">Every night a background job on GitHub's servers writes about 100 new exam-style questions with the free AI, using your recall questions as models, and keeps only those whose answer it confirms in two separate independent checks. It also proofreads about 100 questions (newest first, then the whole bank in rotation) and flags suspected errors here for you to decide. Your phones don't need to be on; new questions arrive the next time the app opens online.</p>
+   <p class="small muted" style="margin:0">Every night at about 2 am a job on GitHub's servers runs the free AI (no subscription needed). It writes about 100 questions on your timetable's topics for the next few days, modelled on your recalled exam questions and built from the high-yield notes, and proofreads about 100 existing questions. Its drafts are listed below exactly as written. Claude then checks each one, corrects or rejects it, and tops the day up to 100 published questions. Your phones don't need to be on.</p>
    <div class="small" style="background:var(--sunk);border-radius:10px;padding:10px 12px;font-weight:600">${esc(cloudText())}</div>
+   <div class="stack" style="gap:8px;border-top:1px solid var(--line);padding-top:10px"><div style="font-weight:700">The free AI's drafts, day by day</div><p class="small muted" style="margin:0">Everything the free AI wrote each night, before Claude's check, with what happened to each one.</p>${drHTML()}</div>
    ${IN_CLAUDE?`<div class="msg err">The nightly job and on-phone run work from the phone app, not this web version.</div>`:""}
    <div class="row"><label class="ck" style="display:flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="autoOn" style="width:auto"${AUTO.on?" checked":""}> Also run on this phone while it's open</label>
     <label class="f" style="flex-direction:row;align-items:center;gap:6px">Per day <select id="autoT" style="width:auto">${[25,50,100].map(n=>`<option${AUTO.target===n?" selected":""}>${n}</option>`).join("")}</select></label></div>
@@ -2581,7 +2671,7 @@ function autoHTML(){
    :`<p class="small muted" style="margin:0">Nothing flagged yet.</p>`}
    <p class="small muted" style="margin:0">The AI can be wrong too: check flagged questions against a textbook before changing an answer. Changes you make reach your other devices through sync.</p>
   </section>`}
-function bindAuto(){const g=id=>document.getElementById(id);
+function bindAuto(){const g=id=>document.getElementById(id);bindDrafts();
   const keepF=()=>{const r=g("cpfR");if(r){CPF.reply=r.value;cwSave()}};
   const cn=g("cpfN");if(cn)cn.onchange=()=>{CPF.n=+cn.value};
   const cg=g("cpfGo");if(cg)cg.onclick=async()=>{cpfStart(CPF.n);CPF.copied=await copyText(CPF.prompt);cwSave();vBank();if(CPF.copied)openClaude()};
@@ -2978,6 +3068,7 @@ if(!IN_CLAUDE){const ub=document.getElementById("updBtn");if(ub){ub.hidden=false
 loadLive();
 render();
 setTimeout(examFetch,1500);
+setTimeout(()=>ntSync(null).then(()=>{if(tab==="home")vHome()}),3000);
 try{localStorage.setItem("orthoss_app_ok",String(window.__APPV||0))}catch(e){} /* orthoss-app-ok: this version started fine */
 applyOvr();
 if(!IN_CLAUDE)setTimeout(()=>syncNow(false),800);

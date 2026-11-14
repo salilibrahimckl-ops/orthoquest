@@ -30,7 +30,7 @@ jobs:
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
             node orthoss-prep/tools/daily_ai.js apply
-            git add orthoss-prep/ai-drafts.json orthoss-prep/ai-state.json
+            git add orthoss-prep/ai-drafts.json orthoss-prep/ai-state.json orthoss-prep/drafts
             git commit -qm "Daily AI: new questions and proofreading [skip ci]" || exit 0
             git push -q origin HEAD:main && exit 0
             sleep 10

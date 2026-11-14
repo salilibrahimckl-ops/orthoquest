@@ -37,6 +37,7 @@ const sameQ = (a, b) => { let ov = 0; for (const x of a.o) if (b.o.has(x)) ov++;
   return (ov >= 3 && j >= 0.8) || (ov >= 2 && j >= 0.95 && a.w.size >= 5) || (a.t === b.t && a.t.length > 40 && ov >= 2) };
 const readJ = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')) } catch (e) { return d } };
 
+const AI_MODEL = process.env.AI_MODEL || 'openai';
 let lastCall = 0;
 const LADDER = ['high', 'medium', 'low'];
 async function ai(prompt, effort) {
@@ -46,7 +47,7 @@ async function ai(prompt, effort) {
     const wait = 47000 - (Date.now() - lastCall); if (wait > 0) await sleep(wait);
     try {
       const r = await fetch('https://text.pollinations.ai/openai', { method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ model: 'openai', messages: [{ role: 'user', content: prompt }], reasoning_effort: effort || 'low', max_tokens: 16000, referrer: 'ortho-presaleel' }),
+        body: JSON.stringify(Object.assign({ model: AI_MODEL, messages: [{ role: 'user', content: prompt }], max_tokens: 16000, referrer: 'ortho-presaleel' }, AI_MODEL === 'openai' ? { reasoning_effort: effort || 'low' } : {})),
         signal: AbortSignal.timeout(240000) });
       lastCall = Date.now();
       if (r.status === 400 && lvl < 2) { const b = await r.text().catch(() => ''); if (/token limit|reasoning effort/i.test(b)) { console.log('  answer too long at ' + effort + ' effort, retrying lower'); lvl++; attempt--; continue } }
@@ -69,6 +70,34 @@ const answerPrompt = qs => `You are an expert orthopaedic examiner. Answer each 
 ${qs.map((q, i) => fmt(q, i + 1, false)).join('\n\n')}
 Reply with only a JSON array, one object per question: [{"i":1,"a":0,"bad":false}] where "a" is the 0-based index of the correct option.`;
 
+
+// Topics for tonight's drafts: today's and the next 3 days of the NEET-SS timetable (plan-topics.json), so the reviewed
+// questions arrive while that topic is being studied. Falls back to rotating through all subtopics.
+function planTargets() {
+  const plan = readJ(path.join(DIR, 'plan-topics.json'), null);
+  const ist = new Date(Date.now() + 5.5 * 3600e3); const day = k => new Date(ist.getTime() + k * 864e5).toISOString().slice(0, 10);
+  const out = [];
+  if (plan && Array.isArray(plan.days)) for (let k = 0; k <= 3; k++) { const d = plan.days.find(x => x.d === day(k)); if (!d) continue;
+    if (d.type === 'study') d.read.forEach(r => out.push({ topic: d.topics[0], sub: r }));
+    else d.topics.forEach(t => (SUBT[t] || [t]).forEach(r => out.push({ topic: t, sub: r }))) }
+  if (out.length) return out;
+  const dnum = Math.floor(Date.now() / 864e5); const all = []; TOPICS.forEach(t => SUBT[t].forEach(r => all.push({ topic: t, sub: r })));
+  return Array.from({ length: 12 }, (_, i) => all[(dnum * 12 + i) % all.length]);
+}
+// Recalled questions for this area: previous-paper recalls in the bank (set) and the developer's recall uploads, best-matching subtopic first.
+function recallFor(bank, custom, topic, sub) {
+  const words = normT(sub).split(' ').filter(w => w.length > 3 && !STOPW.has(w));
+  const pool = bank.filter(q => q.set && q.topic === topic).concat(custom.filter(q => q.topic === topic && /recall|pyq/i.test((q.src || '') + ' ' + (q.kind || '') + ' ' + (q.set || ''))));
+  const score = q => { const t = normT(q.q + ' ' + (q.e || '')); return words.reduce((a, w) => a + (t.includes(w) ? 1 : 0), 0) + Math.random() * 0.5 };
+  const ranked = pool.map(q => [score(q), q]).sort((a, b) => b[0] - a[0]).map(x => x[1]);
+  return ranked.length >= 3 ? ranked : ranked.concat(shuf(bank.filter(q => q.set)).slice(0, 5));
+}
+
+// High-yield notes written for the app (notes/<topic>.json); used as the factual source for tonight's questions.
+function notesFor(topic, sub) {
+  const f = path.join(DIR, 'notes', topic.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.json'), d = readJ(f, null);
+  const n = d && d.subs && d.subs[sub]; return n && n.md ? String(n.md).slice(0, 7000) : '';
+}
 function loadAll() {
   const bank = readJ(path.join(DIR, 'questions.json'), { raw: [] }).raw.map((r, i) => ({ id: 'b' + (i + 1), topic: TOPICS[r[0]], q: r[2], o: r[3], a: r[4], e: r[5], set: r[7] || '' }));
   const mine = readJ(path.join(DIR, 'my-questions.json'), { items: [], deleted: [], overrides: {} });
@@ -92,19 +121,26 @@ async function run() {
 
   // 1. New questions
   let batch = 0, genFails = 0, proofFails = 0;
+  const targets = planTargets();
+  console.log('Topics from the NEET-SS timetable: ' + targets.map(t => t.topic + ' / ' + t.sub).join('; '));
   while (newItems.length < N_NEW && batch < 45 && timeLeft(Math.min(30, Math.ceil(N_PROOF / 4)))) {
-    const topic = TOPICS[(dnum + batch) % TOPICS.length], subs = SUBT[topic], sub = subs[(dnum * 3 + batch) % subs.length];
-    const exam = ['INI-SS', 'NEET-SS', 'FNB'][(dnum + batch) % 3]; batch++;
-    const recall = bank.filter(q => q.set && q.topic === topic).concat(custom.filter(q => q.src === 'Recall PYQ' && q.topic === topic));
-    const ex = shuf((recall.length >= 3 ? recall : bank.filter(q => q.set)).slice()).slice(0, 3);
+    const tg = targets[batch % targets.length], topic = tg.topic, sub = tg.sub;
+    const exam = ['NEET-SS', 'NEET-SS', 'FNB', 'NEET-SS', 'INI-SS'][batch % 5]; batch++;
+    const recall = recallFor(bank, custom, topic, sub);
+    const ex = recall.slice(0, 5);
     const avoid = shuf(all.filter(q => q.topic === topic).map(q => q.q.slice(0, 70))).slice(0, 20);
+    const notes = notesFor(topic, sub);
     try {
       const gen = arr(await ai(`You write original single-best-answer MCQs for Indian orthopaedic superspeciality entrance exams. Target: ${STD[exam]}
-Write exactly 6 new questions on ${topic}, focusing on ${sub}.
+Write exactly 6 new questions on ${topic}, focusing on ${sub}.${notes ? `
+- SOURCE NOTES (checked by an orthopaedic reviewer). Build every question on facts stated in these notes; do not add facts that are not in them:
+<<<
+${notes}
+>>>` : ''}
 - Test established knowledge found in standard orthopaedic references (such as Campbell's Operative Orthopaedics, Rockwood and Green, AAOS Comprehensive Orthopaedic Review, Miller's Review) and widely accepted consensus statements, guidelines and classifications. Include recent consensus only if you are confident it is accurate.
 - Include only facts you are confident are correct and generally agreed. If a fact is debated or varies between sources, do not use it.
 - Write in your own words; do not copy sentences from any book or question bank.
-- Match the style and difficulty of these recalled exam questions:
+- These are REAL recalled questions from previous NEET-SS / FET / INI-SS papers on this area. Examiners repeat the same high-yield facts year after year, often rephrased. Write questions that (1) test the same facts these recalls test, asked from a different angle or as a clinical vignette, and (2) test the closely related facts examiners usually pair with them (the other types in the same classification, the next step in management, the commonest complication, the investigation of choice). Match their style and difficulty:
 ${ex.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
 - Do not repeat these existing questions: ${avoid.join(' | ')}
 - Mix clinical vignettes (about 40%), one-line recall ("Most common…", "Investigation of choice…", "…is classified as"), "All of the following EXCEPT" and statement questions.
@@ -183,6 +219,16 @@ function apply() {
   flags.forEach(f => { if (!seen.has(f.id + '|' + f.key)) d.pendingFlags.push(f) });
   d.updated = new Date().toISOString();
   fs.writeFileSync(df, JSON.stringify(d, null, 1));
+  // Keep each night's drafts, unreviewed, so the developer can see them in the app before Claude's review.
+  if (items.length) {
+    const day = new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10), dd = path.join(DIR, 'drafts'); fs.mkdirSync(dd, { recursive: true });
+    const f = path.join(dd, day + '.json'), cur = readJ(f, { day, items: [] }), ids = new Set(cur.items.map(q => q.id));
+    items.forEach(q => { if (!ids.has(q.id)) cur.items.push(Object.assign({}, q, { status: 'waiting' })) });
+    fs.writeFileSync(f, JSON.stringify(cur));
+    const idxF = path.join(dd, 'index.json'), idx = readJ(idxF, { days: [] });
+    idx.days = [{ day, n: cur.items.length }].concat(idx.days.filter(x => x.day !== day)).sort((a, b) => a.day < b.day ? 1 : -1).slice(0, 30);
+    fs.writeFileSync(idxF, JSON.stringify(idx));
+  }
   if (st) { const sf = path.join(DIR, 'ai-state.json'), old = readJ(sf, { runs: [] });
     fs.writeFileSync(sf, JSON.stringify({ pidx: st.pidx, last: Object.assign({}, st.last, { pendingReview: true }), runs: [st.last].concat(old.runs || []).slice(0, 30) })) }
   console.log(`Queued for Claude review: ${added} new questions, ${flags.length} flags.`);
