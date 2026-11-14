@@ -96,5 +96,26 @@
   "sub": "scoliosis and deformity",
   "changed": true,
   "summary": "Campbell ch44: verified BrAIST 72% vs 48%, Scheuermann criteria; refined genitourinary anomaly rate in congenital scoliosis"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "spinal tuberculosis and infection",
+  "changed": false,
+  "summary": "Campbell ch42: no conflicts (Campbell's TB section is brief; content per standard Indian references)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "spinal tumours and metastases",
+  "changed": false,
+  "summary": "Campbell ch42: verified Patchell, SINS, Tokuhashi, radiosensitivity; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "spinopelvic alignment",
+  "changed": false,
+  "summary": "Campbell ch44: verified PI = PT + SS, SRS-Schwab modifiers, osteotomy grades; no errors"
  }
 ]
