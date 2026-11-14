@@ -1,0 +1,23 @@
+[
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "hip and femoral fractures",
+  "changed": false,
+  "summary": "Campbell ch54-55: verified Garden, Pauwels, TAD 25 mm, subtrochanteric 5 cm, retrograde nail indications; no errors"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "pelvis and acetabulum",
+  "changed": true,
+  "summary": "Campbell ch56: verified Young-Burgess, Denis, posterior wall 40-50%, roof arcs; added roof-arc limitation"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "tibial plateau and pilon",
+  "changed": true,
+  "summary": "Campbell ch54: verified Schatzker, staged pilon protocol, Trafton tibial alignment limits; added Moore neurovascular rates"
+ }
+]
