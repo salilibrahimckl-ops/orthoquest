@@ -117,5 +117,19 @@
   "sub": "spinopelvic alignment",
   "changed": false,
   "summary": "Campbell ch44: verified PI = PT + SS, SRS-Schwab modifiers, osteotomy grades; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Arthroplasty",
+  "sub": "THA approaches and complications",
+  "changed": true,
+  "summary": "Campbell ch3: corrected optimal porous-coating pore size to 100-400 microns; verified approaches, Lewinnek, Vancouver, Brooker"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Arthroplasty",
+  "sub": "TKA balancing and alignment",
+  "changed": false,
+  "summary": "Campbell ch7: verified gap balancing, rotation landmarks, constraint choices; no errors"
  }
 ]
