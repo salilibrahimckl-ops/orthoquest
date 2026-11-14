@@ -10,11 +10,12 @@ for (const f of process.argv.slice(2)) {
   const p = path.join(ND, slug(src.topic) + '.json'); let cur = { topic: src.topic, subs: {} };
   try { cur = JSON.parse(fs.readFileSync(p, 'utf8')) } catch (e) {}
   for (const [k, v] of Object.entries(src.subs)) { const md = typeof v === 'string' ? v : v.md; if (!md || md.length < 200) throw new Error('note too short: ' + k);
-    cur.subs[k] = { md, updated: day, by: 'Claude' } }
+    const level = (typeof v === 'object' && v.level) || src.level || (md.split(/\s+/).length >= 1200 ? 2 : 1);
+    cur.subs[k] = { md, updated: day, by: 'Claude', level } }
   fs.writeFileSync(p, JSON.stringify(cur));
 }
 const idx = { updated: day, topics: {} };
 for (const f of fs.readdirSync(ND).filter(x => x.endsWith('.json') && x !== 'index.json')) {
-  const d = JSON.parse(fs.readFileSync(path.join(ND, f), 'utf8')); idx.topics[d.topic] = { file: f, subs: Object.keys(d.subs) } }
+  const d = JSON.parse(fs.readFileSync(path.join(ND, f), 'utf8')); idx.topics[d.topic] = { file: f, subs: Object.keys(d.subs), full: Object.keys(d.subs).filter(k => (d.subs[k].level || 1) >= 2), pdf: 'pdf/' + slug(d.topic) + '.pdf' } }
 fs.writeFileSync(path.join(ND, 'index.json'), JSON.stringify(idx));
 console.log('notes:', Object.entries(idx.topics).map(([t, v]) => t + ' ' + v.subs.length).join(', '));

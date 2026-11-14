@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=32;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=33;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -181,6 +181,14 @@ nav.tabs button[aria-current="page"] svg{background:var(--accent-soft);border-ra
 .nt-body p,.nt-body li{line-height:1.55}.nt-body ul,.nt-body ol{margin:4px 0 8px;padding-left:20px}.nt-body li{margin:3px 0}
 .nt-tw{overflow-x:auto;margin:6px 0}.nt-t{border-collapse:collapse;font-size:.88rem;min-width:100%}.nt-t th,.nt-t td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.nt-t th{background:var(--sunk)}
 .nt-pearl{border-left:4px solid var(--accent);background:var(--accent-soft);padding:8px 12px;border-radius:8px;margin:8px 0}
+#pdfv{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column}
+.pv-bar{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(120deg,var(--g1),var(--g2));color:#fff;padding-top:max(10px,env(safe-area-inset-top))}
+.pv-t{flex:1;font-weight:700;font-size:.95rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-x,.pv-b{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:10px;padding:6px 11px;min-height:0;box-shadow:none;font-weight:700}
+.pv-body{flex:1;overflow:auto;padding:8px 4px;-webkit-overflow-scrolling:touch;text-align:center}
+.pv-pg{display:block;margin:0 auto 8px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.18);border-radius:4px}
+.pv-sec{font-weight:800;color:var(--accent);margin:10px 0 6px}.pv-msg{padding:24px 16px;color:var(--muted)}
+.pv-foot{padding:8px 12px;font-size:.8rem;background:var(--surface);border-top:1px solid var(--line);overflow-x:auto;white-space:nowrap}
 </style>
 
 <div class="wrap">
@@ -1598,6 +1606,7 @@ function planDayHTML(d,label){const ph=PHASE[d.type],pct=Math.min(100,Math.round
    <div class="small muted">${esc(ph[1])}</div>
    <div class="small"><b>Read:</b> ${d.read.map(r=>{const m=/^(.*): all subtopics$/.exec(r);const tp=m?m[1]:d.topics[0],sb=m?"":r;
      return tp&&SUBT[tp]?`<button type="button" class="linkbtn small" data-note="${esc(tp)}|${esc(sb)}" style="padding:0;text-align:left">📖 ${esc(r)}</button>`:esc(r)}).join(" · ")}</div>
+   ${notesBtnFor(d)}
    ${d.type!=="mock"&&d.read.length?`<label class="small" style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" data-pread="${d.d}" style="width:auto"${d.readDone?" checked":""}> I've finished today's reading</label>`:""}
    <div class="small"><b>MCQs:</b> ${Math.min(d.n,d.target)} of ${d.target}${d.type==="mock"?" (mock questions)":""}</div><div class="progress"><i style="width:${pct}%"></i></div>
    ${d.n<d.target?`<button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":d.n?"Continue MCQs":"Start MCQs"}</button>`:""}</div>`}
@@ -1621,7 +1630,8 @@ function planCard(){
 function bindPlan(){
   const mk=document.getElementById("planMake");if(mk)mk.onclick=()=>{S.plan=planMake();if(!S.examDate)S.examDate=neetDate();save();render()};
   V().querySelectorAll("[data-pgo]").forEach(b=>b.onclick=()=>{const d=S.plan.days.find(x=>x.d===b.dataset.pgo);if(d)planStart(d)});
-  V().querySelectorAll("[data-note]").forEach(b=>b.onclick=()=>{const [t,sb]=b.dataset.note.split("|");openNotes(t,sb||null)});
+  V().querySelectorAll("[data-note]").forEach(b=>b.onclick=()=>{const [t,sb]=b.dataset.note.split("|");const p=pdfFor(t,sb||null);if(p)openPdf([p],p.title);else openNotes(t,sb||null)});
+  V().querySelectorAll("[data-pdfday]").forEach(b=>b.onclick=()=>{const d=S.plan.days.find(x=>x.d===b.dataset.pdfday);if(d)openPdf(dayPdfs(d),PHASE[d.type][0]+": "+d.topics.join(", "))});
   {const no=document.getElementById("ntOpen");if(no)no.onclick=()=>openNotes(null,null)}
   V().querySelectorAll("[data-pread]").forEach(c=>c.onchange=()=>{const d=S.plan.days.find(x=>x.d===c.dataset.pread);if(d){d.readDone=c.checked;save();render()}});
   const re=document.getElementById("planRe");if(re)re.onclick=()=>{if(confirmRe()){S.plan=planMake();save();render()}}}
@@ -1712,6 +1722,45 @@ function bindDrafts(){const g=id=>document.getElementById(id);const rr=()=>{if(t
   document.querySelectorAll("[data-drday]").forEach(b=>b.onclick=async()=>{DR.day=b.dataset.drday;DR.items=null;rr();await drLoad(b.dataset.drday);rr()});
   const pr=g("drPrac");if(pr)pr.onclick=()=>{const qs=(DR.items||[]).map(q=>({id:"d_"+q.id,topic:q.topic,kind:q.status==="waiting"?"Unchecked AI draft":"AI draft ("+(q.status||"")+")",q:q.q,o:q.o,a:q.a,e:(q.e||"")+(q.reason?" [Claude: "+q.reason+"]":""),src:"Exam-style"}));
     if(!qs.length)return;P={qs:shuffle(qs.slice()),i:0,ans:{},done:false};tab="practice";render();window.scrollTo(0,0)}}
+
+/* ---------- Notes PDFs (built on GitHub from the notes) and the in-app PDF reader ---------- */
+const PDF_BASE="https://raw.githubusercontent.com/salilibrahimckl-ops/orthoquest/main/orthoss-prep/";
+function pdfMan(){return ntGet("pdfman")}
+async function pdfManSync(){if(IN_CLAUDE)return;try{const r=await fetch(PDF_BASE+"pdf/manifest.json?t="+Date.now(),{cache:"no-store"});if(r.ok)ntPut("pdfman",await r.json())}catch(e){}}
+function pdfFor(topic,sub){const m=pdfMan();const t=m&&m.topics&&m.topics[topic];if(!t)return null;if(!sub)return {url:t.pdf,hash:t.hash,title:topic+" (all subtopics)"};const s2=t.subs[sub];return s2?{url:s2.pdf,hash:s2.hash,title:sub}:null}
+function dayPdfs(d){if(!d||!d.topics.length)return [];const out=[];
+  d.read.forEach(r=>{const m=/^(.*): all subtopics$/.exec(r);const p=m?pdfFor(m[1],null):pdfFor(d.topics[0],r);if(p)out.push(p)});return out}
+const PDFDB="orthoss_pdf";
+function pdfIdb(){return new Promise((res,rej)=>{const o=indexedDB.open(PDFDB,1);o.onupgradeneeded=()=>o.result.createObjectStore("f");o.onsuccess=()=>res(o.result);o.onerror=()=>rej(o.error)})}
+async function pdfCacheGet(k){try{const db=await pdfIdb();return await new Promise(r=>{const q=db.transaction("f").objectStore("f").get(k);q.onsuccess=()=>r(q.result||null);q.onerror=()=>r(null)})}catch(e){return null}}
+async function pdfCachePut(k,v){try{const db=await pdfIdb();db.transaction("f","readwrite").objectStore("f").put(v,k)}catch(e){}}
+async function pdfBytes(p){const key=p.url+"#"+p.hash;const c=await pdfCacheGet(key);if(c)return c;
+  const r=await fetch(PDF_BASE+p.url+"?v="+p.hash,{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);const b=new Uint8Array(await r.arrayBuffer());pdfCachePut(key,b);return b}
+let PV=null;
+async function openPdf(list,title){
+  if(!list||!list.length)return;
+  if(PV)closePdf();
+  const ov=document.createElement("div");ov.id="pdfv";ov.innerHTML=`<div class="pv-bar"><button type="button" class="pv-x" id="pvX" aria-label="Close notes">✕</button><div class="pv-t">${esc(title||list[0].title)}</div>
+    <button type="button" class="pv-b" id="pvM" aria-label="Smaller">A−</button><button type="button" class="pv-b" id="pvP" aria-label="Bigger">A+</button></div>
+    <div class="pv-body" id="pvBody"><div class="pv-msg">Opening notes…</div></div>
+    <div class="pv-foot">${list.map(p=>`<a href="${PDF_BASE+p.url}" target="_blank" rel="noopener">Open ${esc(p.title)} in your PDF app</a>`).join(" · ")}</div>`;
+  document.body.appendChild(ov);document.body.style.overflow="hidden";
+  PV={list,zoom:1,docs:[]};
+  document.getElementById("pvX").onclick=closePdf;
+  document.getElementById("pvM").onclick=()=>{PV.zoom=Math.max(.7,PV.zoom-.2);pdfRender()};
+  document.getElementById("pvP").onclick=()=>{PV.zoom=Math.min(2.6,PV.zoom+.25);pdfRender()};
+  try{if(!window.pdfjsLib){await loadScript(PDFJS+"pdf.worker.min.js");await loadScript(PDFJS+"pdf.min.js")}
+    const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc=PDFJS+"pdf.worker.min.js";
+    for(const p of list){const b=await pdfBytes(p);if(!PV)return;PV.docs.push({p,doc:await lib.getDocument({data:b.slice(0),cMapUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/",cMapPacked:true,standardFontDataUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/"}).promise})}
+    pdfRender()}catch(e){const bd=document.getElementById("pvBody");if(bd)bd.innerHTML=`<div class="pv-msg">Couldn't open the notes${navigator.onLine===false?" (you're offline and they haven't been downloaded yet)":""}. Try again with internet, or use the link below to open them in your PDF app.</div>`}}
+async function pdfRender(){if(!PV||!PV.docs.length)return;const bd=document.getElementById("pvBody");const tok=PV.tok=(PV.tok||0)+1;
+  const W=Math.min(bd.clientWidth||360,900)-8;bd.innerHTML="";
+  for(const {p,doc} of PV.docs){if(PV.docs.length>1){const h=document.createElement("div");h.className="pv-sec";h.textContent=p.title;bd.appendChild(h)}
+    for(let i=1;i<=doc.numPages;i++){if(!PV||PV.tok!==tok)return;const pg=await doc.getPage(i);const v0=pg.getViewport({scale:1});const sc=W/v0.width*PV.zoom;const vp=pg.getViewport({scale:sc*(window.devicePixelRatio||1)});
+      const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;c.style.width=(vp.width/(window.devicePixelRatio||1))+"px";c.className="pv-pg";bd.appendChild(c);
+      await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise}}}
+function closePdf(){const o=document.getElementById("pdfv");if(o)o.remove();document.body.style.overflow="";PV=null}
+function notesBtnFor(d){const l=dayPdfs(d);return l.length?`<button type="button" class="ghost" data-pdfday="${d.d}">📄 Read ${d.type==="study"?"today's":"this day's"} notes (PDF)</button>`:""}
 function todayCard(){
   const n=S.daily[dkey()]||0,g=S.goal,st=streak(),due=allQ().filter(q=>isDue(q.id)).length;
   const days=S.examDate?daysTo(S.examDate):null;
@@ -1863,10 +1912,14 @@ function tc(t){const i=TOPICS.indexOf(t);if(i>=0)return TCOL[i];let h=0;for(cons
 function qMeta(q){return `<span class="chip tchip" style="background:${tc(q.topic)}">${esc(q.topic)}</span> <span class="chip c-none">${esc(q.kind||"Question")}</span>${q.src==="Recall PYQ"?` <span class="chip c-warn">Recall PYQ${q.exam?" · "+esc(q.exam):""}${q.year?" "+esc(q.year):""}</span>`:""}${q.fresh&&!S.ok[q.id]?` <span class="chip c-warn">New · unreviewed</span>`:""}${S.flag[q.id]?` <span class="chip c-bad">Reported</span>`:""}`}
 function bmBtn(id){const on=S.bm.includes(id);return `<button type="button" class="ghost small" data-bm="${id}" aria-pressed="${on}">${on?"Bookmarked":"Bookmark"}</button>`}
 function toggleBm(id){S.bm=S.bm.includes(id)?S.bm.filter(x=>x!==id):S.bm.concat(id);save();}
+function qNotesBtn(q){const d=P&&P.plan&&S.plan?S.plan.days.find(x=>x.d===P.plan):null;const l=d?dayPdfs(d):[];const t=pdfFor(q.topic,null);
+  return (l.length||t)?`<button type="button" class="ghost small" id="qNotes" style="padding:6px 12px">📄 Notes</button>`:""}
+function bindQNotes(q){const b=document.getElementById("qNotes");if(!b)return;b.onclick=()=>{const d=P&&P.plan&&S.plan?S.plan.days.find(x=>x.d===P.plan):null;const l=d?dayPdfs(d):[];
+  if(l.length)openPdf(l,"Today's notes: "+d.topics.join(", "));else{const t=pdfFor(q.topic,null);if(t)openPdf([t],t.title)}}}
 function vPQ(){
   const q=P.qs[P.i],picked=P.ans[q.id];const answered=picked!=null;
   V().innerHTML=`<section class="card stack">
-   <div class="qhead"><span class="mono small muted">Q ${P.i+1} of ${P.qs.length}</span>${bmBtn(q.id)}</div>
+   <div class="qhead"><span class="mono small muted">Q ${P.i+1} of ${P.qs.length}</span><span class="row" style="gap:6px">${qNotesBtn(q)}${bmBtn(q.id)}</span></div>
    <div class="progress"><i style="width:${(P.i+(answered?1:0))/P.qs.length*100}%"></i></div>
    <div>${qMeta(q)}</div>
    <div class="qtext">${esc(q.q)}</div>
@@ -1878,6 +1931,7 @@ function vPQ(){
   </section>`;
   V().querySelector(".opts").onclick=e=>{const b=e.target.closest("[data-o]");if(!b||answered)return;const j=+b.dataset.o;P.ans[q.id]=j;recordAttempt(q.id,j===q.a);save();vPQ()};
   V().querySelector("[data-bm]").onclick=()=>{toggleBm(q.id);vPQ()};
+  bindQNotes(q);
   document.getElementById("pnext").onclick=()=>{if(P.i<P.qs.length-1){P.i++;vPQ();window.scrollTo(0,0)}else finishPractice()};
   document.getElementById("pend").onclick=finishPractice;
   bindTools(q,vPQ);
@@ -3068,7 +3122,7 @@ if(!IN_CLAUDE){const ub=document.getElementById("updBtn");if(ub){ub.hidden=false
 loadLive();
 render();
 setTimeout(examFetch,1500);
-setTimeout(()=>ntSync(null).then(()=>{if(tab==="home")vHome()}),3000);
+setTimeout(()=>Promise.all([ntSync(null),pdfManSync()]).then(()=>{if(tab==="home")vHome()}),3000);
 try{localStorage.setItem("orthoss_app_ok",String(window.__APPV||0))}catch(e){} /* orthoss-app-ok: this version started fine */
 applyOvr();
 if(!IN_CLAUDE)setTimeout(()=>syncNow(false),800);
