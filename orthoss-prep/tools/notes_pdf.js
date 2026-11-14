@@ -1,3 +1,4 @@
+// (rebuild check)
 // Builds phone-friendly PDFs from the notes: one per subtopic and one per topic.
 //   node notes_pdf.js [--all]
 // Writes pdf/<topic>.pdf, pdf/<topic>/<subtopic>.pdf and pdf/manifest.json. Only rebuilds what changed (unless --all).
