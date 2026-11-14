@@ -89,5 +89,12 @@
   "sub": "lumbar disc and stenosis",
   "changed": true,
   "summary": "Campbell ch39-40: recurrence after discectomy corrected to 3-7%; added Marchetti-Bartolozzi classification"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "scoliosis and deformity",
+  "changed": true,
+  "summary": "Campbell ch44: verified BrAIST 72% vs 48%, Scheuermann criteria; refined genitourinary anomaly rate in congenital scoliosis"
  }
 ]
