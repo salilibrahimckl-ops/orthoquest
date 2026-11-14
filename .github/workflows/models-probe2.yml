@@ -1,0 +1,26 @@
+name: Free model probe 2
+on:
+  push:
+    branches: [apk-shell]
+    paths: [".github/workflows/models-probe2.yml"]
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set +e; mkdir -p probe; O=probe/models2.txt; : > $O
+          echo "== model list" >> $O
+          curl -s -m 30 https://text.pollinations.ai/models | head -c 6000 >> $O; echo >> $O
+          Q='A 9-year-old boy has a painful limp. Radiographs show a crescent sign in the femoral head. Write ONE NEET-SS orthopaedic MCQ about Perthes disease prognosis (Herring lateral pillar) with 4 options, the answer and a 2-line explanation.'
+          for M in openai openai-fast openai-large deepseek deepseek-reasoning mistral qwen-coder llama gemini claude-hybridspace grok; do
+            echo "== $M" >> $O
+            B=$(jq -nc --arg m "$M" --arg q "$Q" '{model:$m,messages:[{role:"user",content:$q}],max_tokens:900}')
+            curl -s -m 120 -w "\nHTTP %{http_code} TIME %{time_total}\n" -H "Content-Type: application/json" -X POST https://text.pollinations.ai/openai -d "$B" | jq -r '(.model // "") + " :: " + ((.choices[0].message.content // .error // .) | tostring)' 2>/dev/null | head -c 1500 >> $O
+            echo >> $O; sleep 50
+          done
+      - run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add probe; git commit -m "models probe 2 [skip ci]" || exit 0; git push
