@@ -19,5 +19,12 @@
   "sub": "tibial plateau and pilon",
   "changed": true,
   "summary": "Campbell ch54: verified Schatzker, staged pilon protocol, Trafton tibial alignment limits; added Moore neurovascular rates"
+ },
+ {
+  "date": "2026-11-14",
+  "topic": "Trauma",
+  "sub": "ankle fractures",
+  "changed": true,
+  "summary": "Campbell ch54: verified clear spaces, posterior malleolus 25-30%; corrected superficial peroneal nerve level (10-12 cm) and trial citation (Kortekangas 3 vs 6 weeks)"
  }
 ]
