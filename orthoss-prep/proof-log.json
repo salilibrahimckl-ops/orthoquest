@@ -61,5 +61,33 @@
   "sub": "polytrauma, open fractures and compartment syndrome",
   "changed": true,
   "summary": "Campbell ch53/74: verified MESS, Gustilo, fasciotomy compartments; added Campbell's pressure thresholds (over 30 mmHg / within 20 of diastolic / over 20 if hypotensive)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "cervical trauma",
+  "changed": true,
+  "summary": "Campbell ch41: verified rule of Spence (6.9/8.1 mm), Dickman, Anderson-D'Alonzo/Grauer, Levine-Edwards (type I translation refined)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "thoracolumbar trauma",
+  "changed": false,
+  "summary": "Campbell ch41: verified TLICS, Denis, AO thoracolumbar, load-sharing; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "degenerative cervical myelopathy",
+  "changed": false,
+  "summary": "Campbell ch38: no conflicts found (Campbell gives little detail on Torg ratio, OPLL types or C5 palsy rates; content kept as per standard references)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Spine",
+  "sub": "lumbar disc and stenosis",
+  "changed": true,
+  "summary": "Campbell ch39-40: recurrence after discectomy corrected to 3-7%; added Marchetti-Bartolozzi classification"
  }
 ]
