@@ -306,5 +306,40 @@
   "sub": "hand infections",
   "changed": false,
   "summary": "Campbell ch78: verified Kanavel signs, bite organisms (Eikenella, Pasteurella); no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Hand & Upper Limb",
+  "sub": "Dupuytren and rheumatoid hand",
+  "changed": false,
+  "summary": "Campbell ch73/75: verified surgical thresholds (MCP 30, PIP 15 degrees), Cleland spared/Grayson involved, spiral cord, Nalebuff; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Hand & Upper Limb",
+  "sub": "congenital hand",
+  "changed": false,
+  "summary": "Campbell ch79: verified Wassel, Blauth, Bayne-Klug, syndactyly heredity (Flatt 40%); no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Foot & Ankle",
+  "sub": "flatfoot and cavus foot",
+  "changed": true,
+  "summary": "Campbell ch82: verified Johnson-Strom/Bluman staging, MDCO 10 mm, Meary angle; added Evans graft size (8-10 mm, 1 cm proximal to CC joint)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Foot & Ankle",
+  "sub": "hallux valgus and forefoot",
+  "changed": false,
+  "summary": "Campbell ch81: verified HVA/IMA/DMAA norms, chevron limits (HVA up to 30), Coughlin-Shurnas; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Foot & Ankle",
+  "sub": "Achilles and tendons",
+  "changed": false,
+  "summary": "Campbell ch48: verified watershed 2-6 cm, Thompson test, rerupture with functional bracing vs surgery (2.4% vs 3.5%); no errors"
  }
 ]
