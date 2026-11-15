@@ -17,7 +17,7 @@ const drafts = readJ(path.join(DIR, 'ai-drafts.json'), {});
 const bank = readJ(path.join(DIR, 'questions.json'), { raw: [] }).raw.map((r, i) => ({ id: 'b' + (i + 1), topic: TOPICS[r[0]], q: r[2], o: r[3], a: r[4], e: r[5] }));
 const mine = readJ(path.join(DIR, 'my-questions.json'), { items: [] });
 const all = bank.concat(mine.items || []); const W = all.map(q => words(q.q + ' ' + q.o.join(' ')));
-const today = istDay().replace(/-/g, ''), todayCount = (mine.items || []).filter(q => String(q.id).startsWith('cai' + today + '_')).length;
+const today = istDay().replace(/-/g, ''), todayCount = (mine.items || []).filter(q => /^(cai|fai)$/.test(String(q.id).slice(0,3)) && String(q.id).slice(3, 11) === today).length;
 
 const D = (drafts.pending || []).slice(0, nD), F = (drafts.pendingFlags || []).slice(0, nF);
 const similar = q => { const w = words(q.q + ' ' + q.o.join(' ')); return W.map((x, i) => [jac(w, x), i]).sort((a, b) => b[0] - a[0]).slice(0, 2).filter(x => x[0] >= 0.25).map(([s, i]) => `${Math.round(s * 100)}% ${all[i].id}: ${all[i].q.slice(0, 110)}`) };

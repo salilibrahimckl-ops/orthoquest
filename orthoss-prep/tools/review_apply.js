@@ -12,7 +12,9 @@ const TOPICS = ["Trauma","Spine","Arthroplasty","Sports & Arthroscopy","Paediatr
 const readJ = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')) } catch (e) { return d } };
 const istDay = () => new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10);
 const errs = [];
-const dec = readJ(path.join(RV, 'decisions.json'), null); if (!dec) { console.error('review/decisions.json missing or not valid JSON'); process.exit(1) }
+// REVIEWER / ID_PREFIX / DECISIONS let the free AI editor publish through the same checks (reviewer 'free AI', ids fai...).
+const REVIEWER = process.env.REVIEWER || 'Claude', PFX = process.env.ID_PREFIX || 'cai', DEC_F = process.env.DECISIONS || path.join(RV, 'decisions.json');
+const dec = readJ(DEC_F, null); if (!dec) { console.error(DEC_F + ' missing or not valid JSON'); process.exit(1) }
 const inp = readJ(path.join(RV, 'input.json'), { drafts: [], flags: [] });
 const dF = path.join(DIR, 'ai-drafts.json'), drafts = readJ(dF, {}); drafts.pending = drafts.pending || []; drafts.pendingFlags = drafts.pendingFlags || [];
 const mF = path.join(DIR, 'my-questions.json'), mine = readJ(mF, { items: [], deleted: [], overrides: {} }); mine.deleted = mine.deleted || []; mine.overrides = mine.overrides || {};
@@ -44,10 +46,10 @@ newQs.forEach((x, i) => { if (!x) return; const k = norm(x.q); if (seen.has(k)) 
 if (errs.length) { console.error('NOT APPLIED. Fix these in review/decisions.json and run again:\n- ' + errs.join('\n- ')); process.exit(1) }
 
 // apply
-const day = istDay(), tag = 'cai' + day.replace(/-/g, '') + '_';
+const day = istDay(), tag = PFX + day.replace(/-/g, '') + '_';
 let n = mine.items.filter(q => String(q.id).startsWith(tag)).map(q => +String(q.id).slice(tag.length) || 0).reduce((a, b) => Math.max(a, b), 0);
 const nid = () => tag + String(++n).padStart(3, '0');
-const item = (x, topic, exam) => ({ id: nid(), topic: x.topic || topic, kind: 'AI-daily', q: x.q.trim(), o: x.o.map(o => o.trim()), a: +x.a, e: x.e.trim(), src: 'Exam-style', exam: exam || 'NEET-SS', year: '', fresh: true, proofed: true, reviewed: 'Claude' });
+const item = (x, topic, exam) => ({ id: nid(), topic: x.topic || topic, kind: 'AI-daily', q: x.q.trim(), o: x.o.map(o => o.trim()), a: +x.a, e: x.e.trim(), src: 'Exam-style', exam: exam || 'NEET-SS', year: '', fresh: true, proofed: true, reviewed: REVIEWER });
 const status = {}; let kept = 0, fixed = 0, rejected = 0, written = 0;
 for (const d of dec.drafts || []) { const q = byDraft.get(d.id);
   if (d.action === 'reject') { rejected++; status[d.id] = { status: 'rejected', reason: d.reason || '' }; continue }
@@ -58,13 +60,13 @@ let fFixed = 0, fConf = 0, fDisc = 0; const t = Date.now();
 for (const f of dec.flags || []) {
   if (f.action === 'discard') { fDisc++; continue }
   if (f.action === 'confirm') { const r = bank[+String(f.id).slice(1) - 1]; fConf++;
-    pf.flags.unshift({ id: f.id, q: r ? r[2].slice(0, 200) : '', key: r ? r[3][r[4]] : '', sug: f.sug || null, issue: f.issue || '', by: 'Claude', strong: !!f.sug, day, t }); continue }
+    pf.flags.unshift({ id: f.id, q: r ? r[2].slice(0, 200) : '', key: r ? r[3][r[4]] : '', sug: f.sug || null, issue: f.issue || '', by: REVIEWER, strong: !!f.sug, day, t }); continue }
   if (f.action === 'delete') { mine.items = mine.items.filter(q => q.id !== f.id); if (!mine.deleted.includes(f.id)) mine.deleted.push(f.id); fFixed++; continue }
   const q = mine.items.find(x => x.id === f.id); q.q = f.q.trim(); q.o = f.o.map(o => o.trim()); q.a = +f.a; q.e = f.e.trim();
   mine.overrides[f.id] = { q: q.q, o: q.o, aText: q.o[q.a], e: q.e, ok: true, t }; fFixed++ }
 const doneD = new Set((dec.drafts || []).map(d => d.id)), doneF = new Set((dec.flags || []).map(f => f.id));
 drafts.pending = drafts.pending.filter(q => !doneD.has(q.id)); drafts.pendingFlags = drafts.pendingFlags.filter(f => !doneF.has(f.id));
-drafts.reviewLog = (drafts.reviewLog || []).concat([{ at: new Date().toISOString(), kept, fixed, rejected, written, flagsFixed: fFixed, flagsConfirmed: fConf, flagsDiscarded: fDisc, remaining: drafts.pending.length, remainingFlags: drafts.pendingFlags.length }]).slice(-300);
+drafts.reviewLog = (drafts.reviewLog || []).concat([{ at: new Date().toISOString(), by: REVIEWER, kept, fixed, rejected, written, flagsFixed: fFixed, flagsConfirmed: fConf, flagsDiscarded: fDisc, remaining: drafts.pending.length, remainingFlags: drafts.pendingFlags.length }]).slice(-300);
 mine.updated = new Date().toISOString(); pf.flags = pf.flags.slice(0, 500); pf.updated = mine.updated;
 // mark each draft's outcome in the daily drafts archive the app shows
 const dd = path.join(DIR, 'drafts');
@@ -72,8 +74,8 @@ if (fs.existsSync(dd)) for (const f of fs.readdirSync(dd).filter(x => /^\d{4}-\d
   const p = path.join(dd, f), a = readJ(p, null); if (!a) continue; let ch = false;
   a.items.forEach(q => { if (status[q.id]) { Object.assign(q, status[q.id]); ch = true } }); if (ch) fs.writeFileSync(p, JSON.stringify(a)) }
 fs.writeFileSync(mF, JSON.stringify(mine)); fs.writeFileSync(dF, JSON.stringify(drafts, null, 1)); fs.writeFileSync(pF, JSON.stringify(pf));
-const today = mine.items.filter(q => String(q.id).startsWith(tag)).length;
-const msg = `${kept + fixed + written} new questions (${kept + fixed} from drafts, ${written} written), ${rejected} rejected; flags ${fFixed} fixed, ${fConf} confirmed, ${fDisc} discarded; today ${today}; ${drafts.pending.length} drafts waiting`;
-fs.writeFileSync(path.join(RV, 'last-message.txt'), 'Ortho preSSaleel: ' + msg);
-try { fs.unlinkSync(path.join(RV, 'decisions.json')) } catch (e) {}
+const tday = day.replace(/-/g, ''), today = mine.items.filter(q => /^(cai|fai)$/.test(String(q.id).slice(0, 3)) && String(q.id).slice(3, 11) === tday).length;
+const msg = (REVIEWER === 'Claude' ? '' : REVIEWER + ': ') + `${kept + fixed + written} new questions (${kept + fixed} from drafts, ${written} written), ${rejected} rejected; flags ${fFixed} fixed, ${fConf} confirmed, ${fDisc} discarded; today ${today}; ${drafts.pending.length} drafts waiting`;
+fs.mkdirSync(RV, { recursive: true }); fs.writeFileSync(path.join(RV, 'last-message.txt'), 'Ortho preSSaleel: ' + msg);
+try { fs.unlinkSync(DEC_F) } catch (e) {}
 console.log('APPLIED: ' + msg);

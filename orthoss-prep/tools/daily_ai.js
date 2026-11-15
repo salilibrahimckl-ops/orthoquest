@@ -1,9 +1,11 @@
 // Ortho preSSaleel daily AI job, run by GitHub Actions on a schedule (no phone needed).
 //   node daily_ai.js run    -> writes out/new-items.json, out/flags.json, out/state.json
 //   node daily_ai.js apply  -> adds them to ai-drafts.json (pending) for Claude's morning review; updates ai-state.json
-// Uses the free Pollinations text API (no key). New questions are kept only when two
-// independent answers from the AI agree with the intended key; proofreading flags a
-// question only when an independent second answer also disagrees with the marked key.
+// Models: Google Gemini (free tier; needs the GEMINI_API_KEY repository secret) is the main writer and editor;
+// the free Pollinations model (no key) is the fallback and an independent second opinion.
+// With Gemini available, a free "senior editor" pass checks every draft against the Campbell-checked notes and fixes it;
+// a draft is published straight to the app only if the editor approves it AND two blind answers (Gemini with shuffled
+// options, and the second model) both reach the same key. Everything else waits for Claude's review (if any).
 const fs = require('fs'), path = require('path');
 const DIR = path.join(__dirname, '..'), OUT = path.join(process.cwd(), 'out');
 let N_NEW = +(process.env.DAILY_NEW || 100), N_PROOF = +(process.env.DAILY_PROOF || 100);
@@ -38,9 +40,47 @@ const sameQ = (a, b) => { let ov = 0; for (const x of a.o) if (b.o.has(x)) ov++;
 const readJ = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')) } catch (e) { return d } };
 
 const AI_MODEL = process.env.AI_MODEL || 'openai';
-let lastCall = 0;
+const GKEY = process.env.GEMINI_API_KEY || '';
+let lastCall = 0, gLast = 0, gModel = null, gDead = !GKEY, gCalls = 0;
+const G_GAP = +(process.env.GEMINI_GAP_MS || 7000), G_MAX = +(process.env.GEMINI_MAX_CALLS || 220);
 const LADDER = ['high', 'medium', 'low'];
-async function ai(prompt, effort) {
+const stats = { gemini: 0, pollinations: 0, geminiFail: 0 };
+// Pick the newest free "flash" model this key can use (names change over time), unless GEMINI_MODEL is set.
+async function geminiModel() {
+  if (gModel) return gModel;
+  if (process.env.GEMINI_MODEL) return (gModel = process.env.GEMINI_MODEL);
+  try {
+    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=' + GKEY, { signal: AbortSignal.timeout(30000) });
+    const j = await r.json(); const ok = (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent')).map(m => m.name.replace(/^models\//, ''));
+    const ver = n => { const m = /^gemini-(\d+(?:\.\d+)?)-flash$/.exec(n); return m ? +m[1] : -1 };
+    const best = ok.filter(n => ver(n) > 0).sort((a, b) => ver(b) - ver(a))[0] || ok.find(n => /^gemini-[\d.]+-flash(-latest)?$/.test(n)) || ok.find(n => /flash/.test(n) && !/lite|image|tts|live|audio|embed/.test(n));
+    gModel = best || 'gemini-2.5-flash';
+  } catch (e) { gModel = 'gemini-2.5-flash' }
+  console.log('Gemini model: ' + gModel); return gModel;
+}
+async function gemini(prompt, temp) {
+  const model = await geminiModel();
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const wait = G_GAP - (Date.now() - gLast); if (wait > 0) await sleep(wait);
+    gLast = Date.now(); gCalls++;
+    try {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GKEY}`, { method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { temperature: temp == null ? 0.4 : temp, responseMimeType: 'application/json', maxOutputTokens: 32768 } }),
+        signal: AbortSignal.timeout(300000) });
+      if (r.status === 429) { const b = await r.text().catch(() => '');
+        if (/per ?day|PerDay|daily|quota/i.test(b) && !/per ?minute|PerMinute/i.test(b)) { console.log('  Gemini daily quota used up; switching to the fallback model'); gDead = true; throw new Error('quota') }
+        await sleep(30000 * (attempt + 1)); continue }
+      if (r.status === 400 || r.status === 403 || r.status === 404) { const b = await r.text().catch(() => ''); console.log('  Gemini refused (' + r.status + '): ' + b.slice(0, 200)); if (r.status !== 400) gDead = true; throw new Error('refused') }
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json(); const parts = (((j.candidates || [])[0] || {}).content || {}).parts || [];
+      const t = parts.filter(x => !x.thought).map(x => x.text || '').join('');
+      if (!t) throw new Error('empty (' + (((j.candidates || [])[0] || {}).finishReason || 'no candidate') + ')');
+      stats.gemini++; return t;
+    } catch (e) { if (gDead || /refused/.test(e.message)) throw e; console.log('  Gemini call failed:', e.message); await sleep(8000 * (attempt + 1)) }
+  }
+  throw new Error('Gemini unavailable');
+}
+async function pollinations(prompt, effort) {
   let lvl = Math.max(0, LADDER.indexOf(effort || 'low'));
   for (let attempt = 0; attempt < 5; attempt++) {
     effort = LADDER[lvl];
@@ -54,11 +94,19 @@ async function ai(prompt, effort) {
       if (!r.ok) { const b = await r.text().catch(() => ''); const m = /Retry after (\d+)s/.exec(b); if (m) await sleep((+m[1] + 3) * 1000); throw new Error('HTTP ' + r.status + ' ' + b.slice(0, 160)) }
       const j = await r.json(); const t = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
       if (!t) throw new Error('empty');
-      return t;
+      stats.pollinations++; return t;
     } catch (e) { lastCall = Date.now(); console.log('  AI call failed:', e.message); await sleep(5000 * (attempt + 1)) }
   }
   throw new Error('AI unavailable');
 }
+const geminiOn = () => !gDead && gCalls < G_MAX;
+// main model: Gemini when available, otherwise the free fallback
+async function ai(prompt, effort, temp) {
+  if (geminiOn()) { try { return await gemini(prompt, temp) } catch (e) { stats.geminiFail++; console.log('  using fallback model for this call') } }
+  return pollinations(prompt, effort);
+}
+// second opinion: always the other model when Gemini is the main one
+async function ai2(prompt) { return geminiOn() ? pollinations(prompt, 'low') : ai(prompt, 'low') }
 function arr(t) {
   t = String(t || '');
   try { const v = JSON.parse(t); return Array.isArray(v) ? v : [] } catch (e) {}
@@ -70,6 +118,27 @@ const answerPrompt = qs => `You are an expert orthopaedic examiner. Answer each 
 ${qs.map((q, i) => fmt(q, i + 1, false)).join('\n\n')}
 Reply with only a JSON array, one object per question: [{"i":1,"a":0,"bad":false}] where "a" is the 0-based index of the correct option.`;
 
+
+// Free "senior editor" (Gemini): checks each draft against the notes and standard references, fixes it or rejects it.
+const editorPrompt = (qs, notes, topic, sub) => `You are the senior question editor for an Indian orthopaedic superspeciality entrance exam (NEET-SS / INI-SS / FET). Topic: ${topic} / ${sub}.
+Review each draft MCQ below with the rigour of a professor setting the real paper.${notes ? `
+REFERENCE NOTES (already cross-checked against Campbell's Operative Orthopaedics; treat them as the authority for this topic):
+<<<
+${notes}
+>>>` : ''}
+For each question:
+1. Decide the single correct answer yourself first, from your own knowledge and the notes.
+2. Check every fact in the stem, options and explanation: classifications and their types, numbers and thresholds, eponyms, structures at risk, "most common" claims, trial results, guideline statements.
+3. Check it is a fair single-best-answer question: exactly one defensible answer, distractors from the same category and clearly wrong to an expert, no "all/none of the above", no clues in wording.
+4. Verdict:
+   - "keep" only if fully correct and exam-worthy as written;
+   - "fix" if it can become a correct, exam-worthy question on the same idea: return the corrected q, o (4 options), a and e;
+   - "reject" if the premise is invented or doubtful, the fact is controversial or varies between sources, or it cannot be repaired.
+   Never keep or fix a question unless you are certain of the answer. When in doubt, reject.
+5. "supported": true only if the tested fact is stated in the notes or is a standard fact found in Campbell's / Rockwood and Green / Miller's that you are certain of.
+${qs.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
+Reply with only a JSON array, one object per question:
+[{"i":1,"verdict":"keep|fix|reject","supported":true,"q":"(final question)","o":["","","",""],"a":0,"e":"(1-3 sentences: why the answer is right and why the main distractor is wrong)","reason":"(short)"}]`;
 
 // Topics for tonight's drafts: today's and the next 3 days of the NEET-SS timetable (plan-topics.json), so the reviewed
 // questions arrive while that topic is being studied. Falls back to rotating through all subtopics.
@@ -96,7 +165,7 @@ function recallFor(bank, custom, topic, sub) {
 // High-yield notes written for the app (notes/<topic>.json); used as the factual source for tonight's questions.
 function notesFor(topic, sub) {
   const f = path.join(DIR, 'notes', topic.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.json'), d = readJ(f, null);
-  const n = d && d.subs && d.subs[sub]; return n && n.md ? String(n.md).slice(0, 7000) : '';
+  const n = d && d.subs && d.subs[sub]; return n && n.md ? String(n.md).slice(0, geminiOn() ? 30000 : 7000) : '';
 }
 function loadAll() {
   const bank = readJ(path.join(DIR, 'questions.json'), { raw: [] }).raw.map((r, i) => ({ id: 'b' + (i + 1), topic: TOPICS[r[0]], q: r[2], o: r[3], a: r[4], e: r[5], set: r[7] || '' }));
@@ -112,7 +181,7 @@ async function run() {
   const state = readJ(path.join(DIR, 'ai-state.json'), { pidx: 0, runs: [] });
   const drafts = readJ(path.join(DIR, 'ai-drafts.json'), {});
   const backlog = (drafts.pending || []).length, flagBacklog = (drafts.pendingFlags || []).length;
-  if (backlog >= MAX_PENDING) { console.log(`Review backlog is ${backlog} questions; not writing new drafts tonight.`); N_NEW = 0 }
+  if (backlog >= MAX_PENDING && !geminiOn()) { console.log(`Review backlog is ${backlog} questions; not writing new drafts tonight.`); N_NEW = 0 }
   if (flagBacklog >= MAX_PENDING_FLAGS) { console.log(`Review backlog is ${flagBacklog} flags; not proofreading tonight.`); N_PROOF = 0 }
   const sigs = all.concat(drafts.pending || [], drafts.items || []).map(q => qSig(q.q, q.o));
   const today = new Date().toISOString().slice(0, 10), dnum = Math.floor(Date.now() / 864e5);
@@ -120,10 +189,12 @@ async function run() {
   console.log(`Bank ${bank.length} + added ${custom.length}. Target ${N_NEW} new, ${N_PROOF} proofread.`);
 
   // 1. New questions
-  let batch = 0, genFails = 0, proofFails = 0;
+  let batch = 0, genFails = 0, proofFails = 0, published = 0;
+  const strong = geminiOn();
+  console.log(strong ? 'Mode: Gemini writer + free senior editor + 2 blind checks (auto-publishes approved questions)' : 'Mode: fallback model only (drafts wait for Claude review)');
   const targets = planTargets();
   console.log('Topics from the NEET-SS timetable: ' + targets.map(t => t.topic + ' / ' + t.sub).join('; '));
-  while (newItems.length < N_NEW && batch < 45 && timeLeft(Math.min(30, Math.ceil(N_PROOF / 4)))) {
+  while ((strong ? published < N_NEW && newItems.length < N_NEW * 2 : newItems.length < N_NEW) && batch < 60 && timeLeft(Math.min(30, Math.ceil(N_PROOF / 4)))) {
     const tg = targets[batch % targets.length], topic = tg.topic, sub = tg.sub;
     const exam = ['NEET-SS', 'NEET-SS', 'FNB', 'NEET-SS', 'INI-SS'][batch % 5]; batch++;
     const recall = recallFor(bank, custom, topic, sub);
@@ -132,7 +203,7 @@ async function run() {
     const notes = notesFor(topic, sub);
     try {
       const gen = arr(await ai(`You write original single-best-answer MCQs for Indian orthopaedic superspeciality entrance exams. Target: ${STD[exam]}
-Write exactly 6 new questions on ${topic}, focusing on ${sub}.${notes ? `
+Write exactly ${strong ? 8 : 6} new questions on ${topic}, focusing on ${sub}.${notes ? `
 - SOURCE NOTES (checked by an orthopaedic reviewer). Build every question on facts stated in these notes; do not add facts that are not in them:
 <<<
 ${notes}
@@ -146,15 +217,45 @@ ${ex.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
 - Mix clinical vignettes (about 40%), one-line recall ("Most common…", "Investigation of choice…", "…is classified as"), "All of the following EXCEPT" and statement questions.
 - Exactly 4 options, one clearly correct; distractors from the same category; no "all/none of the above"; vary the correct letter.
 - "e" explains in 1-3 sentences why the answer is right.
-Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}]`, 'low'))
+Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}]`, 'low', 0.8))
         .filter(x => x && typeof x.q === 'string' && Array.isArray(x.o) && x.o.length === 4 && +x.a >= 0 && +x.a < 4)
         .map(x => ({ q: x.q.trim(), o: x.o.map(o => String(o).replace(/^\s*(?:\(?[A-Ea-e][.)]\s+)+/, '').trim()), a: +x.a, e: String(x.e || '').trim() }))
         .filter(x => new Set(x.o.map(normT)).size === 4 && x.q.length > 15);
       if (!gen.length) continue;
+      let kept = 0, auto = 0;
+      if (strong) {
+        // A. free senior editor (Gemini) fixes or rejects each draft
+        const ed = new Map(arr(await ai(editorPrompt(gen, notes, topic, sub), 'low', 0.1)).map(c => [+c.i, c]));
+        const cand = [];
+        gen.forEach((x, i) => { const c = ed.get(i + 1); if (!c || !/^(keep|fix)$/.test(c.verdict)) return;
+          let y = x, how = 'kept';
+          if (c.verdict === 'fix') { if (!(typeof c.q === 'string' && Array.isArray(c.o) && c.o.length === 4 && +c.a >= 0 && +c.a < 4)) return;
+            y = { q: c.q.trim(), o: c.o.map(o => String(o).replace(/^\s*(?:\(?[A-Ea-e][.)]\s+)+/, '').trim()), a: +c.a, e: String(c.e || x.e).trim() }; how = 'fixed';
+            if (new Set(y.o.map(normT)).size !== 4 || y.q.length < 15) return }
+          const sg = qSig(y.q, y.o); if (sigs.some(t => sameQ(sg, t))) return;
+          cand.push(Object.assign(y, { how, supported: c.supported === true, why: String(c.reason || '').slice(0, 200) })) });
+        if (cand.length) {
+          // B. two blind answers with shuffled options: Gemini again, and the independent second model
+          const p1 = cand.map(x => { const idx = shuf([0, 1, 2, 3]); return { q: x.q, o: idx.map(k => x.o[k]), map: idx } });
+          const p2 = cand.map(x => { const idx = shuf([0, 1, 2, 3]); return { q: x.q, o: idx.map(k => x.o[k]), map: idx } });
+          const b1 = new Map(arr(await ai(answerPrompt(p1), 'low', 0)).map(c => [+c.i, c]));
+          let b2 = new Map(); try { b2 = new Map(arr(await ai2(answerPrompt(p2))).map(c => [+c.i, c])) } catch (e) { console.log('  second opinion unavailable') }
+          cand.forEach((x, k) => {
+            const c1 = b1.get(k + 1), c2 = b2.get(k + 1);
+            const ok1 = c1 && !c1.bad && +c1.a >= 0 && +c1.a < 4 && p1[k].map[+c1.a] === x.a;
+            const ok2 = c2 && !c2.bad && +c2.a >= 0 && +c2.a < 4 && p2[k].map[+c2.a] === x.a;
+            if (!ok1) return;                                   // the editor's own model disagrees on a blind re-answer: drop
+            const sg = qSig(x.q, x.o); if (sigs.some(t => sameQ(sg, t))) return; sigs.push(sg); kept++;
+            const pub = x.supported && ok2 && String(x.e || '').length >= 20 && !x.o.some(o => /^(all|none) of the above$/i.test(o)); if (pub) auto++;
+            newItems.push({ id: 'ai' + today.replace(/-/g, '') + '_' + String(newItems.length + 1).padStart(3, '0'), topic, kind: 'AI-daily', q: x.q, o: x.o, a: x.a, e: x.e, src: 'Exam-style', exam, year: '', fresh: true, proofed: true,
+              editor: x.how, auto: pub, check: pub ? 'editor + 2 blind answers agree' : (!x.supported ? 'fact not confirmed in notes' : 'second model disagreed'), note: x.why });
+          });
+        }
+        published += auto;
+      } else {
       // two independent answer passes; keep only questions where both agree with the intended key
       const v1 = new Map(arr(await ai(answerPrompt(gen), 'low')).map(c => [+c.i, c]));
       const order2 = [];
-      let kept = 0;
       for (let i = 0; i < gen.length; i++) {
         const x = gen[i], c1 = v1.get(i + 1);
         if (!c1 || c1.bad || +c1.a !== x.a) continue;
@@ -172,11 +273,13 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
           newItems.push({ id: 'ai' + today.replace(/-/g, '') + '_' + String(newItems.length + 1).padStart(3, '0'), topic, kind: 'AI-daily', q: x.q, o: x.o, a: x.a, e: x.e, src: 'Exam-style', exam, year: '', fresh: true, proofed: true });
         });
       }
-      console.log(`  ${topic} / ${sub} (${exam}): kept ${kept} of ${gen.length}`);
+      }
+      console.log(`  ${topic} / ${sub} (${exam}): kept ${kept} of ${gen.length}` + (strong ? `, ${auto} approved for the app` : ''));
     } catch (e) { console.log('  batch failed:', e.message); if (/unavailable/.test(e.message) && ++genFails >= 3) break }
   }
 
   // 2. Proofreading (whole bank in rotation, plus any added questions not yet proofread)
+  const autoFlags = [], mineIds = new Set(custom.map(q => q.id));
   const fresh = custom.filter(q => !q.proofed);
   const queue = fresh.concat(Array.from({ length: all.length }, (_, k) => all[(state.pidx + k) % all.length]));
   let done = 0, pi = 0;
@@ -185,26 +288,33 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
     try {
       const res = arr(await ai(`You are proofreading an orthopaedic superspeciality exam question bank. For each item decide whether the marked answer is correct and whether the question, options or explanation contain a clear factual error, internal contradiction or ambiguity (two defensible answers). Be conservative: flag only clear problems, not style.
 ${b.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
-Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":null,"issue":""}] where "correct" is the 0-based index of the right option if the marked answer is wrong, otherwise null, and "issue" briefly states the problem.`, 'low'));
+Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":null,"issue":"","e":""}] where "correct" is the 0-based index of the right option if the marked answer is wrong, otherwise null, "issue" briefly states the problem, and "e" (only when the answer is wrong) is a corrected 1-3 sentence explanation.`, 'low', 0.1));
       const fl = [];
       for (const r of res) { const q = b[+r.i - 1]; if (!q || r.ok !== false) continue; const c = r.correct == null ? null : +r.correct;
-        fl.push({ q, sug: c != null && c >= 0 && c < 4 && c !== q.a ? q.o[c] : null, issue: String(r.issue || '').slice(0, 300) }) }
+        fl.push({ q, c, sug: c != null && c >= 0 && c < 4 && c !== q.a ? q.o[c] : null, issue: String(r.issue || '').slice(0, 300), e: String(r.e || '').trim() }) }
       if (fl.length) {
-        const sec = new Map(arr(await ai(answerPrompt(fl.map(f => f.q)), 'low')).map(c => [+c.i, c]));
+        const sec = new Map(arr(await (strong ? ai2 : ai)(answerPrompt(fl.map(f => f.q)), 'low')).map(c => [+c.i, c]));
         fl.forEach((f, i) => { const c = sec.get(i + 1); const second = c && +c.a >= 0 && +c.a < 4 ? f.q.o[+c.a] : null;
-          const strong = second != null && second !== f.q.o[f.q.a];
-          if (strong || (!f.sug && f.issue)) flags.push({ id: f.q.id, q: f.q.q.slice(0, 200), key: f.q.o[f.q.a], sug: f.sug || (strong ? second : null), second, issue: f.issue, strong, day: today, t: Date.now() }) });
+          const strongMode = strong, strong2 = second != null && second !== f.q.o[f.q.a];
+          if (strong2 || (!f.sug && f.issue)) flags.push({ id: f.q.id, q: f.q.q.slice(0, 200), key: f.q.o[f.q.a], sug: f.sug || (strong2 ? second : null), second, issue: f.issue, strong: strong2, day: today, t: Date.now() });
+          // both models independently pick the same different answer: settle it without waiting for Claude
+          if (strongMode && f.sug && second === f.sug) {
+            if (/^b\d+$/.test(f.q.id)) autoFlags.push({ id: f.q.id, action: 'confirm', sug: f.sug, issue: f.issue + ' (two free models agree)' });
+            else if (mineIds.has(f.q.id)) autoFlags.push({ id: f.q.id, action: 'fix', q: f.q.q, o: f.q.o, a: f.c, e: f.e.length >= 20 ? f.e : ('Correct answer: ' + f.sug + '. ' + f.issue).slice(0, 400) });
+          } });
       }
       done += b.length;
     } catch (e) { console.log('  proof batch failed:', e.message); if (/unavailable/.test(e.message) && ++proofFails >= 3) break }
   }
   const proofedIds = queue.slice(0, pi).map(q => q.id);
   const rotated = Math.max(0, Math.min(pi, queue.length) - fresh.length);
-  const st = { pidx: (state.pidx + rotated) % Math.max(1, all.length), last: { day: today, at: new Date().toISOString(), made: newItems.length, proofread: done, flagged: flags.length, minutes: Math.round((Date.now() - T0) / 60000) } };
+  const st = { pidx: (state.pidx + rotated) % Math.max(1, all.length), last: { day: today, at: new Date().toISOString(), made: newItems.length, published: newItems.filter(q => q.auto).length, autoFlags: autoFlags.length, proofread: done, flagged: flags.length, mode: strong ? 'gemini' : 'fallback', model: strong ? gModel : AI_MODEL, calls: stats, minutes: Math.round((Date.now() - T0) / 60000) } };
   fs.writeFileSync(path.join(OUT, 'new-items.json'), JSON.stringify(newItems));
-  fs.writeFileSync(path.join(OUT, 'flags.json'), JSON.stringify(flags));
+  fs.writeFileSync(path.join(OUT, 'flags.json'), JSON.stringify(flags.filter(f => !autoFlags.some(a => a.id === f.id))));
+  const autoDrafts = newItems.filter(q => q.auto).map(q => q.editor === 'fixed' ? { id: q.id, action: 'fix', q: q.q, o: q.o, a: q.a, e: q.e } : { id: q.id, action: 'keep' });
+  fs.writeFileSync(path.join(OUT, 'auto-decisions.json'), JSON.stringify({ drafts: autoDrafts, flags: autoFlags, written: [] }));
   fs.writeFileSync(path.join(OUT, 'state.json'), JSON.stringify(Object.assign(st, { proofedIds })));
-  console.log(`Done: ${newItems.length} new questions, ${done} proofread, ${flags.length} flagged, ${st.last.minutes} min.`);
+  console.log(`Done: ${newItems.length} drafts (${st.last.published} approved by the free editor), ${done} proofread, ${flags.length} flagged (${autoFlags.length} settled), ${st.last.minutes} min. Calls: ${JSON.stringify(stats)}`);
 }
 
 function apply() {
@@ -214,7 +324,8 @@ function apply() {
   const df = path.join(DIR, 'ai-drafts.json'), d = readJ(df, {});
   d.pending = d.pending || []; d.pendingFlags = d.pendingFlags || [];
   const have = new Set(d.pending.map(q => q.id)); let added = 0;
-  items.forEach(q => { if (!have.has(q.id)) { d.pending.push(q); added++ } });
+  // with the free editor, unapproved drafts are queued for Claude only while the backlog is small; the rest are archived as 'not approved'
+  items.forEach(q => { if (have.has(q.id)) return; if (q.auto || d.pending.length < MAX_PENDING) { d.pending.push(q); added++ } else q.status = 'not approved' });
   const seen = new Set(d.pendingFlags.map(f => f.id + '|' + f.key));
   flags.forEach(f => { if (!seen.has(f.id + '|' + f.key)) d.pendingFlags.push(f) });
   d.updated = new Date().toISOString();
@@ -223,7 +334,7 @@ function apply() {
   if (items.length) {
     const day = new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10), dd = path.join(DIR, 'drafts'); fs.mkdirSync(dd, { recursive: true });
     const f = path.join(dd, day + '.json'), cur = readJ(f, { day, items: [] }), ids = new Set(cur.items.map(q => q.id));
-    items.forEach(q => { if (!ids.has(q.id)) cur.items.push(Object.assign({}, q, { status: 'waiting' })) });
+    items.forEach(q => { if (!ids.has(q.id)) cur.items.push(Object.assign({}, q, { status: q.status || 'waiting' })) });
     fs.writeFileSync(f, JSON.stringify(cur));
     const idxF = path.join(dd, 'index.json'), idx = readJ(idxF, { days: [] });
     idx.days = [{ day, n: cur.items.length }].concat(idx.days.filter(x => x.day !== day)).sort((a, b) => a.day < b.day ? 1 : -1).slice(0, 30);
@@ -231,7 +342,14 @@ function apply() {
   }
   if (st) { const sf = path.join(DIR, 'ai-state.json'), old = readJ(sf, { runs: [] });
     fs.writeFileSync(sf, JSON.stringify({ pidx: st.pidx, last: Object.assign({}, st.last, { pendingReview: true }), runs: [st.last].concat(old.runs || []).slice(0, 30) })) }
-  console.log(`Queued for Claude review: ${added} new questions, ${flags.length} flags.`);
+  console.log(`Queued: ${added} new drafts, ${flags.length} flags.`);
+  // publish what the free senior editor approved (same validation as Claude's review; ids fai..., reviewed: 'free AI')
+  const auto = readJ(path.join(OUT, 'auto-decisions.json'), null);
+  if (auto && ((auto.drafts || []).length || (auto.flags || []).length)) {
+    const f = path.join(OUT, 'auto-apply.json'); fs.writeFileSync(f, JSON.stringify(auto));
+    try { require('child_process').execFileSync('node', [path.join(__dirname, 'review_apply.js')], { stdio: 'inherit', env: Object.assign({}, process.env, { REVIEWER: 'free AI', ID_PREFIX: 'fai', DECISIONS: f }) }) }
+    catch (e) { console.log('Free-editor publishing failed validation; the drafts stay queued for Claude.') }
+  }
 }
 
 (process.argv[2] === 'apply' ? Promise.resolve(apply()) : run()).catch(e => { console.error(e); process.exit(1) });
