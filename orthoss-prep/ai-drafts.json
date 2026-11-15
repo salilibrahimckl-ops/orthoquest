@@ -1864,9 +1864,260 @@
   "ai20261101_092",
   "ai20261101_093"
  ],
- "pending": [],
- "pendingFlags": [],
- "updated": "2026-11-14T22:56:27.573Z",
+ "pending": [
+  {
+   "id": "ai20261115_001",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 22‑year‑old male presents with a sudden inability to flex the middle finger’s PIP joint after a high‑velocity tennis ball strike. The digital pulse is intact, and the MCP joint is free. Which tendon is most likely ruptured?",
+   "o": [
+    "FDS of the middle finger",
+    "FDP of the middle finger",
+    "FDP of the index finger",
+    "FDP of the little finger"
+   ],
+   "a": 1,
+   "e": "The FDP of the middle finger supplies isolated PIP flexion. With an isolated injury and intact MCP flexion by FDS, FDP is the culprit.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "check": "second model disagreed",
+   "note": "clear anatomy"
+  },
+  {
+   "id": "ai20261115_002",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "During flexor tendon repair in Zone II, the surgeon decides to excise one slip of the FDS to allow passage of a bulky core suture. Which complication is most closely associated with this manoeuvre?",
+   "o": [
+    "Bowstringing of the repaired FDP",
+    "Quadriga effect on adjacent fingers",
+    "Lateral band subluxation",
+    "Trigger finger at the MCP joint"
+   ],
+   "a": 0,
+   "e": "Excision of an FDS slip reduces the length of the FDP tendons that normally lie parallel, thereby decreasing the tendency to bowstring and eliminating the quadriga effect. The other options relate to different injuries.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "fixed",
+   "check": "second model disagreed",
+   "note": "corrected answer"
+  },
+  {
+   "id": "ai20261115_003",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "In a patient with a traumatic central slip tear of the middle finger, which sign is most reliable to confirm the diagnosis?",
+   "o": [
+    "Tinel’s sign at the proximal interphalangeal joint",
+    "Elson test with the middle phalanx flexed to 90° over a table edge",
+    "Knox–Hardy test for passive extension lag",
+    "Allen’s test for the hand"
+   ],
+   "a": 1,
+   "e": "The Elson test directly stresses the central slip; failure indicates an acute central slip rupture.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "check": "second model disagreed",
+   "note": "clinical fact"
+  },
+  {
+   "id": "ai20261115_009",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A patient with an undisplaced waist scaphoid fracture is managed with a below‑elbow cast for how many weeks to achieve >90% union?",
+   "o": [
+    "4–6 weeks",
+    "6–8 weeks",
+    "8–12 weeks",
+    "12–16 weeks"
+   ],
+   "a": 1,
+   "e": "Undisplaced waist fractures require 6–8 weeks of below‑elbow immobilisation for optimal union.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "second model disagreed",
+   "note": "6–8 weeks is the standard immobilisation duration"
+  },
+  {
+   "id": "ai20261115_011",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "Which of the following is a recognised complication of a proximal pole scaphoid fracture if treated non‑operatively?",
+   "o": [
+    "Humpback deformity with DISI",
+    "Scaphocapitate arthritis",
+    "Capitolunate arthritis",
+    "Early wrist stiffness"
+   ],
+   "a": 0,
+   "e": "Non‑operative treatment of a displaced proximal pole fracture carries a high AVN/non‑union risk, often leading to a humpback deformity and DISI.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "second model disagreed",
+   "note": "Humpback is the classic sequela of proximal pole fractures"
+  },
+  {
+   "id": "ai20261115_023",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 58‑year‑old type‑2 diabetic presents with a painless ulcer on the plantar surface of his right great toe. On examination he has loss of protective sensation (10‑g monofilament). Which investigation is most appropriate to assess for underlying osteomyelitis?",
+   "o": [
+    "Plain radiograph of the foot",
+    "TcPO₂ measurement",
+    "Bone scan with labelled leucocytes",
+    "Dorsal–pediatric neurovascular Doppler"
+   ],
+   "a": 2,
+   "e": "Bone scans with labelled leucocytes are the preferred initial imaging for suspected osteomyelitis in diabetic feet, as plain radiographs may lag and TcPO₂ assesses perfusion.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "second model disagreed",
+   "note": "Clear single best answer based on evidence."
+  },
+  {
+   "id": "ai20261115_028",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 52‑year‑old woman with a history of multiple ankle sprains now reports ankle pain after a twist. Weight‑bearing AP mortise X‑ray shows a tibiofibular clear space of 6.5 mm in AP view and 1.5 mm overlap in mortise view. Which structure most likely remains intact after this injury?",
+   "o": [
+    "Calcaneofibular ligament",
+    "Anterior tibiofibular interosseous ligament",
+    "Posterior tibiofibular interosseous ligament",
+    "Anterior talofibular ligament"
+   ],
+   "a": 2,
+   "e": "A tibiofibular diastasis >6 mm on AP indicates a syndesmotic injury, but intimal interosseous ligaments are not necessarily severed. The posterior tibiofibular interosseous ligament may remain intact.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "second model disagreed",
+   "note": "Question aligns with guidelines"
+  },
+  {
+   "id": "ai20261115_046",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A middle‑aged man with diabetes reports a red, tender blister on the finger tip that opened spontaneously and now shows clear fluid. The examination reveals a painless, small ulcer with vesicular lesions. Which organism is most likely responsible?",
+   "o": [
+    "Staphylococcus aureus",
+    "Herpes simplex virus",
+    "Candida albicans",
+    "Neisseria gonorrhoeae"
+   ],
+   "a": 1,
+   "e": "Herpetic whitlow presents with a cluster of vesicles that coalesce into clear fluid; HSV (sz.i.) is the typical cause and no incision is required.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "second model disagreed",
+   "note": "Clinical description matches herpes infection."
+  },
+  {
+   "id": "ai20261115_048",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 6‑month‑old infant presents with a duplicated thumb and a hypoplastic radial side. The most appropriate surgical interval for excision of the hypoplastic digit is:",
+   "o": [
+    "At 4–6 months",
+    "At 9–12 months",
+    "At 12–18 months",
+    "At 18–24 months"
+   ],
+   "a": 1,
+   "e": "Radial polydactyly (thumb duplication) is best addressed around 9–12 months to allow growth and to minimise recurrence, following the standard timing for thumb duplication excision.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "second model disagreed",
+   "note": "All facts match authoritative sources."
+  },
+  {
+   "id": "ai20261115_051",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "Which signalling centre is responsible for anterior‑posterior (radial‑ulnar) patterning of the upper limb?",
+   "o": [
+    "Apical ectodermal ridge (AER)",
+    "Zone of polarising activity (ZPA)",
+    "Dorsal ectoderm",
+    "Ventral ectoderm"
+   ],
+   "a": 1,
+   "e": "The ZPA, located in the posterior mesoderm, secretes Sonic hedgehog (SHH) and determines radial‑ulnar axis; its duplication causes mirror hand.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "second model disagreed",
+   "note": "Standard embryology fact."
+  }
+ ],
+ "pendingFlags": [
+  {
+   "id": "cmvvzbs7lvykgp",
+   "q": "What are the classical Lewinnek safe zones for acetabular cup orientation in primary Total Hip Arthroplasty?",
+   "key": "Inclination: 40° ± 10°, Anteversion: 15° ± 10°",
+   "sug": null,
+   "second": "Inclination: 40° ± 10°, Anteversion: 15° ± 10°",
+   "issue": "Lewinnek original safe‑zone values are 45° ±10° inclination and 20° ±10° anteversion; the marked answer cites 40° ±10° and 15° ±10°, which is inconsistent with the published data.",
+   "strong": false,
+   "day": "2026-11-15",
+   "t": 1794729315809
+  },
+  {
+   "id": "cmvwnw8pjdmsfg",
+   "q": "The 80° cup inclination and 20° anteversion Lewinnek \"safe zone\" for acetabular components is:",
+   "key": "Inclination 55±5°, anteversion 25±5°",
+   "sug": "Inclination 40±10°, anteversion 15±10°",
+   "second": "Inclination 40±10°, anteversion 15±10°",
+   "issue": "Lewinnek’s ‘safe zone’ values are incorrect.",
+   "strong": true,
+   "day": "2026-11-15",
+   "t": 1794730180048
+  }
+ ],
+ "updated": "2026-11-15T08:12:38.919Z",
  "reviewLog": [
   {
    "at": "2026-11-03T00:10:37.199663Z",
@@ -2501,6 +2752,19 @@
    "flagsDiscarded": 0,
    "remaining": 0,
    "remainingFlags": 0
+  },
+  {
+   "at": "2026-11-15T08:12:38.963Z",
+   "by": "free AI",
+   "kept": 40,
+   "fixed": 3,
+   "rejected": 0,
+   "written": 0,
+   "flagsFixed": 3,
+   "flagsConfirmed": 0,
+   "flagsDiscarded": 0,
+   "remaining": 10,
+   "remainingFlags": 2
   }
  ]
 }
