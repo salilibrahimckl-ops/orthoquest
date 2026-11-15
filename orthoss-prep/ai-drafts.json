@@ -1866,28 +1866,6 @@
  ],
  "pending": [
   {
-   "id": "ai20261115_001",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "A 22‑year‑old male presents with a sudden inability to flex the middle finger’s PIP joint after a high‑velocity tennis ball strike. The digital pulse is intact, and the MCP joint is free. Which tendon is most likely ruptured?",
-   "o": [
-    "FDS of the middle finger",
-    "FDP of the middle finger",
-    "FDP of the index finger",
-    "FDP of the little finger"
-   ],
-   "a": 1,
-   "e": "The FDP of the middle finger supplies isolated PIP flexion. With an isolated injury and intact MCP flexion by FDS, FDP is the culprit.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "check": "second model disagreed",
-   "note": "clear anatomy"
-  },
-  {
    "id": "ai20261115_002",
    "topic": "Hand & Upper Limb",
    "kind": "AI-daily",
@@ -1930,52 +1908,6 @@
    "editor": "kept",
    "check": "second model disagreed",
    "note": "clinical fact"
-  },
-  {
-   "id": "ai20261115_009",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "A patient with an undisplaced waist scaphoid fracture is managed with a below‑elbow cast for how many weeks to achieve >90% union?",
-   "o": [
-    "4–6 weeks",
-    "6–8 weeks",
-    "8–12 weeks",
-    "12–16 weeks"
-   ],
-   "a": 1,
-   "e": "Undisplaced waist fractures require 6–8 weeks of below‑elbow immobilisation for optimal union.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "second model disagreed",
-   "note": "6–8 weeks is the standard immobilisation duration"
-  },
-  {
-   "id": "ai20261115_011",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "Which of the following is a recognised complication of a proximal pole scaphoid fracture if treated non‑operatively?",
-   "o": [
-    "Humpback deformity with DISI",
-    "Scaphocapitate arthritis",
-    "Capitolunate arthritis",
-    "Early wrist stiffness"
-   ],
-   "a": 0,
-   "e": "Non‑operative treatment of a displaced proximal pole fracture carries a high AVN/non‑union risk, often leading to a humpback deformity and DISI.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "second model disagreed",
-   "note": "Humpback is the classic sequela of proximal pole fractures"
   },
   {
    "id": "ai20261115_023",
@@ -2093,98 +2025,6 @@
    "note": "Standard embryology fact."
   },
   {
-   "id": "ai20261115_004",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "A 45‑year‑old woman complains of numbness in the palm of the left hand and paresthesia extending into the distal thumb after wearing a tight watch strap. Which nerve is most likely compressed?",
-   "o": [
-    "Median nerve",
-    "Superficial radial nerve",
-    "Ulnar nerve",
-    "Posterior interosseous nerve"
-   ],
-   "a": 0,
-   "e": "The clinical picture—palmar numbness and median‑digit paresthesia—fits median nerve compression. The superficial radial supplies the dorsum of the hand and does not produce palmar numbness; the other nerves do not supply the distal thumb.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "fixed",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Correct answer is ‘Median nerve’. The distractor ‘Superficial radial nerve’ is a common misconception because it runs near the wrist, but it supplies the dorsal hand."
-  },
-  {
-   "id": "ai20261115_005",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "A 28‑year‑old athlete develops inability to flex the distal interphalangeal joint (DIP) of the ring finger after a rugby tackle. The FDP tendon has retracted to the palm. According to Leddy–Packer classification type 1 injuries, within how many days should the tendon be repaired to prevent irreversible loss of blood supply?",
-   "o": [
-    "7–10 days",
-    "6 weeks",
-    "3 months",
-    "6 months"
-   ],
-   "a": 0,
-   "e": "Type 1 FDP lacerations are unrevascularised; early repair (within 7–10 days) is crucial to avoid retraction and loss of function.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Correct and fully consistent with standard surgical teaching."
-  },
-  {
-   "id": "ai20261115_006",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "An adult patient presents with a complete loss of sensation over the medial forearm and paralysis of the intrinsic hand muscles after a shoulder dislocation. Which diagnostic study is most appropriate and what finding would you expect?",
-   "o": [
-    "EMG/NCS – preserved SNAP of medial antebrachial cutaneous nerve",
-    "EMG/NCS – absent SNAP of ulnar nerve",
-    "MRI – pseudomeningocele at C8–T1",
-    "CT‑myelography – intact roots"
-   ],
-   "a": 1,
-   "e": "Loss of intrinsic hand function points to ulnar nerve involvement; the associated loss of sensation over the medial forearm confirms this. An EMG/NCS will most directly show an absent SNAP of the ulnar nerve. Option B is correct; option A would be expected in a root avulsion, not a peripheral lesion.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "fixed",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Original answer A was incorrect; EMG showing absent ulnar SNAP is the appropriate test."
-  },
-  {
-   "id": "ai20261115_007",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "A 24‑year‑old male presents with a painful, tender snuffbox after a fall on an outstretched hand. X‑rays are normal. Which investigation is the most reliable to rule out an occult scaphoid fracture?",
-   "o": [
-    "Plain radiographs with ulnar deviation",
-    "MRI of the wrist",
-    "CT scan of the scaphoid",
-    "Bone scan 72 hours after injury"
-   ],
-   "a": 1,
-   "e": "Early MRI (within days) has near 100% sensitivity and specificity for occult scaphoid fractures, making it the gold standard.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "MRI is the gold standard for occult scaphoid fractures"
-  },
-  {
    "id": "ai20261115_008",
    "topic": "Hand & Upper Limb",
    "kind": "AI-daily",
@@ -2206,52 +2046,6 @@
    "auto": false,
    "check": "held for review: free editor ran without Gemini",
    "note": "The last option is the only non‑criterion"
-  },
-  {
-   "id": "ai20261115_010",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "Which ligament provides the strongest intrinsic restraint to lunotriquetral instability?",
-   "o": [
-    "Scapholunate interosseous ligament",
-    "Lunotriquetral ligament (palmar part)",
-    "Dorsal intercarpal ligament",
-    "Radioscaphocapitate ligament"
-   ],
-   "a": 1,
-   "e": "The palmar portion of the lunotriquetral ligament is the most robust stabiliser against lunotriquetral dissociation.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Palmar lunotriquetral ligament is strongest"
-  },
-  {
-   "id": "ai20261115_012",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "A 30‑year‑old tennis player has a displaced waist scaphoid fracture (> 2 mm). What is the most appropriate initial surgical approach?",
-   "o": [
-    "Percutaneous pinning with K‑wires",
-    "Open reduction and internal fixation with a headless compression screw via a volar approach",
-    "Open reduction with dorsal approach fixation",
-    "Closed reduction and long arm cast"
-   ],
-   "a": 1,
-   "e": "Displaced waist fractures (> 1–2 mm) are best managed by ORIF with a volar headless screw, preserving the dorsal blood supply.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Volar screw fixation is preferred for displaced waist fractures"
   },
   {
    "id": "ai20261115_013",
@@ -2300,144 +2094,6 @@
    "note": "Incision & drainage is the correct first step."
   },
   {
-   "id": "ai20261115_015",
-   "topic": "Hand & Upper Limb",
-   "kind": "AI-daily",
-   "q": "A 45‑year‑old patient presents with a firm, tense swelling over the first web space that is non‑tender to palpation but painful on thumb opposition. The swelling is not contiguous with the dorsal hand. What space is most likely involved?",
-   "o": [
-    "Thenar space",
-    "Hypothenar space",
-    "Midpalmar space",
-    "Collar‑button space"
-   ],
-   "a": 0,
-   "e": "Pain on thumb opposition and swelling of the first web space are characteristic of a thenar space abscess.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Only thenar space fits the description."
-  },
-  {
-   "id": "ai20261115_016",
-   "topic": "Foot & Ankle",
-   "kind": "AI-daily",
-   "q": "A 35‑year‑old woman presents with a painful hallux valgus, an HVA of 32° and an IMA of 14°. The first TMT joint is clinically lax and the DMAA is 12°. Which surgical procedure corrects the deformity and stabilises the first TMT joint?",
-   "o": [
-    "Distal chevron osteotomy",
-    "Scarf osteotomy followed by Akin osteotomy",
-    "Modified Lapidus arthrodesis",
-    "Keller resection arthroplasty"
-   ],
-   "a": 2,
-   "e": "The deformity is moderate with a hypermobile first TMT joint; a modified Lapidus fuses the first TMT joint and corrects the IMA simultaneously.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Hypermobile TMT with moderate deformity best treated by Lapidus."
-  },
-  {
-   "id": "ai20261115_017",
-   "topic": "Foot & Ankle",
-   "kind": "AI-daily",
-   "q": "During a chevron osteotomy for hallux valgus, the surgeon performs an extensive medial capsulotomy and releases the adductor hallucis. Which complication is most likely if the lateral soft‑tissue constraints are not adequately addressed?",
-   "o": [
-    "Hallux varus",
-    "Avascular necrosis of the first metatarsal head",
-    "Transfer metatarsalgia",
-    "Neuroma of the medial dorsal cutaneous nerve"
-   ],
-   "a": 0,
-   "e": "Excessive medial release without balancing lateral structures tips the hallux into varus (inverse of the intended valgus correction).",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Over‑medial release causes inverse deformity."
-  },
-  {
-   "id": "ai20261115_018",
-   "topic": "Foot & Ankle",
-   "kind": "AI-daily",
-   "q": "A 45‑year‑old obese woman presents with progressive medial ankle pain that worsens during stair climbing. On examination she cannot invert her foot during a single‑limb heel‑rise test. Which structure is most likely dysfunctional?",
-   "o": [
-    "Posterior tibial tendon",
-    "Anterior tibial tendon",
-    "Fibularis longus tendon",
-    "Lateral collateral ligament"
-   ],
-   "a": 0,
-   "e": "The inability to invert the foot on heel rise is the most sensitive test for posterior tibial tendon dysfunction, the primary dynamic stabiliser of the medial arch.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Stem, options and explanation align with the consensus description of PTT problems and clinical testing."
-  },
-  {
-   "id": "ai20261115_019",
-   "topic": "Foot & Ankle",
-   "kind": "AI-daily",
-   "q": "The most common early imaging modality for confirming posterior tibial tendon tears in suspected adult acquired flatfoot is:",
-   "o": [
-    "Plain radiograph",
-    "Computed tomography",
-    "Magnetic resonance imaging",
-    "Ultrasound"
-   ],
-   "a": 3,
-   "e": "MRI directly visualises tears or tendinosis within the posterior tibial tendon, which plain films can miss.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "The notes explicitly identify MRI as the imaging study that visualises TP tendon pathology."
-  },
-  {
-   "id": "ai20261115_020",
-   "topic": "Foot & Ankle",
-   "kind": "AI-daily",
-   "q": "During a medialising displacement calcaneal osteotomy (MDCO) for flexible flatfoot, which neurovascular structure is most at risk?",
-   "o": [
-    "Surrounding the lateral wall of the 5th metatarsal",
-    "The medial calcaneal branch of the posterior tibial artery",
-    "The sural nerve and lateral calcaneal branch",
-    "The deep peroneal nerve"
-   ],
-   "a": 2,
-   "e": "The medial side of the calcaneal osteotomy is close to the sural nerve and its lateral branch; these are most at risk when shifting the calcaneus medially.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Anatomical description matches board‑standard teaching."
-  },
-  {
    "id": "ai20261115_021",
    "topic": "Foot & Ankle",
    "kind": "AI-daily",
@@ -2459,29 +2115,6 @@
    "auto": false,
    "check": "held for review: free editor ran without Gemini",
    "note": "Well‑documented association."
-  },
-  {
-   "id": "ai20261115_022",
-   "topic": "Foot & Ankle",
-   "kind": "AI-daily",
-   "q": "The hypovascular watershed zone of the Achilles tendon lies what distance proximal to its calcaneal insertion?",
-   "o": [
-    "0–2 cm",
-    "2–6 cm",
-    "6–10 cm",
-    "10–15 cm"
-   ],
-   "a": 1,
-   "e": "The watershed zone is classically described as 2–6 cm above the insertion where most ruptures occur.",
-   "src": "Exam-style",
-   "exam": "INI-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "held for review: free editor ran without Gemini",
-   "note": "Matches the reference data."
   },
   {
    "id": "ai20261115_024",
@@ -3080,6 +2713,305 @@
    "auto": false,
    "check": "held for review: free editor ran without Gemini",
    "note": "Well‑documented genetic linkage."
+  },
+  {
+   "id": "ai20261115_054",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "In a diabetic patient with a plantar ulcer, the toe‑brachial index (TBI) is 0.6. Which of the following statements is true?",
+   "o": [
+    "TBI >0.7 is abnormal",
+    "TBI <0.7 indicates sufficient perfusion for healing",
+    "TBI <0.7 is abnormal and suggests need for revascularisation",
+    "TBI is irrelevant if ABI >1.3"
+   ],
+   "a": 2,
+   "e": "A TBI <0.7 is abnormal and indicates ischemia; revascularisation should be considered because ABI may be falsely high due to medial arterial calcification.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Direct guideline reference."
+  },
+  {
+   "id": "ai20261115_055",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 32‑year‑old runner presents with right ankle pain after a recurrent inversion sprain. Plain AP X‑ray shows no fracture, but the AP view shows a tibiofibular clear space of 7 mm. Which of the following findings on a weight‑bearing mortise view would confirm a syndesmotic injury?",
+   "o": [
+    "Tibiofibular overlap of less than 1 mm",
+    "Talar tilt of 5°",
+    "Medial clear space of 4 mm",
+    "Posterior tibial tendon thickening"
+   ],
+   "a": 0,
+   "e": "A loss of overlap (<1 mm) on the mortise view is a classic radiographic sign of syndesmotic diastasis. Talar tilt and medial clear space are more relevant to ankle joint but not a direct indicator of syndesmosis.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "All info matches Campbell and Rockwood."
+  },
+  {
+   "id": "ai20261115_056",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 45‑year‑old farmer has chronic ankle pain after a talar neck fracture. He reports a feeling of giving‑way whenever he steps on uneven ground. On lateral stress testing, the anterior drawer shows a 12 mm translation. Which ligament is most likely deficient?",
+   "o": [
+    "Posterior talofibular ligament (PTFL)",
+    "Anterior talofibular ligament (ATFL)",
+    "Calcaneofibular ligament (CFL)",
+    "Deep deltoid ligament"
+   ],
+   "a": 1,
+   "e": "The ATFL is most commonly torn in inversion sprains and is the primary restraint to anterior translation of the talus. PTFL is strongest and rarely injured, CFL resists inversion, and the deep deltoid protects medial talar shift.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Consistent with noted injury sequence."
+  },
+  {
+   "id": "ai20261115_057",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "An arthroscopic Broström‑Gould repair is performed for chronic lateral ankle instability. If the patient still has a 5° talar tilt on tilt testing a month later, which of the following is the most likely cause?",
+   "o": [
+    "Peroneal tendon rupture",
+    "Inadequate tensioning of the ATFL/CFL repair",
+    "Cascade fracture of the fibula",
+    "Deltoid ligament insufficiency"
+   ],
+   "a": 1,
+   "e": "Talar tilt after anatomic repair indicates that the CFL component of the reconstruction has not been adequately tensioned or reinforced. The other options do not directly affect the lateral tilt resistance.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Matches surgical anatomy."
+  },
+  {
+   "id": "ai20261115_058",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 60‑year‑old woman with a history of ankle fracture now has diffuse joint space narrowing on AP X‑ray, painful swelling, and an increase in pain with walking. Which is the most likely cause of her terminal ankle arthritis?",
+   "o": [
+    "Primary osteoarthritis",
+    "Charcot neuroarthropathy",
+    "Post‑traumatic articular cartilage wear",
+    "Rheumatoid arthritis"
+   ],
+   "a": 2,
+   "e": "Post‑traumatic arthritic changes account for 70‑80 % of end‑stage ankle arthritis, especially after fractures. Primary OA is uncommon, Charcot is neuropathic, and RA would show systemic features.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Epidemiology from notes."
+  },
+  {
+   "id": "ai20261115_059",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "During a patient’s ankle arthroscopy, the surgeon inadvertently separates the superficial peroneal nerve from the peroneal tendons in the anterolateral portal. Which of the following is the most common complication of this nerve injury?",
+   "o": [
+    "Loss of dorsiflexion strength",
+    "Ankle instability",
+    "Painful neuroma at the portal site",
+    "Vascular compromise to the dorsum"
+   ],
+   "a": 2,
+   "e": "The superficial peroneal nerve is frequently injured at the anterolateral portal; a neuroma or sensory deficit at the portal is the most common problem. It does not affect dorsiflexion or stability.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Standard nerve injury outcomes."
+  },
+  {
+   "id": "ai20261115_060",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 38‑year‑old with chronic ankle instability has a cavovarus foot. Which osteotomy is recommended to correct the lateralising forces before a Broström repair?",
+   "o": [
+    "Tubularised medial malleolar osteotomy",
+    "Calcaneal osteotomy (lateralising)",
+    "First metatarsal dorsal osteotomy",
+    "Soft‑tissue release of the tibialis posterior"
+   ],
+   "a": 1,
+   "e": "A lateralising calcaneal osteotomy addresses the cavovarus deformity by shifting the subtalar joint. Without this correction, a lateral ligament repair is likely to fail.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Anatomical correction principles."
+  },
+  {
+   "id": "ai20261115_061",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "Which radiographic view is most suitable for visualising the articular surface of the talar neck and detecting a subtle fracture line in a suspected talar neck fracture?",
+   "o": [
+    "Lateral weight‑bearing view",
+    "Anteroposterior foot view",
+    "Canale (15°‑prone) view",
+    "Mortise view"
+   ],
+   "a": 2,
+   "e": "The Canale view (15° pronated, 75° cephalad‑tilted AP of the foot) offers the clearest visualization of the talar neck and is the gold standard for detecting occult fractures.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Question and options are accurate and single best answer is clear."
+  },
+  {
+   "id": "ai20261115_062",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "A 22‑year‑old snowboarder presents with an anterolateral heel‑pain and a fractured lateral process of the talus. The fragment is displaced by 1.2 cm and involves the articular surface. What is the preferred treatment?",
+   "o": [
+    "Non‑weight‑bearing cast for 8 weeks",
+    "Open reduction and internal fixation with a small fragment plate",
+    "Excision of the fragment",
+    "Oral bisphosphonate therapy"
+   ],
+   "a": 1,
+   "e": "Displaced, articular‑surface‑involving fractures larger than 1 cm are best managed with ORIF using a small‑fragment plate to restore joint congruity.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Answer follows standard treatment guidelines for 'snowboarder’s fracture'."
+  },
+  {
+   "id": "ai20261115_063",
+   "topic": "Foot & Ankle",
+   "kind": "AI-daily",
+   "q": "In a lateral subtalar dislocation, the closed‑lock manoeuvre fails because of interposition of which tendon?",
+   "o": [
+    "Tibialis posterior",
+    "Flexor hallucis longus",
+    "Fibularis longus",
+    "Extensor digitorum brevis"
+   ],
+   "a": 0,
+   "e": "Tibialis posterior is the most common soft‑tissue block preventing reduction of a lateral subtalar dislocation; it requires open adjustment.",
+   "src": "Exam-style",
+   "exam": "FNB",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "Distractors are muscle tendons not involved in blocking reduction."
+  },
+  {
+   "id": "ai20261115_064",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A 22‑year‑old male presents with a forced extension injury while grabbing a jersey. The fingertip is painful and non‑compliant with passive flexion. Which tendon is most likely avulsed?",
+   "o": [
+    "FDS of the little finger",
+    "FDP of the index finger",
+    "FDP of the ring finger",
+    "FDP of the great toe"
+   ],
+   "a": 2,
+   "e": "The ring finger FDP (type II Leddy‑Packer) is most commonly avulsed, pulling into the PIP joint due to the forceful flexion of the ring finger during a jersey‑grab.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "UNAMBIGUOUS\n"
+  },
+  {
+   "id": "ai20261115_065",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "In a patient with a zone II flexor tendon laceration, the surgeon must decide whether to repair both FDS slips. Which circumstance favors excising the FDS slip instead of repairing it?",
+   "o": [
+    "The patient has an active thumb opposition deficit",
+    "The incision is confined to the palmar wrist crease",
+    "The tendon ends are separated by more than 1 cm",
+    "The radial pulse is absent"
+   ],
+   "a": 2,
+   "e": "If the canal is too tight, only the FDP is repaired (excising one FDS slip) to avoid undue tension; a >1 cm separation indicates a tight tunnel.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "CLARITY\n"
+  },
+  {
+   "id": "ai20261115_066",
+   "topic": "Hand & Upper Limb",
+   "kind": "AI-daily",
+   "q": "A surgeon is planning a two‑stage Hunter reconstruction for a chronic FDP rupture. What material is inserted in the first stage?",
+   "o": [
+    "Silicone rod",
+    "Graft of the patient's sartorius muscle",
+    "Allograft tendon strip",
+    "Elastomeric band"
+   ],
+   "a": 0,
+   "e": "Stage 1 involves placing a silicone rod to create a pseudosheath and pull through the repaired pulleys.",
+   "src": "Exam-style",
+   "exam": "NEET-SS",
+   "year": "",
+   "fresh": true,
+   "proofed": true,
+   "editor": "kept",
+   "auto": false,
+   "check": "Gemini unavailable for this batch",
+   "note": "PROCEDURAL\n"
   }
  ],
  "pendingFlags": [
@@ -3104,9 +3036,42 @@
    "strong": true,
    "day": "2026-11-15",
    "t": 1794730180048
+  },
+  {
+   "id": "cmvvzbs8xl9ino",
+   "q": "During revision TKA, an stem is added to the tibial component. According to engineering principles, what percentage of axial load is transmitted through a fully engaged offset/press- fit stem away fro",
+   "key": "30% – 50%",
+   "sug": "70% – 80%",
+   "second": "70% – 80%",
+   "issue": "Percent of axial load transmitted via a fully engaged offset/press‑fit stem is lower than the 30‑50% range cited; literature reports approximately 15‑20%",
+   "strong": true,
+   "day": "2026-11-15",
+   "t": 1794737306040
+  },
+  {
+   "id": "cmvwns8w8zj11l",
+   "q": "Which of the following is NOT a characteristic of highly cross‑linked polyethylene (HXLPE) manufactured by remelting?",
+   "key": "Higher wear resistance",
+   "sug": "Higher oxidation during storage",
+   "second": "Higher oxidation during storage",
+   "issue": "The choice ‘higher oxidation during storage’ is false for remelted HXLPE; remelting eliminates free radicals and reduces oxidation. The marked option ‘higher wear resistance’ is correct as a characteristic.",
+   "strong": true,
+   "day": "2026-11-15",
+   "t": 1794737495774
+  },
+  {
+   "id": "cmvwntz7jmfbvk",
+   "q": "In a patient who has received a ceramic head after a head fracture, what is the recommended bearing for revision?",
+   "key": "Ceramic head with sleeve and synovectomy",
+   "sug": "CoCr head on polyethylene",
+   "second": "CoCr head on polyethylene",
+   "issue": "Marked answer is incorrect",
+   "strong": true,
+   "day": "2026-11-15",
+   "t": 1794737638004
   }
  ],
- "updated": "2026-11-15T08:12:38.919Z",
+ "updated": "2026-11-15T10:18:43.250Z",
  "reviewLog": [
   {
    "at": "2026-11-03T00:10:37.199663Z",
@@ -3741,6 +3706,19 @@
    "flagsDiscarded": 0,
    "remaining": 0,
    "remainingFlags": 0
+  },
+  {
+   "at": "2026-11-15T10:18:43.291Z",
+   "by": "free AI",
+   "kept": 11,
+   "fixed": 5,
+   "rejected": 0,
+   "written": 0,
+   "flagsFixed": 0,
+   "flagsConfirmed": 0,
+   "flagsDiscarded": 0,
+   "remaining": 50,
+   "remainingFlags": 5
   }
  ]
 }
