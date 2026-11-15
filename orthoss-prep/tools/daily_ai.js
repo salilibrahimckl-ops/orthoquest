@@ -46,17 +46,22 @@ const G_GAP = +(process.env.GEMINI_GAP_MS || 7000), G_MAX = +(process.env.GEMINI
 const LADDER = ['high', 'medium', 'low'];
 const stats = { gemini: 0, pollinations: 0, geminiFail: 0 };
 // Pick the newest free "flash" model this key can use (names change over time), unless GEMINI_MODEL is set.
+let gCands = null;
 async function geminiModel() {
   if (gModel) return gModel;
-  if (process.env.GEMINI_MODEL) return (gModel = process.env.GEMINI_MODEL);
-  try {
-    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=' + GKEY, { signal: AbortSignal.timeout(30000) });
-    const j = await r.json(); const ok = (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent')).map(m => m.name.replace(/^models\//, ''));
-    const ver = n => { const m = /^gemini-(\d+(?:\.\d+)?)-flash$/.exec(n); return m ? +m[1] : -1 };
-    const best = ok.filter(n => ver(n) > 0).sort((a, b) => ver(b) - ver(a))[0] || ok.find(n => /^gemini-[\d.]+-flash(-latest)?$/.test(n)) || ok.find(n => /flash/.test(n) && !/lite|image|tts|live|audio|embed/.test(n));
-    gModel = best || 'gemini-2.5-flash';
-  } catch (e) { gModel = 'gemini-2.5-flash' }
-  console.log('Gemini model: ' + gModel); return gModel;
+  if (!gCands) {
+    gCands = process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : [];
+    try {
+      const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=' + GKEY, { signal: AbortSignal.timeout(30000) });
+      const j = await r.json(); const ok = (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent')).map(m => m.name.replace(/^models\//, ''));
+      const ver = n => { const m = /^gemini-(\d+(?:\.\d+)?)-flash(?:-latest)?$/.exec(n); return m ? +m[1] : -1 };
+      const flash = ok.filter(n => ver(n) > 0).sort((a, b) => ver(b) - ver(a));
+      gCands = gCands.concat(flash, ok.filter(n => /^gemini-flash-latest$/.test(n)), ok.filter(n => /flash/.test(n) && !/lite|image|tts|live|audio|embed|thinking|exp/.test(n) && !flash.includes(n)));
+      console.log('Gemini models offered to this key: ' + ok.filter(n => /gemini/.test(n)).join(', '));
+    } catch (e) {}
+    gCands = [...new Set(gCands.concat(['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.0-flash', 'gemini-2.5-flash-lite']))];
+  }
+  gModel = gCands[0]; console.log('Trying Gemini model: ' + gModel); return gModel;
 }
 async function gemini(prompt, temp) {
   const model = await geminiModel();
@@ -70,7 +75,9 @@ async function gemini(prompt, temp) {
       if (r.status === 429) { const b = await r.text().catch(() => '');
         if (/per ?day|PerDay|daily|quota/i.test(b) && !/per ?minute|PerMinute/i.test(b)) { console.log('  Gemini daily quota used up; switching to the fallback model'); gDead = true; throw new Error('quota') }
         await sleep(30000 * (attempt + 1)); continue }
-      if (r.status === 400 || r.status === 403 || r.status === 404) { const b = await r.text().catch(() => ''); console.log('  Gemini refused (' + r.status + '): ' + b.slice(0, 200)); if (r.status !== 400) gDead = true; throw new Error('refused') }
+      if (r.status === 403 || r.status === 404) { const b = await r.text().catch(() => ''); console.log('  Gemini model ' + model + ' refused (' + r.status + '): ' + b.replace(/\s+/g, ' ').slice(0, 160));
+        gCands.shift(); gModel = null; if (!gCands.length) { gDead = true; throw new Error('refused') } return gemini(prompt, temp) }
+      if (r.status === 400) { const b = await r.text().catch(() => ''); console.log('  Gemini bad request: ' + b.replace(/\s+/g, ' ').slice(0, 200)); throw new Error('refused') }
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const j = await r.json(); const parts = (((j.candidates || [])[0] || {}).content || {}).parts || [];
       const t = parts.filter(x => !x.thought).map(x => x.text || '').join('');
@@ -100,13 +107,14 @@ async function pollinations(prompt, effort) {
   throw new Error('AI unavailable');
 }
 const geminiOn = () => !gDead && gCalls < G_MAX;
+let lastProv = '';
 // main model: Gemini when available, otherwise the free fallback
 async function ai(prompt, effort, temp) {
-  if (geminiOn()) { try { return await gemini(prompt, temp) } catch (e) { stats.geminiFail++; console.log('  using fallback model for this call') } }
-  return pollinations(prompt, effort);
+  if (geminiOn()) { try { const t = await gemini(prompt, temp); lastProv = 'gemini'; return t } catch (e) { stats.geminiFail++; console.log('  using fallback model for this call') } }
+  const t = await pollinations(prompt, effort); lastProv = 'fallback'; return t;
 }
 // second opinion: always the other model when Gemini is the main one
-async function ai2(prompt) { return geminiOn() ? pollinations(prompt, 'low') : ai(prompt, 'low') }
+async function ai2(prompt) { const t = geminiOn() ? await pollinations(prompt, 'low') : await ai(prompt, 'low'); return t }
 function arr(t) {
   t = String(t || '');
   try { const v = JSON.parse(t); return Array.isArray(v) ? v : [] } catch (e) {}
@@ -225,7 +233,7 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
       let kept = 0, auto = 0;
       if (strong) {
         // A. free senior editor (Gemini) fixes or rejects each draft
-        const ed = new Map(arr(await ai(editorPrompt(gen, notes, topic, sub), 'low', 0.1)).map(c => [+c.i, c]));
+        const ed = new Map(arr(await ai(editorPrompt(gen, notes, topic, sub), 'low', 0.1)).map(c => [+c.i, c])); const edG = lastProv === 'gemini';
         const cand = [];
         gen.forEach((x, i) => { const c = ed.get(i + 1); if (!c || !/^(keep|fix)$/.test(c.verdict)) return;
           let y = x, how = 'kept';
@@ -238,7 +246,7 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
           // B. two blind answers with shuffled options: Gemini again, and the independent second model
           const p1 = cand.map(x => { const idx = shuf([0, 1, 2, 3]); return { q: x.q, o: idx.map(k => x.o[k]), map: idx } });
           const p2 = cand.map(x => { const idx = shuf([0, 1, 2, 3]); return { q: x.q, o: idx.map(k => x.o[k]), map: idx } });
-          const b1 = new Map(arr(await ai(answerPrompt(p1), 'low', 0)).map(c => [+c.i, c]));
+          const b1 = new Map(arr(await ai(answerPrompt(p1), 'low', 0)).map(c => [+c.i, c])); const b1G = lastProv === 'gemini';
           let b2 = new Map(); try { b2 = new Map(arr(await ai2(answerPrompt(p2))).map(c => [+c.i, c])) } catch (e) { console.log('  second opinion unavailable') }
           cand.forEach((x, k) => {
             const c1 = b1.get(k + 1), c2 = b2.get(k + 1);
@@ -246,9 +254,9 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
             const ok2 = c2 && !c2.bad && +c2.a >= 0 && +c2.a < 4 && p2[k].map[+c2.a] === x.a;
             if (!ok1) return;                                   // the editor's own model disagrees on a blind re-answer: drop
             const sg = qSig(x.q, x.o); if (sigs.some(t => sameQ(sg, t))) return; sigs.push(sg); kept++;
-            const pub = x.supported && ok2 && String(x.e || '').length >= 20 && !x.o.some(o => /^(all|none) of the above$/i.test(o)); if (pub) auto++;
+            const pub = edG && b1G && x.supported && ok2 && String(x.e || '').length >= 20 && !x.o.some(o => /^(all|none) of the above$/i.test(o)); if (pub) auto++;
             newItems.push({ id: 'ai' + today.replace(/-/g, '') + '_' + String(newItems.length + 1).padStart(3, '0'), topic, kind: 'AI-daily', q: x.q, o: x.o, a: x.a, e: x.e, src: 'Exam-style', exam, year: '', fresh: true, proofed: true,
-              editor: x.how, auto: pub, check: pub ? 'editor + 2 blind answers agree' : (!x.supported ? 'fact not confirmed in notes' : 'second model disagreed'), note: x.why });
+              editor: x.how, auto: pub, check: pub ? 'editor + 2 blind answers agree' : !(edG && b1G) ? 'Gemini unavailable for this batch' : (!x.supported ? 'fact not confirmed in notes' : 'second model disagreed'), note: x.why });
           });
         }
         published += auto;
@@ -288,7 +296,7 @@ Reply with only a JSON array: [{"q":"...","o":["A","B","C","D"],"a":0,"e":"..."}
     try {
       const res = arr(await ai(`You are proofreading an orthopaedic superspeciality exam question bank. For each item decide whether the marked answer is correct and whether the question, options or explanation contain a clear factual error, internal contradiction or ambiguity (two defensible answers). Be conservative: flag only clear problems, not style.
 ${b.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
-Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":null,"issue":"","e":""}] where "correct" is the 0-based index of the right option if the marked answer is wrong, otherwise null, "issue" briefly states the problem, and "e" (only when the answer is wrong) is a corrected 1-3 sentence explanation.`, 'low', 0.1));
+Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":null,"issue":"","e":""}] where "correct" is the 0-based index of the right option if the marked answer is wrong, otherwise null, "issue" briefly states the problem, and "e" (only when the answer is wrong) is a corrected 1-3 sentence explanation.`, 'low', 0.1)); const proofG = lastProv === 'gemini';
       const fl = [];
       for (const r of res) { const q = b[+r.i - 1]; if (!q || r.ok !== false) continue; const c = r.correct == null ? null : +r.correct;
         fl.push({ q, c, sug: c != null && c >= 0 && c < 4 && c !== q.a ? q.o[c] : null, issue: String(r.issue || '').slice(0, 300), e: String(r.e || '').trim() }) }
@@ -298,7 +306,7 @@ Reply with only a JSON array, one object per item: [{"i":1,"ok":true,"correct":n
           const strongMode = strong, strong2 = second != null && second !== f.q.o[f.q.a];
           if (strong2 || (!f.sug && f.issue)) flags.push({ id: f.q.id, q: f.q.q.slice(0, 200), key: f.q.o[f.q.a], sug: f.sug || (strong2 ? second : null), second, issue: f.issue, strong: strong2, day: today, t: Date.now() });
           // both models independently pick the same different answer: settle it without waiting for Claude
-          if (strongMode && f.sug && second === f.sug) {
+          if (strongMode && proofG && f.sug && second === f.sug) {
             if (/^b\d+$/.test(f.q.id)) autoFlags.push({ id: f.q.id, action: 'confirm', sug: f.sug, issue: f.issue + ' (two free models agree)' });
             else if (mineIds.has(f.q.id)) autoFlags.push({ id: f.q.id, action: 'fix', q: f.q.q, o: f.q.o, a: f.c, e: f.e.length >= 20 ? f.e : ('Correct answer: ' + f.sug + '. ' + f.issue).slice(0, 400) });
           } });
