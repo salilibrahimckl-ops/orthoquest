@@ -131,5 +131,40 @@
   "sub": "TKA balancing and alignment",
   "changed": false,
   "summary": "Campbell ch7: verified gap balancing, rotation landmarks, constraint choices; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Arthroplasty",
+  "sub": "periprosthetic infection (ICM criteria)",
+  "changed": true,
+  "summary": "Campbell ch3: CORRECTED Tsukayama type order (1 early postop, 2 late chronic, 3 acute haematogenous, 4 positive intraop cultures); verified ICM 2018 scoring"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Arthroplasty",
+  "sub": "bearing surfaces and wear",
+  "changed": true,
+  "summary": "Campbell ch3: verified HXLPE 5-10 Mrad, remelting/annealing, HXLPE wear rates; melting point given as about 135-137 C"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Arthroplasty",
+  "sub": "revision arthroplasty",
+  "changed": false,
+  "summary": "Campbell ch3/7: verified Paprosky acetabular (IIIA over 3 cm migration) and femoral (4 cm isthmus) definitions; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Arthroplasty",
+  "sub": "shoulder arthroplasty",
+  "changed": false,
+  "summary": "Campbell ch12: verified C. acnes commonest, 14-day cultures, glenoid component principles; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Arthroplasty",
+  "sub": "unicompartmental and osteotomy",
+  "changed": true,
+  "summary": "Campbell ch7/9: aligned HTO contraindications with Campbell's list (bone loss over 2-3 mm, FFD over 15, flexion under 90, correction over 20, PVD); Kozinn-Scott verified"
  }
 ]
