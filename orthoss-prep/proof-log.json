@@ -166,5 +166,40 @@
   "sub": "unicompartmental and osteotomy",
   "changed": true,
   "summary": "Campbell ch7/9: aligned HTO contraindications with Campbell's list (bone loss over 2-3 mm, FFD over 15, flexion under 90, correction over 20, PVD); Kozinn-Scott verified"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "ACL and PCL",
+  "changed": true,
+  "summary": "Campbell ch45: ACL ultimate load given as 1,725 N (2,160 N young); dial test MCL caveat added; Segond/ALL, dial test thresholds verified"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "menisci and cartilage",
+  "changed": false,
+  "summary": "Campbell ch45: verified meniscal vascular zones (10-30% medial, 10-25% lateral), repair principles; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "patellofemoral instability",
+  "changed": true,
+  "summary": "Campbell ch47: verified TT-TG over 20 mm, sulcus angle over 145; harmonised Merchant normal values with Campbell's"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "rotator cuff",
+  "changed": true,
+  "summary": "Campbell ch46: corrected AHI thresholds (under 7 mm cuff tear, under 5 mm massive) and footprint width (12.7 mm); size classes and Goutallier verified"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "shoulder instability",
+  "changed": true,
+  "summary": "Campbell ch47: verified recurrence by age (90/60/10%), glenoid bone loss over 20-25%, ISIS; added Campbell's 84% glenoid-track version"
  }
 ]
