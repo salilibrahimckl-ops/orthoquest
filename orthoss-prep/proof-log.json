@@ -257,5 +257,19 @@
   "sub": "cerebral palsy and neuromuscular",
   "changed": true,
   "summary": "Campbell ch33/35: migration percentage norms corrected (under 5%, subluxation over 33%, 12%/yr non-ambulators); DMD fusion at 20 degrees with FVC 50% preferred, under 35% relative contraindication"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Paediatric Ortho",
+  "sub": "skeletal dysplasias",
+  "changed": true,
+  "summary": "Campbell ch32/35: verified FGFR3/COMP/COL2A1 groups, MPS, NF1 criteria; added Sillence types I and IV = 90%"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Paediatric Ortho",
+  "sub": "bone and joint infection in children",
+  "changed": false,
+  "summary": "Campbell ch21-22: no conflicts found (Kocher/Caird, organisms by age, short IV course consistent)"
  }
 ]
