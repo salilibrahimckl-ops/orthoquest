@@ -271,5 +271,40 @@
   "sub": "bone and joint infection in children",
   "changed": false,
   "summary": "Campbell ch21-22: no conflicts found (Kocher/Caird, organisms by age, short IV course consistent)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Hand & Upper Limb",
+  "sub": "flexor and extensor tendons",
+  "changed": true,
+  "summary": "Campbell ch66: verified Leddy-Packer (type 1 within 7-10 days), pulleys, zones; repair weakening refined to first 10 days"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Hand & Upper Limb",
+  "sub": "nerve compression and injury",
+  "changed": true,
+  "summary": "Campbell ch62/76: verified regeneration 1 inch/month, motor endplate loss by 18 months, CTS latencies (motor >4.5 ms; added sensory >3.5 ms), recurrent motor branch variants"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Hand & Upper Limb",
+  "sub": "brachial plexus",
+  "changed": false,
+  "summary": "Campbell ch34/62: verified Narakas groups and 3-month biceps/deltoid rule for birth palsy; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Hand & Upper Limb",
+  "sub": "carpal instability and scaphoid",
+  "changed": true,
+  "summary": "Campbell ch69: CORRECTED scaphoid displacement angles (lateral intrascaphoid >45, AP <35 degrees, H/L >=0.65 per Amadio); Mayfield, Herbert verified"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Hand & Upper Limb",
+  "sub": "hand infections",
+  "changed": false,
+  "summary": "Campbell ch78: verified Kanavel signs, bite organisms (Eikenella, Pasteurella); no errors"
  }
 ]
