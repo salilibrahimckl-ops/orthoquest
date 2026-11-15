@@ -201,5 +201,40 @@
   "sub": "shoulder instability",
   "changed": true,
   "summary": "Campbell ch47: verified recurrence by age (90/60/10%), glenoid bone loss over 20-25%, ISIS; added Campbell's 84% glenoid-track version"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "elbow in throwers",
+  "changed": false,
+  "summary": "Campbell ch46-48/52: verified moving valgus stress test, hook test (sensitivity 100%), Panner vs OCD; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "hip arthroscopy and FAI",
+  "changed": true,
+  "summary": "Campbell ch6/51: alpha angle threshold aligned to over 50-55 degrees (normal 42); crossover/posterior wall signs, LCEA, portal risks verified"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Sports & Arthroscopy",
+  "sub": "sports medicine and anti-doping",
+  "changed": true,
+  "summary": "Not covered by Campbell's: checked against WADA 2026/2027 List summaries; added 2026 changes (blood withdrawal, CO rebreathing), 2027 List (GLP-1 not prohibited, vaginal glucocorticoids) and 2027 Code"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Paediatric Ortho",
+  "sub": "DDH",
+  "changed": false,
+  "summary": "Campbell ch30: verified Graf, medial dye pool 5 mm and safe zone, osteotomy types; no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Paediatric Ortho",
+  "sub": "Perthes and SCFE",
+  "changed": false,
+  "summary": "Campbell ch32/36: verified lateral pillar groups and age 8-9 cut-off, Stulberg, Loder (AVN 0% stable vs 47% unstable); no errors"
  }
 ]
