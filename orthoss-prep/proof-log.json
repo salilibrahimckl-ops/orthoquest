@@ -236,5 +236,26 @@
   "sub": "Perthes and SCFE",
   "changed": false,
   "summary": "Campbell ch32/36: verified lateral pillar groups and age 8-9 cut-off, Stulberg, Loder (AVN 0% stable vs 47% unstable); no errors"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Paediatric Ortho",
+  "sub": "clubfoot and foot deformities",
+  "changed": true,
+  "summary": "Campbell ch29/82: verified Pirani, Ponseti bracing to age 4, coalition signs; metatarsus adductus surgical algorithm aligned with Campbell's (Heyman-Herndon 2-4 y, Berman-Gartland 4 y+)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Paediatric Ortho",
+  "sub": "paediatric fractures",
+  "changed": true,
+  "summary": "Campbell ch36: verified Delbet, radial neck under 30 degrees, Milch/Gartland; proximal humerus acceptable angulation updated to 70 degrees (<5 y) / 30 degrees (12-13 y)"
+ },
+ {
+  "date": "2026-11-15",
+  "topic": "Paediatric Ortho",
+  "sub": "cerebral palsy and neuromuscular",
+  "changed": true,
+  "summary": "Campbell ch33/35: migration percentage norms corrected (under 5%, subluxation over 33%, 12%/yr non-ambulators); DMD fusion at 20 degrees with FVC 50% preferred, under 35% relative contraindication"
  }
 ]
