@@ -341,5 +341,26 @@
   "sub": "Achilles and tendons",
   "changed": false,
   "summary": "Campbell ch48: verified watershed 2-6 cm, Thompson test, rerupture with functional bracing vs surgery (2.4% vs 3.5%); no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Foot & Ankle",
+  "sub": "ankle arthritis and instability",
+  "changed": false,
+  "summary": "Campbell ch11/48: verified ankle arthrodesis position (neutral, 5 valgus, 5 ER, posterior talus), instability management; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Foot & Ankle",
+  "sub": "diabetic foot and Charcot",
+  "changed": true,
+  "summary": "Campbell ch85: toe pressure threshold corrected (over 40 mmHg for healing; normal over 70, TBI over 0.7); Wagner, Eichenholtz, TCC verified"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Foot & Ankle",
+  "sub": "talus and calcaneus",
+  "changed": false,
+  "summary": "Campbell ch88: verified Hawkins, Sanders, Böhler/Gissane; no errors"
  }
 ]
