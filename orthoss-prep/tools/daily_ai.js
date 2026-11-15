@@ -56,8 +56,8 @@ async function geminiModel() {
       const j = await r.json(); const ok = (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent')).map(m => m.name.replace(/^models\//, ''));
       const ver = n => { const m = /^gemini-(\d+(?:\.\d+)?)-flash(?:-latest)?$/.exec(n); return m ? +m[1] : -1 };
       const flash = ok.filter(n => ver(n) > 0).sort((a, b) => ver(b) - ver(a));
-      const good = n => !/lite|image|tts|live|audio|embed|thinking|exp|computer|robotics|native/.test(n);
-      gCands = gCands.concat(flash, ok.filter(n => /^gemini-[\d.]+-flash-preview$/.test(n)).sort().reverse(), ok.filter(n => /^gemini-flash-latest$/.test(n)), ok.filter(n => /flash/.test(n) && good(n) && !flash.includes(n)), ok.filter(n => /^gemini-[\d.]+-pro(-preview)?$|^gemini-pro-latest$/.test(n)).sort().reverse());
+      const good = n => !/lite|image|tts|live|audio|embed|thinking|exp|computer|robotics|native|omni/.test(n);
+      gCands = gCands.concat(flash.filter(good), ok.filter(n => /^gemini-[\d.]+-flash-preview$/.test(n)).sort().reverse(), ok.filter(n => /^gemini-flash-latest$/.test(n)), ok.filter(n => /flash/.test(n) && good(n) && !flash.includes(n)), ok.filter(n => /^gemini-[\d.]+-pro(-preview)?$|^gemini-pro-latest$/.test(n)).sort().reverse());
       console.log('Gemini models offered to this key: ' + ok.filter(n => /gemini/.test(n)).join(', '));
     } catch (e) {}
     gCands = [...new Set(gCands.concat(['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.5-pro']))];
@@ -76,7 +76,7 @@ async function gemini(prompt, temp, hops) {
         body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { temperature: temp == null ? 0.4 : temp, responseMimeType: 'application/json', maxOutputTokens: 32768 } }),
         signal: AbortSignal.timeout(300000) });
       if (r.status === 429) { const b = await r.text().catch(() => '');
-        if (/per ?day|PerDay|daily|quota/i.test(b) && !/per ?minute|PerMinute/i.test(b)) {
+        if ((/per ?day|PerDay|daily|quota/i.test(b) && !/per ?minute|PerMinute/i.test(b)) || /limit: ?0\b/.test(b)) {
           // each model has its own free daily allowance: move to the next good model before giving up
           gCands.shift(); gModel = null;
           if (gCands.length) { console.log('  Gemini ' + model + ' daily quota used up; trying the next model'); return gemini(prompt, temp, hops) }
@@ -93,7 +93,10 @@ async function gemini(prompt, temp, hops) {
     } catch (e) { if (gDead || /refused|quota/.test(e.message)) throw e; console.log('  Gemini call failed:', e.message); await sleep(8000 * (attempt + 1)) }
   }
   // persistently overloaded (503) or failing: try the next model rather than dropping this batch to the weak model
-  if (gCands.length > 1 && hops < gCands.length - 1) { gCands.push(gCands.shift()); gModel = null; console.log('  ' + model + ' unavailable; trying another model'); return gemini(prompt, temp, hops + 1) }
+  // drop a model that keeps failing; when none answer, stop using Gemini for the rest of the night
+  gCands.shift(); gModel = null;
+  if (gCands.length && hops < 4) { console.log('  ' + model + ' unavailable; trying another model'); return gemini(prompt, temp, hops + 1) }
+  console.log('  No Gemini model is answering; using the fallback model for the rest of the run'); gDead = true;
   throw new Error('Gemini unavailable');
 }
 async function pollinations(prompt, effort) {
