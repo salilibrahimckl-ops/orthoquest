@@ -152,6 +152,7 @@ For each question:
    - "fix" if it can become a correct, exam-worthy question on the same idea: return the corrected q, o (4 options), a and e;
    - "reject" if the premise is invented or doubtful, the fact is controversial or varies between sources, or it cannot be repaired.
    Never keep or fix a question unless you are certain of the answer. When in doubt, reject.
+   Be especially strict with "most common", "first-line", "best initial", "investigation of choice" and timing questions: reject unless Campbell's/standard references agree on one answer. Check that the stem matches the answer (e.g. a complication must really belong to that fracture site), and that every option is a well-formed, plausible item of the same category.
 5. "supported": true only if the tested fact is stated in the notes or is a standard fact found in Campbell's / Rockwood and Green / Miller's that you are certain of.
 ${qs.map((q, i) => fmt(q, i + 1, true)).join('\n\n')}
 Reply with only a JSON array, one object per question:
