@@ -362,5 +362,26 @@
   "sub": "talus and calcaneus",
   "changed": false,
   "summary": "Campbell ch88: verified Hawkins, Sanders, Böhler/Gissane; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Oncology",
+  "sub": "bone-forming tumours",
+  "changed": false,
+  "summary": "Campbell ch24-27: verified nidus under 1.5 cm, osteosarcoma epidemiology and sites, parosteal in women; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Oncology",
+  "sub": "cartilage tumours",
+  "changed": false,
+  "summary": "Campbell ch25-27: verified malignant change about 1% solitary / 5% HME osteochondroma, chondroblastoma, Ollier/Maffucci; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Oncology",
+  "sub": "giant cell and cystic lesions",
+  "changed": false,
+  "summary": "Campbell ch26: verified GCT recurrence (curettage >50% historically, 5-15% now), lung metastases about 3%; no errors"
  }
 ]
