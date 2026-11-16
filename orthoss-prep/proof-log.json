@@ -446,5 +446,47 @@
   "sub": "crystal arthropathy",
   "changed": false,
   "summary": "Checked against EULAR/ACR gout guidance and trials (AGREE, CARES): crystal optics, urate targets, allopurinol dosing correct; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Infection & Metabolic",
+  "sub": "Paget and metabolic bone",
+  "changed": false,
+  "summary": "Checked against Endocrine Society/international Paget guidelines and trials (Reid NEJM 2005, ZiPP): dosing, SQSTM1, biochemistry table correct; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Infection & Metabolic",
+  "sub": "osteonecrosis",
+  "changed": false,
+  "summary": "Campbell ch6: verified Steinberg, Kerboul angles (under 190 no collapse, over 240 collapse), core decompression and vascularised fibula results; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Basic Sciences",
+  "sub": "bone biology",
+  "changed": false,
+  "summary": "Checked against standard basic-science references (Miller's/AAOS): composition, cells, RANKL/OPG, remodelling, markers correct; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Basic Sciences",
+  "sub": "cartilage and synovium",
+  "changed": false,
+  "summary": "Checked against standard references (Miller's/AAOS, ICM 2018): composition, zones, Outerbridge/ICRS, synovial fluid categories correct; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Basic Sciences",
+  "sub": "biomechanics and biomaterials",
+  "changed": false,
+  "summary": "Checked against standard references (Miller's/AAOS biomechanics): moduli, Perren strain, ex-fix stability, JRFs, Nachemson, metals/PE/PMMA/bearings correct; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Basic Sciences",
+  "sub": "nerve and muscle",
+  "changed": false,
+  "summary": "Checked against standard references (Miller's/Green's/AAOS): nerve fibre classes, Seddon/Sunderland, regeneration, EMG timing, repair/grafting, muscle physiology and disorders correct; no errors"
  }
 ]
