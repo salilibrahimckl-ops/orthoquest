@@ -383,5 +383,33 @@
   "sub": "giant cell and cystic lesions",
   "changed": false,
   "summary": "Campbell ch26: verified GCT recurrence (curettage >50% historically, 5-15% now), lung metastases about 3%; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Oncology",
+  "sub": "small round cell tumours",
+  "changed": true,
+  "summary": "Campbell ch27: EWSR1-FLI1 frequency (over 90% per Campbell's) and primary bone lymphoma survival (older 55% figure) added; myeloma commonest primary bone malignancy verified"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Oncology",
+  "sub": "soft-tissue sarcoma",
+  "changed": true,
+  "summary": "Campbell ch28: verified synovial sarcoma t(X;18) 90%, local recurrence under 10% with multimodal treatment; added Campbell's MPNST/NF1 figures beside modern ones"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Oncology",
+  "sub": "metastatic bone disease",
+  "changed": false,
+  "summary": "Campbell ch24: no conflicts (Campbell gives little detail on Mirels/Harrington; content per standard references and trials)"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Oncology",
+  "sub": "biopsy and staging",
+  "changed": true,
+  "summary": "Campbell ch24: added core biopsy accuracy (97% benign vs malignant); harmonised EWSR1-FLI1 frequency; Mankin, Enneking, Huvos verified"
  }
 ]
