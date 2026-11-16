@@ -411,5 +411,40 @@
   "sub": "biopsy and staging",
   "changed": true,
   "summary": "Campbell ch24: added core biopsy accuracy (97% benign vs malignant); harmonised EWSR1-FLI1 frequency; Mankin, Enneking, Huvos verified"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Infection & Metabolic",
+  "sub": "osteomyelitis and septic arthritis",
+  "changed": true,
+  "summary": "Campbell ch21-22: verified Cierny-Mader, S. aureus commonest, lower-limb joints predominate, 6-week antibiotics; added gonococcus = about 75% of septic arthritis in sexually active young adults"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Infection & Metabolic",
+  "sub": "tuberculosis",
+  "changed": false,
+  "summary": "Campbell ch23: no conflicts (ATT doses, NTEP regimen, Tom Smith/Phemister consistent with standard references)"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Infection & Metabolic",
+  "sub": "rickets and osteomalacia",
+  "changed": false,
+  "summary": "Checked against the Global Consensus on nutritional rickets (Munns 2016): vitamin D cut-offs and treatment doses correct; Campbell's has little on medical rickets"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Infection & Metabolic",
+  "sub": "osteoporosis drugs",
+  "changed": false,
+  "summary": "Checked trial figures (FIT, HORIZON, FREEDOM, FPT, ACTIVE, FRAME/ARCH) and dosing against the trial reports; no errors"
+ },
+ {
+  "date": "2026-11-16",
+  "topic": "Infection & Metabolic",
+  "sub": "crystal arthropathy",
+  "changed": false,
+  "summary": "Checked against EULAR/ACR gout guidance and trials (AGREE, CARES): crystal optics, urate targets, allopurinol dosing correct; no errors"
  }
 ]
