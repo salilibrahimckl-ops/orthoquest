@@ -11,7 +11,7 @@ concurrency:
 jobs:
   daily:
     runs-on: ubuntu-latest
-    timeout-minutes: 140
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,9 +19,9 @@ jobs:
           node-version: 20
       - name: Write and check questions, proofread the bank
         env:
-          DAILY_NEW: "100"
+          DAILY_NEW: "500"
           DAILY_PROOF: "100"
-          MAX_MINUTES: "110"
+          MAX_MINUTES: "330"
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node orthoss-prep/tools/daily_ai.js run
       - name: Save results (retry if the app synced meanwhile)
