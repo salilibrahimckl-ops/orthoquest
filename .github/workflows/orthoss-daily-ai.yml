@@ -20,7 +20,7 @@ jobs:
       - name: Write and check questions, proofread the bank
         env:
           DAILY_NEW: "500"
-          DAILY_PROOF: "100"
+          DAILY_PROOF: "500"
           MAX_MINUTES: "330"
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node orthoss-prep/tools/daily_ai.js run

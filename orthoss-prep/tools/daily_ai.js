@@ -215,7 +215,7 @@ async function run() {
   console.log(strong ? 'Mode: Gemini writer + free senior editor + 2 blind checks (auto-publishes approved questions)' : 'Mode: fallback model only (drafts wait for Claude review)');
   const targets = planTargets();
   console.log('Topics from the NEET-SS timetable: ' + targets.map(t => t.topic + ' / ' + t.sub).join('; '));
-  while ((strong ? published < N_NEW && newItems.length < N_NEW * 2 : newItems.length < N_NEW) && batch < 150 && timeLeft(Math.min(30, Math.ceil(N_PROOF / 4)))) {
+  while ((strong ? published < N_NEW && newItems.length < N_NEW * 2 : newItems.length < N_NEW) && batch < 150 && timeLeft(Math.min(150, Math.ceil(N_PROOF / 4)))) {
     const tg = targets[batch % targets.length], topic = tg.topic, sub = tg.sub;
     const exam = ['NEET-SS', 'NEET-SS', 'FNB', 'NEET-SS', 'INI-SS'][batch % 5]; batch++;
     const recall = recallFor(bank, custom, topic, sub);

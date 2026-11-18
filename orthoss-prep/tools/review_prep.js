@@ -1,6 +1,7 @@
 // Prepares a compact review sheet for Claude so it never has to load the whole question bank.
 //   node review_prep.js [drafts=50] [flags=25]
 // Writes review/input.md (what Claude reads) and review/input.json (what review_apply.js checks against).
+const TARGET = +(process.env.DAILY_TARGET || 500);
 const fs = require('fs'), path = require('path');
 const DIR = path.join(__dirname, '..'), RV = path.join(DIR, 'review');
 const TOPICS = ["Trauma","Spine","Arthroplasty","Sports & Arthroscopy","Paediatric Ortho","Hand & Upper Limb","Foot & Ankle","Oncology","Basic Sciences","Infection & Metabolic"];
@@ -27,13 +28,13 @@ const plan = readJ(path.join(DIR, 'plan-topics.json'), { days: [] }), targets = 
 for (let k = 0; k <= 3; k++) { const d = plan.days.find(x => x.d === istDay(k)); if (!d) continue;
   if (d.type === 'study') d.read.forEach(r => targets.push(d.topics[0] + ' / ' + r)); else d.topics.forEach(t => targets.push(t + ' / all subtopics')) }
 
-let md = `# Review sheet ${istDay()}  (published today so far: ${todayCount}; target 100)\n\n`;
+let md = `# Review sheet ${istDay()}  (published today so far: ${todayCount}; target ${TARGET})\n\n`;
 md += `## Drafts (${D.length} of ${(drafts.pending || []).length} waiting)\n`;
 D.forEach(q => { md += `\n### ${q.id} [${q.topic}]\n${q.q}\n${q.o.map((o, k) => `${L[k]}. ${o}`).join('\n')}\nKey: ${L[q.a]} | ${q.e || ''}\n`; const s = similar(q); if (s.length) md += `Similar existing: ${s.join(' || ')}\n` });
 md += `\n## Proofreading flags (${F.length})\n`;
 F.forEach(f => { const q = all.find(x => x.id === f.id); if (!q) { md += `\n### ${f.id}: question no longer exists (discard)\n`; return }
   md += `\n### ${f.id} [${q.topic}]\n${q.q}\n${q.o.map((o, k) => `${L[k]}. ${o}`).join('\n')}\nMarked: ${L[q.a]} | ${q.e || ''}\nFree AI says: ${f.issue || ''}${f.sug ? ' Suggests: ' + f.sug : ''}\n` });
-md += `\n## Top-up topics (write only if today is still under 100 after the drafts)\n${targets.join('\n') || 'any topic'}\n`;
+md += `\n## Top-up topics (write only if today is still under ${TARGET} after the drafts)\n${targets.join('\n') || 'any topic'}\n`;
 fs.mkdirSync(RV, { recursive: true });
 fs.writeFileSync(path.join(RV, 'input.md'), md);
 fs.writeFileSync(path.join(RV, 'input.json'), JSON.stringify({ day: istDay(), todayCount, drafts: D.map(q => q.id), flags: F.map(f => f.id) }));
