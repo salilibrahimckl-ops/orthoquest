@@ -1864,146 +1864,7 @@
   "ai20261101_092",
   "ai20261101_093"
  ],
- "pending": [
-  {
-   "id": "ai20261117_064",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "An immunocompromised 30‑year‑old woman has a solitary lytic lesion in the distal femur. Histology shows caseating granulomas. Which drug should be avoided in her ATT regimen?",
-   "o": [
-    "Isoniazid",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Ethambutol"
-   ],
-   "a": 1,
-   "e": "Pyrazinamide is hepatotoxic; in patients with pre‑existing liver dysfunction or high AST/ALT, it should be omitted.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Correct and supported."
-  },
-  {
-   "id": "ai20261117_065",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "A 12‑year‑old boy with night sweats and a painless, boggy swelling over the left ankle is found to have a low‑grade pus culture negative but GeneXpert positive. What does the lack of neutrophils in the aspirate suggest?",
-   "o": [
-    "Acute pyogenic infection",
-    "Early TB arthritis",
-    "Fungal arthritis",
-    "Rheumatoid arthritis"
-   ],
-   "a": 1,
-   "e": "TB arthritis often shows lymphocytic predominance; early neutrophilia can evolve but the typical profile remains lymphocytes.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Correct and supported."
-  },
-  {
-   "id": "ai20261117_066",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "In spinal tuberculosis, the earliest radiographic sign is:",
-   "o": [
-    "Gibbus formation",
-    "Disc space narrowing with paradiscal rarefaction",
-    "Cold abscess",
-    "Paraspinal rib hump"
-   ],
-   "a": 1,
-   "e": "Disc space narrowing and end‑plate changes appear before vertebral collapse (gibbus) or abscess formation.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Correct and supported."
-  },
-  {
-   "id": "ai20261117_067",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "Which imaging feature best distinguishes tuberculous spondylitis from pyogenic vertebral osteomyelitis on MRI?",
-   "o": [
-    "Early disc destruction",
-    "Large thin‑walled paraspinal abscess",
-    "Diffuse contrast enhancement of vertebral bodies",
-    "Single vertebral body involvement only"
-   ],
-   "a": 1,
-   "e": "Tuberculosis forms large, thin‑walled, well‑defined abscesses with subligamentous spread; pyogenic infections cause thicker, ill‑defined abscesses and rapid disc loss.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Correct and supported."
-  },
-  {
-   "id": "ai20261117_068",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "A 23‑year‑old man with chronic drainage from a knee sinus has been treated empirically for septic arthritis with cefazolin. Which of the following is the most appropriate next step?",
-   "o": [
-    "Restart cefazolin with weight‑based dose",
-    "Order a joint aspiration and send for Gram stain and culture",
-    "Start empirical anti‑tubercular therapy without cultures",
-    "Perform open debridement without drug change"
-   ],
-   "a": 1,
-   "e": "The correct next step is to obtain a sample (aspiration or tissue) for specific investigations such as GeneXpert and culture to identify the causative organism before changing therapy; empiric ATT without confirmatory tests is premature. The other options either continue ineffective antibiotics or skip necessary diagnostics.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "fixed",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Correct answer identified; original marking was erroneous."
-  },
-  {
-   "id": "ai20261117_069",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "In chronic kidney disease‑related bone disorder (renal osteodystrophy) the characteristic laboratory abnormality is:",
-   "o": [
-    "High phosphate, low calcium, very high PTH, low 1,25‑OH₂D",
-    "Low phosphate, high calcium, very low PTH, high 1,25‑OH₂D",
-    "Low phosphate, low calcium, high PTH, high 1,25‑OH₂D",
-    "High phosphate, low calcium, high PTH, high 1,25‑OH₂D"
-   ],
-   "a": 0,
-   "e": "CKD causes phosphate retention and reduced 1α‑hydroxylase activity, leading to low 1,25‑OH₂D and secondary hyperparathyroidism.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "The laboratory triad is textbook renal osteodystrophy."
-  }
- ],
+ "pending": [],
  "pendingFlags": [],
  "updated": "2026-11-17T23:11:35.046Z",
  "reviewLog": [
@@ -2756,6 +2617,19 @@
    "flagsConfirmed": 0,
    "flagsDiscarded": 3,
    "remaining": 6,
+   "remainingFlags": 0
+  },
+  {
+   "at": "2026-11-18T00:19:31.304Z",
+   "by": "Claude",
+   "kept": 1,
+   "fixed": 1,
+   "rejected": 4,
+   "written": 49,
+   "flagsFixed": 0,
+   "flagsConfirmed": 0,
+   "flagsDiscarded": 0,
+   "remaining": 0,
    "remainingFlags": 0
   }
  ]
