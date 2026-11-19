@@ -41,7 +41,7 @@ const readJ = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')) } 
 
 const AI_MODEL = process.env.AI_MODEL || 'openai';
 const GKEY = process.env.GEMINI_API_KEY || '';
-let lastCall = 0, gLast = 0, gModel = null, gDead = !GKEY, gCalls = 0;
+let lastCall = 0, gLast = 0, gModel = null, gDead = !GKEY, gCalls = 0, gBusy = [], gRetryAt = 0;
 const G_GAP = +(process.env.GEMINI_GAP_MS || 7000), G_MAX = +(process.env.GEMINI_MAX_CALLS || 220);
 const LADDER = ['high', 'medium', 'low'];
 const stats = { gemini: 0, pollinations: 0, geminiFail: 0 };
@@ -80,6 +80,7 @@ async function gemini(prompt, temp, hops) {
           // each model has its own free daily allowance: move to the next good model before giving up
           gCands.shift(); gModel = null;
           if (gCands.length) { console.log('  Gemini ' + model + ' daily quota used up; trying the next model'); return gemini(prompt, temp, hops) }
+          if (gBusy.length) { gDead = true; gRetryAt = Date.now() + 20 * 60000; console.log('  Gemini quota used up on available models; busy models retried in 20 minutes'); throw new Error('quota') }
           console.log('  All Gemini models used up for today; switching to the fallback model'); gDead = true; throw new Error('quota') }
         await sleep(30000 * (attempt + 1)); continue }
       if (r.status === 403 || r.status === 404) { const b = await r.text().catch(() => ''); console.log('  Gemini model ' + model + ' refused (' + r.status + '): ' + b.replace(/\s+/g, ' ').slice(0, 160));
@@ -94,9 +95,11 @@ async function gemini(prompt, temp, hops) {
   }
   // persistently overloaded (503) or failing: try the next model rather than dropping this batch to the weak model
   // drop a model that keeps failing; when none answer, stop using Gemini for the rest of the night
-  gCands.shift(); gModel = null;
-  if (gCands.length && hops < 4) { console.log('  ' + model + ' unavailable; trying another model'); return gemini(prompt, temp, hops + 1) }
-  console.log('  No Gemini model is answering; using the fallback model for the rest of the run'); gDead = true;
+  // overloaded (503/timeouts) is temporary: park the model and try it again later instead of dropping it for the night
+  gCands.shift(); gModel = null; if (!gBusy.includes(model)) gBusy.push(model);
+  if (gCands.length && hops < 4) { console.log('  ' + model + ' busy; trying another model'); return gemini(prompt, temp, hops + 1) }
+  gDead = true; gRetryAt = Date.now() + 20 * 60000;
+  console.log('  No Gemini model is answering right now; fallback model for 20 minutes, then Gemini is retried');
   throw new Error('Gemini unavailable');
 }
 async function pollinations(prompt, effort) {
@@ -118,7 +121,10 @@ async function pollinations(prompt, effort) {
   }
   throw new Error('AI unavailable');
 }
-const geminiOn = () => !gDead && gCalls < G_MAX;
+const geminiOn = () => {
+  if (gDead && gRetryAt && Date.now() > gRetryAt && GKEY) { gCands = (gCands || []).concat(gBusy.filter(m => !(gCands || []).includes(m))); gBusy = []; gRetryAt = 0;
+    if (gCands.length) { gDead = false; gModel = null; console.log('  Retrying Gemini: ' + gCands.join(', ')) } }
+  return !gDead && gCalls < G_MAX };
 let lastProv = '';
 // main model: Gemini when available, otherwise the free fallback
 async function ai(prompt, effort, temp) {
