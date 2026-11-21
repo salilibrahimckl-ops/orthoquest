@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=34;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=35;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -1745,21 +1745,34 @@ async function openPdf(list,title){
     <div class="pv-body" id="pvBody"><div class="pv-msg">Opening notes…</div></div>
     <div class="pv-foot">${list.map(p=>`<a href="${PDF_BASE+p.url}" target="_blank" rel="noopener">Open ${esc(p.title)} in your PDF app</a>`).join(" · ")}</div>`;
   document.body.appendChild(ov);document.body.style.overflow="hidden";
-  PV={list,zoom:1,docs:[]};
+  PV={list,zoom:1,docs:[],tok:0};
   document.getElementById("pvX").onclick=closePdf;
   document.getElementById("pvM").onclick=()=>{PV.zoom=Math.max(.7,PV.zoom-.2);pdfRender()};
   document.getElementById("pvP").onclick=()=>{PV.zoom=Math.min(2.6,PV.zoom+.25);pdfRender()};
-  try{if(!window.pdfjsLib){await loadScript(PDFJS+"pdf.worker.min.js");await loadScript(PDFJS+"pdf.min.js")}
-    const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc=PDFJS+"pdf.worker.min.js";
-    for(const p of list){const b=await pdfBytes(p);if(!PV)return;PV.docs.push({p,doc:await lib.getDocument({data:b.slice(0),cMapUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/",cMapPacked:true,standardFontDataUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/"}).promise})}
-    pdfRender()}catch(e){const bd=document.getElementById("pvBody");if(bd)bd.innerHTML=`<div class="pv-msg">Couldn't open the notes${navigator.onLine===false?" (you're offline and they haven't been downloaded yet)":""}. Try again with internet, or use the link below to open them in your PDF app.</div>`}}
-async function pdfRender(){if(!PV||!PV.docs.length)return;const bd=document.getElementById("pvBody");const tok=PV.tok=(PV.tok||0)+1;
-  const W=Math.min(bd.clientWidth||360,900)-8;bd.innerHTML="";
-  for(const {p,doc} of PV.docs){if(PV.docs.length>1){const h=document.createElement("div");h.className="pv-sec";h.textContent=p.title;bd.appendChild(h)}
-    for(let i=1;i<=doc.numPages;i++){if(!PV||PV.tok!==tok)return;const pg=await doc.getPage(i);const v0=pg.getViewport({scale:1});const sc=W/v0.width*PV.zoom;const vp=pg.getViewport({scale:sc*(window.devicePixelRatio||1)});
-      const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;c.style.width=(vp.width/(window.devicePixelRatio||1))+"px";c.className="pv-pg";bd.appendChild(c);
-      await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise}}}
-function closePdf(){const o=document.getElementById("pdfv");if(o)o.remove();document.body.style.overflow="";PV=null}
+  try{const bp=list.map(p=>pdfBytes(p));bp.forEach(x=>x.catch(()=>{}));const lib=await pdfLib();
+    let first=true;
+    for(let k=0;k<list.length;k++){const b=await bp[k];if(!PV)return;
+      const doc=await lib.getDocument({data:b.slice(0),cMapUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/",cMapPacked:true,standardFontDataUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/"}).promise;if(!PV)return;
+      PV.docs.push({p:list[k],doc});if(first){first=false;document.getElementById("pvBody").innerHTML=""}await pdfLayout(PV.docs[PV.docs.length-1])}
+  }catch(e){const bd=document.getElementById("pvBody");if(bd)bd.innerHTML=`<div class="pv-msg">Couldn't open the notes${navigator.onLine===false?" (you're offline and they haven't been downloaded yet)":""}. Try again with internet, or use the link below to open them in your PDF app.</div>`}}
+/* pdf.js loads once (main script only; the worker runs in its own thread) */
+let PDFLIB_P=null;
+function pdfLib(){if(window.pdfjsLib)return Promise.resolve(window.pdfjsLib);
+  if(!PDFLIB_P)PDFLIB_P=loadScript(PDFJS+"pdf.min.js").then(()=>{const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc=PDFJS+"pdf.worker.min.js";return lib}).catch(e=>{PDFLIB_P=null;throw e});
+  return PDFLIB_P}
+/* pages are laid out as sized placeholders and only drawn when they scroll near the screen */
+async function pdfLayout(d){const bd=document.getElementById("pvBody");if(!bd||!PV)return;const tok=PV.tok||0;
+  const W=Math.min(bd.clientWidth||360,900)-8;
+  if(PV.docs.length>1||PV.list.length>1){const h=document.createElement("div");h.className="pv-sec";h.textContent=d.p.title;bd.appendChild(h)}
+  const pg1=await d.doc.getPage(1);const v0=pg1.getViewport({scale:1});const cssW=W*PV.zoom,cssH=cssW*v0.height/v0.width;
+  if(!PV.io)PV.io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){PV.io.unobserve(e.target);pdfDraw(e.target)}}),{root:bd,rootMargin:"1200px 0px"});
+  for(let i=1;i<=d.doc.numPages;i++){if(!PV||PV.tok!==tok)return;const c=document.createElement("canvas");c.className="pv-pg";c.style.width=cssW+"px";c.style.height=cssH+"px";c._pv={doc:d.doc,i,cssW};bd.appendChild(c);PV.io.observe(c)}}
+async function pdfDraw(c){if(!PV||!c._pv)return;const {doc,i,cssW}=c._pv;try{const pg=await doc.getPage(i);const v0=pg.getViewport({scale:1});
+  const dpr=Math.min(window.devicePixelRatio||1,2);const vp=pg.getViewport({scale:cssW/v0.width*dpr});c.width=vp.width;c.height=vp.height;c.style.height=(vp.height/dpr)+"px";
+  await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise}catch(e){}}
+async function pdfRender(){if(!PV||!PV.docs.length)return;const bd=document.getElementById("pvBody");PV.tok=(PV.tok||0)+1;if(PV.io){PV.io.disconnect();PV.io=null}
+  bd.innerHTML="";for(const d of PV.docs)await pdfLayout(d)}
+function closePdf(){if(PV&&PV.io)PV.io.disconnect();const o=document.getElementById("pdfv");if(o)o.remove();document.body.style.overflow="";PV=null}
 function notesBtnFor(d){const l=dayPdfs(d);return l.length?`<button type="button" class="ghost" data-pdfday="${d.d}">📄 Read ${d.type==="study"?"today's":"this day's"} notes (PDF)</button>`:""}
 function todayCard(){
   const n=S.daily[dkey()]||0,g=S.goal,st=streak(),due=allQ().filter(q=>isDue(q.id)).length;
@@ -2260,8 +2273,7 @@ async function ocrWorker(){
   return OCRW}
 const OCR_MAX=40;
 async function pdfText(file){
-  if(!window.pdfjsLib){await loadScript(PDFJS+"pdf.worker.min.js");await loadScript(PDFJS+"pdf.min.js")}
-  const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc=PDFJS+"pdf.worker.min.js";
+  const lib=await pdfLib();
   const doc=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer()),cMapUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/",cMapPacked:true,standardFontDataUrl:"https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/"}).promise;let out="",ocrd=0;
   for(let i=1;i<=doc.numPages;i++){
     pdfStatus("Reading page "+i+" of "+doc.numPages+"…");
@@ -3123,6 +3135,8 @@ loadLive();
 render();
 setTimeout(examFetch,1500);
 setTimeout(()=>Promise.all([ntSync(null),pdfManSync()]).then(()=>{if(tab==="home")vHome()}),3000);
+/* warm up the notes viewer and download today's notes in the background so they open instantly */
+setTimeout(()=>{try{pdfLib().catch(()=>{});const d=planToday();if(d)dayPdfs(d).forEach(p=>pdfBytes(p).catch(()=>{}))}catch(e){}},5000);
 try{localStorage.setItem("orthoss_app_ok",String(window.__APPV||0))}catch(e){} /* orthoss-app-ok: this version started fine */
 applyOvr();
 if(!IN_CLAUDE)setTimeout(()=>syncNow(false),800);
