@@ -1864,192 +1864,7 @@
   "ai20261101_092",
   "ai20261101_093"
  ],
- "pending": [
-  {
-   "id": "ai20261121_301",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "Which of the following is NOT a recognised risk factor for atypical femoral fracture in bisphosphonate users?",
-   "o": [
-    "Long duration of bisphosphonate therapy (>5 years)",
-    "Concurrent corticosteroid use",
-    "Recent initiation of bisphosphonate therapy",
-    "Use of high‑dose IV zoledronate for oncology"
-   ],
-   "a": 2,
-   "e": "Atypical femoral fractures develop after prolonged bisphosphonate exposure, not after recent initiation. High‑dose oncology regimens and long‑term use are risk factors.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Stem and options correctly reflect guideline‑based risk factors."
-  },
-  {
-   "id": "ai20261121_302",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "Which supplement is required before initiating IV zoledronate therapy?",
-   "o": [
-    "Intravenous calcium 2 g",
-    "Oral vitamin D 2000 IU daily",
-    "Intramuscular vitamin D 50 000 IU",
-    "No supplementation is needed"
-   ],
-   "a": 1,
-   "e": "Vitamin D deficiency predisposes to hypocalcaemia after zoledronate; patients should be vitamin D replete (2000 IU daily) before the infusion.",
-   "src": "Exam-style",
-   "exam": "NEET-SS",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Stem reflects usual pre‑infusion requirement."
-  },
-  {
-   "id": "ai20261121_303",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "A 68‑year‑old man presents with painless, progressive enlargement of his frontal skull. Plain radiographs show a mix of lytic and sclerotic zones with diploic widening. Serum alkaline phosphatase is markedly raised while calcium and phosphate are normal. Which of the following is the most likely diagnosis?",
-   "o": [
-    "Paget disease of bone",
-    "Osteosarcoma",
-    "Multiple myeloma",
-    "Metastatic breast cancer"
-   ],
-   "a": 0,
-   "e": "The classic combination of raised ALP with normal calcium, skull enlargement and mixed lytic‑sclerotic changes is diagnostic of Paget disease.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Standard radiographic and biochemical features match Paget."
-  },
-  {
-   "id": "ai20261121_304",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "A 55‑year‑old woman has knee pain and antero‑medial bowing of the femur. Plain film shows a thick, enlarged femur with a “candle flame” lytic front. Blood work reveals normal calcium, phosphate and a total ALP of 180 U/L (normal 40‑120). What is the most appropriate initial therapy?",
-   "o": [
-    "Oral alendronate 70 mg fortnightly",
-    "Zoledronic acid 5 mg IV single dose",
-    "Vitamin D 50 000 IU weekly",
-    "Calcium supplementation 1 g/day"
-   ],
-   "a": 1,
-   "e": "In active Paget disease, a single IV dose of zoledronic acid is the most effective initial treatment, abolishing pain and lowering ALP.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "IV bisphosphonate is the guideline‑recommended initial therapy."
-  },
-  {
-   "id": "ai20261121_305",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "Which complication is *least* likely in a patient with extensive polyostotic Paget disease?",
-   "o": [
-    "High‑output cardiac failure",
-    "Deafness",
-    "Sudden onset neuropathic pain at a remote site",
-    "Basilar invagination"
-   ],
-   "a": 2,
-   "e": "While cardiac failure, deafness and basilar invagination are recognized sequelae, neuropathic pain at a remote site is not a typical complication of Paget disease.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Other options are classic complications."
-  },
-  {
-   "id": "ai20261121_306",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "A 72‑year‑old man with known Paget disease of the pelvis develops a sudden, excruciating hip pain. X‐ray shows a transverse, subtrochanteric fracture that failed to heal after 6 months. What is the most likely reason for the delayed union?",
-   "o": [
-    "Inadequate bisphosphonate therapy",
-    "Excessive blood flow causing a steal phenomenon",
-    "Intrinsic mechanical weakness of pagetic bone",
-    "Concomitant hyperparathyroidism"
-   ],
-   "a": 2,
-   "e": "Pagetic bone is enlarged but mechanically weak; this makes transverse fractures, especially subtrochanteric, prone to non‑union regardless of remodeling activity.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Biomechanical weakness of pagetic bone is the established cause."
-  },
-  {
-   "id": "ai20261121_307",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "During investigation of a suspected paget’s sarcoma, which MRI finding would most strongly argue against a malignant change?",
-   "o": [
-    "Cortical destruction with soft‑tissue mass",
-    "Loss of marrow fat signal",
-    "Preservation of marrow fat and absence of a mass",
-    "Periosteal reaction"
-   ],
-   "a": 2,
-   "e": "In uncomplicated Paget disease, marrow fat remains on MRI. Loss of fat signal and a soft‑tissue mass would raise suspicion for sarcoma.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Marrow fat preservation is a key benign feature."
-  },
-  {
-   "id": "ai20261121_308",
-   "topic": "Infection & Metabolic",
-   "kind": "AI-daily",
-   "q": "A patient with monostotic Paget disease of the femur has an ALP of 110 U/L but a normal liver function panel. Which additional test should be ordered to confirm that the elevated ALP is from bone?",
-   "o": [
-    "Serum 25(OH) vitamin‑D",
-    "Serum PTH",
-    "Urinary hydroxyproline",
-    "Bone‑specific ALP"
-   ],
-   "a": 3,
-   "e": "Bone‑specific ALP distinguishes bone from liver origins when total ALP is only mildly raised.",
-   "src": "Exam-style",
-   "exam": "FNB",
-   "year": "",
-   "fresh": true,
-   "proofed": true,
-   "editor": "kept",
-   "auto": false,
-   "check": "Gemini unavailable for this batch",
-   "note": "Specific isoform assay is the standard confirmatory test."
-  }
- ],
+ "pending": [],
  "pendingFlags": [],
  "updated": "2026-11-22T01:55:27.782Z",
  "reviewLog": [
@@ -3218,6 +3033,19 @@
    "flagsConfirmed": 0,
    "flagsDiscarded": 0,
    "remaining": 8,
+   "remainingFlags": 0
+  },
+  {
+   "at": "2026-11-22T03:17:13.247Z",
+   "by": "Claude",
+   "kept": 2,
+   "fixed": 1,
+   "rejected": 5,
+   "written": 0,
+   "flagsFixed": 0,
+   "flagsConfirmed": 0,
+   "flagsDiscarded": 0,
+   "remaining": 0,
    "remainingFlags": 0
   }
  ]
