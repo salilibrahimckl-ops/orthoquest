@@ -84,7 +84,9 @@ async function gemini(prompt, temp, hops) {
           console.log('  All Gemini models used up for today; switching to the fallback model'); gDead = true; throw new Error('quota') }
         await sleep(30000 * (attempt + 1)); continue }
       if (r.status === 403 || r.status === 404) { const b = await r.text().catch(() => ''); console.log('  Gemini model ' + model + ' refused (' + r.status + '): ' + b.replace(/\s+/g, ' ').slice(0, 160));
-        gCands.shift(); gModel = null; if (!gCands.length) { gDead = true; throw new Error('refused') } return gemini(prompt, temp, hops) }
+        gCands.shift(); gModel = null;
+        if (!gCands.length) { gDead = true; if (gBusy.length) { gRetryAt = Date.now() + 20 * 60000; console.log('  No other Gemini model available now; busy models retried in 20 minutes') } throw new Error('refused') }
+        return gemini(prompt, temp, hops) }
       if (r.status === 400) { const b = await r.text().catch(() => ''); console.log('  Gemini bad request: ' + b.replace(/\s+/g, ' ').slice(0, 200)); throw new Error('refused') }
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const j = await r.json(); const parts = (((j.candidates || [])[0] || {}).content || {}).parts || [];
