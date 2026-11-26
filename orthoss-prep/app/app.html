@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=35;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=36;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -1597,8 +1597,14 @@ function planQs(d){
   const order=d.type==="study"?[fresh,wrong,due,rest]:d.type==="final"?[wrong,due,S.bm.map(id=>all.find(q=>q.id===id)).filter(Boolean),rest]:[wrong,due,fresh,rest];
   const seen=new Set(),out=[];order.forEach(g=>shuffle(g.slice()).forEach(q=>{if(!seen.has(q.id)){seen.add(q.id);out.push(q)}}));
   return out.slice(0,Math.max(5,d.target-d.n))}
+/* A plan day's question list is saved (S.planLive) so ending a session part-way, or closing the app, resumes the same list at the first unanswered question. */
+function planLive(d){const L=S.planLive;if(!L||L.d!==d.d||d.n>=d.target)return null;const map={};allQ().forEach(q=>map[q.id]=q);
+  const qs=L.ids.map(id=>map[id]).filter(Boolean),ans={};qs.forEach(q=>{if(L.ans[q.id]!=null)ans[q.id]=L.ans[q.id]});
+  const i=qs.findIndex(q=>ans[q.id]==null);return i<0?null:{qs,ans,i}}
 function planStart(d){if(d.type==="mock"){tab="mock";render();window.scrollTo(0,0);return}
-  const qs=planQs(d);if(!qs.length)return;S.showDemo=false;save();P={qs,i:0,ans:{},done:false,plan:d.d};tab="practice";render();window.scrollTo(0,0)}
+  const r=planLive(d);
+  if(r){S.showDemo=false;save();P={qs:r.qs,i:r.i,ans:r.ans,prev:Object.keys(r.ans),done:false,plan:d.d,resumed:true};tab="practice";render();window.scrollTo(0,0);return}
+  const qs=planQs(d);if(!qs.length)return;S.planLive={d:d.d,ids:qs.map(q=>q.id),ans:{}};S.showDemo=false;save();P={qs,i:0,ans:{},prev:[],done:false,plan:d.d};tab="practice";render();window.scrollTo(0,0)}
 function planDayHTML(d,label){const ph=PHASE[d.type],pct=Math.min(100,Math.round(d.n/d.target*100)),done=planDone(d);
   return `<div class="stack" style="gap:8px;padding:12px;border-radius:14px;background:var(--sunk)">
    <div class="row" style="justify-content:space-between;align-items:center"><div class="label" style="color:var(--accent)">${label} · ${ph[0]}</div>${done?`<span class="chip c-good">Done</span>`:""}</div>
@@ -1639,7 +1645,7 @@ function confirmRe(){const b=document.getElementById("planRe");if(b.dataset.sure
 function planNag(){const t=planToday(),bl=planBacklog(),d=bl[0]||t;if(!d||planDone(d))return "";
   return `<section class="card stack" style="gap:8px;border:2px solid var(--accent)"><div class="label" style="color:var(--accent)">${bl.length?"Catch up first":"Today's NEET-SS plan"}</div>
    <div><b>${esc(d.topics.join(", ")||PHASE[d.type][0])}</b> · ${Math.min(d.n,d.target)} of ${d.target} MCQs done</div>
-   <button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":"Do today's plan MCQs"}</button>
+   <button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":d.n?"Continue today's plan MCQs":"Do today's plan MCQs"}</button>
    <span class="small muted">Other practice is allowed, but only questions from these topics count towards today's plan.</span></section>`}
 
 /* ---------- High-yield notes (written and checked by Claude, kept on GitHub: notes/index.json + notes/<topic>.json) ---------- */
@@ -1931,7 +1937,7 @@ function bindQNotes(q){const b=document.getElementById("qNotes");if(!b)return;b.
   if(l.length)openPdf(l,"Today's notes: "+d.topics.join(", "));else{const t=pdfFor(q.topic,null);if(t)openPdf([t],t.title)}}}
 function vPQ(){
   const q=P.qs[P.i],picked=P.ans[q.id];const answered=picked!=null;
-  V().innerHTML=`<section class="card stack">
+  V().innerHTML=`${P.resumed?`<div class="msg ok">Picked up where you stopped: ${P.qs.filter(x=>P.ans[x.id]==null).length} of ${P.qs.length} questions left in this list.</div>`:""}<section class="card stack">
    <div class="qhead"><span class="mono small muted">Q ${P.i+1} of ${P.qs.length}</span><span class="row" style="gap:6px">${qNotesBtn(q)}${bmBtn(q.id)}</span></div>
    <div class="progress"><i style="width:${(P.i+(answered?1:0))/P.qs.length*100}%"></i></div>
    <div>${qMeta(q)}</div>
@@ -1942,7 +1948,7 @@ function vPQ(){
    <div class="row" style="justify-content:space-between"><button type="button" class="ghost" id="pend">End session</button>
      <button type="button" class="primary" id="pnext" ${answered?"":"disabled"}>${P.i===P.qs.length-1?"See result":"Next"}</button></div>
   </section>`;
-  V().querySelector(".opts").onclick=e=>{const b=e.target.closest("[data-o]");if(!b||answered)return;const j=+b.dataset.o;P.ans[q.id]=j;recordAttempt(q.id,j===q.a);save();vPQ()};
+  V().querySelector(".opts").onclick=e=>{const b=e.target.closest("[data-o]");if(!b||answered)return;const j=+b.dataset.o;P.ans[q.id]=j;P.resumed=false;if(P.plan&&S.planLive&&S.planLive.d===P.plan)S.planLive.ans[q.id]=j;recordAttempt(q.id,j===q.a);save();vPQ()};
   V().querySelector("[data-bm]").onclick=()=>{toggleBm(q.id);vPQ()};
   bindQNotes(q);
   document.getElementById("pnext").onclick=()=>{if(P.i<P.qs.length-1){P.i++;vPQ();window.scrollTo(0,0)}else finishPractice()};
@@ -1950,8 +1956,9 @@ function vPQ(){
   bindTools(q,vPQ);
 }
 function finishPractice(){
-  const done=P.qs.filter(q=>P.ans[q.id]!=null),c=done.filter(q=>P.ans[q.id]===q.a).length;
+  const prev=new Set(P.prev||[]),done=P.qs.filter(q=>P.ans[q.id]!=null&&!prev.has(q.id)),c=done.filter(q=>P.ans[q.id]===q.a).length;
   P.done=true;P.res={n:done.length,c};
+  if(P.plan&&S.planLive&&S.planLive.d===P.plan){const d=S.plan&&S.plan.days.find(x=>x.d===P.plan);if(P.qs.every(q=>P.ans[q.id]!=null)||(d&&d.n>=d.target))delete S.planLive;else P.res.left=P.qs.filter(q=>P.ans[q.id]==null).length;save()}
   if(done.length){S.sessions.push({d:Date.now(),m:"Practice",n:done.length,score:Math.round(c/done.length*100),mastery:stats().score});save();}
   render();window.scrollTo(0,0);
 }
@@ -1959,6 +1966,7 @@ function vPDone(){
   const r=P.res;
   V().innerHTML=`<section class="card stack"><div class="label">Session complete</div>
    ${r.n?`<div class="row" style="gap:20px">${ring(Math.round(r.c/r.n*100))}<div><h2>${r.c} of ${r.n} correct</h2><p class="muted small" style="margin:4px 0 0">Saved to your progress and subject scores.</p></div></div>`:`<p class="muted">No questions were answered, so nothing was saved.</p>`}
+   ${r.left?`<p class="small" style="margin:0">${r.left} question${r.left===1?"":"s"} left in today's plan list. Tap <b>Continue MCQs</b> on the dashboard to carry on from where you stopped.</p>`:""}
    <div class="row"><button type="button" class="primary" id="again">New session</button><button type="button" id="tohome">See dashboard</button></div></section>`;
   document.getElementById("again").onclick=()=>{P=null;render()};
   document.getElementById("tohome").onclick=()=>{P=null;tab="home";render()};
