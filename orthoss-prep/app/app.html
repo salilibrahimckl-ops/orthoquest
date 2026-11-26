@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=36;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=37;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -1588,8 +1588,17 @@ function planMake(){
   return {v:1,exam,made:start,days}}
 function planToday(){if(!S.plan)return null;const k=dkey();return S.plan.days.find(d=>d.d===k)||null}
 function planDone(d){return d.n>=d.target&&(d.readDone||!d.read.length||d.type==="mock")}
+function planMcqDone(d){return d.n>=d.target}
+/* one-time repair for counts saved before v4.6: a day gets credit for the questions of its topics you last answered on that date */
+function planRepair(){if(!S.plan||S.planFix)return;const k=dkey(),map={};allQ().forEach(q=>map[q.id]=q);const by={};
+  Object.entries(S.att).forEach(([id,a])=>{const q=map[id];if(!q||!a.t)return;const dk=dkey(a.t);(by[dk]=by[dk]||[]).push(q.topic)});
+  S.plan.days.forEach(d=>{if(d.d>k||!d.topics.length||!by[d.d])return;const c=by[d.d].filter(t=>d.topics.includes(t)).length;if(c>d.n)d.n=Math.min(d.target,c)});
+  S.planFix=1;save()}
 function planBacklog(){if(!S.plan)return [];const k=dkey();return S.plan.days.filter(d=>d.d<k&&!planDone(d))}
-function planCount(q){if(!S.plan)return;const k=dkey();const open=S.plan.days.filter(d=>d.d<=k&&d.n<d.target&&(!d.topics.length||d.topics.includes(q.topic)));if(open.length)open[0].n++}
+function planCount(q){if(!S.plan)return;const k=dkey();
+  /* inside a plan session, credit the day being done (not an older day that shares the topic) */
+  if(P&&P.plan&&!P.done){const d=S.plan.days.find(x=>x.d===P.plan);if(d&&d.n<d.target&&(!d.topics.length||d.topics.includes(q.topic))){d.n++;return}}
+  const open=S.plan.days.filter(d=>d.d<=k&&d.n<d.target&&(!d.topics.length||d.topics.includes(q.topic)));if(open.length)open[0].n++}
 function planQs(d){
   const tp=d.topics,inT=q=>!tp.length||tp.includes(q.topic);const all=allQ().filter(inT);
   const wrong=all.filter(q=>S.att[q.id]&&S.att[q.id].last===0),due=all.filter(q=>isDue(q.id)&&!wrong.includes(q)),fresh=all.filter(q=>!S.att[q.id]);
@@ -1613,24 +1622,26 @@ function planDayHTML(d,label){const ph=PHASE[d.type],pct=Math.min(100,Math.round
    <div class="small"><b>Read:</b> ${d.read.map(r=>{const m=/^(.*): all subtopics$/.exec(r);const tp=m?m[1]:d.topics[0],sb=m?"":r;
      return tp&&SUBT[tp]?`<button type="button" class="linkbtn small" data-note="${esc(tp)}|${esc(sb)}" style="padding:0;text-align:left">📖 ${esc(r)}</button>`:esc(r)}).join(" · ")}</div>
    ${notesBtnFor(d)}
+   ${!done&&planMcqDone(d)&&d.type!=="mock"&&d.read.length?`<div class="small" style="font-weight:600;color:var(--accent)">MCQs finished. Tick the reading box below to complete this day.</div>`:""}
    ${d.type!=="mock"&&d.read.length?`<label class="small" style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" data-pread="${d.d}" style="width:auto"${d.readDone?" checked":""}> I've finished today's reading</label>`:""}
    <div class="small"><b>MCQs:</b> ${Math.min(d.n,d.target)} of ${d.target}${d.type==="mock"?" (mock questions)":""}</div><div class="progress"><i style="width:${pct}%"></i></div>
    ${d.n<d.target?`<button type="button" class="primary" data-pgo="${d.d}">${d.type==="mock"?"Open the NEET-SS mock":d.n?"Continue MCQs":"Start MCQs"}</button>`:""}</div>`}
 function planCard(){
   if(IN_CLAUDE&&!S.plan)return "";
+  try{planRepair()}catch(e){}
   if(!S.plan)return `<section class="card stack" style="gap:10px;border:2px solid var(--accent)"><h3>NEET-SS study plan</h3>
     <p class="small muted" style="margin:0">A day-by-day timetable to 11 December: each day a topic to read and its MCQs to finish the same day, one full study pass, then 2 revision rounds and a full mock. Missed days carry over.</p>
     <button type="button" class="primary" id="planMake">Make my NEET-SS plan</button></section>`;
   const t=planToday(),bl=planBacklog(),k=dkey();const idx=S.plan.days.findIndex(d=>d.d===k);
   const left=daysTo(S.plan.exam);
-  const rows=S.plan.days.map((d,i)=>{const st=planDone(d)?"✓":d.d<k?"✗":d.d===k?"●":"";const ph=PHASE[d.type][0];
-    return `<div style="display:grid;grid-template-columns:62px 1fr auto;gap:8px;padding:6px 0;border-top:1px solid var(--line);${d.d===k?"font-weight:700;":""}"><span class="mono small">${new Date(d.d+"T12:00").toLocaleDateString(undefined,{day:"numeric",month:"short"})}</span><span class="small">${ph}${d.topics.length?": "+esc(d.topics.join(", ")):""}${d.type==="study"?`<br><span class="muted">${esc(d.read.join(", "))}</span>`:""}</span><span class="small" style="color:${planDone(d)?"var(--good)":d.d<k?"var(--bad)":"var(--accent)"}">${st}</span></div>`}).join("");
+  const rows=S.plan.days.map((d,i)=>{const half=!planDone(d)&&planMcqDone(d);const st=planDone(d)?"✓":half?"MCQs ✓":d.d<k?"✗":d.d===k?"●":"";const ph=PHASE[d.type][0];
+    return `<div style="display:grid;grid-template-columns:62px 1fr auto;gap:8px;padding:6px 0;border-top:1px solid var(--line);${d.d===k?"font-weight:700;":""}"><span class="mono small">${new Date(d.d+"T12:00").toLocaleDateString(undefined,{day:"numeric",month:"short"})}</span><span class="small">${ph}${d.topics.length?": "+esc(d.topics.join(", ")):""}${d.type==="study"?`<br><span class="muted">${esc(d.read.join(", "))}</span>`:""}</span><span class="small" style="white-space:nowrap;color:${planDone(d)?"var(--good)":half?"var(--warn,#c98a00)":d.d<k?"var(--bad)":"var(--accent)"}"${half?` title="MCQs finished; tick the reading box to complete this day"`:""}>${st}</span></div>`}).join("");
   return `<section class="card stack" style="gap:12px;border:2px solid var(--accent)">
    <div class="row" style="justify-content:space-between;align-items:baseline"><h3>NEET-SS plan${idx>=0?` · day ${idx+1} of ${S.plan.days.length}`:""}</h3><span class="mono small muted">${left>0?left+" days to go":""}</span></div>
    ${bl.length?`<div class="msg err" style="margin:0">${bl.length} missed day${bl.length===1?"":"s"} to catch up. Finish ${bl.length===1?"it":"them"} first; questions you answer count towards the oldest unfinished day.</div>`:""}
    ${bl.slice(0,2).map(d=>planDayHTML(d,"Catch up "+new Date(d.d+"T12:00").toLocaleDateString(undefined,{day:"numeric",month:"short"}))).join("")}
    ${t?planDayHTML(t,"Today"):`<p class="small muted" style="margin:0">${k<S.plan.days[0].d?"Your plan starts on "+S.plan.days[0].d+".":"The plan has finished. All the best for the exam!"}</p>`}
-   <details><summary class="small" style="cursor:pointer;font-weight:600">Full timetable (${S.plan.days.filter(planDone).length} of ${S.plan.days.length} days done)</summary><div style="margin-top:6px">${rows}</div>
+   <details><summary class="small" style="cursor:pointer;font-weight:600">Full timetable (${S.plan.days.filter(planDone).length} of ${S.plan.days.length} days done)</summary><div class="small muted" style="margin-top:6px">✓ done · MCQs ✓ = MCQs finished, reading box not ticked · ✗ MCQs not finished</div><div style="margin-top:6px">${rows}</div>
     <div class="row" style="margin-top:10px"><button type="button" class="ghost small" id="planRe">Re-plan from today</button></div></details>
   </section>`}
 function bindPlan(){
