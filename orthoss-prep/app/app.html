@@ -1,6 +1,6 @@
 <script>
 /* Live update loader: runs a newer app version downloaded with the Update button; falls back to this built-in version if it ever fails to start. */
-window.__APPV=37;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
+window.__APPV=38;(function(){try{var L=localStorage,v=+L.getItem("orthoss_app_v")||0,k=String(v);
   if(v>window.__APPV&&L.getItem("orthoss_app_bad")!==k){var h=L.getItem("orthoss_app_html");
     if(h&&h.indexOf("orthoss-app-ok")>0){if(L.getItem("orthoss_app_try")===k&&L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);return}
       L.setItem("orthoss_app_try",k);setTimeout(function(){try{if(L.getItem("orthoss_app_ok")!==k){L.setItem("orthoss_app_bad",k);location.reload()}}catch(e){}},8000);document.write(h+'<plaintext style="display:none">')}}}catch(e){}})();
@@ -195,7 +195,7 @@ nav.tabs button[aria-current="page"] svg{background:var(--accent-soft);border-ra
   <header class="top">
     <div class="brandwrap"><div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#fff"><circle cx="5.6" cy="15.6" r="2.6"/><circle cx="8.4" cy="18.4" r="2.6"/><circle cx="15.6" cy="5.6" r="2.6"/><circle cx="18.4" cy="8.4" r="2.6"/></g><path d="M7.5 16.5 16.5 7.5" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg></div>
     <div class="brand">Ortho pre<span>SS</span>aleel</div></div>
-    <div class="row" style="gap:10px;align-items:center"><div class="exams">INI-SS · NEET-SS · FET</div><button type="button" id="updBtn" class="updbtn" hidden>Update<i id="updDot" hidden></i></button></div>
+    <div class="row" style="gap:10px;align-items:center"><div class="exams">INI-SS · NEET-SS · FET <span class="small muted" style="font-weight:400">v4.7</span></div><button type="button" id="updBtn" class="updbtn" hidden>Update<i id="updDot" hidden></i></button></div>
   </header>
   <div id="updMsg" class="msg ok" role="status" hidden style="margin:-6px 0 12px"></div>
   <main id="view" class="stack"></main>
@@ -1487,7 +1487,30 @@ const KEY="orthoss_prep_v1";
 const blank=()=>({att:{},sessions:[],bm:[],custom:[],del:[],ovr:{},showDemo:false,daily:{},srs:{},notes:{},flag:{},ok:{},goal:20,examDate:""});
 let S=blank();
 try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(blank(),JSON.parse(raw));}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}if(typeof syncCheck==="function")syncCheck()}
+/* Storage (v4.7): progress lives in localStorage WITHOUT the shared/added questions (S.custom). S.custom (thousands of questions, several MB)
+   lives in IndexedDB, because inside S it made every save exceed the WebView's localStorage quota and progress was silently lost. */
+const CDB_N="orthoss_data";let CDB_P=null;
+function cdb(){if(!CDB_P)CDB_P=new Promise((res,rej)=>{const o=indexedDB.open(CDB_N,1);o.onupgradeneeded=()=>o.result.createObjectStore("kv");o.onsuccess=()=>res(o.result);o.onerror=()=>{CDB_P=null;rej(o.error)}});return CDB_P}
+async function cdbGet(k){const db=await cdb();return new Promise((res,rej)=>{const r=db.transaction("kv").objectStore("kv").get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function cdbPut(k,v){const db=await cdb();return new Promise((res,rej)=>{const t=db.transaction("kv","readwrite");t.objectStore("kv").put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)})}
+let CUSTOM_OK=false,CUSTOM_SIG=null,cTimer=null,SAVE_ERR=false;
+const cSig=()=>{const c=S.custom||[];return c.length+"|"+(c[0]&&c[0].id)+"|"+(c.length?c[c.length-1].id:"")+"|"+(S.del||[]).length};
+function customSave(){if(!CUSTOM_OK||cSig()===CUSTOM_SIG)return;clearTimeout(cTimer);cTimer=setTimeout(()=>{const g=cSig();cdbPut("custom",S.custom).then(()=>{CUSTOM_SIG=g}).catch(()=>{})},300)}
+function saveErrShow(){let b=document.getElementById("saveErr");
+  if(!SAVE_ERR){if(b)b.remove();return}
+  if(!b){b=document.createElement("div");b.id="saveErr";b.className="msg err";b.style.cssText="position:sticky;top:0;z-index:20;margin:0 0 10px";
+    b.textContent="Your progress couldn't be saved: the app's storage on this phone is full. Don't close the app; tell Claude.";const w=document.querySelector(".wrap");if(w)w.prepend(b)}}
+function persist(){const o=Object.assign({},S);delete o.custom;const txt=JSON.stringify(o);
+  try{localStorage.setItem(KEY,txt);SAVE_ERR=false}catch(e){
+    /* free re-downloadable caches (notes text, old bank copy if the built-in one is newer) and try again */
+    try{Object.keys(localStorage).filter(k=>k.indexOf("orthoss_nt_")===0&&k!=="orthoss_nt_index").forEach(k=>localStorage.removeItem(k));localStorage.setItem(KEY,txt);SAVE_ERR=false}catch(e2){SAVE_ERR=true}}
+  customSave();try{saveErrShow()}catch(e){}}
+async function bootCustom(){const legacy=Array.isArray(S.custom)&&S.custom.length?S.custom:null;let got,ok=false;
+  try{got=await Promise.race([cdbGet("custom"),new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),4000))]);ok=true}catch(e){}
+  if(ok&&Array.isArray(got)){if(legacy){const have=new Set(got.map(q=>q.id));legacy.forEach(q=>{if(q&&!have.has(q.id))got.push(q)})}S.custom=got;CUSTOM_SIG=legacy?null:cSig()}
+  else S.custom=legacy||[];
+  CUSTOM_OK=ok}
+function save(){persist();if(typeof syncCheck==="function")syncCheck()}
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const allQ=()=>BANK.concat(S.custom);
 const topicList=()=>{const t=TOPICS.slice();S.custom.forEach(q=>{if(!t.includes(q.topic))t.push(q.topic)});return t;};
@@ -3074,7 +3097,7 @@ async function syncNow(manual){
   try{
     for(let attempt=0;attempt<3;attempt++){
       const {data,sha}=await syPull(tok);const m=syMerge(data);
-      try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+      persist();
       const remoteIds=new Set((data.items||[]).map(q=>q.id)),remoteDel=new Set(data.deleted||[]);
       const ro=data.overrides||{};
       if(!tok&&isDev()&&relayReady()){let rs={n:0};try{rs=await relaySend(data)}catch(e){rs={n:-1}}
@@ -3150,17 +3173,21 @@ async function updRun(){
   finally{UPD.busy=false;const b2=document.getElementById("updBtn");if(b2){b2.disabled=false;b2.innerHTML='Update<i id="updDot" hidden></i>'}}}
 if(!IN_CLAUDE){const ub=document.getElementById("updBtn");if(ub){ub.hidden=false;ub.onclick=updRun}
   setTimeout(()=>updCheck().then(u=>{if(u.app||u.bank){const d=document.getElementById("updDot");if(d)d.hidden=false}}).catch(()=>{}),4000)}
+bootCustom().catch(()=>{}).then(()=>{
+try{applyOvr()}catch(e){}
 loadLive();
 render();
+persist();
+try{localStorage.setItem("orthoss_app_ok",String(window.__APPV||0))}catch(e){}
 setTimeout(examFetch,1500);
 setTimeout(()=>Promise.all([ntSync(null),pdfManSync()]).then(()=>{if(tab==="home")vHome()}),3000);
 /* warm up the notes viewer and download today's notes in the background so they open instantly */
 setTimeout(()=>{try{pdfLib().catch(()=>{});const d=planToday();if(d)dayPdfs(d).forEach(p=>pdfBytes(p).catch(()=>{}))}catch(e){}},5000);
-try{localStorage.setItem("orthoss_app_ok",String(window.__APPV||0))}catch(e){} /* orthoss-app-ok: this version started fine */
-applyOvr();
+/* orthoss-app-ok: this version started fine (marker set above, once the first screen has drawn) */
 if(!IN_CLAUDE)setTimeout(()=>syncNow(false),800);
 if(!IN_CLAUDE)setTimeout(()=>autoRun(false),6000);
 if(!IN_CLAUDE)setTimeout(()=>{if(isDev())cloudPull()},2500);
+});
 </script>
 <script>
 /* Pull new questions from the online question bank; progress (orthoss_prep_v1) is never touched. */

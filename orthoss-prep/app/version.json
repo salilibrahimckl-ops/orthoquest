@@ -1,1 +1,1 @@
-{"v": 37, "name": "4.6", "date": "2026-11-26", "news": "Timetable fix: plan MCQs now count towards the day you are doing, past days get credit for questions answered that day, and days with MCQs finished but reading unticked show MCQs \u2713 instead of \u2717"}
+{"v": 38, "name": "4.7", "date": "2026-11-26", "news": "Fixes lost progress: the app storage was overflowing with downloaded questions, so answers and plan progress were not being saved. Questions now live in a separate, larger store"}
